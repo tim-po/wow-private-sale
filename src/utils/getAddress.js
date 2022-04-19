@@ -1,19 +1,15 @@
-export const getFlexibleStakingAddress = () => {
-  return "0x5450eaE65710b5fE19E5e20CFDeA9b9feb63fa1b";
-};
-
-export const getFixedStakingAddress = () => {
-  return "0x1eDdc700755165438FAD7181AF92eE8Fb816Cd87";
-};
-
 export const getBUSDAddress = () => {
-  return "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    return "0xe10fecd363459964cecff2e91feb3cdee3aa7e21";
 };
 
 export const getMMProAddress = () => {
-  return "0x6067490d05F3cF2fdFFC0e353b1f5Fd6E5CCDF70";
+    return "0xa8892b044ece158cb4869b59f1972fa01aae6d2e";
 };
 
-export const getLPAddress = () => {
-  return "0x656aa2eaa2f0ef876686c76c36a010e0f4d1e4a3";
+export const getAllocationMarketplaceAddress = () => {
+    return "0x5e9dAd917F9E5400A49A161987c8e3102A3aaa8B";
+};
+
+export const getPancakeRouterAddress = () => {
+    return "0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3";
 };

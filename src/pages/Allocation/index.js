@@ -17,7 +17,7 @@ export const Allocation = () => {
     const {balance, balanceLoading, updateBalance} = useBalanceOfBUSD(account)
 
     const [allocationBalances, setAllocationBalances] = useState(Array(TIERS.length).fill(0));
-    const [allocationPrices, setAllocationPrices] = useState(Array(TIERS.length).fill(0));
+    const [allocationPrices, setAllocationPrices] = useState(Array(TIERS.length).fill(undefined));
     const [loadingBalances, setLoadingBalances] = useState(false);
     const [loadingPrices, setLoadingPrices] = useState(false);
 

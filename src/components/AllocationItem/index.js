@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Spinner from "../common/Spinner";
 import Button from "../common/Button";
 import {wei2eth} from "../../utils/common";
@@ -6,6 +6,7 @@ import {useAllocationMarketplaceContract, useBUSDContract, usePancakeRouterContr
 import fromExponential from "from-exponential";
 import {getAllocationMarketplaceAddress, getBUSDAddress, getMMProAddress} from "../../utils/getAddress";
 import {useWeb3React} from "@web3-react/core";
+import './index.css'
 
 
 const INSUFFICIENT_BALANCE_ERROR_MESSAGE = "Insufficient balance";
@@ -87,42 +88,47 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
 
     }
 
+    const videoRef = React.createRef();
+
+    useEffect(()=>{
+        if(videoRef.current){
+            videoRef.current.playbackRate = 0.7;
+        }
+    }, [videoRef])
+
     return (
         <div
-            className={'staking-element border-card-container rounded-lg p-6 px-3 card-bg border-white border-2 border-solid'}>
-            <div>Tier {tier}</div>
-            <div className={'staking-element-timer flex justify-between mb-3'}>
-                <div className={'flex-col mr-3'}>
-                    <div>
-                        Price
-                    </div>
-                    <div className={'text-2xl'}>
-                        {parseInt(wei2eth(price))} BUSD
-                    </div>
+            className={'staking-element rounded-lg'}>
+            <div className={`nft-video-container shadow-t-${tier + 1}`}>
+              <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
+                  <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
+              </video>
+                {price !== undefined &&
+                <div className={'price text-2xl'}>
+                    {parseInt(wei2eth(price))} BUSD
                 </div>
-                <div className={'flex-col mr-3'}>
-                    <div>
-                        Amount
-                    </div>
-                    <div className={'text-2xl'}>
-                        {amount}
-                    </div>
-                </div>
+                }
+                {/*{amount > 0 &&*/}
+                {/*<div className={'total text-2xl bg-primary rounded-lg z-10'}>*/}
+                {/*    {amount}*/}
+                {/*</div>*/}
+                {/*}*/}
+                {amount === 0 &&
+                <button
+                  onClick={handleBuy}
+                  className={`buy-button ${amount === 0 && 'paywall'} rounded-lg text-2xl`}
+                  disabled={loadingBuy}
+                >
+                    {loadingBuy ? (
+                      <Spinner size={25} color={'#FFFFFF'}/>
+                    ) : (
+                      <>
+                          <span className="w-64">Buy</span>
+                      </>
+                    )}
+                </button>
+                }
             </div>
-            <Button
-                onClick={handleBuy}
-                className="unstake-button flex flex-row items-center w-48 justify-center"
-                disabled={loadingBuy}
-            >
-                {loadingBuy ? (
-                    <Spinner size={25} color={'#FFFFFF'}/>
-                ) : (
-                    <>
-                        <span className="w-64"> Buy token</span>
-                    </>
-                )}
-            </Button>
-            {error}
         </div>
     )
 

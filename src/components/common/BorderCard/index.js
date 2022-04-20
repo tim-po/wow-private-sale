@@ -10,7 +10,7 @@ export default ({title, className, noLine, children}) => {
             }
         >
             <div
-                className={`font-Montserrat-ExtraBold text-white text-2xl uppercase pt-3 pb-2 ${
+                className={`font-Montserrat-ExtraBold text-white text-2xl uppercase pt-3 pb-2 ml-4 ${
                     noLine ? "" : "border-b border-dashed border-white"
                 }`}
             >

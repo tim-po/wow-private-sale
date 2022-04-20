@@ -21,7 +21,7 @@ export const App = () => {
     }, [activate, networkError]);
 
     return (
-        <div className="w-full overflow-hidden main-gradient">
+        <div className="w-full overflow-hidden main-gradient" style={{minHeight: '100vh'}}>
             <Header/>
             <Allocation/>
             <Footer/>

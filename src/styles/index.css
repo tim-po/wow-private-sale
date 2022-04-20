@@ -23,6 +23,8 @@
 body {
     font-family: "Montserrat";
     font-style: normal;
+    color: white;
+    background: black;
 }
 
 header {
@@ -86,9 +88,9 @@ header {
 .main-gradient {
     background: radial-gradient(
             circle,
-            rgb(50, 187, 129) 0%,
-            rgb(41, 128, 164) 45%,
-            rgb(24, 25, 51) 100%
+            rgba(50, 187, 129, 0.2) 0%,
+            rgba(41, 128, 164, 0.2) 45%,
+            rgba(24, 25, 51, 0.2) 100%
     );
     color: white;
     min-height: 100vh;

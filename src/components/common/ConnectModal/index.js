@@ -10,13 +10,15 @@ export default function ConnectModal(props) {
     const {opened, closeHandle, setError} = props;
 
     useEffect(() => {
-        const initNetwork = async () => {
-            setError(56 !== chainId && active);
-            if (56 !== chainId) {
-                await switchNetwork();
-            }
-        };
-        initNetwork();
+        if(chainId){
+            const initNetwork = async () => {
+                setError(56 !== chainId && active);
+                if (56 !== chainId) {
+                    await switchNetwork();
+                }
+            };
+            initNetwork();
+        }
     }, [active, chainId, error]);
 
     return (

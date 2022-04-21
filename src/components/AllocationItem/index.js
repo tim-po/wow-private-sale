@@ -128,7 +128,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                 </button>
                 }
             </div>
-            {error}
+            <div className={'mt-8'}>
+                {error}
+            </div>
         </div>
     )
 

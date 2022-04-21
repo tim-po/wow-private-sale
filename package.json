@@ -21,10 +21,12 @@
     "react-scripts": "^3.4.1",
     "rimraf": "^3.0.2",
     "tailwindcss": "^1.2.0",
+    "typescript": "^4.6.3",
     "web3": "^1.2.11"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.149",
+    "@types/react": "^18.0.5",
     "autoprefixer": "^9.7.4",
     "cross-env": "^7.0.2",
     "postcss-cli": "^7.1.0",

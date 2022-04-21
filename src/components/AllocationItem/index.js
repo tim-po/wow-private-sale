@@ -6,6 +6,7 @@ import fromExponential from "from-exponential";
 import {getAllocationMarketplaceAddress, getBUSDAddress, getMMProAddress} from "../../utils/getAddress";
 import {useWeb3React} from "@web3-react/core";
 import './index.css'
+import {HidingText} from "../HidingText";
 
 
 const INSUFFICIENT_BALANCE_ERROR_MESSAGE = "Insufficient balance";
@@ -23,6 +24,13 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const [amount, setAmount] = useState(initAmount)
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
+
+    const displayError = (text, time) => {
+        setError(text)
+        setTimeout(()=>{
+            setError("")
+        }, time)
+    }
 
     const getMinAmountOut = async () => {
         const path = [getBUSDAddress(), getMMProAddress()]
@@ -63,8 +71,8 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             return
         }
 
-        if (parseInt(price) > parseInt(balance)) {
-            setError(INSUFFICIENT_BALANCE_ERROR_MESSAGE);
+        if (price > balance) {
+            displayError(INSUFFICIENT_BALANCE_ERROR_MESSAGE, 2000);
             return
         }
 
@@ -72,7 +80,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         try {
             const allowance = await getAllowance()
 
-            if (parseInt(price) > parseInt(allowance)) {
+            if (price > allowance) {
                 await approve()
             }
             await mint()
@@ -80,7 +88,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             setError("")
             setAmount(amount + 1)
         } catch (e) {
-            setError(TRANSACTION_ERROR_MESSAGE)
+            displayError(TRANSACTION_ERROR_MESSAGE, 2000)
             console.log({error: e})
         }
         setLoadingBuy(false)
@@ -98,38 +106,29 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     return (
         <div
             className={'staking-element rounded-lg'}>
-            <div className={`nft-video-container shadow-t-${tier + 1}`}>
+            <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
               <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
                   <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
               </video>
                 {price !== undefined &&
                 <div className={'price text-2xl'}>
-                    {parseInt(wei2eth(price))} BUSD
+                    {wei2eth(price)} BUSD
                 </div>
                 }
-                {/*{amount > 0 &&*/}
-                {/*<div className={'total text-2xl bg-primary rounded-lg z-10'}>*/}
-                {/*    {amount}*/}
-                {/*</div>*/}
-                {/*}*/}
                 {amount === 0 &&
                 <button
                   onClick={handleBuy}
-                  className={`buy-button ${amount === 0 && 'paywall'} rounded-lg text-2xl`}
+                  className={`buy-button ${loadingBuy && 'paywall'} rounded-lg text-2xl`}
                   disabled={loadingBuy}
                 >
                     {loadingBuy ? (
                       <Spinner size={25} color={'#FFFFFF'}/>
                     ) : (
-                      <>
-                          <span className="w-64">Buy</span>
-                      </>
+                      <HidingText defaultText={'Buy'} hidingText={error}
+                                  peekOut={error !== ""}/>
                     )}
                 </button>
                 }
-            </div>
-            <div className={'mt-8'}>
-                {error}
             </div>
         </div>
     )

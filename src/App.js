@@ -9,22 +9,25 @@ import {injected} from "./wallet";
 import {Allocation} from "./pages/Allocation";
 
 export const App = () => {
-    const {active, activate, networkError} = useWeb3React();
+  const {active, activate, networkError} = useWeb3React();
 
 
-    useEffect(() => {
-        injected.isAuthorized().then((isAuthorized) => {
-            if (isAuthorized && !active && !networkError) {
-                activate(injected);
-            }
-        });
-    }, [activate, networkError]);
+  useEffect(() => {
+    injected.isAuthorized().then((isAuthorized) => {
+      if (isAuthorized && !active && !networkError) {
+        activate(injected);
+      }
+    });
+  }, [activate, networkError]);
 
-    return (
-        <div className="w-full overflow-hidden main-gradient" style={{minHeight: '100vh'}}>
-            <Header/>
-            <Allocation/>
-            <Footer/>
-        </div>
-    );
+  return (
+    <div className="w-full overflow-hidden main-gradient"
+         style={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: "space-between"}}>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: "flex-start"}}>
+        <Header/>
+        <Allocation/>
+      </div>
+      <Footer/>
+    </div>
+  );
 };

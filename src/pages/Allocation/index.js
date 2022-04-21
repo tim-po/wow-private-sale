@@ -61,7 +61,7 @@ export const Allocation = () => {
     const showLoading = loadingBalances && loadingPrices
     const showAllocationBody = !showLoading && !showConnectWallet
 
-    const balanceMessage = balanceLoading ? "Loading..." : `Available: ${parseInt(wei2eth(balance))} BUSD`
+    const balanceMessage = balanceLoading ? "Loading..." : `Available: ${wei2eth(balance)} BUSD`
 
     return (
         <div className="staking-page-container mx-auto pb-18 px-4 force-height">

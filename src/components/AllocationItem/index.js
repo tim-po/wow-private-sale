@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import Spinner from "../common/Spinner";
-import Button from "../common/Button";
 import {wei2eth} from "../../utils/common";
 import {useAllocationMarketplaceContract, useBUSDContract, usePancakeRouterContract} from "../../hooks/useContracts";
 import fromExponential from "from-exponential";
@@ -129,6 +128,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                 </button>
                 }
             </div>
+            {error}
         </div>
     )
 

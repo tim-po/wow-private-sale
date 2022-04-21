@@ -118,7 +118,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                 {amount === 0 &&
                 <button
                   onClick={handleBuy}
-                  className={`buy-button ${loadingBuy && 'paywall'} rounded-lg text-2xl`}
+                  className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} rounded-lg text-2xl`}
                   disabled={loadingBuy}
                 >
                     {loadingBuy ? (

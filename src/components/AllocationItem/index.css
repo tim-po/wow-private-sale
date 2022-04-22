@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    margin: 16px 16px 32px;
+    margin: 16px 16px 78px;
     max-width: 300px;
     flex-grow: 2;
     position: relative;
@@ -21,7 +21,7 @@
 .price{
     position: absolute;
     left: 8px;
-    top: 100%;
+    top: calc(100% + 4px);
 }
 
 .buy-button{

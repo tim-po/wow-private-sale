@@ -15,6 +15,8 @@ const TRANSACTION_ERROR_MESSAGE = "Transaction failed";
 const DEADLINE_OVER_NOW = 60 * 5 // 5 min
 const ALLOWANCE = 10 ** 10 * 10 ** 18
 
+const allocationValues = ['500', '2,000', '5,000', '10,000', '50,000']
+
 export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}) => {
     const {account} = useWeb3React();
 
@@ -111,8 +113,13 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                   <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
               </video>
                 {price !== undefined &&
-                <div className={'price text-2xl'}>
-                    {wei2eth(price)} BUSD
+                <div className={'price'}>
+                    <div style={{fontSize: 22}}>
+                        Allocation up to <b>{allocationValues[tier]}$</b>
+                    </div>
+                    <div style={{fontSize: 17}}>
+                        Price: {wei2eth(price)} BUSD
+                    </div>
                 </div>
                 }
                 {amount === 0 &&

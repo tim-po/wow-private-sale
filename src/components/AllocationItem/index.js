@@ -25,8 +25,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const BUSDContract = useBUSDContract()
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
+    const [amount, setAmount] = useState(initAmount)
     const [allocationLimit, setAllocationLimit] = useState(0)
-    const [allocatedAmount, setAllocatedAmount] = useState(2)
+    const [allocatedAmount, setAllocatedAmount] = useState(0)
 
     useEffect( () => {
         allocationMarketplaceContract
@@ -38,7 +39,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             .methods
             .allocatedAmount(tier)
             .call()
-            // .then(amount => setAllocatedAmount(amount))
+            .then(amount => setAllocatedAmount(amount))
     })
 
     const displayError = (text, time) => {
@@ -102,7 +103,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             await mint()
             await updateBalance()
             setError("")
-            setAllocatedAmount(allocatedAmount + 1)
+            setAmount(amount + 1)
         } catch (e) {
             displayError(TRANSACTION_ERROR_MESSAGE, 2000)
             console.log({error: e})
@@ -122,11 +123,16 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     return (
         <div
             className={'staking-element rounded-lg'}>
-            <div className={`nft-video-container rounded-lg ${allocatedAmount > 0 && `border-t-${tier + 1}`}`}>
-                {allocatedAmount > 0 &&
+            <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
+                {amount > 0 &&
                   <div className={'owned-marker'}>
-                      Owned <b>{`${allocatedAmount}`}/{`${allocationLimit}`}</b>
+                      Owned
                   </div>
+                }
+                {amount === 0 &&
+                    <div className={'owned-marker'}>
+                        Only {allocationLimit - allocatedAmount} left
+                    </div>
                 }
               <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
                   <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
@@ -141,6 +147,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                     </div>
                 </div>
                 }
+                {amount === 0 &&
                 <button
                   onClick={handleBuy}
                   className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} rounded-lg text-2xl`}
@@ -149,10 +156,11 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                     {loadingBuy ? (
                       <Spinner size={25} color={'#FFFFFF'}/>
                     ) : (
-                      <HidingText defaultText={allocatedAmount === 0 ? 'Buy': 'Buy more'} hidingText={error}
+                      <HidingText defaultText={amount === 0 ? 'Buy': 'Buy more'} hidingText={error}
                                   peekOut={error !== ""}/>
                     )}
                 </button>
+                }
             </div>
         </div>
     )

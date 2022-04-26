@@ -67,43 +67,34 @@
     outline: none;
 }
 
-.border-t-1{
-    border: 2px solid rgba(192, 192, 192, 1);
-}
-.border-t-1 .owned-marker{
+.owned-marker{
     position: absolute;
     font-size: 16px;
     font-weight: bolder;
     bottom: calc(100%);
-    color: rgba(192, 192, 192, 1);
     left: -2px;
     padding: 0px 4px;
+}
+
+.border-t-1{
+    border: 2px solid rgba(192, 192, 192, 1);
+}
+.border-t-1 .owned-marker{
+    color: rgba(192, 192, 192, 1);
 }
 
 .border-t-2{
     border: 2px solid rgba(0, 128, 0, 1);
 }
 .border-t-2 .owned-marker{
-    position: absolute;
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
     color: rgba(0, 128, 0, 1);
-    left: -2px;
-    padding: 0px 4px;
 }
 
 .border-t-3{
     border: 2px solid rgb(66, 66, 255);
 }
 .border-t-3 .owned-marker{
-    position: absolute;
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
     color: rgb(66, 66, 255);
-    left: -2px;
-    padding: 0px 4px;
 }
 
 
@@ -111,13 +102,7 @@
     border: 2px solid rgb(178, 19, 178);
 }
 .border-t-4 .owned-marker{
-    position: absolute;
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
     color: rgb(178, 19, 178);
-    left: -2px;
-    padding: 0px 4px;
 }
 
 .border-t-5{
@@ -125,13 +110,7 @@
 }
 
 .border-t-5 .owned-marker{
-    position: absolute;
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
     color: rgba(255, 215, 0, 1);
-    left: -2px;
-    padding: 0px 4px;
 }
 
 

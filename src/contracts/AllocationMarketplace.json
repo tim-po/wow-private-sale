@@ -257,6 +257,44 @@
           "type": "uint256"
         }
       ],
+      "name": "allocatedAmount",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "allocationLimit",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "name": "allocationPrice",
       "outputs": [
         {
@@ -471,6 +509,24 @@
         }
       ],
       "name": "safeTransferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "allocationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint128",
+          "name": "limit",
+          "type": "uint128"
+        }
+      ],
+      "name": "setAllocationLimit",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

@@ -26,6 +26,21 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const [amount, setAmount] = useState(initAmount)
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
+    const [allocationLimit, setAllocationLimit] = useState(0)
+    const [allocatedAmount, setAllocatedAmount] = useState(0)
+
+    useEffect( () => {
+        allocationMarketplaceContract
+            .methods
+            .allocationLimit(tier)
+            .call()
+            .then(limit => setAllocationLimit(limit))
+        allocationMarketplaceContract
+            .methods
+            .allocatedAmount(tier)
+            .call()
+            .then(amount => setAllocatedAmount(amount))
+    })
 
     const displayError = (text, time) => {
         setError(text)
@@ -136,6 +151,13 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                     )}
                 </button>
                 }
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <div>
+                <h3>limit: {allocationLimit}</h3>
+                <h3>total owned amount: {allocatedAmount}</h3>
             </div>
         </div>
     )

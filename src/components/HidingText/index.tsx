@@ -1,13 +1,13 @@
 import React from "react";
 import './index.css'
 
-// type hidingTextProps = {
-//   defaultText: string,
-//   hidingText: string,
-//   peekOut: boolean
-// }
+type hidingTextProps = {
+  defaultText: string,
+  hidingText: string,
+  peekOut: boolean
+}
 
-export const HidingText = ({defaultText, hidingText, peekOut}) => {
+export const HidingText = ({defaultText, hidingText, peekOut}: hidingTextProps) => {
 
   return (
     <>

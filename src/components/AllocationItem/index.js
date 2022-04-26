@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Spinner from "../common/Spinner";
 import Button from "../common/Button";
 import {wei2eth} from "../../utils/common";
@@ -23,6 +23,24 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const [amount, setAmount] = useState(initAmount)
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
+    const [allocationLimit, setAllocationLimit] = useState(0)
+    const [allocatedAmount, setAllocatedAmount] = useState(0)
+
+    useEffect( () => {
+        const getAllocationInfo = async () => {
+            let limit = await allocationMarketplaceContract
+                .methods
+                .allocationLimit(tier)
+                .call()
+            let amount = await allocationMarketplaceContract
+                .methods
+                .allocatedAmount(tier)
+                .call()
+            setAllocationLimit(limit)
+            setAllocatedAmount(amount)
+        }
+        getAllocationInfo()
+    })
 
     const getMinAmountOut = async () => {
         const path = [getBUSDAddress(), getMMProAddress()]

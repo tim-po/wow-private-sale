@@ -42,6 +42,7 @@ export const Allocation = () => {
                 .call();
             prices.push(tierPrice);
         }
+
         setAllocationPrices(prices);
     }, [allocationMarketplaceContract]);
 

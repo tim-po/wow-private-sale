@@ -23,9 +23,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const allocationMarketplaceContract = useAllocationMarketplaceContract();
     const pancakeRouterContract = usePancakeRouterContract();
     const BUSDContract = useBUSDContract()
-    const [amount, setAmount] = useState(initAmount)
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
+    const [amount, setAmount] = useState(initAmount)
     const [allocationLimit, setAllocationLimit] = useState(0)
     const [allocatedAmount, setAllocatedAmount] = useState(0)
 
@@ -123,6 +123,16 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         <div
             className={'staking-element rounded-lg'}>
             <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
+                {amount > 0 &&
+                  <div className={'owned-marker'}>
+                      Owned
+                  </div>
+                }
+                {amount === 0 &&
+                    <div className={'owned-marker'}>
+                        Only {allocationLimit - allocatedAmount} left
+                    </div>
+                }
               <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
                   <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
               </video>
@@ -145,18 +155,11 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                     {loadingBuy ? (
                       <Spinner size={25} color={'#FFFFFF'}/>
                     ) : (
-                      <HidingText defaultText={'Buy'} hidingText={error}
+                      <HidingText defaultText={amount === 0 ? 'Buy': 'Buy more'} hidingText={error}
                                   peekOut={error !== ""}/>
                     )}
                 </button>
                 }
-            </div>
-            <br/>
-            <br/>
-            <br/>
-            <div>
-                <h3>limit: {allocationLimit}</h3>
-                <h3>total owned amount: {allocatedAmount}</h3>
             </div>
         </div>
     )

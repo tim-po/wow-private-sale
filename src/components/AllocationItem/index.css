@@ -67,91 +67,50 @@
     outline: none;
 }
 
-.border-t-1{
-    border: 2px solid rgba(192, 192, 192, 1);
-}
-.border-t-1::before{
-    content: "Owned";
+.owned-marker{
     position: absolute;
-    /*width: 30px;*/
-    /*height: 10px;*/
     font-size: 16px;
     font-weight: bolder;
     bottom: calc(100%);
-    color: rgba(192, 192, 192, 1);
     left: -2px;
-    border-radius: 0.5rem 0.5rem 0rem 0;
     padding: 0px 4px;
+}
+
+.border-t-1{
+    border: 2px solid rgba(192, 192, 192, 1);
+}
+.border-t-1 .owned-marker{
+    color: rgba(192, 192, 192, 1);
 }
 
 .border-t-2{
     border: 2px solid rgba(0, 128, 0, 1);
 }
-.border-t-2::before{
-    content: "Owned";
-    position: absolute;
-    /*width: 30px;*/
-    /*height: 10px;*/
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
+.border-t-2 .owned-marker{
     color: rgba(0, 128, 0, 1);
-    left: -2px;
-    border-radius: 0.5rem 0.5rem 0rem 0;
-    padding: 0px 4px;
 }
 
 .border-t-3{
     border: 2px solid rgb(66, 66, 255);
 }
-.border-t-3::before{
-    content: "Owned";
-    position: absolute;
-    /*width: 30px;*/
-    /*height: 10px;*/
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
+.border-t-3 .owned-marker{
     color: rgb(66, 66, 255);
-    left: -2px;
-    border-radius: 0.5rem 0.5rem 0rem 0;
-    padding: 0px 4px;
 }
 
 
 .border-t-4{
     border: 2px solid rgb(178, 19, 178);
 }
-.border-t-4::before{
-    content: "Owned";
-    position: absolute;
-    /*width: 30px;*/
-    /*height: 10px;*/
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
+.border-t-4 .owned-marker{
     color: rgb(178, 19, 178);
-    left: -2px;
-    border-radius: 0.5rem 0.5rem 0rem 0;
-    padding: 0px 4px;
 }
 
 .border-t-5{
     box-shadow: 5px 5px 20px 10px rgba(255, 215, 0, 0.2), -5px -5px 20px 10px rgba(128, 0, 128, 0.2);
 }
 
-.border-t-5::before{
-    content: "Owned";
-    position: absolute;
-    /*width: 30px;*/
-    /*height: 10px;*/
-    font-size: 16px;
-    font-weight: bolder;
-    bottom: calc(100%);
+.border-t-5 .owned-marker{
     color: rgba(255, 215, 0, 1);
-    left: -2px;
-    border-radius: 0.5rem 0.5rem 0rem 0;
-    padding: 0px 4px;
 }
 
 

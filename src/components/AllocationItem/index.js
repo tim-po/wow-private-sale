@@ -76,10 +76,11 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             .send({from: account});
     };
 
-    const mint = async () => {
+    async function mint() {
+        const amountOutMin = await getMinAmountOut()
         await allocationMarketplaceContract
             .methods
-            .mint(tier, await getMinAmountOut(), getDeadline())
+            .mint(tier, amountOutMin, getDeadline())
             .send({from: account})
     }
 

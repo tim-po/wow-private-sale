@@ -7,7 +7,7 @@ export const AllocationHeader = () => {
                 <div className="staking-page-main-text-container text-left">
                     <p className="mb-2 font-semibold md:text-6xl text-5xl">Allocation Market</p>
                     <p className="text-2xl mb-2 font-light">
-                        Connect your wallet &amp; allocate tokens.
+                        Connect your wallet &amp; & get allocation for METAMASK shares.
                     </p>
                 </div>
             </div>

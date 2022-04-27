@@ -88,7 +88,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
             return
         }
 
-        if (price > balance) {
+        if (parseInt(price) > parseInt(balance)) {
             displayError(INSUFFICIENT_BALANCE_ERROR_MESSAGE, 2000);
             return
         }
@@ -96,8 +96,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         setLoadingBuy(true)
         try {
             const allowance = await getAllowance()
-
-            if (price > allowance) {
+            if (parseInt(price) > parseInt(allowance)) {
                 await approve()
             }
             await mint()

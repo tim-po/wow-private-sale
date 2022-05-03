@@ -15,6 +15,8 @@ const TRANSACTION_ERROR_MESSAGE = "Transaction failed";
 const DEADLINE_OVER_NOW = 60 * 5 // 5 min
 const ALLOWANCE = 10 ** 10 * 10 ** 18
 
+const SLIPPAGE_PERCENT = 0.93 // 7 %
+
 const allocationValues = ['500', '2,000', '5,000', '10,000', '50,000']
 
 export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}) => {
@@ -51,10 +53,10 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
 
     const getMinAmountOut = async () => {
         const path = [getBUSDAddress(), getMMProAddress()]
-        return (await pancakeRouterContract
+        return parseInt((await pancakeRouterContract
             .methods
             .getAmountsOut(price, path)
-            .call())[1]
+            .call())[1])
     }
 
     const getDeadline = () => {
@@ -79,7 +81,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const mint = async () => {
         await allocationMarketplaceContract
             .methods
-            .mint(tier, await getMinAmountOut(), getDeadline())
+            .mint(tier, Math.floor(SLIPPAGE_PERCENT * await getMinAmountOut()), getDeadline())
             .send({from: account})
     }
 

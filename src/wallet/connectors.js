@@ -23,4 +23,13 @@ export const walletconnect = new WalletConnectConnector({
     bridge: "https://bridge.walletconnect.org",
 });
 
+export const walletconnectNoQr = new WalletConnectConnector({
+    rpc: {
+        56: "https://bsc-dataseed.binance.org/",
+        97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+    },
+    qrcode: false,
+    bridge: "https://bridge.walletconnect.org",
+});
+
 export const getLibrary = (provider) => new Web3(provider);

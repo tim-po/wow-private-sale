@@ -46,7 +46,9 @@ export default function ConnectModal(props) {
                         <button
                             className="connection-button flex flex-row items-center m-1 p-1 rounded-md cursor-pointer"
                             onClick={() => {
-                                activate(walletconnect);
+                                activate(walletconnect).then(()=>{
+                                    window.location.reload()
+                                });
                                 // setProvider("coinbaseWallet");
                                 closeHandle();
                             }}

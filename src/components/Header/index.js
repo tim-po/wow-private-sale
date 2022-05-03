@@ -6,16 +6,25 @@ import './index.css'
 import {HidingText} from "../HidingText";
 
 export const Header = () => {
-  const {account, deactivate, active} = useWeb3React();
+  const {account, deactivate, active, connector} = useWeb3React();
   const [isOpen, setIsOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(false);
   const [disconnectIsPossible, setDisconnectIsPossible] = useState(false)
+  const [isDisplayingMetamaskDisconnectTip, setIsDisplayingMetamaskDisconnectTip] = useState(false)
+
+  console.log(connector)
 
   const disconnect = () => {
     if (disconnectIsPossible) {
-      console.log({disconnectIsPossible})
-      deactivate();
+      if(connector && connector.walletConnectProvider){
+        deactivate();
+      }else{
+        setIsDisplayingMetamaskDisconnectTip(true)
+        setTimeout(()=>{
+          setIsDisplayingMetamaskDisconnectTip(false)
+        }, 5000)
+      }
     } else {
       setDisconnectIsPossible(true)
       setTimeout(() => {
@@ -44,24 +53,31 @@ export const Header = () => {
               />
             </a>
           </div>
-          {!active ? (
-            <Button
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              Connect Wallet
-            </Button>
-          ) : (
-            <div className={'disconnect-button-container'}>
-              <div style={{zIndex: 2}}>
-                <Button onClick={disconnect} bgColor={disconnectIsPossible ? "red-500" : "secondary"}>
-                  <HidingText defaultText={truncate(account)} hidingText={'Disconnect'}
-                              peekOut={disconnectIsPossible}/>
+          {isDisplayingMetamaskDisconnectTip &&
+          <div className={'flex items-center'}> <img src={'/images/arrowUpWhite.svg'} className={'mr-2'}/> Please disconnect using MetaMask</div>
+          }
+          {!isDisplayingMetamaskDisconnectTip &&
+            <>
+              {!active ? (
+                <Button
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                >
+                  Connect Wallet
                 </Button>
-              </div>
-            </div>
-          )}
+              ) : (
+                <div className={'disconnect-button-container'}>
+                  <div style={{zIndex: 2}}>
+                    <Button onClick={disconnect} bgColor={disconnectIsPossible ? "red-500" : "secondary"}>
+                      <HidingText defaultText={truncate(account)} hidingText={'Disconnect'}
+                                  peekOut={disconnectIsPossible}/>
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </>
+          }
         </div>
       </header>
       <ConnectModal

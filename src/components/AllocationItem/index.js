@@ -6,7 +6,9 @@ import fromExponential from "from-exponential";
 import {getAllocationMarketplaceAddress, getBUSDAddress, getMMProAddress} from "../../utils/getAddress";
 import {useWeb3React} from "@web3-react/core";
 import './index.css'
-import {HidingText} from "../HidingText";
+import {HidingText} from "../../Standart/components/HidingText";
+import BigNumber from "bignumber.js";
+import Button from "../common/Button";
 
 
 const INSUFFICIENT_BALANCE_ERROR_MESSAGE = "Insufficient balance";
@@ -17,9 +19,30 @@ const ALLOWANCE = 10 ** 10 * 10 ** 18
 
 const SLIPPAGE_PERCENT = 0.93 // 7 %
 
-const allocationValues = ['500', '2,000', '5,000', '10,000', '50,000']
+const calcTimeToWithdraw = (stakeEndTime, currentTime) => {
+    const diffSecs = stakeEndTime - currentTime
 
-export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}) => {
+    if (diffSecs <= 0) {
+        return ''
+    }
+    const diff_in_days = Math.floor(diffSecs / 3600 / 24).toFixed(0);
+    const diff_in_hours = Math.floor((diffSecs % (3600 * 24)) / 3600).toFixed(
+      0
+    );
+    const diff_in_mins = Math.floor(
+      ((diffSecs % (3600 * 24)) % 3600) / 60
+    ).toFixed(0);
+    const diff_in_secs = Math.floor((diffSecs % (3600 * 24)) % 3600) % 60;
+
+    if(+diff_in_days > 0){
+        return `${diff_in_days} Days, ${+diff_in_hours > 0 ? `${diff_in_hours} hours`: ''}`
+    }
+
+    return `${+diff_in_hours > 0 ? `${diff_in_hours}:` : ''}${(+diff_in_mins < 10 && +diff_in_mins > 0) ? '0': ''}${+diff_in_mins > 0 ? `${diff_in_mins}:` : ''}${diff_in_secs < 10 ? `0${diff_in_secs}`: `${diff_in_secs}`}`;
+
+};
+
+export const AllocationItem = ({tier, price, initAmount, updateBalance, balance, allocationValue, ticketAmount}) => {
     const {account} = useWeb3React();
 
     const allocationMarketplaceContract = useAllocationMarketplaceContract();
@@ -28,20 +51,27 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
     const [amount, setAmount] = useState(initAmount)
-    const [allocationLimit, setAllocationLimit] = useState(0)
-    const [allocatedAmount, setAllocatedAmount] = useState(0)
+    const [allocationData, setAllocationData] = useState({})
+    const [currentTime, setCurrentTime] = useState(Math.floor(new Date().getTime() / 1000));
+    const [loading, setLoading] = useState(false)
+    const [claimable, setClaimable] = useState(0)
+
+
+    useEffect(() => {
+        // @ts-ignore
+        if(allocationData && currentTime < allocationData.unlockEndsAt){
+            setTimeout(() => {
+                setCurrentTime(Math.floor(new Date().getTime() / 1000));
+            }, 1000);
+        }
+        if(allocationData && currentTime < allocationData.unlockEndsAt){
+            geTicketClaimable()
+        }
+    }, [currentTime, allocationData]);
 
     useEffect( () => {
-        allocationMarketplaceContract
-            .methods
-            .allocationLimit(tier)
-            .call()
-            .then(limit => setAllocationLimit(limit))
-        allocationMarketplaceContract
-            .methods
-            .allocatedAmount(tier)
-            .call()
-            .then(amount => setAllocatedAmount(amount))
+        geTicketClaimable()
+        geTicketData().then(data => setAllocationData(data))
     })
 
     const displayError = (text, time) => {
@@ -51,9 +81,27 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         }, time)
     }
 
+    async function mainButtonClicked(){
+        setLoading(true)
+        await allocationMarketplaceContract.methods.claimLocked(tier).send({from: account}).once('receipt', () => {
+            geTicketData()
+            geTicketClaimable()
+            setLoading(false)
+        })
+    }
+
+    async function geTicketClaimable(){
+        const ticketClaimable = await allocationMarketplaceContract.methods.availableToClaim(account, tier).call({from: account})
+        setClaimable(ticketClaimable)
+    }
+
+    async function geTicketData(){
+        return allocationMarketplaceContract.methods.userLevelTokenInfo(account, tier).call({from: account})
+    }
+
     const getMinAmountOut = async () => {
         const path = [getBUSDAddress(), getMMProAddress()]
-        return parseInt((await pancakeRouterContract
+        return new BigNumber((await pancakeRouterContract
             .methods
             .getAmountsOut(price, path)
             .call())[1])
@@ -81,7 +129,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const mint = async () => {
         await allocationMarketplaceContract
             .methods
-            .mint(tier, Math.floor(SLIPPAGE_PERCENT * await getMinAmountOut()), getDeadline())
+            .mint(tier, ((await getMinAmountOut()).multipliedBy(SLIPPAGE_PERCENT).toFixed(0).toString()), getDeadline())
             .send({from: account})
     }
 
@@ -121,6 +169,10 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         }
     }, [videoRef])
 
+    const locked = allocationData && currentTime < allocationData.intitialUnlockAvailableAt
+    const allClaimed = (allocationData.totalReserved - allocationData.totalClaimed === 0)
+    const timeLeft = calcTimeToWithdraw(allocationData.intitialUnlockAvailableAt, currentTime)
+
     return (
         <div
             className={'staking-element rounded-lg'}>
@@ -130,18 +182,18 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                       Owned
                   </div>
                 }
-                {amount === 0 &&
-                    <div className={'owned-marker'}>
-                        Only {allocationLimit - allocatedAmount} left
-                    </div>
-                }
+                {/*{amount === 0 &&*/}
+                {/*    <div className={'owned-marker'}>*/}
+                {/*        Only {ticketAmount} left*/}
+                {/*    </div>*/}
+                {/*}*/}
               <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
-                  <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
+                  <source src={`/videoBackgrounds/nft${tier + 1}.mp4`} type="video/webm" />
               </video>
-                {price !== undefined &&
+                {price !== undefined && amount <= 0 &&
                 <div className={'price'}>
                     <div style={{fontSize: 22}}>
-                        Allocation up to <b>{allocationValues[tier]}$</b>
+                        Allocation up to <b>{wei2eth(allocationValue)}$</b>
                     </div>
                     <div style={{fontSize: 17}}>
                         Price: {wei2eth(price)} BUSD
@@ -161,6 +213,39 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
                                   peekOut={error !== ""}/>
                     )}
                 </button>
+                }
+                {amount > 0 &&
+                <div className={"ticket-container p-4 bg-black"}>
+                    <div className={"w-full"}>
+                        Locked: <b>{parseFloat(wei2eth(allocationData.totalReserved - allocationData.totalClaimed).toString()).toFixed(2)}</b> MMPRO
+                    </div>
+                    <div className={"w-full mb-4"}>
+                        Claimable: <b>{parseFloat(wei2eth(claimable).toString()).toFixed(2)}</b> MMPRO
+                    </div>
+                    {/* @ts-ignore */}
+                    <Button
+                      onClick={mainButtonClicked}
+                      className="unstake-button flex flex-row items-center w-48 justify-center"
+                      disabled={loading || allClaimed || locked}
+                      bgColor={(locked || allClaimed) ? 'gray-500' : 'primary'}
+                    >
+                        {loading ? (
+                          <Spinner size={25} color={'#FFFFFF'}/>
+                        ) : (
+                          <>
+                              <img
+                                src={locked ? "/images/locked.svg" : "/images/unlocked.svg"}
+                                width="25"
+                                alt=""
+                              />
+                              <span className={`w-64`} style={locked ? {
+                                  fontWeight: "bolder",
+                                  fontSize: 16
+                              } : {}}> {locked ? timeLeft : (allClaimed ? 'Already claimed' : 'Claim')}</span>
+                          </>
+                        )}
+                    </Button>
+                </div>
                 }
             </div>
         </div>

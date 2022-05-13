@@ -8,7 +8,7 @@ import BorderCard from "../../components/common/BorderCard"
 import {useBalanceOfBUSD} from "../../hooks/useBalance";
 import {AllocationItem} from "../../components/AllocationItem";
 
-const TIERS = [0, 1, 2, 3, 4];
+const TIERS = [0, 1, 2, 3];
 
 export const Allocation = () => {
     const {active, account} = useWeb3React();
@@ -18,6 +18,9 @@ export const Allocation = () => {
 
     const [allocationBalances, setAllocationBalances] = useState(Array(TIERS.length).fill(0));
     const [allocationPrices, setAllocationPrices] = useState(Array(TIERS.length).fill(undefined));
+    const [allocationWorthArray, setAllocationWorthArray] = useState(Array(TIERS.length).fill(undefined));
+    const [ticketAmounts, setTicketAmounts] = useState(Array(TIERS.length).fill(undefined));
+
     const [loadingBalances, setLoadingBalances] = useState(false);
     const [loadingPrices, setLoadingPrices] = useState(false);
 
@@ -28,21 +31,29 @@ export const Allocation = () => {
                 .methods
                 .balanceOfBatch(accounts, TIERS)
                 .call();
+            console.log(balances)
             setAllocationBalances(balances.map(val => parseInt(val)));
         }
     }, [active, account, allocationMarketplaceContract]);
 
     const loadAllocationPrices = useCallback(async () => {
         const prices = [];
+        const allocationWorthArray = []
+        const ticketAmounts = []
+
 
         for (let tier of TIERS) {
-            let tierPrice = await allocationMarketplaceContract
+            let tierInfos = await allocationMarketplaceContract
                 .methods
-                .allocationPrice(tier)
+                .nftInfos(tier)
                 .call();
-            prices.push(tierPrice);
+            prices.push(tierInfos.price);
+            allocationWorthArray.push(tierInfos.allocationWorth)
+            ticketAmounts.push(tierInfos.numberOfTickets)
         }
         setAllocationPrices(prices);
+        setAllocationWorthArray(allocationWorthArray)
+        setTicketAmounts(ticketAmounts)
     }, [allocationMarketplaceContract]);
 
     useEffect(() => {
@@ -74,7 +85,7 @@ export const Allocation = () => {
                 <AllocationContainer>
                     {TIERS.map((tier, ind) =>
                         <AllocationItem tier={tier} price={allocationPrices[ind]} initAmount={allocationBalances[ind]}
-                                        updateBalance={updateBalance} balance={balance}/>
+                                        updateBalance={updateBalance} balance={balance} allocationValue={allocationWorthArray[ind]} ticketAmount={ticketAmounts[ind]}/>
                     )}
                 </AllocationContainer>
             </BorderCard>

@@ -1,9 +1,12 @@
 import React, {useState} from "react";
-import Button from "../common/Button.js";
-import ConnectModal from "../common/ConnectModal";
+import Button from "../../../components/common/Button.js";
+import ConnectModal from "../../../components/common/ConnectModal";
 import {useWeb3React} from "@web3-react/core";
 import './index.css'
+// @ts-ignore
 import {HidingText} from "../HidingText";
+import logo from '../../images/MMProLogo.svg'
+import arrowUp from '../../images/arrowUpWhite.svg'
 
 export const Header = () => {
   const {account, deactivate, active, connector} = useWeb3React();
@@ -17,6 +20,7 @@ export const Header = () => {
 
   const disconnect = () => {
     if (disconnectIsPossible) {
+      // @ts-ignore
       if(connector && connector.walletConnectProvider){
         deactivate();
       }else{
@@ -33,7 +37,7 @@ export const Header = () => {
     }
   };
 
-  function truncate(str) {
+  function truncate(str: string) {
     return str.length > 0
       ? str.substr(0, 6) + "..." + str.substr(str.length - 4, str.length - 1)
       : str;
@@ -46,7 +50,7 @@ export const Header = () => {
           <div>
             <a href="/#">
               <img
-                src="/images/MMProLogo.svg"
+                src={logo}
                 width="180"
                 className="cursor-pointer"
                 alt="FStaking"
@@ -54,11 +58,12 @@ export const Header = () => {
             </a>
           </div>
           {isDisplayingMetamaskDisconnectTip &&
-          <div className={'flex items-center'}> <img src={'/images/arrowUpWhite.svg'} className={'mr-2'}/> Please disconnect using MetaMask</div>
+          <div className={'flex items-center'}> <img src={arrowUp} className={'mr-2'}/> Please disconnect using MetaMask</div>
           }
           {!isDisplayingMetamaskDisconnectTip &&
             <>
               {!active ? (
+                // @ts-ignore
                 <Button
                   onClick={() => {
                     setIsOpen(true);
@@ -69,8 +74,9 @@ export const Header = () => {
               ) : (
                 <div className={'disconnect-button-container'}>
                   <div style={{zIndex: 2}}>
+                    {/* @ts-ignore */}
                     <Button onClick={disconnect} bgColor={disconnectIsPossible ? "red-500" : "secondary"}>
-                      <HidingText defaultText={truncate(account)} hidingText={'Disconnect'}
+                      <HidingText defaultText={truncate(`${account}`)} hidingText={'Disconnect'}
                                   peekOut={disconnectIsPossible}/>
                     </Button>
                   </div>

@@ -17,6 +17,26 @@
           "internalType": "address",
           "name": "_swapRouter",
           "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_initTimelockBonusMultiplier",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_initialUnlockPostpone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_initialUnlockPercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_linearUnlockDuration",
+          "type": "uint256"
         }
       ],
       "stateMutability": "nonpayable",
@@ -52,10 +72,29 @@
       "inputs": [
         {
           "indexed": true,
+          "internalType": "address",
+          "name": "ticketMinter",
+          "type": "address"
+        },
+        {
+          "indexed": true,
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "ticketId",
           "type": "uint256"
         },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "claimed",
+          "type": "uint256"
+        }
+      ],
+      "name": "Claim",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
         {
           "indexed": true,
           "internalType": "address",
@@ -65,7 +104,13 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "mmproReceived",
+          "name": "ticketId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "mmproLocked",
           "type": "uint256"
         }
       ],
@@ -186,7 +231,7 @@
     },
     {
       "inputs": [],
-      "name": "TIER_1_ALLOCATION_TOKEN_ID",
+      "name": "BONUS_MULTIPLIER_PRECISION",
       "outputs": [
         {
           "internalType": "uint256",
@@ -199,7 +244,7 @@
     },
     {
       "inputs": [],
-      "name": "TIER_2_ALLOCATION_TOKEN_ID",
+      "name": "ID_LEVEL_1",
       "outputs": [
         {
           "internalType": "uint256",
@@ -212,7 +257,7 @@
     },
     {
       "inputs": [],
-      "name": "TIER_3_ALLOCATION_TOKEN_ID",
+      "name": "ID_LEVEL_2",
       "outputs": [
         {
           "internalType": "uint256",
@@ -225,7 +270,7 @@
     },
     {
       "inputs": [],
-      "name": "TIER_4_ALLOCATION_TOKEN_ID",
+      "name": "ID_LEVEL_3",
       "outputs": [
         {
           "internalType": "uint256",
@@ -238,7 +283,7 @@
     },
     {
       "inputs": [],
-      "name": "TIER_5_ALLOCATION_TOKEN_ID",
+      "name": "ID_LEVEL_4",
       "outputs": [
         {
           "internalType": "uint256",
@@ -252,50 +297,17 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "claimOf",
+          "type": "address"
+        },
+        {
           "internalType": "uint256",
-          "name": "",
+          "name": "tocketLevelId",
           "type": "uint256"
         }
       ],
-      "name": "allocatedAmount",
-      "outputs": [
-        {
-          "internalType": "uint128",
-          "name": "",
-          "type": "uint128"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "allocationLimit",
-      "outputs": [
-        {
-          "internalType": "uint128",
-          "name": "",
-          "type": "uint128"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "allocationPrice",
+      "name": "availableToClaim",
       "outputs": [
         {
           "internalType": "uint256",
@@ -370,6 +382,99 @@
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "tokenLevelId",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimLocked",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "totalClaimed",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "minter",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenLevelId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getLotteryTicketsOf",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenLevelId",
+          "type": "uint256"
+        }
+      ],
+      "name": "hasOwnedLevelId",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialUnlockPercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialUnlockPostpone",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "account",
           "type": "address"
@@ -392,10 +497,36 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "linearUnlockDuration",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lotteryTicketsCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "tokenLevelId",
           "type": "uint256"
         },
         {
@@ -415,6 +546,25 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "mintLockBlock",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "mmpro",
       "outputs": [
@@ -422,6 +572,35 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "nftInfos",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "allocationWorth",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "numberOfTickets",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -516,42 +695,6 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "allocationId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint128",
-          "name": "limit",
-          "type": "uint128"
-        }
-      ],
-      "name": "setAllocationLimit",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "allocationId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "newPrice",
-          "type": "uint256"
-        }
-      ],
-      "name": "setAllocationPrice",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "operator",
           "type": "address"
@@ -563,6 +706,86 @@
         }
       ],
       "name": "setApprovalForAll",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newPercentage",
+          "type": "uint256"
+        }
+      ],
+      "name": "setInitialUnlockPercentage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newPostpone",
+          "type": "uint256"
+        }
+      ],
+      "name": "setInitialUnlockPostpone",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newDuration",
+          "type": "uint256"
+        }
+      ],
+      "name": "setLinearUnlockDuration",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "levelId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_allocationWorth",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_numberOfTickets",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNftInfo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTimelockBonusMultiplier",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -594,6 +817,32 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "timelockBonusMultiplier",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalMmproReserved",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -635,9 +884,58 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "token",
+          "name": "",
           "type": "address"
         },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userLevelTokenInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "originalLockedAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "allocationAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "initialUnlockAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "intitialUnlockAvailableAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "unlockEndsAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalReserved",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalClaimed",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "amount",

@@ -84,7 +84,7 @@ export const Allocation = () => {
                         className={' stake-configurator'}>
                 <AllocationContainer>
                     {TIERS.map((tier, ind) =>
-                        <AllocationItem tier={tier} price={allocationPrices[ind]} initAmount={allocationBalances[ind]}
+                        <AllocationItem key={tier} tier={tier} price={allocationPrices[ind]} initAmount={allocationBalances[ind]}
                                         updateBalance={updateBalance} balance={balance} allocationValue={allocationWorthArray[ind]} ticketAmount={ticketAmounts[ind]}/>
                     )}
                 </AllocationContainer>

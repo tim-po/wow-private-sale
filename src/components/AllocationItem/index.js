@@ -55,6 +55,8 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     const [currentTime, setCurrentTime] = useState(Math.floor(new Date().getTime() / 1000));
     const [loading, setLoading] = useState(false)
     const [claimable, setClaimable] = useState(0)
+    const [numbers, setNumbers] = useState([])
+
 
 
     useEffect(() => {
@@ -71,8 +73,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
 
     useEffect( () => {
         geTicketClaimable()
+        geTicketNumbers()
         geTicketData().then(data => setAllocationData(data))
-    })
+    }, [])
 
     const displayError = (text, time) => {
         setError(text)
@@ -88,6 +91,11 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
             geTicketClaimable()
             setLoading(false)
         })
+    }
+
+    async function geTicketNumbers(){
+        const ticketNumbers = await allocationMarketplaceContract.methods.getLotteryTicketsOf(account, tier).call({from: account})
+        setNumbers(ticketNumbers)
     }
 
     async function geTicketClaimable(){
@@ -245,6 +253,18 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                           </>
                         )}
                     </Button>
+                </div>
+                }
+                {numbers.length !== 0 &&
+                <div className={`tickets`}>
+                    <div className={'tickets-title'}>
+                        Your tickets
+                    </div>
+                    <div className={`tickets-flex`}>
+                    {numbers.map(ticketNumber => (
+                      <span className={'ticket-number'} key={ticketNumber}>{+ticketNumber}</span>
+                    ))}
+                    </div>
                 </div>
                 }
             </div>

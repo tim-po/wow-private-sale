@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Button from "../../../components/common/Button.js";
 import ConnectModal from "../../../components/common/ConnectModal";
 import {useWeb3React} from "@web3-react/core";
@@ -7,9 +7,15 @@ import './index.css'
 import {HidingText} from "../HidingText";
 import logo from '../../images/MMProLogo.svg'
 import arrowUp from '../../images/arrowUpWhite.svg'
+import {LocaleSelector} from "../LocaleSelector";
+import texts from './localization'
+import {useLocale} from "../../hooks/useLocale";
+import LocaleContext from "../../LocaleContext";
+import {localized} from "../../hooks/localized";
 
 export const Header = () => {
   const {account, deactivate, active, connector} = useWeb3React();
+  const {locale} = useContext(LocaleContext)
   const [isOpen, setIsOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(false);
@@ -58,8 +64,12 @@ export const Header = () => {
             </a>
           </div>
           {isDisplayingMetamaskDisconnectTip &&
-          <div className={'flex items-center'}> <img src={arrowUp} className={'mr-2'}/> Please disconnect using MetaMask</div>
+            <div className={'flex items-center'}>
+              <img src={arrowUp} className={'mr-2'}/>
+              {localized(texts.MetaMaskDisconnectMessage, locale)}
+            </div>
           }
+          <LocaleSelector/>
           {!isDisplayingMetamaskDisconnectTip &&
             <>
               {!active ? (
@@ -69,14 +79,14 @@ export const Header = () => {
                     setIsOpen(true);
                   }}
                 >
-                  Connect Wallet
+                  {localized(texts.ConnectWallet, locale)}
                 </Button>
               ) : (
                 <div className={'disconnect-button-container'}>
                   <div style={{zIndex: 2}}>
                     {/* @ts-ignore */}
                     <Button onClick={disconnect} bgColor={disconnectIsPossible ? "red-500" : "secondary"}>
-                      <HidingText defaultText={truncate(`${account}`)} hidingText={'Disconnect'}
+                      <HidingText defaultText={truncate(`${account}`)} hidingText={localized(texts.Disconnect, locale)}
                                   peekOut={disconnectIsPossible}/>
                     </Button>
                   </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Spinner from "../common/Spinner";
 import {wei2eth} from "../../utils/common";
 import {useAllocationMarketplaceContract, useBUSDContract, usePancakeRouterContract} from "../../hooks/useContracts";
@@ -9,41 +9,45 @@ import './index.css'
 import {HidingText} from "../../Standart/components/HidingText";
 import BigNumber from "bignumber.js";
 import Button from "../common/Button";
-
-
-const INSUFFICIENT_BALANCE_ERROR_MESSAGE = "Insufficient balance";
-const TRANSACTION_ERROR_MESSAGE = "Transaction failed";
+import {useLocale} from "../../Standart/hooks/useLocale";
+import texts from './localization'
+import LocaleContext from "../../Standart/LocaleContext";
+import {localized} from "../../Standart/hooks/localized";
 
 const DEADLINE_OVER_NOW = 60 * 5 // 5 min
 const ALLOWANCE = 10 ** 10 * 10 ** 18
 
 const SLIPPAGE_PERCENT = 0.93 // 7 %
 
-const calcTimeToWithdraw = (stakeEndTime, currentTime) => {
-    const diffSecs = stakeEndTime - currentTime
-
-    if (diffSecs <= 0) {
-        return ''
-    }
-    const diff_in_days = Math.floor(diffSecs / 3600 / 24).toFixed(0);
-    const diff_in_hours = Math.floor((diffSecs % (3600 * 24)) / 3600).toFixed(
-      0
-    );
-    const diff_in_mins = Math.floor(
-      ((diffSecs % (3600 * 24)) % 3600) / 60
-    ).toFixed(0);
-    const diff_in_secs = Math.floor((diffSecs % (3600 * 24)) % 3600) % 60;
-
-    if(+diff_in_days > 0){
-        return `${diff_in_days} Days, ${+diff_in_hours > 0 ? `${diff_in_hours} hours`: ''}`
-    }
-
-    return `${+diff_in_hours > 0 ? `${diff_in_hours}:` : ''}${(+diff_in_mins < 10 && +diff_in_mins > 0) ? '0': ''}${+diff_in_mins > 0 ? `${diff_in_mins}:` : ''}${diff_in_secs < 10 ? `0${diff_in_secs}`: `${diff_in_secs}`}`;
-
-};
-
 export const AllocationItem = ({tier, price, initAmount, updateBalance, balance, allocationValue, ticketAmount}) => {
     const {account} = useWeb3React();
+    const {locale} = useContext(LocaleContext)
+
+    const calcTimeToWithdraw = (stakeEndTime, currentTime) => {
+        const diffSecs = stakeEndTime - currentTime
+
+        if (diffSecs <= 0) {
+            return ''
+        }
+        const diff_in_days = Math.floor(diffSecs / 3600 / 24).toFixed(0);
+        const diff_in_hours = Math.floor((diffSecs % (3600 * 24)) / 3600).toFixed(
+          0
+        );
+        const diff_in_mins = Math.floor(
+          ((diffSecs % (3600 * 24)) % 3600) / 60
+        ).toFixed(0);
+        const diff_in_secs = Math.floor((diffSecs % (3600 * 24)) % 3600) % 60;
+
+        if(+diff_in_days > 0){
+            return `${diff_in_days} ${localized(texts.Days, locale)}, ${+diff_in_hours > 0 ? `${diff_in_hours} ${localized(texts.hours, locale)}`: ''}`
+        }
+
+        return `${+diff_in_hours > 0 ? `${diff_in_hours}:` : ''}${(+diff_in_mins < 10 && +diff_in_mins > 0) ? '0': ''}${+diff_in_mins > 0 ? `${diff_in_mins}:` : ''}${diff_in_secs < 10 ? `0${diff_in_secs}`: `${diff_in_secs}`}`;
+
+    };
+
+    const INSUFFICIENT_BALANCE_ERROR_MESSAGE = localized(texts.InsufficientBalance, locale);
+    const TRANSACTION_ERROR_MESSAGE = localized(texts.TransactionFailed, locale);
 
     const allocationMarketplaceContract = useAllocationMarketplaceContract();
     const pancakeRouterContract = usePancakeRouterContract();
@@ -187,7 +191,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
             <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
                 {amount > 0 &&
                   <div className={'owned-marker'}>
-                      Owned
+                      {localized(texts.Owned, locale)}
                   </div>
                 }
                 {/*{amount === 0 &&*/}
@@ -201,10 +205,10 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {price !== undefined && amount <= 0 &&
                 <div className={'price'}>
                     <div style={{fontSize: 22}}>
-                        Allocation up to <b>{wei2eth(allocationValue)}$</b>
+                        {localized(texts.AllocationUpTo, locale)} <b>{wei2eth(allocationValue)}$</b>
                     </div>
                     <div style={{fontSize: 17}}>
-                        Price: {wei2eth(price)} BUSD
+                        {localized(texts.Price, locale)}: {wei2eth(price)} BUSD
                     </div>
                 </div>
                 }
@@ -217,7 +221,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                     {loadingBuy ? (
                       <Spinner size={25} color={'#FFFFFF'}/>
                     ) : (
-                      <HidingText defaultText={amount === 0 ? 'Buy': 'Buy more'} hidingText={error}
+                      <HidingText defaultText={amount === 0 ? localized(texts.Buy, locale): localized(texts.BuyMore, locale)} hidingText={error}
                                   peekOut={error !== ""}/>
                     )}
                 </button>
@@ -225,10 +229,10 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {amount > 0 &&
                 <div className={"ticket-container p-4 bg-black"}>
                     <div className={"w-full"}>
-                        Locked: <b>{parseFloat(wei2eth(allocationData.totalReserved - allocationData.totalClaimed).toString()).toFixed(2)}</b> MMPRO
+                        {localized(texts.Locked, locale)}: <b>{parseFloat(wei2eth(allocationData.totalReserved - allocationData.totalClaimed).toString()).toFixed(2)}</b> MMPRO
                     </div>
                     <div className={"w-full mb-4"}>
-                        Claimable: <b>{parseFloat(wei2eth(claimable).toString()).toFixed(2)}</b> MMPRO
+                        {localized(texts.Claimable, locale)}: <b>{parseFloat(wei2eth(claimable).toString()).toFixed(2)}</b> MMPRO
                     </div>
                     {/* @ts-ignore */}
                     <Button
@@ -249,7 +253,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                               <span className={`w-64`} style={locked ? {
                                   fontWeight: "bolder",
                                   fontSize: 16
-                              } : {}}> {locked ? timeLeft : (allClaimed ? 'Already claimed' : 'Claim')}</span>
+                              } : {}}> {locked ? timeLeft : (allClaimed ? localized(texts.AlreadyClaimed, locale) : localized(texts.Claim, locale))}</span>
                           </>
                         )}
                     </Button>
@@ -258,7 +262,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {numbers.length !== 0 &&
                 <div className={`tickets`}>
                     <div className={'tickets-title'}>
-                        Your tickets
+                        {localized(texts.YourTickets, locale)}
                     </div>
                     <div className={`tickets-flex`}>
                     {numbers.map(ticketNumber => (

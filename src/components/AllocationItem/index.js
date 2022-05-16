@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Spinner from "../common/Spinner";
 import {wei2eth} from "../../utils/common";
 import {useAllocationMarketplaceContract, useBUSDContract, usePancakeRouterContract} from "../../hooks/useContracts";
@@ -6,19 +6,48 @@ import fromExponential from "from-exponential";
 import {getAllocationMarketplaceAddress, getBUSDAddress, getMMProAddress} from "../../utils/getAddress";
 import {useWeb3React} from "@web3-react/core";
 import './index.css'
-import {HidingText} from "../HidingText";
-
-
-const INSUFFICIENT_BALANCE_ERROR_MESSAGE = "Insufficient balance";
-const TRANSACTION_ERROR_MESSAGE = "Transaction failed";
+import {HidingText} from "../../Standart/components/HidingText";
+import BigNumber from "bignumber.js";
+import Button from "../common/Button";
+import {useLocale} from "../../Standart/hooks/useLocale";
+import texts from './localization'
+import LocaleContext from "../../Standart/LocaleContext";
+import {localized} from "../../Standart/hooks/localized";
 
 const DEADLINE_OVER_NOW = 60 * 5 // 5 min
 const ALLOWANCE = 10 ** 10 * 10 ** 18
 
-const allocationValues = ['500', '2,000', '5,000', '10,000', '50,000']
+const SLIPPAGE_PERCENT = 0.93 // 7 %
 
-export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}) => {
+export const AllocationItem = ({tier, price, initAmount, updateBalance, balance, allocationValue, ticketAmount}) => {
     const {account} = useWeb3React();
+    const {locale} = useContext(LocaleContext)
+
+    const calcTimeToWithdraw = (stakeEndTime, currentTime) => {
+        const diffSecs = stakeEndTime - currentTime
+
+        if (diffSecs <= 0) {
+            return ''
+        }
+        const diff_in_days = Math.floor(diffSecs / 3600 / 24).toFixed(0);
+        const diff_in_hours = Math.floor((diffSecs % (3600 * 24)) / 3600).toFixed(
+          0
+        );
+        const diff_in_mins = Math.floor(
+          ((diffSecs % (3600 * 24)) % 3600) / 60
+        ).toFixed(0);
+        const diff_in_secs = Math.floor((diffSecs % (3600 * 24)) % 3600) % 60;
+
+        if(+diff_in_days > 0){
+            return `${diff_in_days} ${localized(texts.Days, locale)}, ${+diff_in_hours > 0 ? `${diff_in_hours} ${localized(texts.hours, locale)}`: ''}`
+        }
+
+        return `${+diff_in_hours > 0 ? `${diff_in_hours}:` : ''}${(+diff_in_mins < 10 && +diff_in_mins > 0) ? '0': ''}${+diff_in_mins > 0 ? `${diff_in_mins}:` : ''}${diff_in_secs < 10 ? `0${diff_in_secs}`: `${diff_in_secs}`}`;
+
+    };
+
+    const INSUFFICIENT_BALANCE_ERROR_MESSAGE = localized(texts.InsufficientBalance, locale);
+    const TRANSACTION_ERROR_MESSAGE = localized(texts.TransactionFailed, locale);
 
     const allocationMarketplaceContract = useAllocationMarketplaceContract();
     const pancakeRouterContract = usePancakeRouterContract();
@@ -26,21 +55,51 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
     const [loadingBuy, setLoadingBuy] = useState(false)
     const [error, setError] = useState("")
     const [amount, setAmount] = useState(initAmount)
-    const [allocationLimit, setAllocationLimit] = useState(0)
-    const [allocatedAmount, setAllocatedAmount] = useState(0)
+    const [allocationData, setAllocationData] = useState({})
+    const [currentTime, setCurrentTime] = useState(Math.floor(new Date().getTime() / 1000));
+    const [loading, setLoading] = useState(false)
+    const [claimable, setClaimable] = useState(0)
+    const [numbers, setNumbers] = useState([])
+
+    useEffect(() => {
+        let id = 0
+        // @ts-ignore
+        if(allocationData && currentTime < allocationData.unlockEndsAt){
+            id = setTimeout(() => {
+                setCurrentTime(Math.floor(new Date().getTime() / 1000));
+            }, 1000);
+        }
+        if(allocationData && currentTime < allocationData.unlockEndsAt){
+            geTicketClaimable().then((newClaimable) => setClaimable(newClaimable))
+        }
+
+        return(
+          ()=>{
+              window.clearTimeout(id);
+          }
+        )
+    }, [currentTime, allocationData]);
 
     useEffect( () => {
-        allocationMarketplaceContract
-            .methods
-            .allocationLimit(tier)
-            .call()
-            .then(limit => setAllocationLimit(limit))
-        allocationMarketplaceContract
-            .methods
-            .allocatedAmount(tier)
-            .call()
-            .then(amount => setAllocatedAmount(amount))
-    })
+        let mounted = true
+        geTicketClaimable().then(newClaimable => {
+            if(mounted) {
+                setClaimable(newClaimable)
+            }
+        })
+        geTicketNumbers().then(newTicketNumbers => {
+            if(mounted) {
+                setNumbers(newTicketNumbers)
+            }
+        })
+        geTicketData().then(data => {
+            if(mounted) {
+                setAllocationData(data)
+            }
+        })
+
+        return () => {mounted = false}
+    }, [])
 
     const displayError = (text, time) => {
         setError(text)
@@ -49,12 +108,33 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         }, time)
     }
 
+    async function mainButtonClicked(){
+        setLoading(true)
+        await allocationMarketplaceContract.methods.claimLocked(tier).send({from: account}).once('receipt', () => {
+            geTicketData().then(data => setAllocationData(data))
+            geTicketClaimable().then((newClaimable) => setClaimable(newClaimable))
+            setLoading(false)
+        })
+    }
+
+    async function geTicketNumbers(){
+        return allocationMarketplaceContract.methods.getLotteryTicketsOf(account, tier).call({from: account})
+    }
+
+    async function geTicketClaimable(){
+        return allocationMarketplaceContract.methods.availableToClaim(account, `${tier}`).call({from: account})
+    }
+
+    async function geTicketData(){
+        return allocationMarketplaceContract.methods.userLevelTokenInfo(account, tier).call({from: account})
+    }
+
     const getMinAmountOut = async () => {
         const path = [getBUSDAddress(), getMMProAddress()]
-        return (await pancakeRouterContract
+        return new BigNumber((await pancakeRouterContract
             .methods
             .getAmountsOut(price, path)
-            .call())[1]
+            .call())[1])
     }
 
     const getDeadline = () => {
@@ -80,8 +160,10 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         const amountOutMin = await getMinAmountOut()
         await allocationMarketplaceContract
             .methods
-            .mint(tier, amountOutMin, getDeadline())
-            .send({from: account})
+            .mint(tier, ((await getMinAmountOut()).multipliedBy(SLIPPAGE_PERCENT).toFixed(0).toString()), getDeadline())
+            .send({from: account}).once('receipt', ()=> {
+              geTicketData().then(data => setAllocationData(data))
+          })
     }
 
     const handleBuy = async () => {
@@ -97,7 +179,6 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         setLoadingBuy(true)
         try {
             const allowance = await getAllowance()
-
             if (parseInt(price) > parseInt(allowance)) {
                 await approve()
             }
@@ -121,46 +202,95 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance}
         }
     }, [videoRef])
 
+    const locked = allocationData && currentTime < allocationData.intitialUnlockAvailableAt
+    const allClaimed = (allocationData.totalReserved - allocationData.totalClaimed === 0) && allocationData.totalClaimed > 0
+    const timeLeft = calcTimeToWithdraw(allocationData.intitialUnlockAvailableAt, currentTime)
+
     return (
         <div
-            className={'staking-element rounded-lg'}>
-            <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
+            className={'staking-element'}>
+            <div className={`nft-video-container ${amount > 0 && `border-t-${tier + 1}`}`}>
                 {amount > 0 &&
                   <div className={'owned-marker'}>
-                      Owned
+                      {localized(texts.Owned, locale)}
                   </div>
                 }
-                {amount === 0 &&
-                    <div className={'owned-marker'}>
-                        Only {allocationLimit - allocatedAmount} left
-                    </div>
-                }
-              <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
-                  <source src={`/videoBackgrounds/Render_Tier${tier + 1}.webm`} type="video/webm" />
+                {/*{amount === 0 &&*/}
+                {/*    <div className={'owned-marker'}>*/}
+                {/*        Only {ticketAmount} left*/}
+                {/*    </div>*/}
+                {/*}*/}
+              <video className={'nft-video '} ref={videoRef} style={amount > 0 ? {borderRadius: '20px 20px 0 0'}: {}} autoPlay loop muted>
+                  <source src={`/videoBackgrounds/nft${tier + 1}.mp4`} type="video/webm" />
               </video>
-                {price !== undefined &&
+                {price !== undefined && amount <= 0 &&
                 <div className={'price'}>
                     <div style={{fontSize: 22}}>
-                        Allocation up to <b>{allocationValues[tier]}$</b>
+                        {localized(texts.AllocationUpTo, locale)} <b>{wei2eth(allocationValue)}$</b>
                     </div>
                     <div style={{fontSize: 17}}>
-                        Price: {wei2eth(price)} BUSD
+                        {localized(texts.Price, locale)}: {wei2eth(price)} BUSD
                     </div>
                 </div>
                 }
                 {amount === 0 &&
                 <button
                   onClick={handleBuy}
-                  className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} rounded-lg text-2xl`}
+                  className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} text-2xl`}
                   disabled={loadingBuy}
                 >
                     {loadingBuy ? (
                       <Spinner size={25} color={'#FFFFFF'}/>
                     ) : (
-                      <HidingText defaultText={amount === 0 ? 'Buy': 'Buy more'} hidingText={error}
+                      <HidingText defaultText={amount === 0 ? localized(texts.Buy, locale): localized(texts.BuyMore, locale)} hidingText={error}
                                   peekOut={error !== ""}/>
                     )}
                 </button>
+                }
+                {amount > 0 &&
+                <div className={"ticket-container p-4 bg-black"}>
+                    <div className={"w-full"}>
+                        {localized(texts.Locked, locale)}: <b>{parseFloat(wei2eth(allocationData.originalLockedAmount).toString()).toFixed(2)}</b> MMPRO
+                    </div>
+                    <div className={"w-full mb-4"}>
+                        {localized(texts.Claimable, locale)}: <b>{parseFloat(wei2eth(claimable).toString()).toFixed(2)}</b> MMPRO
+                    </div>
+                    {/* @ts-ignore */}
+                    <Button
+                      onClick={mainButtonClicked}
+                      className="unstake-button flex flex-row items-center w-48 justify-center"
+                      disabled={loading || allClaimed || locked}
+                      bgColor={(locked || allClaimed) ? 'gray-500' : 'primary'}
+                    >
+                        {loading ? (
+                          <Spinner size={25} color={'#FFFFFF'}/>
+                        ) : (
+                          <>
+                              <img
+                                src={locked ? "/images/locked.svg" : "/images/unlocked.svg"}
+                                width="25"
+                                alt=""
+                              />
+                              <span className={`w-64`} style={locked ? {
+                                  fontWeight: "bolder",
+                                  fontSize: 16
+                              } : {}}> {locked ? timeLeft : (allClaimed ? localized(texts.AlreadyClaimed, locale) : localized(texts.Claim, locale))}</span>
+                          </>
+                        )}
+                    </Button>
+                </div>
+                }
+                {numbers.length !== 0 &&
+                <div className={`tickets`}>
+                    <div className={'tickets-title'}>
+                        {localized(texts.YourTickets, locale)}
+                    </div>
+                    <div className={`tickets-flex`}>
+                    {numbers.map(ticketNumber => (
+                      <span className={'ticket-number'} key={ticketNumber}>{+ticketNumber}</span>
+                    ))}
+                    </div>
+                </div>
                 }
             </div>
         </div>

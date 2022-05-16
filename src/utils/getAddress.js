@@ -7,7 +7,7 @@ export const getMMProAddress = () => {
 };
 
 export const getAllocationMarketplaceAddress = () => {
-    return "0x15f77CB389D16E95ffbeb8ad395Bb140B0E868E3";
+    return "0x7846CA06f58Ce7669AacdCeF87FE739Cb873ca3d";
 };
 
 export const getPancakeRouterAddress = () => {

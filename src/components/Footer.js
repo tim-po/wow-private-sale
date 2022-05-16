@@ -26,7 +26,7 @@ export const Footer = () => {
                     rel="noopener noreferrer"
                     className="mr-4"
                 >
-                    <span>v 1.0.1</span>
+                    <span>v 1.0.2</span>
                 </a>
             </footer>
         </div>

@@ -91,7 +91,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     async function mainButtonClicked(){
         setLoading(true)
         await allocationMarketplaceContract.methods.claimLocked(tier).send({from: account}).once('receipt', () => {
-            geTicketData()
+            geTicketData().then(data => setAllocationData(data))
             geTicketClaimable()
             setLoading(false)
         })
@@ -142,7 +142,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
         await allocationMarketplaceContract
             .methods
             .mint(tier, ((await getMinAmountOut()).multipliedBy(SLIPPAGE_PERCENT).toFixed(0).toString()), getDeadline())
-            .send({from: account})
+            .send({from: account}).once('receipt', ()=> {
+              geTicketData().then(data => setAllocationData(data))
+          })
     }
 
     const handleBuy = async () => {
@@ -182,7 +184,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     }, [videoRef])
 
     const locked = allocationData && currentTime < allocationData.intitialUnlockAvailableAt
-    const allClaimed = (allocationData.totalReserved - allocationData.totalClaimed === 0)
+    const allClaimed = (allocationData.totalReserved - allocationData.totalClaimed === 0) && allocationData.totalClaimed > 0
     const timeLeft = calcTimeToWithdraw(allocationData.intitialUnlockAvailableAt, currentTime)
 
     return (
@@ -229,7 +231,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {amount > 0 &&
                 <div className={"ticket-container p-4 bg-black"}>
                     <div className={"w-full"}>
-                        {localized(texts.Locked, locale)}: <b>{parseFloat(wei2eth(allocationData.totalReserved - allocationData.totalClaimed).toString()).toFixed(2)}</b> MMPRO
+                        {localized(texts.Locked, locale)}: <b>{parseFloat(wei2eth(allocationData.originalLockedAmount).toString()).toFixed(2)}</b> MMPRO
                     </div>
                     <div className={"w-full mb-4"}>
                         {localized(texts.Claimable, locale)}: <b>{parseFloat(wei2eth(claimable).toString()).toFixed(2)}</b> MMPRO

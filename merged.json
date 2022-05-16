@@ -1,0 +1,102 @@
+[
+  {
+    "MetaMaskDisconnectMessage":{
+      "en":"Please disconnect using MetaMask",
+      "ja":"MetaMaskを使用して切断してください"
+    },
+    "Disconnect":{
+      "en":"Disconnect",
+      "ja":"切断する"
+    },
+    "ConnectWallet":{
+      "en":"Connect Wallet",
+      "ja":"ウォレットを接続する"
+    }
+  },
+  {
+    "InsufficientBalance":{
+      "en":"Insufficient balance",
+      "ja":"残高不足"
+    },
+    "TransactionFailed":{
+      "en":"Transaction failed",
+      "ja":"処理に失敗しました"
+    },
+    "Days":{
+      "en":"Days",
+      "ja":"日々"
+    },
+    "hours":{
+      "en":"hours",
+      "ja":"時間"
+    },
+    "Owned":{
+      "en":"Owned",
+      "ja":"所有"
+    },
+    "AllocationUpTo":{
+      "en":"Allocation up to",
+      "ja":"までの割り当て"
+    },
+    "Price":{
+      "en":"Price",
+      "ja":"価格"
+    },
+    "Locked":{
+      "en":"Locked",
+      "ja":"ロック済み"
+    },
+    "Claimable":{
+      "en":"Claimable",
+      "ja":"クレーム可能"
+    },
+    "AlreadyClaimed":{
+      "en":"Already claimed",
+      "ja":"すでに主張"
+    },
+    "Claim":{
+      "en":"Claim",
+      "ja":"請求"
+    },
+    "YourTickets":{
+      "en":"Your tickets",
+      "ja":"あなたのチケット"
+    },
+    "Buy":{
+      "en":"Buy",
+      "ja":"買う"
+    },
+    "BuyMore":{
+      "en":"Buy more",
+      "ja":"もっと買う"
+    }
+  },
+  {
+    "AllocationMarket":{
+      "en":"Allocation Market",
+      "ja":"配分市場"
+    },
+    "ConnectWalletMessage":{
+      "en":"Connect your wallet & get allocation for METAMASK shares",
+      "ja":"ウォレットを接続して、METAMASKシェアの割り当てを取得します"
+    },
+    "MetamaskPricesMessage":{
+      "en":"METAMASK share price in this round of NFT sales is $160",
+      "ja":"今回のNFT販売におけるMETAMASKの株価は160ドルです。"
+    }
+  },
+  {
+    "Loading":{
+      "en":"Loading",
+      "ja":"読み込み中"
+    },
+    "ConnectWallet":{
+      "en":"Connect Wallet",
+      "ja":"ウォレットを接続する"
+    },
+    "Available":{
+      "en":"Available",
+      "ja":"利用可能"
+    }
+  }
+]

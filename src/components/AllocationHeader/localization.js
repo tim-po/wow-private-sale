@@ -1,14 +1,14 @@
 export default {
   AllocationMarket: {
-    en: 'Allocation Market',
+    en: 'Welcome to the MMPRO NFT page',
     ja: '配分市場'
   },
   ConnectWalletMessage: {
-    en: 'Connect your wallet & get allocation for METAMASK shares',
+    en: 'Here you can choose one of the NFT tickets to participate in the contest',
     ja: 'ウォレットを接続して、METAMASKシェアの割り当てを取得します'
   },
   MetamaskPricesMessage: {
-    en: 'METAMASK share price in this round of NFT sales is $160',
-    ja: '今回のNFT販売におけるMETAMASKの株価は160ドルです。'
+    en: 'Choose wisely, decide quickly',
+    ja: ''
   }
 }

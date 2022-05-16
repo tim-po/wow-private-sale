@@ -159,16 +159,3 @@
 .border-t-4 .owned-marker{
     color: #D9413C;
 }
-
-
-@media (max-width: 1000px) {
-    .staking-element{
-        max-width: calc(50% - 16px);
-    }
-}
-
-@media (max-width: 695px) {
-    .staking-element{
-        max-width: 100%;
-    }
-}

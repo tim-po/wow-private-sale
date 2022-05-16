@@ -22,8 +22,6 @@ export const Header = () => {
   const [disconnectIsPossible, setDisconnectIsPossible] = useState(false)
   const [isDisplayingMetamaskDisconnectTip, setIsDisplayingMetamaskDisconnectTip] = useState(false)
 
-  console.log(connector)
-
   const disconnect = () => {
     if (disconnectIsPossible) {
       // @ts-ignore
@@ -69,7 +67,7 @@ export const Header = () => {
               {localized(texts.MetaMaskDisconnectMessage, locale)}
             </div>
           }
-          <LocaleSelector/>
+          {/*<LocaleSelector/>*/}
           {!isDisplayingMetamaskDisconnectTip &&
             <>
               {!active ? (

@@ -36,7 +36,6 @@ export const Allocation = () => {
                 .methods
                 .balanceOfBatch(accounts, TIERS)
                 .call();
-            console.log(balances)
             setAllocationBalances(balances.map(val => parseInt(val)));
         }
     }, [active, account, allocationMarketplaceContract]);

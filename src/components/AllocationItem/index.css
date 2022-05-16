@@ -8,10 +8,10 @@
     max-width: 300px;
     flex-grow: 2;
     position: relative;
-    /*overflow: hidden;*/
 }
 .nft-video{
     overflow: hidden;
+    border-radius: 20px;
 }
 
 .ticket-container{
@@ -21,6 +21,8 @@
 
 .nft-video-container{
     position: relative;
+    border-radius: 20px;
+    /*overflow: hidden;*/
 }
 
 .price{
@@ -48,6 +50,7 @@
     align-items: center;
     justify-content: center;
     -webkit-appearance: none;
+    border-radius: 20px;
 }
 
 .nft-video-container:hover .buy-button{
@@ -82,10 +85,10 @@
 }
 
 .border-t-1{
-    border: 2px solid rgba(192, 192, 192, 1);
+    border: 2px solid #EBF7D4;
 }
 .border-t-1 .owned-marker{
-    color: rgba(192, 192, 192, 1);
+    color: #EBF7D4;
 }
 
 .tickets{
@@ -96,7 +99,7 @@
     padding: 8px;
     height: 300px;
 
-    border-radius: 16px;
+    border-radius: 20px;
 
     transition: all 0.3s;
     opacity: 0;
@@ -135,33 +138,26 @@
 }
 
 .border-t-2{
-    border: 2px solid rgba(0, 128, 0, 1);
+    border: 2px solid #ABF0DF;
 }
 .border-t-2 .owned-marker{
-    color: rgba(0, 128, 0, 1);
+    color: #ABF0DF;
 }
 
 .border-t-3{
-    border: 2px solid rgb(66, 66, 255);
+    border: 2px solid #B74F53;
 }
 .border-t-3 .owned-marker{
-    color: rgb(66, 66, 255);
+    color: #B74F53;
 }
 
 
 .border-t-4{
-    border: 2px solid rgb(178, 19, 178);
+    border: 2px solid rgba(217, 65, 60, 0.2);
+    box-shadow: 5px 5px 20px 10px rgba(217, 65, 60, 0.2), -5px -5px 20px 10px rgba(229, 212, 26, 0.2);
 }
 .border-t-4 .owned-marker{
-    color: rgb(178, 19, 178);
-}
-
-.border-t-5{
-    box-shadow: 5px 5px 20px 10px rgba(255, 215, 0, 0.2), -5px -5px 20px 10px rgba(128, 0, 128, 0.2);
-}
-
-.border-t-5 .owned-marker{
-    color: rgba(255, 215, 0, 1);
+    color: #D9413C;
 }
 
 

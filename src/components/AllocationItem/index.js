@@ -61,24 +61,44 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     const [claimable, setClaimable] = useState(0)
     const [numbers, setNumbers] = useState([])
 
-
-
     useEffect(() => {
+        let id = 0
         // @ts-ignore
         if(allocationData && currentTime < allocationData.unlockEndsAt){
-            setTimeout(() => {
+            id = setTimeout(() => {
                 setCurrentTime(Math.floor(new Date().getTime() / 1000));
             }, 1000);
         }
         if(allocationData && currentTime < allocationData.unlockEndsAt){
-            geTicketClaimable()
+            geTicketClaimable().then((newClaimable) => setClaimable(newClaimable))
         }
+
+        return(
+          ()=>{
+              window.clearTimeout(id);
+          }
+        )
     }, [currentTime, allocationData]);
 
     useEffect( () => {
-        geTicketClaimable()
-        geTicketNumbers()
-        geTicketData().then(data => setAllocationData(data))
+        let mounted = true
+        geTicketClaimable().then(newClaimable => {
+            if(mounted) {
+                setClaimable(newClaimable)
+            }
+        })
+        geTicketNumbers().then(newTicketNumbers => {
+            if(mounted) {
+                setNumbers(newTicketNumbers)
+            }
+        })
+        geTicketData().then(data => {
+            if(mounted) {
+                setAllocationData(data)
+            }
+        })
+
+        return () => {mounted = false}
     }, [])
 
     const displayError = (text, time) => {
@@ -92,19 +112,17 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
         setLoading(true)
         await allocationMarketplaceContract.methods.claimLocked(tier).send({from: account}).once('receipt', () => {
             geTicketData().then(data => setAllocationData(data))
-            geTicketClaimable()
+            geTicketClaimable().then((newClaimable) => setClaimable(newClaimable))
             setLoading(false)
         })
     }
 
     async function geTicketNumbers(){
-        const ticketNumbers = await allocationMarketplaceContract.methods.getLotteryTicketsOf(account, tier).call({from: account})
-        setNumbers(ticketNumbers)
+        return allocationMarketplaceContract.methods.getLotteryTicketsOf(account, tier).call({from: account})
     }
 
     async function geTicketClaimable(){
-        const ticketClaimable = await allocationMarketplaceContract.methods.availableToClaim(account, tier).call({from: account})
-        setClaimable(ticketClaimable)
+        return allocationMarketplaceContract.methods.availableToClaim(account, `${tier}`).call({from: account})
     }
 
     async function geTicketData(){
@@ -189,8 +207,8 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
 
     return (
         <div
-            className={'staking-element rounded-lg'}>
-            <div className={`nft-video-container rounded-lg ${amount > 0 && `border-t-${tier + 1}`}`}>
+            className={'staking-element'}>
+            <div className={`nft-video-container ${amount > 0 && `border-t-${tier + 1}`}`}>
                 {amount > 0 &&
                   <div className={'owned-marker'}>
                       {localized(texts.Owned, locale)}
@@ -201,7 +219,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {/*        Only {ticketAmount} left*/}
                 {/*    </div>*/}
                 {/*}*/}
-              <video className={'nft-video rounded-lg '} ref={videoRef} autoPlay loop muted>
+              <video className={'nft-video '} ref={videoRef} style={amount > 0 ? {borderRadius: '20px 20px 0 0'}: {}} autoPlay loop muted>
                   <source src={`/videoBackgrounds/nft${tier + 1}.mp4`} type="video/webm" />
               </video>
                 {price !== undefined && amount <= 0 &&
@@ -217,7 +235,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {amount === 0 &&
                 <button
                   onClick={handleBuy}
-                  className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} rounded-lg text-2xl`}
+                  className={`buy-button ${(loadingBuy || error !== "") && 'paywall'} text-2xl`}
                   disabled={loadingBuy}
                 >
                     {loadingBuy ? (

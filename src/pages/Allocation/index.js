@@ -8,7 +8,6 @@ import BorderCard from "../../components/common/BorderCard"
 import {useBalanceOfBUSD} from "../../hooks/useBalance";
 import {AllocationItem} from "../../components/AllocationItem";
 import texts from './localization'
-import {useLocale} from "../../Standart/hooks/useLocale";
 import LocaleContext from "../../Standart/LocaleContext";
 import {localized} from "../../Standart/hooks/localized";
 

@@ -112,6 +112,18 @@
           "internalType": "uint256",
           "name": "mmproLocked",
           "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "lotteryTicketsIdFrom",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "lotteryTicketsIdTo",
+          "type": "uint256"
         }
       ],
       "name": "Mint",
@@ -396,30 +408,6 @@
         }
       ],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenLevelId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getLotteryTicketsOf",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -753,34 +741,6 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "levelId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_price",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_allocationWorth",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_numberOfTickets",
-          "type": "uint256"
-        }
-      ],
-      "name": "setNftInfo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "newMultiplier",
           "type": "uint256"
         }
@@ -903,6 +863,16 @@
         {
           "internalType": "uint256",
           "name": "allocationAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lotteryTicketsIdFrom",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lotteryTicketsIdTo",
           "type": "uint256"
         },
         {

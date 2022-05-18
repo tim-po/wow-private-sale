@@ -87,11 +87,6 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 setClaimable(newClaimable)
             }
         })
-        geTicketNumbers().then(newTicketNumbers => {
-            if(mounted) {
-                setNumbers(newTicketNumbers)
-            }
-        })
         geTicketData().then(data => {
             if(mounted) {
                 setAllocationData(data)
@@ -115,10 +110,6 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
             geTicketClaimable().then((newClaimable) => setClaimable(newClaimable))
             setLoading(false)
         })
-    }
-
-    async function geTicketNumbers(){
-        return allocationMarketplaceContract.methods.getLotteryTicketsOf(account, tier).call({from: account})
     }
 
     async function geTicketClaimable(){
@@ -157,7 +148,6 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     };
 
     async function mint() {
-        const amountOutMin = await getMinAmountOut()
         await allocationMarketplaceContract
             .methods
             .mint(tier, ((await getMinAmountOut()).multipliedBy(SLIPPAGE_PERCENT).toFixed(0).toString()), getDeadline())
@@ -250,6 +240,11 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {amount > 0 &&
                 <div className={"ticket-container p-4 bg-black"}>
                     <div className={"w-full"}>
+                        {
+                            `${localized(texts.YourTickets, locale)}: ${allocationData.lotteryTicketsIdFrom}${allocationData.lotteryTicketsIdFrom !== allocationData.lotteryTicketsIdTo ? ` - ${allocationData.lotteryTicketsIdTo}`: ''}`
+                        }
+                    </div>
+                    <div className={"w-full"}>
                         {localized(texts.Locked, locale)}: <b>{parseFloat(wei2eth(allocationData.originalLockedAmount).toString()).toFixed(2)}</b> MMPRO
                     </div>
                     <div className={"w-full mb-4"}>
@@ -278,18 +273,6 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                           </>
                         )}
                     </Button>
-                </div>
-                }
-                {numbers.length !== 0 &&
-                <div className={`tickets`}>
-                    <div className={'tickets-title'}>
-                        {localized(texts.YourTickets, locale)}
-                    </div>
-                    <div className={`tickets-flex`}>
-                    {numbers.map(ticketNumber => (
-                      <span className={'ticket-number'} key={ticketNumber}>{+ticketNumber}</span>
-                    ))}
-                    </div>
                 </div>
                 }
             </div>

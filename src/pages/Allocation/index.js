@@ -11,7 +11,7 @@ import texts from './localization'
 import LocaleContext from "../../Standart/LocaleContext";
 import {localized} from "../../Standart/hooks/localized";
 
-const TIERS = [0, 1, 2, 3];
+const TIERS = [0, 1, 2, 3, 4, 5, 6];
 
 export const Allocation = () => {
     const {active, account} = useWeb3React();

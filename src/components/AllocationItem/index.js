@@ -19,6 +19,48 @@ const ALLOWANCE = 10 ** 10 * 10 ** 18
 
 const SLIPPAGE_PERCENT = 0.93 // 7 %
 
+
+const LastNftDecoration = () => {
+    const Crystal = () => {
+        return(
+            <svg width="19" height="52" viewBox="0 0 19 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.536063 33.9395L9.5 1.85802L18.4639 33.9395L9.5 50.452L0.536063 33.9395Z" fill="url(#paint0_linear_2_18)" stroke="url(#paint1_linear_2_18)"/>
+                <defs>
+                    <linearGradient id="paint0_linear_2_18" x1="23.5" y1="6.02732e-07" x2="-2.97502e-07" y2="50" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FF55FF"/>
+                        <stop offset="1" stop-color="#FFA877"/>
+                    </linearGradient>
+                    <linearGradient id="paint1_linear_2_18" x1="17.5" y1="1" x2="3" y2="50" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#903D76"/>
+                        <stop offset="1" stop-color="#E44E74"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        )
+    }
+
+    return (
+        <>
+            <div className={"crystal right-top"}>
+                <Crystal/>
+            </div>
+            <div className={"crystal right-bottom"}>
+                <Crystal/>
+            </div>
+
+            <div className={"crystal left-bottom"}>
+                <Crystal/>
+            </div>
+            <div className={"crystal left-middle"}>
+                <Crystal/>
+            </div>
+            <div className={"crystal left-top"}>
+                <Crystal/>
+            </div>
+        </>
+    )
+}
+
 export const AllocationItem = ({tier, price, initAmount, updateBalance, balance, allocationValue, ticketAmount}) => {
     const {account} = useWeb3React();
     const {locale} = useContext(LocaleContext)
@@ -199,6 +241,9 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
     return (
         <div
             className={'staking-element'}>
+            {tier === 6 &&
+                <LastNftDecoration/>
+            }
             <div className={`nft-video-container ${amount > 0 && `border-t-${tier + 1}`}`}>
                 {amount > 0 &&
                   <div className={'owned-marker'}>
@@ -211,7 +256,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {/*    </div>*/}
                 {/*}*/}
               <video className={'nft-video '} ref={videoRef} style={amount > 0 ? {borderRadius: '20px 20px 0 0'}: {}} autoPlay loop muted>
-                  <source src={`/videoBackgrounds/nft${tier + 1}.mp4`} type="video/webm" />
+                  <source src={`/videoBackgrounds/0${tier + 1}.webm`} type="video/webm" />
               </video>
                 {price !== undefined && amount <= 0 &&
                 <div className={'price'}>

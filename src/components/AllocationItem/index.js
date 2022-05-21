@@ -81,7 +81,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
         const diff_in_secs = Math.floor((diffSecs % (3600 * 24)) % 3600) % 60;
 
         if(+diff_in_days > 0){
-            return `${diff_in_days} ${localized(texts.Days, locale)}, ${+diff_in_hours > 0 ? `${diff_in_hours} ${localized(texts.hours, locale)}`: ''}`
+            return `${diff_in_days} ${localized(texts.Days, locale)}${+diff_in_hours > 0 ? `, ${diff_in_hours} ${localized(texts.hours, locale)}`: ''}`
         }
 
         return `${+diff_in_hours > 0 ? `${diff_in_hours}:` : ''}${(+diff_in_mins < 10 && +diff_in_mins > 0) ? '0': ''}${+diff_in_mins > 0 ? `${diff_in_mins}:` : ''}${diff_in_secs < 10 ? `0${diff_in_secs}`: `${diff_in_secs}`}`;
@@ -261,7 +261,7 @@ export const AllocationItem = ({tier, price, initAmount, updateBalance, balance,
                 {price !== undefined && amount <= 0 &&
                 <div className={'price'}>
                     <div style={{fontSize: 22}}>
-                        {localized(texts.AllocationUpTo, locale)} <b>{wei2eth(allocationValue)}$</b>
+                        {localized(texts.AllocationUpTo, locale)}: <b>{ticketAmount}</b>
                     </div>
                     <div style={{fontSize: 17}}>
                         {localized(texts.Price, locale)}: {wei2eth(price)} BUSD

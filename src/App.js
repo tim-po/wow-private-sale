@@ -2,13 +2,11 @@
 /* eslint-disable no-undef */
 import React from "react";
 
-import StandardAppContainer from "./Standard/StandardAppContainer";
-
 export const App = () => {
   return (
-      <StandardAppContainer forcedLocale={'ru'}>
+      <div>
           Put your content here
           {/* TODO: add your application content here*/}
-      </StandardAppContainer>
+      </div>
   );
 };

@@ -7,24 +7,24 @@ import './index.scss'
 
 // TODO: copy this components directory and add your content to make your page
 
-type SnippetComponentPropType = {
+type layoutPropType = {
     // You should declare props like this, delete this if you don't need props
     someProp: any
     somePropWithDefaultOption?: string
 }
 
-const SnippetComponentDefaultProps = {
+const layoutDefaultProps = {
     // You should declare default props like this, delete this if you don't need props
     somePropWithDefaultOption: 'default value'
 }
 
-const SnippetComponent = (props: SnippetComponentPropType) => {
+const layout = (props: layoutPropType) => {
     return (
-        <div className={'some-classname'}>
+        <div className={'layout'}>
         </div>
     )
 };
 
-SnippetComponent.defaultProps = SnippetComponentDefaultProps
+layout.defaultProps = layoutDefaultProps
 
-export default SnippetComponent
+export default layout

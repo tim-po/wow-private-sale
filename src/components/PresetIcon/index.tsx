@@ -1,9 +1,21 @@
 import React, {useContext} from "react";
 import './index.scss'
+// @ts-ignore
+import biz from '../../static/icons/biz.svg'
+// @ts-ignore
+import optic from '../../static/icons/optic.svg'
+// @ts-ignore
+import bio from '../../static/icons/bio.svg'
+// @ts-ignore
+import art from'../../static/icons/art.svg'
+// @ts-ignore
+import dev from'../../static/icons/dev.svg'
+// @ts-ignore
+import science from'../../static/icons/science.svg'
 
 // CONSTANTS
 
-const classes = {
+const classes: {[key: string]: any} = {
     "Бизнес": {icon: biz, color: 'var(--color-2)'},
     "Soft Skills": {icon: biz, color: 'var(--color-2)'},
     "Оптика": {icon: optic, color: 'var(--color-1)'},
@@ -24,10 +36,11 @@ type PresetIconPropType = {
 
 
 const PresetIcon = (props: PresetIconPropType) => {
-    const currentClass = {...this.classes[this.presetClass], name: this.presetClass}
+    const {presetClass} = props;
+    const currentClass = {...classes[presetClass], name: presetClass}
     return (
-      <div className="presetIcon" style="{background: currentClass.color}">
-          <img src="currentClass.icon" alt="currentClass.name">
+      <div className="presetIcon" style={{background: currentClass.color}}>
+          <img src={currentClass.icon} alt="currentClass.name"/>
       </div>
     )
 };

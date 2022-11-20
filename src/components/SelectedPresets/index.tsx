@@ -3,6 +3,7 @@ import './index.scss'
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import Preset from "../Preset";
 
 // CONSTANTS
 
@@ -126,10 +127,13 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
           </div>
         }
-        <Preset
-          v-for="preset in selectedPresets"
-          preset="preset"
-        />
+        {selectedPresets.map(preset => {
+          return(
+            <Preset
+              preset={preset}
+            />
+          )
+        })}
       </div>
     </div>
   )

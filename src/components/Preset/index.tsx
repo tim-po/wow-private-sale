@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import './index.scss'
 import {PresetType} from "../../types";
 import KeywordsaModalContext from "../../Context/KeywordsModal";
+import PresetIcon from "../PresetIcon";
 
 // CONSTANTS
 
@@ -11,7 +12,7 @@ import KeywordsaModalContext from "../../Context/KeywordsModal";
 
 type PresetPropType = {
     // You should declare props like this, delete this if you don't need props
-    displayAdd: boolean
+    displayAdd?: boolean
     preset: PresetType
 }
 
@@ -50,7 +51,7 @@ const Preset = (props: PresetPropType) => {
                       <div
                         className="presetIconFlex"
                       >
-                          <PresetIcon preset-class="preset.category"/>
+                          <PresetIcon presetClass="preset.category"/>
                           {preset.category}
                       </div>
                       <div className="tag mobil" >

@@ -1,1 +1,87 @@
-.layout{}
+.DefaultLayoutContainer{
+  height: 100vh;
+  overflow: scroll;
+  transition: all 0.3s;
+  /*min-height: 100vh;*/
+  /*transition: all 0.3s;*/
+  /*min-height: 100vh;*/
+}
+.Content {
+  padding: 0 2.5rem;
+}
+.BtnContainer{
+  display: flex;
+}
+.MainButton{
+  padding: 20px 60px;
+  margin-right: 17px;
+  transition: none;
+}
+.SecondaryButton{
+  padding: 20px 33px;
+  transition: none;
+}
+.ErrorContainer{
+  padding: 88px 0;
+  width: 100%;
+  margin: 41px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+
+  border-radius: 20px;
+}
+.ErrorBody{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 36px;
+  color: #1F1F22;
+  margin-bottom: 56px;
+}
+.ErrorHeader {
+  font-style: normal;
+  margin-bottom: 16px;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 76px;
+  color: #1F1F22;
+}
+@media screen and (max-width: 768px) {
+  .MainButton{
+    padding: 10px 30px;
+    margin-right: 12px;
+  }
+  .SecondaryButton{
+    padding: 10px 11px;
+  }
+  .ErrorContainer{
+    padding: 64px 0px;
+    width: 100%;
+    margin: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border-radius: 20px;
+  }
+  .ErrorBody{
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #1F1F22;
+  }
+  .ErrorHeader{
+    font-size: 44px;
+    line-height: 56px;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 433px) {
+  .Content {
+    padding: 0 15px !important;
+  }
+}

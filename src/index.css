@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../public/fonts/Inter-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../public/fonts/Inter-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../public/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../public/fonts/Inter-Bold.ttf') format('truetype');
+}
+
+html {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--main-color);
+}
+
+:root {
+    --text-secondary: #B7B6BC;
+    --main-color: #1F1F22;
+    --color-secondary: #EEEEFF;
+    --color-1: #7CCBF8;
+    --color-2: #F9CF6B;
+    --color-3-dark: #37CE86;
+    --color-3: #89D766;
+    --color-3-light: #C6F0B3;
+    --color-3-verylight: #DBFFE1;
+    --color-4: #ED81C1;
+    --color-4-light: #FCD9FF;
+    --color-5: #C766D7;
+    --color-5-dark: #8533FF;
+    --color-6: #62CFD7;
+    --color-6-light: #C5E9F0;
+    --color-7: #78A3EC;
+    --color-7-light: #C1D5F6;
+    --color-8: #677CE8;
+    --color-10-dark: #FF824D;
+    --color-10: #FAB791;
+    --color-10-light: #FCE8B9;
+    --color-11: #646CB4;
+    --color-12: #F58C83;
+    --color-13: #D4E56B;
+    --gray-100: #F3F3F4;
+    --gray-10: #F8F8F8;
+    --gray-dark: #B1AFC4;
+    --gray: #6E6D79;
+}
+
+.TrajectoriesLinkBack {
+    display: flex;
+    align-items: center;
+    color: #6E6D79;
+    font-weight: 400;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.MainButton {
+    transition: 0.3s;
+    align-self: center;
+    background: var(--color-5-dark);
+    color: white;
+    font-weight: 500;
+    border: 0;
+    border-radius: 8px;
+}
+
+.MainButton:hover {
+    background: #AE78FE;
+    color: white;
+}
+
+.MainButton:active {
+    background: #7328E2;
+    color: white;
+}
+
+.SecondaryButton {
+    color: var(--color-5-dark);
+    border-radius: 8px;
+    background: white;
+    border: 1px solid var(--color-5-dark);
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.SecondaryButton:hover {
+    background: #F3F3FE;
+    color: #AE78FE;
+}
+
+.SecondaryButton:active {
+    background: #F3F3FE;
+    color: #7328E2;
+}

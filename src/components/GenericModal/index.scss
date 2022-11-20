@@ -1,0 +1,238 @@
+.backgroundModal.ModalNone{
+  display: none!important;
+}
+.deck{
+}
+.backgroundModal .tooltip-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+  background: rgba(45, 43, 68, 0.6);
+}
+.backgroundModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 800;
+  left: 0;
+}
+.ModalTrack{
+  /*border-radius: 16px 16px 0px 0px;*/
+}
+.ModalTrack h6{
+  text-align: left;
+}
+.ModalTrack .CourseCardControlCard{
+  border: 1px solid #E7E8EE;
+  border-radius: 12px;
+}
+.ModalTrack .d-block{
+  position: relative;
+  background: white;
+  border-radius: 16px;
+}
+
+.ModalTrack .ImgCloseBtn{
+  border: inherit;
+  background: none;
+  right: 16px;
+  top: 18px;
+  z-index: 20000;
+  position: absolute;
+}
+
+.hideMobile.hideDesktop{
+  display: none!important;
+}
+.hideDesktop{
+  display: none;
+}
+.ModalTrack{
+  display: initial;
+}
+/*.mobil{*/
+/*  display: none;*/
+/*}*/
+@media screen and (min-width: 1000px) {
+  .mobil{
+    display: none;
+  }
+
+  .ModalContainerShad{
+    /*position: absolute;*/
+    width: 100vw;
+    height: 100vh;
+  }
+  .ModalContainer{
+    transition: opacity 0.3s, transform 0s 0.3s ;
+    background: rgba(45, 43, 68, 0.6);
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*max-height: min-content;*/
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    transform: scaleY(0);
+    opacity: 0;
+    display: flex;
+  }
+  .ModalTrack{
+    transform: scale(0);
+    flex-shrink: 0;
+    transition: all 0.3s;
+    z-index: 2000;
+    position: absolute;
+    height: max-content;
+    /*overflow-y: scroll;*/
+  }
+  .ModalContainer.active{
+    transition: opacity 0.3s 0.3s, transform 0s;
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  .ModalContainer.active .ModalTrack{
+    transform: scale(1);
+    /*z-index: 9000;*/
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+  .maxHeight.active .d-block{
+    height: 100%!important;
+    background: white;
+  }
+  .deck{
+    display: none;
+  }
+  .ModalContainerShad{
+    position: absolute;
+    width: 100vw;
+    z-index: 60;
+    height: 100vh;
+  }
+  .ModalContainer.maxHeight.active .d-block .TextCenter{
+    height: 100%;
+    background: white;
+  }
+  .d-block{
+    padding: inherit;
+  }
+  .hideDesktop{
+    display: inherit;
+  }
+  .hideMobile{
+    display: none;
+  }
+  .ModalTrack h6{
+    text-align: left;
+  }
+  .ModalTrack .CourseCardControlCard{
+    border: 1px solid #E7E8EE;
+    border-radius: 12px;
+  }
+
+  .ModalContainer .ModalContainer{
+    max-height: 0!important;
+    /*transform: inherit;*/
+  }
+  .ModalContainer .ModalContainer .ModalTrack{
+    max-height: 0!important;
+    /*transform: inherit;*/
+  }
+  .ModalContainer .ModalContainer.active{
+    /*transform: inherit;*/
+    border-radius: 0px 0px 0px 0px;
+    background: #F3F3F8;
+    height: 100%;
+  }
+  .ModalContainer .ModalContainer.active .ModalTrack{
+    max-height: calc(100%)!important;
+    /*transform: inherit;*/
+  }
+  .ModalContainer .ModalContainer.active .d-block{
+    overflow-y: scroll;
+    max-height: calc(100% - 130px);
+  }
+  .ModalContainer{
+    /*transition: opacity 0.3s ;*/
+    /*background: rgba(45, 43, 68, 0.3);*/
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    align-items: center;
+    justify-content: center;
+    /*transition: opacity 0.3s 0.3s, transform 0s;*/
+    display: flex;
+  }
+  .ModalContainer.active{
+    /*transition: opacity 0.3s 0.3s, transform 0s;*/
+    /*opacity: 1;*/
+    overflow-y: scroll;
+    height: 100vh;
+  }
+
+  .d-block{
+    opacity: 1;
+    transition: all 0.5s;
+    max-height: 0;
+    position: absolute!important;
+    bottom: 0;
+    width: 100%;
+  }
+  .d-block.activ{
+    z-index: 1000;
+    transition: all 0.5s;
+    max-height: calc(100% - 80px);
+    position: absolute;
+
+    bottom: 0;
+    border-radius: 16px;
+  }
+
+  .ModalContainer.active .ModalTrack{
+    height: calc(100%);
+    display: block;
+  }
+
+
+  .ModalTrack .ImgCloseBtn{
+    border: inherit;
+    background: none;
+    right: 16px;
+    top: 18px;
+    z-index: 20000;
+    position: absolute;
+  }
+  .ModalTrack{
+    /*opacity: 1;*/
+    /*border-radius: 16px 16px 0px 0px;*/
+    z-index: 20!important;
+    transition: all 0.5s;
+    padding-top: 0;
+    height: calc(0%);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: scroll;
+    background: rgba(45, 43, 68, 0.3);
+
+  }
+  .ModalContainer .ModalContainer.active .ModalTrack{
+    overflow: hidden;
+
+  }
+}

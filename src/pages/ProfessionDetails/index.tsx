@@ -10,6 +10,7 @@ import keyword from "../../components/Keyword";
 import Keyword from "../../components/Keyword";
 import {makeEmptyList} from "../../utils/general";
 import './index.scss'
+import SelectedPresets from "../../components/SelectedPresets";
 
 // CONSTANTS
 
@@ -250,7 +251,7 @@ const ProfessionDetails = () => {
                 }
               </div>
               {/*<LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>*/}
-              <SelectedPresets canDelet="false"/>
+              {/*<SelectedPresets canDelete={false} isHidden selectedPresets={}/>*/}
             </div>
             <div className="containerBlockFlex">
               <div className="blockFlex">

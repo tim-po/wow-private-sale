@@ -126,10 +126,10 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
           </div>
         }
-        <Preset
-          v-for="preset in selectedPresets"
-          preset="preset"
-        />
+        {/*<Preset*/}
+        {/*  v-for="preset in selectedPresets"*/}
+        {/*  preset="preset"*/}
+        {/*/>*/}
       </div>
     </div>
   )

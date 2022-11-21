@@ -2,12 +2,13 @@ import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import GenericModal from "../../components/GenericModal";
 import Header from "../../components/Header";
-import KeywordsModal from "../../components/KeywordsModal";
+import KeywordsModal from "../../components/Modals/KeywordsModal";
 import BgContext from "Context/Background";
 import {Route, Routes} from "react-router-dom";
 import BackButtonContext from "../../Context/BackButton";
-import KeywordsaModalContext from "Context/KeywordsModal";
+import ModalsContext from "Context/KeywordsModal";
 import {KeywordType} from "../../types";
+import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 
 // CONSTANTS
 
@@ -22,40 +23,67 @@ const Layout = (props: layoutPropType) => {
   const {children} = props
   const [isKeywordsModalOpen, setKeywordsModalOpen] = useState(false)
   const [keywordsForModal, setKeywordsForModal] = useState<KeywordType[]>([])
+  const [isDisciplinesModalOpen, setIsDisciplinesModalOpen] = useState(false)
+  const [disciplinesForModal, setDisciplinesForModal] = useState<{ course: number | undefined, headerBg: string, item: {}, isControlTypesModal?: boolean, typeOfControlType?: string }>({
+    course: undefined,
+    headerBg: '',
+    item: {},
+    isControlTypesModal: false,
+    typeOfControlType: ''
+  })
   const [backgroundColor, setBackgroundColor] = useState('white')
 
   const {backButtonHref} = useContext(BackButtonContext)
-
-
+  
   const clearKeywordsForModal = () => {
     setKeywordsModalOpen(false)
+    setIsDisciplinesModalOpen(false)
     setKeywordsForModal([])
+    setDisciplinesForModal({
+      course: undefined,
+      headerBg: '',
+      item: {},
+      isControlTypesModal: false,
+      typeOfControlType: ''
+    })
   }
 
   useEffect(() => {
     setKeywordsModalOpen(keywordsForModal.length > 0)
   }, [keywordsForModal])
 
+  useEffect(() => {
+    if (Object.keys(disciplinesForModal.item).length) {
+      setIsDisciplinesModalOpen(true)
+    } else {
+      setIsDisciplinesModalOpen(false)
+    }
+  }, [disciplinesForModal])
+
   return (
-    <KeywordsaModalContext.Provider value={{setKeywordsForModal: (keywords)=>setKeywordsForModal(keywords)}}>
+    <ModalsContext.Provider value={{
+      setKeywordsForModal: (keywords)=>setKeywordsForModal(keywords),
+      setDisciplinesForModal: (course, headerBg,item, isControlTypesModal,typeOfControlType) => setDisciplinesForModal({course, headerBg, item, isControlTypesModal, typeOfControlType})
+    }}>
       <BgContext.Provider value={{setBg: setBackgroundColor}}>
         <div className="DefaultLayoutContainer" id="scroll-container" style={{backgroundColor: backgroundColor}}>
           <Header left={backButtonHref === '/'}/>
           <div className="Content">
             {children}
             <GenericModal
-              modal={isKeywordsModalOpen}
+              modal={isKeywordsModalOpen || isDisciplinesModalOpen}
               colorCloseWhite={false}
               hideMobile={false}
               hideDesktop={false}
               onModalClose={clearKeywordsForModal}
             >
-              <KeywordsModal keywords={keywordsForModal}/>
+              {isKeywordsModalOpen && <KeywordsModal keywords={keywordsForModal}/>}
+              {isDisciplinesModalOpen && <DisciplinesModal disciplines={disciplinesForModal} />}
             </GenericModal>
           </div>
         </div>
       </BgContext.Provider>
-    </KeywordsaModalContext.Provider>
+    </ModalsContext.Provider>
   )
 };
 

@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 import React, {useState} from "react";
-import Layout from "./generic/layout";
-import HeaderContext from "./Context/Header"
-import BackButtonContext from "./Context/BackButton"
+import Layout from "generic/layout";
+import HeaderContext from "Context/Header"
+import BackButtonContext from "Context/BackButton"
 import './index.css'
 import {Route, Routes} from "react-router-dom";
-import Start from "./pages/Start";
-import Professions from "./pages/Professions";
-import ProfessionDetails from "./pages/ProfessionDetails";
+import Start from "pages/Start";
+import Professions from "pages/Professions";
+import ProfessionDetails from "pages/ProfessionDetails";
+import DiplomaShare from "pages/DiplomaShare";
+import Diploma from "pages/Diploma";
 
 export const App = () => {
   const [isHeaderAnimated, setHeaderAnimated] = useState(false)
@@ -28,6 +30,8 @@ export const App = () => {
             <Route path="/" element={<Start />}/>
             <Route path="/professions" element={<Professions />}/>
             <Route path="/professionDetails*" element={<ProfessionDetails />}/>
+            <Route path="/diplomaShare*" element={<DiplomaShare />}/>
+            <Route path="/trajectory*" element={<Diploma />}/>
           </Routes>
         </Layout>
       </BackButtonContext.Provider>

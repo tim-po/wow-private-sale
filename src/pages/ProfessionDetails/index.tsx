@@ -5,7 +5,7 @@ import {BASE_URL} from "../../constants";
 import axios from "axios";
 import {KeywordType, PresetType, Profession} from "../../types";
 import BackButtonContext from "../../Context/BackButton";
-import KeywordsaModalContext from "../../Context/KeywordsModal";
+import ModalsContext from "../../Context/KeywordsModal";
 import keyword from "../../components/Keyword";
 import Keyword from "../../components/Keyword";
 import {makeEmptyList} from "../../utils/general";
@@ -22,7 +22,7 @@ const ProfessionDetails = () => {
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
-  const {setKeywordsForModal} = useContext(KeywordsaModalContext)
+  const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [isLoading, setIsLoading] = useState(false);
@@ -100,7 +100,6 @@ const ProfessionDetails = () => {
 
   const editSkillSets = () => {
     navigate(`professionDetails?id=${profession?.id}&view=skills`)
-
   }
 
   const openKeywordsModal = () => {
@@ -159,7 +158,7 @@ const ProfessionDetails = () => {
       <div className="headerFlex">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
         {searchParams.get('view') !== 'main' &&
-          <div className="bottomLeftContainer" v-if="currentView() !== 'main'">
+          <div className="bottomLeftContainer">
             <button
               className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
               onClick={clearChoice}
@@ -200,7 +199,7 @@ const ProfessionDetails = () => {
               <div className="blockDescription">
                 <div className="professionDescriptionText">
                   {!selectedPresetIds.length &&
-                    <span v-if="!selectedPresets.length" className="build-trajectory-text">
+                    <span className="build-trajectory-text">
                       Мы уже собрали для тебя готовый набор ключевых слов. Этого будет достаточно чтобы построить траекторию
                       <br/>
                       Ты можешь продолжить без изменений или добавить то, что хочешь изучить дополнительно.
@@ -217,9 +216,8 @@ const ProfessionDetails = () => {
                     </button>
                   </div>
                 </div>
-                <img v-if="!selectedPresets.length" src="/static/professionLamsIcon.svg" className="lamp-icon"
-                     alt="icon"/>
-                <img v-else src="/static/finger-like.svg" className="like" alt="icon"/>
+                {!selectedPresetIds.length && <img src="/static/professionLamsIcon.svg" className="lamp-icon" />}
+                {selectedPresetIds.length && <img src="/static/finger-like.svg" className="like" alt="icon"/>}
               </div>
               {/*<div*/}
               {/*  className="keywords__warning mb-2"*/}
@@ -238,7 +236,7 @@ const ProfessionDetails = () => {
                 <div id="blob-1-top-left" className="subheader">
                   <span className="subheader-title">Наборы навыков</span>
                   {selectedPresetIds.length &&
-                    <div className="subheader-counter" v-if="selectedPresets.length">+{
+                    <div className="subheader-counter">+{
                       selectedPresetIds.length
                     }</div>
                   }
@@ -251,7 +249,7 @@ const ProfessionDetails = () => {
                 }
               </div>
               {/*<LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>*/}
-              {/*<SelectedPresets canDelete={false} isHidden selectedPresets={}/>*/}
+              {/*<SelectedPresets canDelete={false} selectedPresets={}/>*/}
             </div>
             <div className="containerBlockFlex">
               <div className="blockFlex">

@@ -1,0 +1,452 @@
+.closeBtn{
+  display: none;
+}
+
+.MargTopMobil{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  flex-grow: 5;
+}
+
+.DiplomaCardShareLeft{
+  gap: 25px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  max-width: 514px;
+  min-width: 300px;
+  flex-grow: 3;
+
+}
+
+.DiplomaContainerShare{
+  padding-top: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+
+}
+
+.KeywordModalContent .ModalBody{
+  padding: 0;
+  border: none;
+}
+
+.CourseLabel{
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.DiplomaPage {
+  max-width: 1500px;
+  margin: 0 auto;
+  margin-top: 24px;
+}
+
+.TrackLink{
+  color: var(--color-5-dark);
+}
+
+.DiplomaCard {
+  border-radius: 16px;
+  padding: 20px;
+  border: none !important;
+  background: #fff;
+}
+
+.DiplomaDisciplinesCard{
+  position: relative;
+}
+
+.DiplomaDisciplinesCard .LineImg{
+  position: absolute;
+  background: url("../../static/diploma-line-img.svg")  no-repeat;
+  -moz-background-size: auto 100%;
+  -webkit-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  width: 100%;
+  min-height: 34px;
+  top: 14px;
+}
+
+.classesTypeCard {
+  border-radius: 16px;
+  color: white;
+  background: #78a3ec;
+  padding: 20px;
+}
+
+.classesTypeCard:hover{
+  box-shadow: inset 0px 0px 0px 1px #ffffff;
+  cursor: pointer;
+}
+
+.classesTypeCard .CardBody{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.HeaderDivider {
+  padding: 0;
+  margin: 0;
+  background: white;
+  height: 2px;
+  border: 0;
+}
+
+.mainButtonDiploma {
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.secondary-button-diploma {
+  font-size: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  outline: none !important;
+}
+
+.bachelor-title-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.bachelor-icon {
+  margin-right: 8px;
+}
+
+.textSmall {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F1F22;
+}
+
+.bachelor {
+  position: relative;
+  padding-left: 24px;
+}
+
+.bachelor::before {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  content: url("../../static/school.svg");
+  width: 16px;
+  height: 16px;
+}
+
+.diplomaDisciplinesCount{
+  text-align: center;
+  margin-bottom: 39px;
+  margin-top: 5px;
+}
+
+.keywordModalBtn{
+  background: #EBEBFF;
+  border: none;
+  color: #8533FF;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  transform: scale(1);
+  opacity: 1;
+  line-height: 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+.keywordModalBtn:active,
+.keywordModalBtn:focus {
+  outline: none
+}
+
+.diplomaCardAbout .CardBody{
+  padding: 24px 24px 8px 20px;
+}
+
+.DiplomaCard .disciplineCounter{
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 0;
+}
+
+.DiplomaCard .disciplineName{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 12px;
+}
+
+a.MainButton:hover{
+  text-decoration: none;
+}
+
+.MobilFix{
+  display: none;
+}
+
+@media screen and (max-width: 1280px){
+
+  .DiplomaCard {
+    width: 100%;
+  }
+
+  .diplomaCardAbout {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transition-duration: 1s;
+    max-height:240px ;
+    background: #F3F3F8;
+    box-shadow: 0px -15px 9px rgba(100, 53, 165, 0.03), 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+    border-radius: 12px 12px 0 0;
+    z-index: 100;
+  }
+
+  .diplomaCardAbout.closeBlock{
+    transition-duration: 0.3s;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .likes-icon {
+    display: none;
+  }
+
+  .buttons-wrapper {
+    flex-direction: column;
+  }
+
+  .closeBtn {
+    display: block;
+    right: 18px;
+    top: 18px;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 1600;
+  }
+
+  .MainButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .DiplomaCard{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .href-abit{
+    padding-bottom: 39px;
+  }
+
+  .MobilFix{
+    transition-duration: 1s;
+    max-height:240px ;
+    display: block;
+    background: #F3F3F8;
+    box-shadow: 0px -15px 9px rgba(100, 53, 165, 0.03), 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+    border-radius: 12px 12px 0px 0px;
+  }
+
+  .ButtonAbit{
+    opacity: 0.7;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    border: inherit;
+    background: inherit;
+    border-bottom:  1px solid #6E6D79;
+    color: #6E6D79;
+  }
+
+  .DiplomaCard .disciplineName{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+  }
+
+  .keywords{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1F1F22;
+  }
+
+  .titleShare{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #1F1F22;
+  }
+
+  .CourseLabel{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #B7B6BC;
+    text-align: left;
+  }
+
+  .DiplomaCardShareLeft{
+    gap: 30px;
+    width: 100%;
+    max-width: inherit;
+  }
+
+  .diplomaContainer{
+    padding-top: 0;
+    grid-gap: 16px;
+  }
+
+  .titleNameDiploma{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .textSmall{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .card.DiplomaCard.MargTopMobil{
+    padding-right: initial;
+  }
+
+  .DiplomaDisciplinesCard .LineImg{
+    position: absolute;
+    left: -24px;
+    width: 20px;
+    background: url("../../static/diplomaLineImgVertical.svg")  no-repeat;
+    background-size: cover;
+    -moz-background-size: auto 100%;
+    -o-background-size: 100%;
+    height: 100%;
+  }
+
+  .MargTopMobil{
+    margin-bottom: 200px;
+  }
+  .MobilFix .mainButtonDiploma{
+    width: 100%;
+  }
+  .MobilFix .DiplomaCard{
+    padding-top: 16px;
+    background: none;
+  }
+  .MobilFix .DiplomaCard h6{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+  }.MobilFix .DiplomaCard h6 span{
+     color: #8533FF;
+   }
+  .MobilFix{
+    padding: 0 2.5rem;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    left: 0;
+    background: #F3F3F8;
+  }
+  .MobilFix .CardBody{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    padding: 0;
+  }
+  .MobilFix .d-flex{
+    flex-direction: column;
+  }
+  .MobilFix a span{
+    color: #6E6D79;
+    border-bottom: 1px solid #6E6D79;
+  }
+  .MobilFix a{
+    text-align: center;
+    margin-top: 16px;
+  }
+  .d-flexMobil{
+    display: flex;
+    overflow-x: scroll;
+  }
+  .mobilNone{
+    display: none;
+  }
+  .flexColumn{
+    flex-direction: column;
+  }
+  .MargTopMobil .CardBody{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-right: initial;
+  }
+  .CardBody h2{
+    margin-bottom: inherit;
+    order: 2;
+  }
+  .CardBody .textSmall{
+    order: 1;
+  }
+  .blockShare{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  .d-flexMobil .card{
+    min-width: 258px;
+    margin-right: 8px;
+  }
+  .classesTypeCard {
+    min-width: 256px;
+    margin-right: 8px;
+  }
+
+}
+@media screen and (max-width: 433px) {
+  .MobilFix {
+    padding: 0 15px !important;
+  }
+}

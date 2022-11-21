@@ -1,5 +1,9 @@
 import {createContext} from "react";
 import {KeywordType} from "../types";
 
-const KeywordsaModalContext = createContext({setKeywordsForModal: (newValue: KeywordType[]) => {}})
-export default KeywordsaModalContext
+const ModalsContext = createContext({
+    setKeywordsForModal: (newValue: KeywordType[]) => {},
+    setDisciplinesForModal: (course: any, headerBg: string, item: any, isControlTypesModal?: boolean, typeOfControlType?: string) => {}
+  }
+)
+export default ModalsContext

@@ -98,7 +98,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             onClick={scrollToRight}
           />
         }
-        {selectedPresets.length &&
+        {selectedPresets.length > 0 &&
           <button
             className="scrollBtn left"
             style={{opacity: leftScrollPosition ? 1 : 0}}

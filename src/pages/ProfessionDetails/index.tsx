@@ -177,7 +177,7 @@ const ProfessionDetails = () => {
               <p className="subheader subheader-mobile">Описание</p>
               <div className="keywords__card">
                 <div className="profession-data">
-                  {profession &&
+                  {!profession &&
                     <>
                       {makeEmptyList(40).map(index => {
                         return (
@@ -199,14 +199,14 @@ const ProfessionDetails = () => {
               </div>
               <div className="blockDescription">
                 <div className="professionDescriptionText">
-                  {!selectedPresetIds.length &&
-                    <span v-if="!selectedPresets.length" className="build-trajectory-text">
+                  {selectedPresetIds.length === 0 &&
+                    <span className="build-trajectory-text">
                       Мы уже собрали для тебя готовый набор ключевых слов. Этого будет достаточно чтобы построить траекторию
                       <br/>
                       Ты можешь продолжить без изменений или добавить то, что хочешь изучить дополнительно.
                     </span>
                   }
-                  {selectedPresetIds.length &&
+                  {selectedPresetIds.length > 0 &&
                     <span>
                     Вау, ты добавил новые навыки! Теперь можно строить траекторию
                    </span>
@@ -217,9 +217,13 @@ const ProfessionDetails = () => {
                     </button>
                   </div>
                 </div>
-                <img v-if="!selectedPresets.length" src="/static/professionLamsIcon.svg" className="lamp-icon"
-                     alt="icon"/>
-                <img v-else src="/static/finger-like.svg" className="like" alt="icon"/>
+                {selectedPresetIds.length === 0 &&
+                  <img src="/static/professionLamsIcon.svg" className="lamp-icon"
+                       alt="icon"/>
+                }
+                {selectedPresetIds.length > 0 &&
+                  <img v-else src="/static/finger-like.svg" className="like" alt="icon"/>
+                }
               </div>
               {/*<div*/}
               {/*  className="keywords__warning mb-2"*/}
@@ -237,13 +241,13 @@ const ProfessionDetails = () => {
               <div className="blockFlex">
                 <div id="blob-1-top-left" className="subheader">
                   <span className="subheader-title">Наборы навыков</span>
-                  {selectedPresetIds.length &&
-                    <div className="subheader-counter" v-if="selectedPresets.length">+{
+                  {selectedPresetIds.length > 0 &&
+                    <div className="subheader-counter">+{
                       selectedPresetIds.length
                     }</div>
                   }
                 </div>
-                {selectedPresetIds.length &&
+                {selectedPresetIds.length > 0 &&
                   <div onClick={editSkillSets} className="edit-button">
                     <img src="/static/MagicWand.svg" className="edit-button-icon"/>
                     <span className="edit-button-text">Редактировать</span>
@@ -251,7 +255,7 @@ const ProfessionDetails = () => {
                 }
               </div>
               {/*<LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>*/}
-              {/*<SelectedPresets canDelete={false} selectedPresets={}/>*/}
+              <SelectedPresets isHidden={false} canDelete={false} selectedPresets={presets.filter(preset => selectedPresetIds.includes(preset.id))}/>
             </div>
             <div className="containerBlockFlex">
               <div className="blockFlex">
@@ -268,8 +272,8 @@ const ProfessionDetails = () => {
                   <span className="edit-button-text">Редактировать</span>
                 </div>
               </div>
-              <div className="row keywords__required" id="blob-0-bottom-right">
-                {!profession || !profession.related_keywords.length &&
+              <div className="keywords__required" id="blob-0-bottom-right">
+                {(!profession || !profession.related_keywords.length) &&
                   <>
                     {makeEmptyList(20).map(index => {
                       return (
@@ -314,9 +318,9 @@ const ProfessionDetails = () => {
           {selectedPresetIds.length ? 'Мне все нравится' : 'Построить'}
         </button>
       </div>
-      {/*{searchParams.get('view') === 'keywords' &&*/}
-      {/*  <Keywords/>*/}
-      {/*}*/}
+      {searchParams.get('view') === 'keywords' &&
+        <Keywords/>
+      }
       {/*{searchParams.get('view') === 'skills' &&*/}
       {/*  <SkillSets/>*/}
       {/*}*/}

@@ -414,6 +414,11 @@
 .keywords__required {
   max-height: max-content;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   /*flex-grow: 5;*/
   overflow-y: auto;
 }

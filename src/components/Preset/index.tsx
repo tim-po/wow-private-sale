@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import './index.scss'
 import {PresetType} from "../../types";
-import ModalsContext from "../../Context/KeywordsModal";
+import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
 
 // CONSTANTS
@@ -22,7 +22,7 @@ const PresetDefaultProps = {
 }
 
 const Preset = (props: PresetPropType) => {
-  const {setKeywordsForModal} = useContext(ModalsContext)
+  // const {setKeywordsForModal} = useContext(ModalsContext)
 
   const {displayAdd, preset} = props;
 
@@ -34,7 +34,7 @@ const Preset = (props: PresetPropType) => {
     }
   }
   const openKeywordsModal = () => {
-    setKeywordsForModal(preset.keywords)
+    // setKeywordsForModal(preset.keywords)
   }
   if (!preset) {
     return null;

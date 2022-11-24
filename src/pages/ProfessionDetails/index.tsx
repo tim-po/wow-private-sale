@@ -5,7 +5,7 @@ import {BASE_URL} from "../../constants";
 import axios from "axios";
 import {KeywordType, PresetType, Profession} from "../../types";
 import BackButtonContext from "../../Context/BackButton";
-import ModalsContext from "../../Context/KeywordsModal";
+import ModalsContext from "../../Context/Modal";
 import keyword from "../../components/Keyword";
 import Keyword from "../../components/Keyword";
 import {makeEmptyList} from "../../utils/general";
@@ -22,7 +22,7 @@ const ProfessionDetails = () => {
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
-  const {setKeywordsForModal} = useContext(ModalsContext)
+  // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [isLoading, setIsLoading] = useState(false);
@@ -102,9 +102,9 @@ const ProfessionDetails = () => {
     navigate(`professionDetails?id=${profession?.id}&view=skills`)
   }
 
-  const openKeywordsModal = () => {
-    setKeywordsForModal(profession?.related_keywords || [])
-  }
+  // const openKeywordsModal = () => {
+  //   setKeywordsForModal(profession?.related_keywords || [])
+  // }
 
   const clearChoice = () => {
     switch (searchParams.get('view')) {
@@ -297,7 +297,7 @@ const ProfessionDetails = () => {
                   </>
                 }
                 {profession && profession.related_keywords.length > 25 &&
-                  <button onClick={openKeywordsModal} className="modalKeywords ">
+                  <button className="modalKeywords ">
                     +{profession.related_keywords.length - 25}
                   </button>
                 }

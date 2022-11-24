@@ -25,17 +25,6 @@ const Layout = (props: layoutPropType) => {
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
   const [modalComponent, setModalComponent] = useState<React.ReactNode | undefined>(undefined)
-
-  const [isKeywordsModalOpen, setKeywordsModalOpen] = useState(false)
-  const [keywordsForModal, setKeywordsForModal] = useState<KeywordType[]>([])
-  const [isDisciplinesModalOpen, setIsDisciplinesModalOpen] = useState(false)
-  const [disciplinesForModal, setDisciplinesForModal] = useState<{ course: number | undefined, headerBg: string, item: {}, isControlTypesModal?: boolean, typeOfControlType?: string }>({
-    course: undefined,
-    headerBg: '',
-    item: {},
-    isControlTypesModal: false,
-    typeOfControlType: ''
-  })
   const [backgroundColor, setBackgroundColor] = useState('white')
 
   const {backButtonHref} = useContext(BackButtonContext)
@@ -50,17 +39,6 @@ const Layout = (props: layoutPropType) => {
     setShouldDisplayModal(false)
   }
 
-  useEffect(() => {
-    setKeywordsModalOpen(keywordsForModal.length > 0)
-  }, [keywordsForModal])
-
-  useEffect(() => {
-    if (Object.keys(disciplinesForModal.item).length) {
-      setIsDisciplinesModalOpen(true)
-    } else {
-      setIsDisciplinesModalOpen(false)
-    }
-  }, [disciplinesForModal])
 
   return (
     <ModalsContext.Provider value={{ displayModal }}>

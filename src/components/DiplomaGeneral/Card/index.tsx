@@ -5,11 +5,12 @@ import {colors} from "../../../constants";
 
 type CardPropType = {
   name: string
-  title: string
+  title: string | number
   subtitle: string
   isDiplomaCard: boolean,
   isControlTypeCard?: boolean,
-  classNames?: string[]
+  classNames?: string[],
+  onClick: () => void
 }
 
 const StyledCard = styled.div<{ bgColor: string, isDiplomaCard: boolean }>`
@@ -105,12 +106,13 @@ const CardSubtitle = styled.div<{ isDiplomaCard: boolean, isControlTypeCard?: bo
 `
 
 const Card = (props: CardPropType) => {
-  const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard} = props;
+  const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   return (
     <StyledCard
       bgColor={colors[name]}
       isDiplomaCard={isDiplomaCard}
       className={classNames?.join(' ')}
+      onClick={onClick}
     >
       <CardTitle
         isDiplomaCard={isDiplomaCard}

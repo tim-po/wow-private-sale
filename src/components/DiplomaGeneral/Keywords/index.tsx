@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import './index.scss'
 import styled from "styled-components";
 import Keyword from "components/Keyword";
+import KeywordsModal from "components/Modals/KeywordsModal";
 import {DiplomaTileWrapper, DiplomaTitle} from "../DiplomaGeneralStyles";
 import {KeywordType} from "types";
 import ModalContext from "Context/Modal";
@@ -57,7 +58,7 @@ const Keywords = (props: KeywordsPropType) => {
           />
         ))}
         {!isKeywordsButtonHidden &&
-          <ShowMoreKeywordsButton>
+          <ShowMoreKeywordsButton onClick={() => displayModal(<KeywordsModal keywords={keywords} />)}>
             {`+${keywordsCount - 10}`}
           </ShowMoreKeywordsButton>
         }

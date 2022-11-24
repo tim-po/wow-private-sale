@@ -10,6 +10,9 @@
   border: none;
   box-shadow: none;
   outline: none;
+  background: white;
+  padding: 20px;
+  position: relative;
 }
 
 .trajectoryHeader {
@@ -26,6 +29,7 @@
   width: 0;
 }
 .CourseCard {
+  padding: 20px;
   border: none;
   box-shadow: none;
   outline: none;
@@ -162,14 +166,12 @@
 .TrajectoriesCardHeader{
   align-items: center;
   justify-content: space-between;
+  display: flex;
+  flex-direction: row;
 }
 .ControlCardContainer{
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
   display: flex;
-}
-.listDisciplinesItem{
-  margin-right: 0.25rem;
+  gap: 8px;
 }
 @media screen and (max-width: 1000px){
   .TrajectoriesInfoCard{

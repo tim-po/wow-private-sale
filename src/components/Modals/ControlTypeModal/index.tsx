@@ -1,9 +1,9 @@
 import React, {useContext, useState} from "react";
 import './index.scss'
-import {DiplomaCardDataType} from "types";
+import {CountType} from "types";
 
 type ControlTypeModalPropType = {
-  controlType: DiplomaCardDataType
+  controlType: (CountType & { disciplines?: CountType[] })
 }
 
 const ControlTypeModalDefaultProps = {}
@@ -46,7 +46,7 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
       </div>
       <div className="ExamModalContainer">
         <div className="KeywordsModalContent">
-          {controlType.disciplines.map(discipline => (
+          {controlType.disciplines && controlType.disciplines.map(discipline => (
             <div className="ListExamModal">
               {discipline.name}
               <hr/>

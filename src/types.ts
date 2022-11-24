@@ -18,7 +18,6 @@ export type PresetType = {
   keywords: KeywordType[]
 }
 
-<<<<<<< HEAD
 export type TrajectoryType = {
   id: string
   educational_plan: string
@@ -32,39 +31,34 @@ export type CourseType = {
   course: number
   coverage: number
   main_keywords: string[]
-  control_types_count: { name: string, count: number }[]
+  control_types_count: CountType[]
 }
 
-type DisciplineItemType = {
+export type CountType = {
   count: number
   name: string
 }
 
-export type DiplomaCardDataType = {
-  count: number
-  name: string
-  disciplines: DisciplineItemType[]
-}
 
 export type DiplomaDataType = {
   total_disciplines: number
   main_keywords: string[]
   id: number
   educational_plan: string
-  classes_count: DiplomaCardDataType[]
-  control_types_count: DiplomaCardDataType[]
+  classes_count: (CountType & { disciplines: CountType[] })[]
+  control_types_count: (CountType & { disciplines: CountType[] })[]
 }
 
-type ClassItemType = {
+type DisciplineClassItemType = {
   disciplines_count: number
   name: string
-  disciplines: {name: string, control_types: { [key: string]: { name: string, count: number } }}[]
+  disciplines: {name: string, control_types: { [key: string]: CountType[] }}[]
 }
 
 export type DiplomaShareCardType = {
   course: number
   disciplines_count: number
-  classes: ClassItemType
+  classes: DisciplineClassItemType
 }
 
 export type DiplomaShareDataType = {

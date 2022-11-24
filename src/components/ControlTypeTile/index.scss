@@ -1,4 +1,4 @@
-.notActive .CourseCardControlCard{
+.CourseCardControlCard.notActive{
   background: #F3F3F8;
   color: #6E6D79;
   pointer-events: none;
@@ -11,9 +11,14 @@
   border: 1px solid #E7E8EE;
   font-weight: 500;
   font-size: 12px;
-  padding: 12px 16px;
+  padding: 12px 11px;
   border-radius: 12px;
-  min-width: 94px;
+  max-width: 94px;
+  width: 94px;
+
+  .ControlTypeName{
+    width: 62px;
+  }
 }
 .CourseCardControlCard:hover{
   border: 1px solid #E7E8EE;

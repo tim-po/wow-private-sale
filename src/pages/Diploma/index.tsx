@@ -6,7 +6,7 @@ import BgContext from "Context/Background";
 import axios from "axios";
 import {BASE_URL} from "../../constants";
 import {makeKeywordsArray} from "utils/makeKeywordsArray";
-import {KeywordType} from "types";
+import {CountType, KeywordType} from "types";
 import ModalsContext from "Context/Modal";
 import Card from "components/DiplomaGeneral/Card";
 import GenericModal from "components/GenericModal";
@@ -15,7 +15,7 @@ import Button from "components/Button";
 import {useSearchParams} from "react-router-dom";
 import SwapModal from "components/Modals/SwapModal";
 import ControlTypeModal from "../../components/Modals/ControlTypeModal";
-import {DiplomaDataType, DiplomaCardDataType} from "types";
+import {DiplomaDataType} from "types";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 
 type DiplomaPropType = {}
@@ -129,7 +129,7 @@ const Diploma = (props: DiplomaPropType) => {
             <div className="white-tile-wrapper control-types-tile">
               <h6 className="tileHeader">Сдам</h6>
               <div className="control-types-wrapper">
-                {diplomaData?.control_types_count.map((controlType: DiplomaCardDataType) => (
+                {diplomaData?.control_types_count.map((controlType: (CountType & { disciplines: CountType[] })) => (
                   <Card
                     onClick={() => displayModal(<ControlTypeModal controlType={controlType} />)}
                     name={controlType.name}

@@ -11,6 +11,7 @@ import Professions from "pages/Professions";
 import ProfessionDetails from "pages/ProfessionDetails";
 import DiplomaShare from "pages/DiplomaShare";
 import Diploma from "pages/Diploma";
+import Trajectories from "./pages/Trajectories";
 
 export const App = () => {
   const [isHeaderAnimated, setHeaderAnimated] = useState(false)
@@ -32,6 +33,7 @@ export const App = () => {
             <Route path="/professionDetails*" element={<ProfessionDetails />}/>
             <Route path="/diplomaShare*" element={<DiplomaShare />}/>
             <Route path="/trajectory*" element={<Diploma />}/>
+            <Route path="/trajectories*" element={<Trajectories />}/>
           </Routes>
         </Layout>
       </BackButtonContext.Provider>

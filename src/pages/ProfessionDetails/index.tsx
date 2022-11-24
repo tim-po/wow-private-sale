@@ -3,18 +3,15 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 import BgContext from "../../Context/Background";
 import {BASE_URL} from "../../constants";
 import axios from "axios";
-import {KeywordType, PresetType, Profession} from "../../types";
 import BackButtonContext from "../../Context/BackButton";
-import ModalsContext from "../../Context/Modal";
-import keyword from "../../components/Keyword";
 import Keyword from "../../components/Keyword";
-import {makeEmptyList} from "../../utils/general";
+import {LocalStorageInteraction, makeEmptyList, withLocalStorage} from "../../utils/general";
 import './index.scss'
 import SelectedPresets from "../../components/SelectedPresets";
 import {useProfession} from "../../Models/useProfession";
 import Keywords from "../../components/Keywords";
-import HeaderContext from "Context/Header";
 import SkillSets from "../../components/SkillSets";
+import LoadingScreen from "../../components/LoadingScreen";
 
 // CONSTANTS
 
@@ -24,7 +21,6 @@ const ProfessionDetails = () => {
 
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
-  const {setIsHeaderAnimated} = useContext(HeaderContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -54,10 +50,11 @@ const ProfessionDetails = () => {
   }, [profession])
 
   const openTrajectoryChoice = async () => {
-    setIsLoading(true)
     if (!profession) {
       return
     }
+    withLocalStorage({professionId: profession.id}, LocalStorageInteraction.save)
+    setIsLoading(true)
    
     const response = await axios.post(`${BASE_URL}trajectories/?top_n=3`, {'keywords': keywords.allIds})
 
@@ -114,10 +111,6 @@ const ProfessionDetails = () => {
     if (profession) {
       setRequiredWordsLimit(Math.ceil(profession.related_keywords.length * 0.8))
     }
-  }
-
-  const deleteKeyword = (keyword: KeywordType) => {
-      keywords.remove(keyword)
   }
 
   const isClearButtonDisabled = () => {
@@ -227,7 +220,7 @@ const ProfessionDetails = () => {
                   </div>
                 }
               </div>
-              {/*<LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>*/}
+              <LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>
               <SelectedPresets isHidden={false} selectedPresets={presets.selected}/>
             </div>
             <div className="containerBlockFlex">

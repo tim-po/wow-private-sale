@@ -14,7 +14,7 @@ import Preset from "../Preset";
 type SelectedPresetsPropType = {
   // You should declare props like this, delete this if you don't need props
   selectedPresets: PresetType[]
-  canDelete: boolean
+  deletePreset?: (presetId: string) => void
   isHidden: boolean
 }
 
@@ -26,7 +26,7 @@ const SelectedPresetsDefaultProps = {
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
-  const {selectedPresets, canDelete, isHidden} = props;
+  const {selectedPresets, deletePreset, isHidden} = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
 
@@ -130,6 +130,12 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         {selectedPresets.map(preset => {
           return(
             <Preset
+              displayAdd={deletePreset !== undefined}
+              onClick={() => {
+                if (deletePreset) {
+                  deletePreset(preset.id)
+                }
+              }}
               preset={preset}
             />
           )

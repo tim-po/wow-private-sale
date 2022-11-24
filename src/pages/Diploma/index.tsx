@@ -4,7 +4,7 @@ import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
 import BgContext from "Context/Background";
 import axios from "axios";
-import {BASE_URL, colors} from "../../constants";
+import {BASE_URL} from "../../constants";
 import {makeKeywordsArray} from "utils/makeKeywordsArray";
 import {KeywordType} from "types";
 import ModalsContext from "Context/Modal";
@@ -14,7 +14,9 @@ import ShareModal from "components/Modals/ShareModal";
 import Button from "components/Button";
 import {useSearchParams} from "react-router-dom";
 import SwapModal from "components/Modals/SwapModal";
-import KeywordsModal from "components/Modals/KeywordsModal";
+import ControlTypeModal from "../../components/Modals/ControlTypeModal";
+import {DiplomaDataType, DiplomaCardDataType} from "types";
+import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 
 type DiplomaPropType = {}
 
@@ -26,7 +28,7 @@ const Diploma = (props: DiplomaPropType) => {
 
   const cardRef = useRef();
 
-  const [diplomaData, setDiplomaData] = useState<any>(undefined);
+  const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
@@ -112,11 +114,12 @@ const Diploma = (props: DiplomaPropType) => {
             <div className="white-tile-wrapper disciplines-tile">
               <h6 className="tileHeader">Изучу {diplomaData?.total_disciplines} дисциплины</h6>
               <div className="disciplines-wrapper">
-                {diplomaData?.classes_count.map((classItem: any) => (
+                {diplomaData?.classes_count.map((discipline) => (
                   <Card
-                    name={classItem.name}
-                    title={classItem.count}
-                    subtitle={classItem.name}
+                    onClick={() => {}}
+                    name={discipline.name}
+                    title={discipline.count}
+                    subtitle={discipline.name}
                     isDiplomaCard
                     classNames={['mobile-card']}
                   />
@@ -126,8 +129,9 @@ const Diploma = (props: DiplomaPropType) => {
             <div className="white-tile-wrapper control-types-tile">
               <h6 className="tileHeader">Сдам</h6>
               <div className="control-types-wrapper">
-                {diplomaData?.control_types_count.map((controlType: any) => (
+                {diplomaData?.control_types_count.map((controlType: DiplomaCardDataType) => (
                   <Card
+                    onClick={() => displayModal(<ControlTypeModal controlType={controlType} />)}
                     name={controlType.name}
                     title={controlType.count}
                     subtitle={controlType.name}

@@ -22,11 +22,12 @@
 .KeywordsModalContent{
   border-radius: 16px;
   max-width: 855px;
-  padding: 16px;
+  padding-left: 28px;
+  padding-right: 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 12px;
 }
 .KeywordsModalHeader{
   font-weight: 700;

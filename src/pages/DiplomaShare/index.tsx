@@ -11,9 +11,9 @@ import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
 import {makeKeywordsArray} from "utils/makeKeywordsArray";
 import Card from "components/DiplomaGeneral/Card";
-import {colors} from "../../constants";
 import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
+import {DiplomaShareDataType} from "types"
 
 type DiplomaSharePropType = {}
 
@@ -25,7 +25,7 @@ const DiplomaShare = () => {
 
   const cardRef = useRef();
 
-  const [diplomaShareData, setDiplomaShareData] = useState<any>(undefined);
+  const [diplomaShareData, setDiplomaShareData] = useState<DiplomaShareDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
 
   const [searchParams] = useSearchParams()
@@ -55,14 +55,6 @@ const DiplomaShare = () => {
     return "предметов";
   }
 
-  // const openDisciplinesModal = (course: any, headerBg: string, item: any) => {
-  //   setDisciplinesForModal(course, headerBg, item)
-  // }
-
-  // const openKeywordsModal = () => {
-  //   setKeywordsForModal(keywords || [])
-  // }
-
   useEffect(() => {
     getDiplomaShareData()
     setBg('#F1F2F8')
@@ -85,7 +77,7 @@ const DiplomaShare = () => {
       </div>
       <div className="DiplomaContainerShare">
         <div className="DiplomaCardShareLeft">
-          <Description iconUrl={'/static/school.svg'} title={diplomaShareData?.educational_plan}/>
+          <Description iconUrl={'/static/school.svg'} title={diplomaShareData ? diplomaShareData.educational_plan : ''}/>
           <Keywords
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
@@ -98,7 +90,7 @@ const DiplomaShare = () => {
               'diplomaCardAbout',
             ]}
           >
-            <div className="row ">
+            <div className="row">
               <div className="likes-icon">
                 <img src={'/static/like.svg'}/>
               </div>
@@ -116,7 +108,7 @@ const DiplomaShare = () => {
                   >
                     <span>Хочу так же</span>
                   </Button>
-                  <Link href={diplomaShareData?.educational_plan.replace('', '+')}>Читать больше на abit.itmo.ru</Link>
+                  <Link href={diplomaShareData ? diplomaShareData.educational_plan.replace('', '+') : ''}>Читать больше на abit.itmo.ru</Link>
                 </div>
               </div>
             </div>
@@ -134,6 +126,7 @@ const DiplomaShare = () => {
                   <div className="d-flexMobil">
                     {course.classes.map((item: any) => (
                       <Card
+                        onClick={() => {}}
                         isDiplomaCard={false}
                         name={item.name}
                         title={item.name}

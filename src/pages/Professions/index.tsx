@@ -5,7 +5,7 @@ import HeaderContext from "../../Context/Header";
 import {BASE_URL} from "../../constants";
 import axios from "axios";
 import {Profession} from "../../types";
-import ProfessionCard from "../../components/ProfessionCard";
+import ProfessionCard from "components/ProfessionCard";
 import './index.scss'
 import BgContext from "../../Context/Background";
 import {makeEmptyList} from "../../utils/general";

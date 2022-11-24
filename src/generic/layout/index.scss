@@ -57,7 +57,11 @@
   line-height: 76px;
   color: #1F1F22;
 }
+
 @media screen and (max-width: 768px) {
+  .Content{
+    padding: 0 16px;
+  }
   .MainButton{
     padding: 10px 30px;
     margin-right: 12px;

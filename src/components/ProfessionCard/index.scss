@@ -4,6 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   /*max-width: 260px;*/
+  width: 100%;
 }
 
 .professionCardKeyword, .professionCardTitle {
@@ -20,9 +21,11 @@
   border: 1px solid #D2D2D4;
   border-radius: 16px;
   box-sizing: border-box;
-  /*max-width: 540px;*/
-  /*min-width: 320px;*/
+  max-width: 540px;
+  min-width: 320px;
   flex-shrink: 0;
+  width: calc(100vw - 40px - 32px);
+  position: relative;
 
   box-shadow: 0 0 0 rgba(181, 181, 197, 0.25);
 }

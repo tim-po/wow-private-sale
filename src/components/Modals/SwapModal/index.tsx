@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './index.scss';
 import { isMobile } from "react-device-detect";
-import ModalStick from "../../../static/ModalStick";
+import ModalStick from "../../../static/icons/ModalStick";
 
 type SwapModalPropType = {
   children: React.ReactNode | React.ReactNode[]

@@ -5,7 +5,7 @@ import {BASE_URL} from "../../constants";
 import axios from "axios";
 import {KeywordType, PresetType, Profession} from "../../types";
 import BackButtonContext from "../../Context/BackButton";
-import KeywordsaModalContext from "../../Context/KeywordsModal";
+import ModalsContext from "../../Context/Modal";
 import keyword from "../../components/Keyword";
 import Keyword from "../../components/Keyword";
 import {makeEmptyList} from "../../utils/general";
@@ -26,7 +26,7 @@ const ProfessionDetails = () => {
   const {setBg} = useContext(BgContext)
   const {setIsHeaderAnimated} = useContext(HeaderContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
-  const {setKeywordsForModal} = useContext(KeywordsaModalContext)
+  // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams, setSearchParams] = useSearchParams()
   const {profession, presets, keywords} = useProfession(searchParams.get('id') || '')
 
@@ -80,9 +80,9 @@ const ProfessionDetails = () => {
     setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
   }
 
-  const openKeywordsModal = () => {
-    setKeywordsForModal(profession?.related_keywords || [])
-  }
+  // const openKeywordsModal = () => {
+  //   setKeywordsForModal(profession?.related_keywords || [])
+  // }
 
   const clearChoice = () => {
     switch (searchParams.get('view')) {
@@ -132,7 +132,7 @@ const ProfessionDetails = () => {
       <div className="headerFlex">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
         {searchParams.get('view') !== 'main' &&
-          <div className="bottomLeftContainer" v-if="currentView() !== 'main'">
+          <div className="bottomLeftContainer">
             <button
               className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
               onClick={clearChoice}
@@ -287,7 +287,7 @@ const ProfessionDetails = () => {
                   </>
                 }
                 {profession && profession.related_keywords.length > 25 &&
-                  <button onClick={openKeywordsModal} className="modalKeywords ">
+                  <button className="modalKeywords ">
                     +{profession.related_keywords.length - 25}
                   </button>
                 }

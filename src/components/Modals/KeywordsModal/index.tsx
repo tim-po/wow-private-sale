@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import './index.scss'
-import Keyword from "../Keyword";
-import {KeywordType} from "../../types";
+import Keyword from "../../Keyword";
+import {KeywordType} from "../../../types";
 
 // CONSTANTS
 
@@ -23,7 +23,7 @@ const KeywordsModal = (props: KeywordsModalPropType) => {
       <div className="keywords-container">
         {keywords.map((keyword, index) => (
           <Keyword
-            key="keyword.text"
+            key={keyword.text}
             deletable={false}
             keyword={keyword}
             bgColor="#EBEBFF"

@@ -12,6 +12,14 @@
 .BtnContainer{
   display: flex;
 }
+
+.buttons-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  gap: 20px;
+}
+
 .MainButton{
   padding: 20px 60px;
   margin-right: 17px;

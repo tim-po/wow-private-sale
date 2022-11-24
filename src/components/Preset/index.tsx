@@ -1,20 +1,18 @@
 import React, {useContext} from "react";
 import './index.scss'
 import {PresetType} from "../../types";
-import KeywordsaModalContext from "../../Context/KeywordsModal";
+import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type PresetPropType = {
   // You should declare props like this, delete this if you don't need props
   displayAdd?: boolean
-  preset: PresetType,
-  onClick?: () => void,
+  preset: PresetType
+  onClick?: () => void
 }
 
 const PresetDefaultProps = {
@@ -23,7 +21,7 @@ const PresetDefaultProps = {
 }
 
 const Preset = (props: PresetPropType) => {
-  const {setKeywordsForModal} = useContext(KeywordsaModalContext)
+  // const {setKeywordsForModal} = useContext(ModalsContext)
 
   const {displayAdd, preset, onClick} = props;
 
@@ -35,7 +33,7 @@ const Preset = (props: PresetPropType) => {
     }
   }
   const openKeywordsModal = () => {
-    setKeywordsForModal(preset.keywords)
+    // setKeywordsForModal(preset.keywords)
   }
   if (!preset) {
     return null;

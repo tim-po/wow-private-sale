@@ -35,7 +35,7 @@ type PresetIconPropType = {
 }
 
 
-const PresetIcon = (props: PresetIconPropType) => {
+export const PresetIcon = (props: PresetIconPropType) => {
     const {presetClass} = props;
     const currentClass = {...classes[presetClass], name: presetClass}
     return (

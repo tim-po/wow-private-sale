@@ -18,6 +18,7 @@
   border-radius: 8px;
   border: inherit;
   height: 31px;
+  z-index: 2;
 }
 
 .non {
@@ -58,6 +59,7 @@
   gap: 6px;
   display: flex;
   flex-wrap: wrap;
+  z-index: 10;
 }
 
 .keywordspreset {
@@ -147,13 +149,17 @@
   margin-right: inherit !important;
 }
 
-.presetTitleImg img {
-  margin-right: 12px;
-}
-
 .keywordspreset {
   display: flex;
   flex-wrap: wrap;
+}
+.clickArea{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .presetTitle {
@@ -210,15 +216,13 @@
 }
 
 .flexPreset {
-  /*scroll-snap-align: center;*/
-  /*width: 390px;*/
-  /*max-height: 100%;*/
-  /*flex-grow: 3;*/
-  /*min-width: 450px;*/
-  /*max-width: 600px;*/
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
+  scroll-snap-align: center;
+  width: 390px;
+  max-height: 100%;
+  flex-grow: 3;
+  min-width: 450px;
+  max-width: 600px;
+  position: relative;
 }
 
 @media screen and (max-width: 1000px) {

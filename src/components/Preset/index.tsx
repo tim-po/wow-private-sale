@@ -8,12 +8,11 @@ import PresetIcon from "../PresetIcon";
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type PresetPropType = {
   // You should declare props like this, delete this if you don't need props
   displayAdd?: boolean
   preset: PresetType
+  onClick?: () => void
 }
 
 const PresetDefaultProps = {
@@ -24,7 +23,7 @@ const PresetDefaultProps = {
 const Preset = (props: PresetPropType) => {
   // const {setKeywordsForModal} = useContext(ModalsContext)
 
-  const {displayAdd, preset} = props;
+  const {displayAdd, preset, onClick} = props;
 
   const selectSelf = () => {
     if (displayAdd) {
@@ -40,18 +39,14 @@ const Preset = (props: PresetPropType) => {
     return null;
   }
   return (
-    <div
-      className={`flexPreset`}
-    >
-      <div
-        className={'preset'}
-      >
+    <div className={`flexPreset`}>
+      <div className={'preset'}>
         <div className="presetTitleImg">
           <div className="presetFlex">
             <div
               className="presetIconFlex"
             >
-              <PresetIcon presetClass="preset.category"/>
+              <PresetIcon presetClass={preset.category}/>
               {preset.category}
             </div>
             <div className="tag mobil">
@@ -72,9 +67,8 @@ const Preset = (props: PresetPropType) => {
         <div className="presetTitle">
           {preset.title}
         </div>
-
         <div className="smallTitle">
-          {preset.keywords.map(keyword => {
+          {preset.keywords.slice(0, 5).map(keyword => {
             return (
               <div className="keywordspreset">
                 {keyword.text}
@@ -87,6 +81,7 @@ const Preset = (props: PresetPropType) => {
             </button>
           }
         </div>
+        <button className="clickArea" onClick={onClick}/>
       </div>
     </div>
   )

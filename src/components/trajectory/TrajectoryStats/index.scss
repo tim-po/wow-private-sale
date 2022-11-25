@@ -1,0 +1,158 @@
+
+.StatsContainer{
+  border-radius: 16px;
+  background: white;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.MainHeader{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1F1F22;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+.rowContent{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+.notActive.DisciplinesNecessityFlex{
+  pointer-events: none;
+}
+.notActive.DisciplinesNecessityFlex button{
+  color: #6E6D79;
+}.notActive.DisciplinesNecessityFlex span{
+   color: #6E6D79;
+ }
+
+.DisciplinesNecessityCol.TrajectoryCard{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 12px;
+}
+.HoverDisciplinesNecessityFlex{
+  background: inherit;
+  color: #1F1F22;
+  border: inherit;
+}
+.DisciplinesNecessityFlex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.DisciplinesNecessityFlex:hover .HoverDisciplinesNecessityFlex{
+  color: #8533FF;
+
+}
+.StatsCircles{
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.Circle {
+  position: absolute;
+  transition: all 0.25s ease-in-out, z-index 0.25s 0s;
+  transform-origin: center;
+  font-weight: 400;
+  font-size: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #F3F3F4;
+  z-index: 1;
+}
+
+.CircleValue{
+  background: none;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.CircleText{
+  line-height: 12px;
+  max-width: calc(100% - 8px);
+  text-align: center;
+}
+
+.Circle.Focused {
+  transition: all 0.25s ease-in-out, z-index 0s;
+  z-index: 2;
+  width: 180px !important;
+  height: 180px !important;
+  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+  color: white;
+}
+
+.TrajectoryCardBorder {
+  border: 1px solid var(--gray-100);
+}
+
+.TrajectoryCard {
+  border: 1px solid var(--gray-100);
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .DisciplinesNecessityFlex{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .disciplines{
+    line-height: 22px;
+  }
+  .scroll{
+    overflow-x:scroll;
+  }
+
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rowContent{
+    flex-wrap:inherit;
+  }
+  .StatsCircles{
+    /*overflow-x: scroll;*/
+  }
+
+  .rowContent{
+    gap: 8px;
+  }
+
+  .MainHeader{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 22px;
+    display: flex;align-items: center;
+    justify-content: flex-start;
+  }
+
+  .CircleText{
+    line-height: 12px;
+  }
+}

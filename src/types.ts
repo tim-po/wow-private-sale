@@ -31,7 +31,26 @@ export type CourseType = {
   course: number
   coverage: number
   main_keywords: string[]
+  control_type_count: CountType[]
   control_types_count: CountType[]
+  classes_count: (CountType & { disciplines: CountType[] })[]
+  necessity_count: CountType[]
+  classes: ClassType[]
+}
+
+export type ClassType = {
+  name: string
+  first_semesters_disciplines: DisciplineType[]
+  second_semesters_disciplines: DisciplineType[]
+}
+
+export type DisciplineType = {
+  id: number,
+  name: string,
+  class: string,
+  control_type: string,
+  necessity: string,
+  next_disciplines: number[]
 }
 
 export type CountType = {

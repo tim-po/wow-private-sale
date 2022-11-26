@@ -1,44 +1,50 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import './index.scss'
 import ModalContext from "../../Context/Modal";
+import ControlTypeModal from "../Modals/ControlTypeModal";
+import {CountType} from "../../types";
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type ControlTypeTilePropType = {
     // You should declare props like this, delete this if you don't need props
-    controlType: any
-    somePropWithDefaultOption?: string
+    controlType: (CountType & { disciplines?: CountType[] })
+    additionalClassnames?: string
 }
 
 const ControlTypeTileDefaultProps = {
     // You should declare default props like this, delete this if you don't need props
-    somePropWithDefaultOption: 'default value'
+    additionalClassnames: ''
 }
 
 const ControlTypeTile = (props: ControlTypeTilePropType) => {
+    const {controlType, additionalClassnames} = props;
+
     const {displayModal} = useContext(ModalContext)
+
+    const openModal = () => {
+      if(controlType.disciplines && controlType.disciplines.length > 0) {
+        displayModal(<ControlTypeModal controlType={controlType}/>)
+      }
+    }
+
     return (
-      <div className="count>0 ? '':'notActive'">
-          {/*<button className="CourseCardControlCard" className="additionalClassnames" v-on:click="modalClose">*/}
-          {/*    <span>{{controlType}}</span>*/}
-          {/*    <br/>*/}
-          {/*    <b style="font-size: 18px; font-weight: 600">*/}
-          {/*        {{count}}*/}
-          {/*    </b>*/}
-          {/*</button>*/}
-          {/*<GenericModalComponent*/}
-          {/*  modal="isModalActive"*/}
-          {/*  colorCloseWhite="false"*/}
-          {/*  hideMobile="false"*/}
-          {/*  hideDesktop="false"*/}
-          {/*  onmodalClose="modalClose()">*/}
-          {/*    <ListOfExams name="controlType" list="list"/>*/}
-          {/*</GenericModalComponent>*/}
-      </div>
+      <button className={`CourseCardControlCard ${additionalClassnames} ${controlType.count > 0 ? '' : 'notActive'}`}
+              onClick={openModal}>
+        <span className={'ControlTypeName'}>
+          {
+            controlType.name
+              .replace('Дифференцированный', 'Диф.')
+              .replace('Курсовая работа', 'Курсовая')
+          }
+        </span>
+        <br/>
+        <b style={{fontSize: '18px', fontWeight: '600'}}>
+          {controlType.count}
+        </b>
+      </button>
     )
 };
 

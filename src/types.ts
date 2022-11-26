@@ -18,7 +18,6 @@ export type PresetType = {
   keywords: KeywordType[]
 }
 
-<<<<<<< HEAD
 export type TrajectoryType = {
   id: string
   educational_plan: string

@@ -1,0 +1,27 @@
+.starAnimation{
+  transform: scale(1);
+  transform-origin: center;
+  &.starAnimationYellow{
+    animation:  1.5s linear infinite alternate motionAnimationYellow;
+  }
+  &.starAnimationBlue{
+    animation:  2s linear infinite alternate motionAnimationBlue;
+  }
+  &.starAnimationPurple{
+    animation:  1.8s linear infinite alternate motionAnimationPurple;
+  }
+}
+
+
+@keyframes motionAnimationBlue {
+  from { transform: scale(0.7); }
+  to { transform: scale(1); }
+}
+@keyframes motionAnimationYellow {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+@keyframes motionAnimationPurple {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}

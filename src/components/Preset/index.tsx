@@ -3,6 +3,7 @@ import './index.scss'
 import {PresetType} from "../../types";
 import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
+import Pluse from "static/icons/Pluse";
 
 // CONSTANTS
 
@@ -59,7 +60,7 @@ const Preset = (props: PresetPropType) => {
                 className="pluse deck activ"
                 onClick={selectSelf}
               >
-                <img src="/static/pluse.svg"/>
+                {Pluse()}
               </button>
             }
           </div>

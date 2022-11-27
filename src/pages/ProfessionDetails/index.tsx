@@ -12,6 +12,9 @@ import {useProfession} from "../../Models/useProfession";
 import Keywords from "../../components/Keywords";
 import SkillSets from "../../components/SkillSets";
 import LoadingScreen from "../../components/LoadingScreen";
+import MagicWand from "../../static/icons/MagicWand";
+import fingerLike from "static/icons/fingerLike";
+import professionLamsIcon from "static/icons/professionLamsIcon";
 
 // CONSTANTS
 
@@ -55,7 +58,7 @@ const ProfessionDetails = () => {
     }
     withLocalStorage({professionId: profession.id}, LocalStorageInteraction.save)
     setIsLoading(true)
-   
+
     const response = await axios.post(`${BASE_URL}trajectories/?top_n=3`, {'keywords': keywords.allIds})
 
     let ids: string[] = []
@@ -184,11 +187,12 @@ const ProfessionDetails = () => {
                   </div>
                 </div>
                 {presets.selected.length === 0 &&
-                  <img src="/static/professionLamsIcon.svg" className="lamp-icon"
-                       alt="icon"/>
+                  <div className="lamp-icon">
+                    {professionLamsIcon()}
+                  </div>
                 }
                 {presets.selected.length > 0 &&
-                  <img src="/static/finger-like.svg" className="like" alt="icon"/>
+                  <div className="like">{fingerLike()}</div>
                 }
               </div>
               {/*<div*/}
@@ -215,7 +219,7 @@ const ProfessionDetails = () => {
                 </div>
                 {presets.selected.length > 0 &&
                   <div onClick={editSkillSets} className="edit-button">
-                    <img src="/static/MagicWand.svg" className="edit-button-icon"/>
+                    <div className="edit-button-icon"> {MagicWand()}</div>
                     <span className="edit-button-text">Редактировать</span>
                   </div>
                 }
@@ -234,7 +238,7 @@ const ProfessionDetails = () => {
                   }
                 </div>
                 <div onClick={editKeywords} className="edit-button">
-                  <img src="/static/MagicWand.svg" className="edit-button-icon"/>
+                  <div className="edit-button-icon"> {MagicWand()}</div>
                   <span className="edit-button-text">Редактировать</span>
                 </div>
               </div>

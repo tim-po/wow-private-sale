@@ -4,6 +4,7 @@ import SelectedPresets from "../SelectedPresets";
 import Preset from "components/Preset";
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
+import arrowBottom from "static/icons/arrowBottom";
 
 // CONSTANTS
 
@@ -86,10 +87,8 @@ const SkillSets = (props: SkillSetsPropType) => {
               }
             </div>
             <button className="buttonArrow" onClick={() => setSelectedPresetsHidden(!selectedPresetsHidden)}>
-              <img
-                className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}
-                src="/static/arrowBottom.svg"
-              />
+
+              <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>{arrowBottom()}</div>
               <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>

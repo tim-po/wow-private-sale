@@ -136,19 +136,6 @@
   color: #1F1F22;
 }
 
-.bachelor {
-  position: relative;
-  padding-left: 24px;
-}
-
-.bachelor::before {
-  position: absolute;
-  left: 0;
-  top: 3px;
-  content: url("../../static/school.svg");
-  width: 16px;
-  height: 16px;
-}
 
 .diplomaDisciplinesCount {
   text-align: center;

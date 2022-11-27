@@ -14,6 +14,7 @@ import Card from "components/DiplomaGeneral/Card";
 import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
 import {DiplomaShareDataType} from "types"
+import like from "static/icons/like";
 
 type DiplomaSharePropType = {}
 
@@ -92,7 +93,7 @@ const DiplomaShare = () => {
           >
             <div className="row">
               <div className="likes-icon">
-                <img src={'/static/like.svg'}/>
+                {like()}
               </div>
               <div className="col">
                 <div className="mb-2">

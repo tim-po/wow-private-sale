@@ -4,6 +4,8 @@ import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Preset from "../Preset";
+import illustration from "static/icons/illustration";
+import search from "static/icons/search";
 
 // CONSTANTS
 
@@ -107,14 +109,14 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         }
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
           <div className="blockMyPreset">
-            <img src="/static/search.svg"/>
+            {search()}
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         }
         {selectedPresets.length === 0 && searchParams.get('view') === 'main' &&
           <div className="blockMyPreset main">
             <div className="imgPresets">
-              <img src="/static/Illustration.svg"/>
+              {illustration()}
             </div>
             <div className="prompt">
               <span>

@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import './index.scss'
+import spinner from "../../static/icons/spinner";
 
 // CONSTANTS
 
@@ -17,13 +18,7 @@ const Spinner = (props: SpinnerPropType) => {
       <div
         className="spinner-container"
       >
-          <img
-            className="spinner"
-            alt="loading"
-            width={width}
-            height={width}
-            style={{height: `${width}px`, width: `${width}px`, ...spinnerStyle}} src="/static/spinner.svg"
-          />
+        <div className="spinner" style={{...spinnerStyle}}>{spinner(width, width)}</div>
       </div>
     )
 };

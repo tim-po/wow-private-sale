@@ -8,6 +8,7 @@ import {CourseType, TrajectoryType} from "../../types";
 import PercentProgress from "../../components/PercentProgress";
 import ControlTypeTile from "../../components/ControlTypeTile";
 import './index.scss'
+import close from "../../static/icons/close";
 import {BASE_URL} from "../../constants";
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 
@@ -111,7 +112,8 @@ const Trajectories = () => {
             // @ts-ignore
             e.target.parentElement.classList.add('Hidden')
           }}
-        />
+
+        >{close(10, 10)}</button>
         <PercentProgress percent={0.8}/>
         <div className="mr-2"/>
         Мы собрали подходяшие для тебя образовательные программы.

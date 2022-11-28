@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 import {BASE_URL} from "../../constants";
 import useOnClickOutside from "../../utils/useClickOutside";
 import keywords from "../Keywords";
-import searchInput from "../../static/icons/searchInput";
+import SearchInput from "../../static/icons/searchInput";
 
 // CONSTANTS
 
@@ -113,7 +113,9 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             setSearchQuery(e.target.value)
           }}
         />
-        <div className="searchInput">{searchInput()}</div>
+        <div className="searchInput">
+          <SearchInput/>
+        </div>
       </div>
       <div
         className={`addKeywordsSearch ${isSearching && searchQuery != '' ? 'extended' : ''}`}

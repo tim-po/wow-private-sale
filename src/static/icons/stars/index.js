@@ -4,6 +4,7 @@ import "./animation.scss"
 // If icon uses more than one adjustable color you can pass colors from props
 // BUT you must always provide default values for color props
 
+
 export default () => {
   return (
     <svg width="93" height="81" viewBox="0 0 93 81" fill="none" xmlns="http://www.w3.org/2000/svg">

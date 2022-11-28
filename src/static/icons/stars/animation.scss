@@ -1,24 +1,26 @@
+// TODO: сделать анимацию на ховер чтоб разлетались
+
 .starAnimation{
   transform: scale(1);
   transform-origin: center;
   &.starAnimationYellow{
-    animation:  1.5s linear infinite alternate motionAnimationYellow;
+    animation:  1s linear infinite alternate motionAnimationYellow;
   }
   &.starAnimationBlue{
-    animation:  2s linear infinite alternate motionAnimationBlue;
+    animation:  1.2s linear infinite alternate motionAnimationBlue;
   }
   &.starAnimationPurple{
-    animation:  1.8s linear infinite alternate motionAnimationPurple;
+    animation:  0.8s linear infinite alternate motionAnimationPurple;
   }
 }
 
 
 @keyframes motionAnimationBlue {
-  from { transform: scale(0.7); }
+  from { transform: scale(0.7) translateX(-10px) translateY(-20px) rotate(-10deg); }
   to { transform: scale(1); }
 }
 @keyframes motionAnimationYellow {
-  from { transform: scale(0.9); }
+  from { transform: scale(0.9) translateX(5px) translateY(-10px) rotate(5deg); }
   to { transform: scale(1); }
 }
 @keyframes motionAnimationPurple {

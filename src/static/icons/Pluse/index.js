@@ -4,6 +4,7 @@ import React from 'react';
 // If icon uses more than one adjustable color you can pass colors from props
 // BUT you must always provide default values for color props
 
+// TODO: add fill props
 export default () => {
   return (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

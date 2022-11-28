@@ -16,9 +16,5 @@ export default ( ) => {
       <path d="M389 20L393 24.2105L389 28" stroke="#F9CF6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M579 20L583 24.2105L579 28" stroke="#F9CF6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-
-
-    // TODO: replace return with your svg code
-    // TODO: put your svg code in "preview.svg" so anyone can easily preview your icon
   );
 };

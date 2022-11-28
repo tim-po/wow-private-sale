@@ -5,18 +5,6 @@ import React from 'react';
 // BUT you must always provide default values for color props
 
 export default (props) => {
-  // const transForm
-  const {deltaY} = props
-
-  const getArrowsPosition = () => {
-    if (deltaY === 0) {
-      return 'rotate(0)'
-    }
-
-    if (deltaY > 0) {
-      return 'rotate(45)'
-    }
-  }
   return (
     <svg width="95" height="139" viewBox="0 0 95 139" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M33.5991 90.5487C27.9258 95.4348 3.8144 100.321 2.0415 98.8175C7.71478 120.993 26.5075 137.531 28.635 137.531C30.337 137.531 43.0546 128.259 49.2006 123.624C45.8912 116.483 38.1377 99.8699 33.5991 90.5487Z" fill="#8533FF" stroke="#1F1F22" stroke-width="0.755256"/>

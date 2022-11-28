@@ -1,25 +1,81 @@
-//
-//.glowingThread{
-//  fill: #6c6c6c;
-//  animation:  2s linear infinite alternate motionAnimationGlowingThread;
-//}
-//.rays{
-//  fill: white;
-//  animation:  2s linear infinite alternate motionAnimationRays;
-//}
-//.lampColor{
-//  fill: white;
-//  animation:  2s linear infinite alternate motionAnimationLampColor;
-//}
-//@keyframes motionAnimationGlowingThread {
-//  from {  fill: #1F1F22; }
-//  to {  fill: #c07507; }
-//}
-//@keyframes motionAnimationLampColor {
-//  from {  fill: white; }
-//  to {  fill: #F9CF6B; }
-//}
-//@keyframes motionAnimationRays {
-//from {   fill:white }
-//to {  fill: #F9CF6B; }
-//}
+.lampsProfession{
+  .glowingThread {
+    fill: #c07507;
+  }
+
+  .lampColor {
+    fill: #F9CF6B;
+  }
+
+  &:hover{
+    .glowingThread {
+      fill: #c07507;
+      animation: 4s linear motionAnimationGlowingThread;
+    }
+
+    .lampColor {
+      fill: #ffbb11;
+      animation: 4s linear motionAnimationLampColor;
+    }
+  }
+}
+
+@keyframes motionAnimationGlowingThread {
+  from {
+    fill: #c07507;
+  }
+  1% {
+    fill: #1F1F22;
+  }
+  4% {
+    fill: #1F1F22;
+  }
+  5% {
+    fill: #c07507;
+  }
+  40% {
+    fill: #c07507;
+  }
+  41% {
+    fill: #1F1F22;
+  }
+  45% {
+    fill: #1F1F22;
+  }
+  46% {
+    fill: #c07507;
+  }
+  to {
+    fill: #c97800;
+  }
+}
+
+@keyframes motionAnimationLampColor {
+  from {
+    fill: #F9CF6B;
+  }
+  1% {
+    fill: #ffe4b2;
+  }
+  4% {
+    fill: #ffe4b2;
+  }
+  5% {
+    fill: #F9CF6B;
+  }
+  40% {
+    fill: #F9CF6B;
+  }
+  41% {
+    fill: #ffe4b2;
+  }
+  45% {
+    fill: #ffe4b2;
+  }
+  46% {
+    fill: #F9CF6B;
+  }
+  to {
+    fill: #ffbb11;
+  }
+}

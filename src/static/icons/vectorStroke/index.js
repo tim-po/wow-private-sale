@@ -4,7 +4,7 @@ import React from "react";
 export default () => {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd"
+      <path fillRule="evenodd" clipRule="evenodd"
             d="M8 0C3.58136 0 0 3.58136 0 8C0 12.4186 3.58136 16 8 16C12.4186 16 16 12.4186 16 8C16 3.58136 12.4186 0 8 0ZM8 1.23077C4.2611 1.23077 1.23077 4.2611 1.23077 8C1.23077 11.7389 4.2611 14.7692 8 14.7692C11.7389 14.7692 14.7692 11.7389 14.7692 8C14.7692 4.2611 11.7389 1.23077 8 1.23077Z"
             fill="#B7B6BC" />
       <path

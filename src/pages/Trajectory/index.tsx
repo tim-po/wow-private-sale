@@ -107,7 +107,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   const openDisciplineModal = () => {
-    // displayModal(<DisciplineModal/>)
+    // displayModal(<TrajectoryDisciplineModal/>)
   }
 
   return (

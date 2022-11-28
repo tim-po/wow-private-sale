@@ -3,25 +3,20 @@ import './index.scss'
 import {PresetType} from "../../types";
 import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import KeywordsModal from "../Modals/KeywordsModal";
 
 type PresetPropType = {
-  // You should declare props like this, delete this if you don't need props
   displayAdd?: boolean
   preset: PresetType
   onClick?: () => void
 }
 
 const PresetDefaultProps = {
-  // You should declare default props like this, delete this if you don't need props
   somePropWithDefaultOption: 'default value'
 }
 
 const Preset = (props: PresetPropType) => {
-  // const {setKeywordsForModal} = useContext(ModalsContext)
+  const {displayModal} = useContext(ModalsContext)
 
   const {displayAdd, preset, onClick} = props;
 
@@ -33,8 +28,9 @@ const Preset = (props: PresetPropType) => {
     }
   }
   const openKeywordsModal = () => {
-    // setKeywordsForModal(preset.keywords)
+   displayModal(<KeywordsModal keywords={preset.keywords} />)
   }
+
   if (!preset) {
     return null;
   }

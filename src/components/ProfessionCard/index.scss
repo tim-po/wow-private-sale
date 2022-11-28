@@ -1,5 +1,4 @@
 .professionCard {
-  min-width: 540px;
   transition: all 0.3s;
   padding: 24px 20px;
   display: flex;
@@ -9,8 +8,12 @@
   border: 1px solid #D2D2D4;
   border-radius: 16px;
   box-sizing: border-box;
+  max-width: 540px;
+  min-width: 320px;
   flex-shrink: 0;
-  box-shadow: 0 0 0 rgba(181, 181, 197, 0.25);
+  width: calc(100vw - 40px - 32px);
+  position: relative;
+  box-shadow: 0 0 0 rgb(181 181 197 / 25%);
 
   &:hover {
     box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01),
@@ -57,14 +60,13 @@
 }
 @media screen and (max-width: 1000px) {
   .professionCard{
-    min-width: inherit;
+    //min-width: initial;
   }
 }
 
 @media screen and (max-width: 433px) {
 
   .professionCard {
-    width: 100%;
     margin: 0 10px;
     flex-direction: column-reverse;
     gap: 20px;

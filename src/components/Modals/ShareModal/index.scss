@@ -24,7 +24,7 @@
 }
 
 .share-button {
-  width: 220px !important;
+  width: 220px;
 }
 
 .shareModalHeaderContainer {
@@ -152,9 +152,10 @@
 @media screen and (max-width: 1000px) {
   .shareModalHeaderContainer {
     /*background: url("../../static/shareBg.svg") no-repeat center;*/
-
   }
-
+  .share-button {
+    min-width: 100%;
+  }
   .secondaryButtonShare, .mainButtonShare {
     width: 100%;
   }

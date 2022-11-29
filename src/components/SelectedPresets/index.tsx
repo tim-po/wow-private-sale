@@ -5,8 +5,8 @@ import * as Scroll from "react-scroll";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Preset from "../Preset";
 import Illustration from "static/icons/illustration";
-import Search from "static/icons/search";
 import ArrowRight from "../../static/icons/arrowRight";
+import Magnifier from "../../static/icons/magnifier";
 
 // CONSTANTS
 
@@ -115,7 +115,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         }
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
           <div className="blockMyPreset">
-            <Search/>
+            <Magnifier/>
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         }

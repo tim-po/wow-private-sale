@@ -1,0 +1,15 @@
+.magnifier{
+  .rays{
+    animation:1.2s linear infinite alternate motionAnimationRays;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+}
+@keyframes motionAnimationRays {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}

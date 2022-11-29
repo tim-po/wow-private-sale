@@ -1,4 +1,3 @@
-
 .skeleton-v2 {
   opacity: .7;
   animation: skeleton-loading 1s linear infinite alternate;
@@ -102,6 +101,7 @@
 }
 
 .CardHeaderWidth {
+  padding-left: 32px;
   width: calc(100%);
 }
 

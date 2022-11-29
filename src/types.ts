@@ -58,7 +58,6 @@ export type CountType = {
   name: string
 }
 
-
 export type DiplomaDataType = {
   total_disciplines: number
   main_keywords: string[]
@@ -86,4 +85,23 @@ export type DiplomaShareDataType = {
   main_keywords: string[]
   courses: DiplomaShareCardType[]
   total_disciplines: number
+}
+
+export type NextOrPrevDisciplinesType = {
+  id: number
+  name: string
+}
+
+export type TrajectoryDisciplineType = {
+  class: string
+  control: string
+  id: number
+  keywords: string[]
+  keywords_aligned_with_user: string[]
+  keywords_coverage: number
+  name: string
+  necessity: boolean
+  next_disciplines: NextOrPrevDisciplinesType[]
+  prev_disciplines: NextOrPrevDisciplinesType[]
+  replacement_options: NextOrPrevDisciplinesType[]
 }

@@ -6,6 +6,12 @@
   position: relative;
 }
 
+.aligned-keywords-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .fallingDiscipline {
   display: flex;
   flex-direction: column;

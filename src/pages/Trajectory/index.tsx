@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {ClassType, CourseType, TrajectoryType} from "../../types";
 import Diploma from "../Diploma";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import { isMobile } from "react-device-detect";
+import {isMobile} from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
 import BgContext from "../../Context/Background";
@@ -22,15 +22,15 @@ import './index.scss'
 // TODO: copy this components directory and add your content to make a new page
 
 type TrajectoryPropType = {
-    somePropWithDefaultOption?: string
+  somePropWithDefaultOption?: string
 }
 
 const TrajectoryDefaultProps = {
-    somePropWithDefaultOption: 'default value'
+  somePropWithDefaultOption: 'default value'
 }
 
 const Trajectory = (props: TrajectoryPropType) => {
-    const [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
@@ -79,7 +79,7 @@ const Trajectory = (props: TrajectoryPropType) => {
     })
   }
 
-  if(!trajectory){
+  if (!trajectory) {
     return <LoadingScreen isLoading={true} header={'Троаектория загружается'}/>
   }
 
@@ -111,99 +111,105 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   return (
-      <div className="TrajectoryPage">
-          <div className="flex-block flex-row justify-content-between mb-0 align-items-center">
-              <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
-              <div className="CoursesRow">
-                  <CourseSelector
-                    bgColor={searchParams.get('course') === '5' ? '#FFFFFF': '#F3F3F8'}
-                    leftOffset={selectorLeftOffset}
-                  />
-                  <div className="CoursesRowFirstFlex">
-                    {trajectory.courses.map((course) => {
-                      return (
-                        <button
-                          className={`CourseButton ${course.course === courseQuery ? 'CourseButtonActive': ''}`}
-                          key="number"
-                          onClick={() => navigateToCourse(course.course)}
-                        >
-                          <div
-                            className={`Course ${course.course === courseQuery ? 'CourseButtonActive': ''}`}
-                          >
-                            {course.course} Курс
-                          </div>
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <button
-                    className="CourseButtonDiploma"
-                    onClick={() => navigateToCourse(5)}
+    <div className="TrajectoryPage">
+      <div className="flex-block flex-row justify-content-between mb-0 align-items-center">
+        <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
+        <div className="CoursesRow">
+          <CourseSelector
+            bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
+            leftOffset={selectorLeftOffset}
+          />
+          <div className="CoursesRowFirstFlex">
+            {trajectory.courses.map((course) => {
+              return (
+                <button
+                  className={`CourseButton ${course.course === courseQuery ? 'CourseButtonActive' : ''}`}
+                  key="number"
+                  onClick={() => navigateToCourse(course.course)}
+                >
+                  <div
+                    className={`Course ${course.course === courseQuery ? 'CourseButtonActive' : ''}`}
                   >
-                      Итого
-                  </button>
-              </div>
+                    {course.course} Курс
+                  </div>
+                </button>
+              )
+            })}
           </div>
-          <hr className="HeaderDivider"
-              style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'}: {backgroundColor: 'var(--gray-100)'}}/>
-        {courseQuery !== 5 &&
-          <div className="MainTrajectoryFlex flex-row flex-block">
-            <TrajectoryStats className="Mobile" course={trajectory.courses.find(course => course.course === courseQuery)}/>
-            <div className="col-8 MobileBlock">
-              <div className={`mobileBottomWrapper`}>
-                <div className="BottomButtonsCurs">
-                  <button className="buttonCourse" onClick={openStatsModal}>
-                    Статистика по курсу
-                  </button>
-                </div>
-              </div>
-              <div className="flex-row flex-block pl-5 semesterSeason">
-                <div>
-                  <p className="flex-column flex-block TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-0-top-left'">Осенний
-                    семестр</p>
-                </div>
-                <div>
-                  <p className="flex-column flex-block TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-1-top-left'">Весенний
-                    семестр</p>
-                </div>
-              </div>
-
-              {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
-                return(
-                  <Card
-                    selectSelf={() => selectNewSphere(sphere.name)}
-                    sphere={sphere}
-                    selectedSphere={selectedSphere}
-                    // blockDisclosure="blockDisclosure"
-                    // isDisplayStateTool="isDisplayTool"
-                  />
-                )
-              })
-              }
-              <div style={{marginBottom: '100px'}}/>
-            </div>
-          </div>
-        }
-          {courseQuery === 5 &&
-              <Diploma />
-          }
-
-       {/*   <div className="isModalPromptActiv? '':'ModalNone'">*/}
-       {/*       <ModalTooltip*/}
-       {/*         v-if="isDisplayTool && +this.$route.query.course !== 5"*/}
-       {/*         handelClick="hideTooltip"*/}
-       {/*         countOfElement="isFirstTooltip ? [0]  [1]"*/}
-       {/*         position="isFirstTooltip ? 'rightTop'  'leftTop'"*/}
-       {/*         text="isFirstTooltip ? 'Здесь ты можешь увидеть все предметы 1 семестра )'*/}
-       {/*'А тут 2 семестра )'"*/}
-       {/*       />*/}
-       {/*   </div>*/}
-          {/*<RandomFeedback display-for-group="3" button=randomFeedback.firstOptionSelectButton*/}
-          {/*                title="Удобно ли тебе знакомиться с образовательной программой ?"/>*/}
-          {/*<RandomFeedback display-for-group="4" button=randomFeedback.secondOptionSelectButton*/}
-          {/*                title="Что-то на этой странице вызвало трудности? "/>*/}
+          <button
+            className="CourseButtonDiploma"
+            onClick={() => navigateToCourse(5)}
+          >
+            Итого
+          </button>
+        </div>
       </div>
-    )
+      <hr className="HeaderDivider"
+          style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>
+      {courseQuery !== 5 &&
+        <div className="MainTrajectoryFlex flex-row flex-block">
+          <TrajectoryStats
+            className="Mobile"
+            course={trajectory.courses.find(course => course.course === courseQuery)}
+          />
+          <div className="col-8 MobileBlock">
+            <div className={`mobileBottomWrapper`}>
+              <div className="BottomButtonsCurs">
+                <button className="buttonCourse" onClick={openStatsModal}>
+                  Статистика по курсу
+                </button>
+              </div>
+            </div>
+            <div className="flex-row flex-block pl-5 semesterSeason">
+              <div>
+                <p className="flex-column flex-block TrajectorySmallHeader mt-3"
+                   id="!checkMobi() && 'blob-0-top-left'">Осенний
+                  семестр</p>
+              </div>
+              <div>
+                <p className="flex-column flex-block TrajectorySmallHeader mt-3"
+                   id="!checkMobi() && 'blob-1-top-left'">Весенний
+                  семестр</p>
+              </div>
+            </div>
+
+            {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
+              return (
+                <Card
+                  key={sphere.name}
+                  selectSelf={() => selectNewSphere(sphere.name)}
+                  sphere={sphere}
+                  selectedSphere={selectedSphere}
+                  // blockDisclosure="blockDisclosure"
+                  // isDisplayStateTool="isDisplayTool"
+                />
+              )
+            })
+            }
+            <div style={{marginBottom: '100px'}}/>
+          </div>
+        </div>
+      }
+      {courseQuery === 5 &&
+        <Diploma/>
+      }
+
+      {/*   <div className="isModalPromptActiv? '':'ModalNone'">*/}
+      {/*       <ModalTooltip*/}
+      {/*         v-if="isDisplayTool && +this.$route.query.course !== 5"*/}
+      {/*         handelClick="hideTooltip"*/}
+      {/*         countOfElement="isFirstTooltip ? [0]  [1]"*/}
+      {/*         position="isFirstTooltip ? 'rightTop'  'leftTop'"*/}
+      {/*         text="isFirstTooltip ? 'Здесь ты можешь увидеть все предметы 1 семестра )'*/}
+      {/*'А тут 2 семестра )'"*/}
+      {/*       />*/}
+      {/*   </div>*/}
+      {/*<RandomFeedback display-for-group="3" button=randomFeedback.firstOptionSelectButton*/}
+      {/*                title="Удобно ли тебе знакомиться с образовательной программой ?"/>*/}
+      {/*<RandomFeedback display-for-group="4" button=randomFeedback.secondOptionSelectButton*/}
+      {/*                title="Что-то на этой странице вызвало трудности? "/>*/}
+    </div>
+  )
 };
 
 Trajectory.defaultProps = TrajectoryDefaultProps

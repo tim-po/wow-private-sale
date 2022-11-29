@@ -581,11 +581,11 @@
   width: 100%;
 }
 
-.professionsContainer {
+.professionContainer {
   transition: all 0.5s;
   /*position: relative;*/
   width: 100%;
-  max-width: 550px;
+  max-width: 490px;
   margin-right: 24px;
   /*min-width: 320px;*/
   flex-shrink: 2;
@@ -749,7 +749,7 @@
     margin-bottom: 20px;
   }
 
-  .professionsContainer {
+  .professionContainer {
     max-width: inherit;
     margin-right: inherit;
   }
@@ -767,7 +767,7 @@
     gap: 8px
   }
 
-  .professionsContainer .fontWeightBold {
+  .professionContainer .fontWeightBold {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;

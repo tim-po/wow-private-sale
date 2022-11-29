@@ -4,6 +4,7 @@ import {PresetType} from "../../types";
 import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
 import KeywordsModal from "../Modals/KeywordsModal";
+import Keyword from "../Keyword";
 
 type PresetPropType = {
   displayAdd?: boolean
@@ -63,12 +64,10 @@ const Preset = (props: PresetPropType) => {
         <div className="presetTitle">
           {preset.title}
         </div>
-        <div className="smallTitle">
+        <div className="keywordsContainer">
           {preset.keywords.slice(0, 5).map(keyword => {
             return (
-              <div className="keywordspreset">
-                {keyword.text}
-              </div>
+              <Keyword keyword={keyword} bgColor="#D8D7FE" />
             )
           })}
           {preset.keywords.length > 5 &&

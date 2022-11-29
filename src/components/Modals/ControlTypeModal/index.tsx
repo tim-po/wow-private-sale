@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import './index.scss'
 import {CountType} from "types";
+import VectorStroke from "../../../static/icons/vectorStroke";
 
 type ControlTypeModalPropType = {
   controlType: (CountType & { disciplines?: CountType[] })
@@ -36,13 +37,13 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
     <div className="disciplineModalContainer">
       <div className="ContainerNameButton">
         <h1 className="KeywordsModalHeader">{controlType.name}</h1>
-        <button className="VectorStroke" onMouseEnter={() => setIsTooltipActive(true)} onMouseLeave={() => setIsTooltipActive(false)}>
+        <VectorStroke className="VectorStroke" color={isTooltipActive? "#8533FF":""} onMouseEnter={() => setIsTooltipActive(true)} onMouseLeave={() => setIsTooltipActive(false)}>
           {isTooltipActive &&
             <div className="Prompt">
               {getTooltipMessage(controlType.name)}
             </div>
           }
-        </button>
+        </VectorStroke>
       </div>
       <div className="ExamModalContainer">
         <div className="KeywordsModalContent">

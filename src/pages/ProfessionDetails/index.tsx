@@ -13,8 +13,8 @@ import Keywords from "../../components/Keywords";
 import SkillSets from "../../components/SkillSets";
 import LoadingScreen from "../../components/LoadingScreen";
 import MagicWand from "../../static/icons/MagicWand";
-import fingerLike from "static/icons/fingerLike";
-import professionLamsIcon from "static/icons/professionLamsIcon";
+import FingerLike from "static/icons/fingerLike";
+import ProfessionLamsIcon from "static/icons/professionLamsIcon";
 
 // CONSTANTS
 
@@ -188,11 +188,11 @@ const ProfessionDetails = () => {
                 </div>
                 {presets.selected.length === 0 &&
                   <div className="lamp-icon">
-                    {professionLamsIcon()}
+                    <ProfessionLamsIcon/>
                   </div>
                 }
                 {presets.selected.length > 0 &&
-                  <div className="like">{fingerLike()}</div>
+                  <div className="like"><FingerLike/></div>
                 }
               </div>
               {/*<div*/}
@@ -219,7 +219,7 @@ const ProfessionDetails = () => {
                 </div>
                 {presets.selected.length > 0 &&
                   <div onClick={editSkillSets} className="edit-button">
-                    <div className="edit-button-icon"> {MagicWand()}</div>
+                    <div className="edit-button-icon"> <MagicWand/></div>
                     <span className="edit-button-text">Редактировать</span>
                   </div>
                 }

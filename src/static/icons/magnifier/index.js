@@ -1,7 +1,9 @@
 import React from "react";
 
 
-export default (width, height) => {
+export default (widthProps, heightProps) => {
+  const {width} = widthProps
+  const {height} = heightProps
   return (
     <svg width={width} height={height} viewBox="0 0 94 138" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

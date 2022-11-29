@@ -35,7 +35,7 @@ const ShareModal = (props: ShareModalPropType) => {
     <div className="shareModalContainer">
       <div className="shareModalHeaderContainer">
         <div>
-          {PicShareDeck()}
+          <PicShareDeck/>
         </div>
       </div>
       <div className="shareContent">

@@ -96,7 +96,7 @@ const Professions = () => {
         <div
           className={`ProfessionModalBottom ${isFeedbackPopupVisible ? 'profession__modal__bottomOn' : 'ProfessionModalBottomNon'}`}>
           <button className="CloseFeedback" onClick={() => setIsFeedbackPopupVisible(false)}>
-            {Close(10, 10)}
+            <Close width="10" height="10"/>
           </button>
           <span className="Text">Сервис работает в тестовом режиме, список профессий будет дополняться.
             <button

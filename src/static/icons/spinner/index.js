@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default (width, height, circleColor, spinnerColor) => {
+export default (props) => {
+  const {width, height, circleColor, spinnerColor} = props
   return (
     <svg className="loadingKeywords" width={width} height={height} viewBox="0 0 64 64"
          fill="#8533FF" xmlns="http://www.w3.org/2000/svg">
@@ -13,8 +14,7 @@ export default (width, height, circleColor, spinnerColor) => {
     </svg>
 
 
-    // TODO: replace return with your svg code
-    // TODO: put your svg code in "preview.svg" so anyone can easily preview your icon
+
   );
 };
 

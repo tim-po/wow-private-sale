@@ -60,7 +60,7 @@ const Preset = (props: PresetPropType) => {
                 className="pluse deck activ"
                 onClick={selectSelf}
               >
-                {Pluse()}
+                <Pluse/>
               </button>
             }
           </div>

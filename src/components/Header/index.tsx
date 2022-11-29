@@ -3,7 +3,7 @@ import './index.scss'
 import {useNavigate} from "react-router-dom";
 import BackButtonContext from "../../Context/BackButton";
 import HeaderContext from "../../Context/Header";
-import logo from "static/icons/logo";
+import Logo from "static/icons/logo";
 // @ts-ignore
 
 // CONSTANTS
@@ -63,7 +63,7 @@ const Header = (props: HeaderPropType) => {
         <div
           className={`Logo ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
         >
-          <div className="LogoImg" onClick={() => navigate('/professions')}>{logo()}</div>
+          <div className="LogoImg" onClick={() => navigate('/professions')}><Logo/></div>
           <h2 className="LogoText">ITMO.TRACK</h2>
         </div>
       </div>

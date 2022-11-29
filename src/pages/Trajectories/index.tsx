@@ -11,6 +11,7 @@ import './index.scss'
 import {allControllTypes, BASE_URL} from "../../constants";
 import Close from "../../static/icons/close";
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
+import ArrowRight from "../../static/icons/arrowRight";
 
 // CONSTANTS
 
@@ -135,8 +136,8 @@ const Trajectories = () => {
             </div>
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
-              <button className="ScrollBtn Right" onClick={scrollToRight}/>
-              <button className="ScrollBtn Left" onClick={scrollToLeft}/>
+              <button className="ScrollBtn Right" onClick={scrollToRight}> <ArrowRight props="right" /></button>
+              <button className="ScrollBtn Left" onClick={scrollToLeft}> <ArrowRight props="left" /></button>
               {trajectory.courses.map((course, index) => {
                 return (
                   <div

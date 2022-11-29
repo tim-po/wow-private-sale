@@ -134,7 +134,6 @@ hr {
 .VectorStroke {
   position: relative;
   border: none;
-  background: url("../../../static/VectorStroke.svg") no-repeat;
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -142,15 +141,8 @@ hr {
   outline: none !important;
 }
 
-.VectorStroke:hover {
-  transition: all .3s;
-  background: url("../../../static/VectorStroke.svg") no-repeat;
-}
 
-.VectorStroke:hover {
-  transition: all .3s;
-  background: url("../../../static/VectorStrokeHover.svg") no-repeat;;
-}
+
 
 .ListExamModal {
   width: 100%;

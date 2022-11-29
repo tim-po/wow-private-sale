@@ -3,12 +3,12 @@ import * as Scroll from 'react-scroll';
 import {Link} from "react-router-dom";
 import './index.scss'
 import BgContext from "../../Context/Background";
-import imgMainLetterB from "static/icons/imgMainLetterB";
-import imgMainLetterA from "../../static/icons/imgMainLetterA";
-import imgMainLetterC from "static/icons/imgMainLetterC";
-import stars from "../../static/icons/stars";
-import wave from "static/icons/wave";
-import landingBackground from "../../static/icons/landingBackground";
+import ImgMainLetterB from "static/icons/imgMainLetterB";
+import ImgMainLetterA from "../../static/icons/imgMainLetterA";
+import ImgMainLetterC from "static/icons/imgMainLetterC";
+import Stars from "../../static/icons/stars";
+import Wave from "static/icons/wave";
+import LandingBackground from "../../static/icons/landingBackground";
 
 // CONSTANTS
 
@@ -42,7 +42,7 @@ const Start = () => {
                 Переведем твои цели на язык дисциплин
               </h1>
               <div className="d-flex flex-column justify-content-center ImgMain StarsMobil">
-                {landingBackground()}
+                <LandingBackground/>
               </div>
               <div className="FlexButton">
                 <Link to="/professions" className="LinkProfession">
@@ -52,7 +52,7 @@ const Start = () => {
               </div>
             </div>
             <div className="d-flex flex-column justify-content-center ImgMain Stars">
-              {landingBackground()}
+              <LandingBackground/>
             </div>
           </div>
           <span className="HeaderSubtext">
@@ -62,7 +62,7 @@ const Start = () => {
         <section className="info LandingCardFlex" id="scrollToAbout">
           <div className="HelloCard mr-3">
             <div className="TextCenter">
-              <div className="hand-icon">{wave()}</div>
+              <div className="hand-icon"><Wave/></div>
             </div>
             <p className="HelloText">
               Мы понимаем, как сложно бывает выбрать образовательную программу.
@@ -75,21 +75,21 @@ const Start = () => {
               сформировать перечень курсов и дисциплин, ты можешь:
             </div>
             <div className="point-wrapper">
-              <div className='letter-icon'>{imgMainLetterA()}</div>
+              <div className='letter-icon'><ImgMainLetterA/></div>
                 <p className="InfoText">
                   Выбрать уже готовый набор ключевых слов
                   (список навыков и умений)
                 </p>
             </div>
             <div className="point-wrapper">
-              <div className="letter-icon">{imgMainLetterB()}</div>
+              <div className="letter-icon"><ImgMainLetterB/></div>
                 <p className="InfoText">
                   Изменить набор: убрать лишние или добавить важные
                   навыки и знания
                 </p>
             </div>
             <div className="point-wrapper">
-              <div className="letter-icon">{imgMainLetterC()}</div>
+              <div className="letter-icon"><ImgMainLetterC/></div>
                 <p className="InfoText">
                   Пройти тест на определение близких тебе профессий и записаться на консультацию
                 </p>
@@ -97,13 +97,13 @@ const Start = () => {
           </div>
         </section>
         <div className="FinalCard mt-3 d-flex">
-          <div className='Stars'>{stars()}</div>
+          <div className='Stars'><Stars/></div>
             <div className="mobilStar">
               <div className="FinalCardTitle">
                 На основе твоего выбора мы подберем учебную программу
               </div>
               <div className="FlexEducationalTrajectory">
-                <div className="StarsMobil">{stars()}</div>
+                <div className="StarsMobil"><Stars/></div>
               </div>
             </div>
         </div>

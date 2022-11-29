@@ -4,8 +4,9 @@ import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Preset from "../Preset";
-import illustration from "static/icons/illustration";
-import search from "static/icons/search";
+import Illustration from "static/icons/illustration";
+import Search from "static/icons/search";
+import ArrowRight from "../../static/icons/arrowRight";
 
 // CONSTANTS
 
@@ -95,28 +96,33 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         onScroll={(e) => shouldDrawScrollButton(e)}
       >
         {isRightArrowHidden &&
+
           <button
             className="scrollBtn right"
             onClick={scrollToRight}
-          />
+          >
+            <ArrowRight props="right" />
+          </button>
         }
         {selectedPresets.length > 0 &&
           <button
             className="scrollBtn left"
             style={{opacity: leftScrollPosition ? 1 : 0}}
             onClick={scrollToLeft}
-          />
+          >
+            <ArrowRight props="left"/>
+          </button>
         }
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
           <div className="blockMyPreset">
-            {search()}
+            <Search/>
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         }
         {selectedPresets.length === 0 && searchParams.get('view') === 'main' &&
           <div className="blockMyPreset main">
             <div className="imgPresets">
-              {illustration()}
+              <Illustration/>
             </div>
             <div className="prompt">
               <span>

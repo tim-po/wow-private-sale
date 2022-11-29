@@ -4,7 +4,8 @@ import React from "react";
 // If icon uses more than one adjustable color you can pass colors from props
 // BUT you must always provide default values for color props
 
-export default (color) => {
+export default (props) => {
+  const color = props
   return (
     <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

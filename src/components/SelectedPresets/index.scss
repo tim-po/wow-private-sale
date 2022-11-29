@@ -54,11 +54,11 @@
 }
 
 .scrollBtn {
+  overflow: hidden;
   transition: all 0.3s;
   padding: 0;
   position: absolute;
   background-color: #ffffff;
-  background-image: url("../../static/arrowRight.svg");
   background-repeat: no-repeat;
   background-position: center;
   z-index: 9;

@@ -50,7 +50,7 @@ const Keyword = (props: KeywordPropType) => {
       {deletable &&
         <button>
           <div className="deletedButton" onClick={deleteSelf}>
-            {Close(8.5, 8.5)}
+            <Close width={"8.5"} height={"8.5"}/>
           </div>
         </button>
         // />

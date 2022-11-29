@@ -132,8 +132,8 @@
   padding: 0;
   position: absolute;
   background-color: #ffffff;
-  background-image: url("../../static/arrowRight.svg");
   background-repeat: no-repeat;
+  overflow: hidden;
   background-position: center;
   z-index: 1000;
   right: 8px;

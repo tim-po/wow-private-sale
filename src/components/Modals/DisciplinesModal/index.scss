@@ -130,22 +130,6 @@ hr {
   margin-top: 12px;
 }
 
-.VectorStroke {
-  position: relative;
-  border: none;
-  background: url("../../../static/VectorStroke.svg") no-repeat;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  transition: all .3s;
-  outline: none !important;
-}
-
-.VectorStroke:hover {
-  transition: all .3s;
-  background: url("../../../static/VectorStroke.svg") no-repeat;
-}
-
 
 .ListExamModal {
   width: 100%;

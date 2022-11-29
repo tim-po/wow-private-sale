@@ -66,7 +66,7 @@ const Keywords = (props: KeywordsPropType) => {
           <div className="leftBlock">
             <div className="search">
               {/*<h4 id='blob-1-top-left' className="subheader top deckHidden">Добавь то, что хочешь изучить</h4>*/}
-              <div id="blob-1-top-left" className="subheader top deckHidden">
+              <div id="blob-1-top-left" className="subheader top">
                 <h4 className="subheader-title">Добавь то, что хочешь изучить</h4>
                 {keywords.added.length > 0 &&
                   <div className="subheader-counter">+{

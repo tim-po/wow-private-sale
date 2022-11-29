@@ -1,7 +1,19 @@
-import React, {useContext} from "react";
-import {TrajectoryType} from "../../types";
+import React, {useContext, useEffect, useState} from "react";
+import {ClassType, CourseType, TrajectoryType} from "../../types";
 import Diploma from "../Diploma";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import CourseSelector from "../../components/trajectory/CourseSelector";
+import BackButtonContext from "../../Context/BackButton";
+import BgContext from "../../Context/Background";
+import axios from "axios";
+import {BASE_URL} from "../../constants";
+import LoadingScreen from "../../components/LoadingScreen";
+import * as Scroll from "react-scroll";
+import ModalContext from "../../Context/Modal";
+import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
+import Card from "../../components/trajectory/Card";
+import './index.scss'
 
 // CONSTANTS
 
@@ -10,7 +22,6 @@ import {useSearchParams} from "react-router-dom";
 // TODO: copy this components directory and add your content to make a new page
 
 type TrajectoryPropType = {
-    trajectory: TrajectoryType
     somePropWithDefaultOption?: string
 }
 
@@ -19,99 +30,165 @@ const TrajectoryDefaultProps = {
 }
 
 const Trajectory = (props: TrajectoryPropType) => {
-    const {trajectory} = props;
     const [searchParams] = useSearchParams()
-    return (
+  const {displayModal} = useContext(ModalContext)
+  const navigate = useNavigate()
+  const {setBg} = useContext(BgContext)
+  const {setNewBackButtonProps} = useContext(BackButtonContext)
+  const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
+  const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
+  const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
+
+  const courseQuery = +(searchParams.get('course') || '1')
+
+  useEffect(() => {
+    let widthOfCourceLabel = 80
+    if (isMobile) {
+      widthOfCourceLabel = 44
+    }
+
+    const courseNumber = searchParams.get('course')
+    if (courseNumber === '5') {
+      setSelectorLeftOffset("calc(100% - 80px)")
+    }
+    setSelectorLeftOffset(`${(widthOfCourceLabel * (courseQuery - 1))}px`)
+  }, [isMobile, searchParams.get('course')]);
+
+  useEffect(() => {
+    setNewBackButtonProps("Все траектории", "modules/header/setHeaderText")
+    getTrajectory()
+    setBg('white')
+    // setTimeout(() => this.isDisplayTool = true, 1500)
+
+    let scroll = Scroll.animateScroll
+    scroll.scrollToTop();
+
+    // const localStore = localStorage.getItem("ModelWindow") + 1
+    // localStorage.setItem("ModelWindow", localStore);
+    // if (localStore !== 1) {
+    //   this.isModalPromptActiv = false
+    //   localStorage.setItem("ModelWindow", false);
+    // }
+  }, [])
+
+  const getTrajectory = () => {
+    axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
+      if (response.status === 200) {
+        setTrajectory(response.data)
+      }
+    })
+  }
+
+  if(!trajectory){
+    return <LoadingScreen isLoading={true} header={'Троаектория загружается'}/>
+  }
+
+  const navigateToCourse = (course: number) => {
+    if (courseQuery !== course) {
+      navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
+      if (course === 5) {
+        setBg('#F1F2F8')
+      } else {
+        setBg('white')
+      }
+    }
+  }
+
+  const selectNewSphere = (newSphereName: string) => {
+    if (selectedSphere === newSphereName) {
+      setSelectedSphere(undefined)
+    } else {
+      setSelectedSphere(newSphereName)
+    }
+  }
+
+  const openStatsModal = () => {
+    // displayModal(<TrajectoryStats/>)
+  }
+
+  const openDisciplineModal = () => {
+    // displayModal(<DisciplineModal/>)
+  }
+
+  return (
       <div className="TrajectoryPage">
-          {/*<div className="flex-row justify-content-between mb-0 align-items-center">*/}
-          {/*    <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>*/}
-          {/*    <div className="CoursesRow">*/}
-          {/*        <CourseSelector*/}
-          {/*          tor bgColor="courseNumberFromQuery === 5 ? '#FFFFFF': '#F3F3F8'" leftOffset="selectorLeftOffset"/>*/}
-          {/*        <div className="CoursesRowFirstFlex">*/}
-          {/*            <button*/}
-          {/*              className="{*/}
-          {/*    'CourseButtonActive': number === +$route.query.course,*/}
-          {/*  }"*/}
-          {/*              className="CourseButton"*/}
-          {/*              v-for="number in courses"*/}
-          {/*              key="number"*/}
-          {/*              onClick="navigateToCourse(number)"*/}
-          {/*            >*/}
-          {/*                <div className="Course"*/}
-          {/*                     className="{'CourseButtonActive': number === +$route.query.course, }">{{number}} Курс*/}
-          {/*                </div>*/}
-          {/*            </button>*/}
-          {/*        </div>*/}
-          {/*        <button*/}
-          {/*          className="CourseButtonDiploma"*/}
-          {/*          onClick="navigateToCourse(5)"*/}
-          {/*        >*/}
-          {/*            Итого*/}
-          {/*        </button>*/}
-          {/*    </div>*/}
-          {/*</div>*/}
-          {/*<hr className="HeaderDivider"*/}
-          {/*    style="courseNumberFromQuery === 5 ? {'background-color': '#FFFFFF'}: {'background-color': 'var(--gray-100)'}"/>*/}
-          {/*<div className="MainTrajectoryFlex" v-if="course && courseNumberFromQuery !== 5">*/}
-          {/*    <TrajectoryStats class="Mobile"/>*/}
-          {/*    <div className="col-8 MobileBlock">*/}
-          {/*        <div className={`mobileBottomWrapper ${isModalActive || discipline? 'ModalNone':''}`}>*/}
-          {/*            <div className="BottomButtonsCurs">*/}
-          {/*                <button className="buttonCourse" v-on:click="toggleModalStatistics">*/}
-          {/*                    Статистика по курсу*/}
-          {/*                </button>*/}
-          {/*            </div>*/}
-          {/*        </div>*/}
-          {/*        <div className="flex-row pl-5 semesterSeason">*/}
-          {/*            <div>*/}
-          {/*                <p className="flex-column TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-0-top-left'">Осенний*/}
-          {/*                    семестр</p>*/}
-          {/*            </div>*/}
-          {/*            <div>*/}
-          {/*                <p className="flex-column TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-1-top-left'">Весенний*/}
-          {/*                    семестр</p>*/}
-          {/*            </div>*/}
-          {/*        </div>*/}
+          <div className="flex-block flex-row justify-content-between mb-0 align-items-center">
+              <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
+              <div className="CoursesRow">
+                  <CourseSelector
+                    bgColor={searchParams.get('course') === '5' ? '#FFFFFF': '#F3F3F8'}
+                    leftOffset={selectorLeftOffset}
+                  />
+                  <div className="CoursesRowFirstFlex">
+                    {trajectory.courses.map((course) => {
+                      return (
+                        <button
+                          className={`CourseButton ${course.course === courseQuery ? 'CourseButtonActive': ''}`}
+                          key="number"
+                          onClick={() => navigateToCourse(course.course)}
+                        >
+                          <div
+                            className={`Course ${course.course === courseQuery ? 'CourseButtonActive': ''}`}
+                          >
+                            {course.course} Курс
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <button
+                    className="CourseButtonDiploma"
+                    onClick={() => navigateToCourse(5)}
+                  >
+                      Итого
+                  </button>
+              </div>
+          </div>
+          <hr className="HeaderDivider"
+              style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'}: {backgroundColor: 'var(--gray-100)'}}/>
+        {courseQuery !== 5 &&
+          <div className="MainTrajectoryFlex flex-row flex-block">
+            <TrajectoryStats className="Mobile" course={trajectory.courses.find(course => course.course === courseQuery)}/>
+            <div className="col-8 MobileBlock">
+              <div className={`mobileBottomWrapper`}>
+                <div className="BottomButtonsCurs">
+                  <button className="buttonCourse" onClick={openStatsModal}>
+                    Статистика по курсу
+                  </button>
+                </div>
+              </div>
+              <div className="flex-row flex-block pl-5 semesterSeason">
+                <div>
+                  <p className="flex-column flex-block TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-0-top-left'">Осенний
+                    семестр</p>
+                </div>
+                <div>
+                  <p className="flex-column flex-block TrajectorySmallHeader mt-3" id="!checkMobi() && 'blob-1-top-left'">Весенний
+                    семестр</p>
+                </div>
+              </div>
 
-                  {/*<Card class="ClassCard"*/}
-                  {/*      onselectNewSphere="selectNewSphere(sphere.name)"*/}
-                  {/*      v-for="sphere in course.classes"*/}
-                  {/*      sphere="sphere"*/}
-                  {/*      onfunctionSemesterSwitching="semesterSwitching()"*/}
-                  {/*      selectedSphere="selectedSphere"*/}
-                  {/*      blockDisclosure="blockDisclosure"*/}
-                  {/*      isDisplayStateTool="isDisplayTool"*/}
-                  {/*      style="'background:' + colors[sphere.name]"/>*/}
-          {/*        <div style={{marginBottom: '100px'}}/>*/}
-          {/*    </div>*/}
-          {/*</div>*/}
-          {/*{searchParams.get('course') === '5' &&*/}
-          {/*    <Diploma />*/}
-          {/*}*/}
-          {/*<div>*/}
-          {/*    <GenericModalComponent*/}
-          {/*      maxHeight="true"*/}
-          {/*      modal="isModalActive"*/}
-          {/*      colorCloseWhite="false"*/}
-          {/*      hideMobile="false"*/}
-          {/*      hideDesktop="false"*/}
-          {/*      onmodalClose="toggleModalStatistics()">*/}
+              {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
+                return(
+                  <Card
+                    selectSelf={() => selectNewSphere(sphere.name)}
+                    sphere={sphere}
+                    selectedSphere={selectedSphere}
+                    // blockDisclosure="blockDisclosure"
+                    // isDisplayStateTool="isDisplayTool"
+                  />
+                )
+              })
+              }
+              <div style={{marginBottom: '100px'}}/>
+            </div>
+          </div>
+        }
+          {courseQuery === 5 &&
+              <Diploma />
+          }
 
-          {/*        <TrajectoryStats/>*/}
-          {/*    </GenericModalComponent>*/}
-          {/*</div>*/}
-          {/*<GenericModalComponent*/}
-          {/*  onmodalClose="deselectModalDiscipline()"*/}
-          {/*  modal="(!!discipline)"*/}
-          {/*  colorCloseWhite="true"*/}
-          {/*  hideMobile="false"*/}
-          {/*  hideDesktop="false"*/}
-          {/*>*/}
-          {/*    <DisciplineModal/>*/}
-          {/*</GenericModalComponent>*/}
-
-          {/*<div className="isModalPromptActiv? '':'ModalNone'">*/}
+       {/*   <div className="isModalPromptActiv? '':'ModalNone'">*/}
        {/*       <ModalTooltip*/}
        {/*         v-if="isDisplayTool && +this.$route.query.course !== 5"*/}
        {/*         handelClick="hideTooltip"*/}

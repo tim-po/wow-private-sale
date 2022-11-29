@@ -36,7 +36,7 @@ export const useProfession = (id: string) => {
     const response = await axios.get(`${BASE_URL}presets/`)
     setPresets(response.data)
 
-    const {selectedPresetIds} = withLocalStorage({selectedPresetIds: []}, LocalStorageInteraction.load)
+    const selectedPresetIds = withLocalStorage({selectedPresetIds: []}, LocalStorageInteraction.load).selectedPresetIds
     setSelectedPresetIds(selectedPresetIds)
   }
 

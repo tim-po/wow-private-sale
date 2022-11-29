@@ -7,6 +7,13 @@ export const COLORS_BY_CATEGORY: {[key: string]: string} = {
   'Art & Science': 'var(--color-4-light)',
 }
 
+export const allControllTypes = [
+  "Экзамен",
+  "Зачет",
+  "Дифференцированный зачет",
+  "Курсовая работа"
+]
+
 export const colors: { [key: string]: string } = {
   "программирование и информационные технологии": "#7BA3E7",
   "soft-skills": "#F49987",

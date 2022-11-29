@@ -8,17 +8,11 @@ import {CourseType, TrajectoryType} from "../../types";
 import PercentProgress from "../../components/PercentProgress";
 import ControlTypeTile from "../../components/ControlTypeTile";
 import './index.scss'
+import {allControllTypes, BASE_URL} from "../../constants";
 import Close from "../../static/icons/close";
-import {BASE_URL} from "../../constants";
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 
 // CONSTANTS
-const allControllTypes = [
-  "Экзамен",
-  "Зачет",
-  "Дифференцированный зачет",
-  "Курсовая работа"
-]
 
 const randomFeedback = {
   firstOptionSelectButton: ['Ничего не подошло 🥲️', 'Странные теги 🤔', 'Мало информации  🤨', 'Отлично 👌'],

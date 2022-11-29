@@ -140,7 +140,7 @@ const ProfessionDetails = () => {
       </div>
       {searchParams.get('view') === 'main' &&
         <div className="keywordsCustomisationFlex">
-          <div className="professionsContainer">
+          <div className="professionContainer">
             <div className="professionDescription">
               <p className="subheader subheader-mobile">Описание</p>
               <div className="keywords__card">

@@ -18,7 +18,7 @@ type CardPropType = {
 const CardDefaultProps = {}
 
 const Card = (props: CardPropType) => {
-  
+
   const {displayModal} = useContext(ModalContext)
 
   const {selectSelf, selectedSphere, sphere} = props;
@@ -65,6 +65,7 @@ const Card = (props: CardPropType) => {
           />
         </button>
       </div>
+      <div className="bodyCard">
       <div className="Semester">
         <p className="TrajectorySmallHeader">Осень</p>
         <p className="TrajectorySmallHeader">Весна</p>
@@ -137,6 +138,7 @@ const Card = (props: CardPropType) => {
             </div>
           )
         })}
+      </div>
       </div>
     </div>
   )

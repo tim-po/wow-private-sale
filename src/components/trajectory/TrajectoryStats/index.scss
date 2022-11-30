@@ -1,5 +1,6 @@
 
 .StatsContainer{
+  min-width: 444px;
   border-radius: 16px;
   background: white;
   padding: 16px;
@@ -112,6 +113,9 @@
 
 
 @media screen and (max-width: 1000px) {
+  .StatsContainer{
+    min-width: inherit;
+  }
   .DisciplinesNecessityFlex{
     font-family: 'Inter';
     font-style: normal;

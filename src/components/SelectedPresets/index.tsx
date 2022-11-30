@@ -36,11 +36,11 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
       const container = document.querySelector('.selectedPresetsContainer')
       let sumOfCarouselCards = 0;
       setTimeout(() => {
-        carousel.querySelectorAll('.leftSlide > .flexPreset').forEach(elem => {
+        carousel.querySelectorAll('.leftSlide > .preset').forEach(elem => {
           // @ts-ignore
-          sumOfCarouselCards = sumOfCarouselCards + elem.offsetWidth;
+          sumOfCarouselCards = sumOfCarouselCards + elem.clientWidth;
           // @ts-ignore
-          setIsRightArrowHidden(sumOfCarouselCards > container.offsetWidth)
+          setIsRightArrowHidden(sumOfCarouselCards > container.clientWidth)
         });
       }, 200)
     }
@@ -88,23 +88,20 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   return (
     <div className="selectedPresetsContainer">
       <div
-        className={`leftSlide ${isHidden ? 'hidden' : ''}`}
+        className={`leftSlide ${isHidden ? 'hidden' : ''} ${!isRightArrowHidden ? 'hidden-right' : ''}`}
         onLoad={(e) => shouldDrawScrollButton(e)}
         onScroll={(e) => shouldDrawScrollButton(e)}
       >
-        {isRightArrowHidden &&
           <button
             className="scrollBtn right"
             onClick={scrollToRight}
           />
-        }
-        {selectedPresets.length > 0 &&
           <button
             className="scrollBtn left"
             style={{opacity: leftScrollPosition ? 1 : 0}}
             onClick={scrollToLeft}
           />
-        }
+
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
           <div className="blockMyPreset">
             <img src="/static/search.svg"/>
@@ -132,11 +129,9 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             <Preset
               key={preset.title}
               displayAdd={false}
-              onClick={() => {
-                if (deletePreset) {
-                  deletePreset(preset.id)
-                }
-              }}
+              onClick={deletePreset ? () => {
+                deletePreset(preset.id)
+              }: undefined}
               preset={preset}
             />
           )

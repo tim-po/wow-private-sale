@@ -80,7 +80,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   if (!trajectory) {
-    return <LoadingScreen isLoading={true} header={'Троаектория загружается'}/>
+    return <LoadingScreen isLoading={true} header={'Траектория загружается'}/>
   }
 
   const navigateToCourse = (course: number) => {

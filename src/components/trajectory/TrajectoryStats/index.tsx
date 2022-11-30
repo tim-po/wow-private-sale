@@ -1,11 +1,12 @@
 import React, {useContext, useState} from "react";
 import './index.scss'
 import {isMobile} from "react-device-detect";
-import {CourseType} from "../../../types";
+import {CountType, CourseType} from "../../../types";
 import {hierarchy, pack} from "d3-hierarchy";
 import {allControllTypes, colors} from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
 import ModalContext from "../../../Context/Modal";
+import ControlTypeModal from "../../Modals/ControlTypeModal";
 
 
 // CONSTANTS
@@ -125,9 +126,11 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
     return {x: xTrans, y: yTrans}
   }
+
   const isFocusedOnCircleOf = (klass: any) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name
   }
+
   const focusOnCircle = (klass: any) => {
     if (focusedCircle === undefined) {
       setFocusedCircle(klass)
@@ -139,11 +142,19 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   }
 
   const openNecessaryDisciplinesModal = () => {
-    // displayModal(<ListOfExams name="Обязательные" list="getList.necessary.disciplines"/>)
+    if (course) {
+      const necessaryDiscipline: (CountType & { disciplines?: string[] }) = course.necessity_count.filter(discipline => discipline.name === 'necessary')[0]
+      displayModal(<ControlTypeModal controlType={necessaryDiscipline} />)
+    }
   }
+
   const openChosenDisciplinesModal = () => {
-    // displayModal(<ListOfExams name="По выбору" list="getList.chosen.disciplines"/>)
+    if (course) {
+      const chosenDiscipline: (CountType & {disciplines? : string[]}) = course.necessity_count.filter(discipline => discipline.name === 'chosen')[0]
+      displayModal(<ControlTypeModal controlType={chosenDiscipline} />)
+    }
   }
+
   return (
     <div className={`StatsContainer ${className}`}>
       <div className="MainHeader">Статистика</div>
@@ -161,7 +172,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
                   setFocusedCircle(klass)
                 }}
                 onMouseLeave={(e) => {
-                  console.log(focusedCircle, klass)
                   if (focusedCircle.data.name === klass.data.name) {
                     setFocusedCircle(undefined)
                   }
@@ -209,7 +219,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       <h6 className="mt-4 disciplines">Дисциплины</h6>
       <div className="DisciplinesNecessityCol TrajectoryCard mt-1 marginMobil">
         <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().necessary > 0 ? '' : 'notActive'}`}
+          className={`DisciplinesNecessityFlex ${getNecessityCount().necessary ? '' : 'notActive'}`}
           onClick={openNecessaryDisciplinesModal}
         >
           <button className="HoverDisciplinesNecessityFlex">
@@ -220,7 +230,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         </span>
         </div>
         <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().chosen > 0 ? '' : 'notActive'}`}
+          className={`DisciplinesNecessityFlex ${getNecessityCount().chosen ? '' : 'notActive'}`}
           onClick={openChosenDisciplinesModal}
         >
           <button className="HoverDisciplinesNecessityFlex">

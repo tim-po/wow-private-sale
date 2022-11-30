@@ -25,7 +25,7 @@ const ControlTypeTile = (props: ControlTypeTilePropType) => {
     const {displayModal} = useContext(ModalContext)
 
     const openModal = () => {
-      if(controlType.disciplines && controlType.disciplines.length > 0) {
+      if(controlType.disciplines && controlType.disciplines.length) {
         displayModal(<ControlTypeModal controlType={controlType}/>)
       }
     }

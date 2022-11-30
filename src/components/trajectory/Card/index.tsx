@@ -2,6 +2,8 @@ import React, {useContext, useState} from "react";
 import './index.scss'
 import {ClassType, CourseType, DisciplineType} from "../../../types";
 import {colors} from "../../../constants";
+import TrajectoryDisciplineModal from "../../Modals/TrajectoryDisciplineModal";
+import ModalContext from "../../../Context/Modal";
 
 // CONSTANTS
 
@@ -16,6 +18,8 @@ type CardPropType = {
 const CardDefaultProps = {}
 
 const Card = (props: CardPropType) => {
+  
+  const {displayModal} = useContext(ModalContext)
 
   const {selectSelf, selectedSphere, sphere} = props;
   const getArrowDisciplineNames = (sphere: ClassType) => {
@@ -91,6 +95,7 @@ const Card = (props: CardPropType) => {
                     >
                       <div
                         className="DisciplineCardWrapper"
+                        onClick={() => displayModal(<TrajectoryDisciplineModal id={discipline.id} />)}
                         // onClick="(index === blockDisclosure || width > 1000)? getModals(discipline.id):''"
                       >
                         <div className="DisciplineCard">

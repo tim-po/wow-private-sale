@@ -1,7 +1,18 @@
-.magnifier {
-  .rays {
-    animation: 2s cubic-bezier(0.49, 0.39, 1, 0.27) infinite alternate motionAnimationRays;
+.magnifierWrap {
+    .rays {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: 1s linear infinite alternate motionAnimationRaysA;
+
   }
 }
 
 
+@keyframes motionAnimationRaysA {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}

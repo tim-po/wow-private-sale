@@ -4,7 +4,8 @@ import "./animation.scss"
 export default (props) => {
   const {width, height} = props
   return (
-    <svg width={width? width:'94'} height={height? height:'138'} viewBox="0 0 94 138" className="magnifier" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width? width:'94'} height={height? height:'138'} viewBox="0 0 94 138" className="magnifierWrap" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g className="magnifier">
       <path
         d="M32.5576 90.0778C26.8843 94.9639 2.7729 99.85 1 98.3466C6.67328 120.522 25.466 137.06 27.5935 137.06C29.2955 137.06 42.0131 127.789 48.1591 123.153C44.8497 116.012 37.0962 99.399 32.5576 90.0778Z"
         fill="#8533FF" stroke="#1F1F22" strokeWidth="0.755256" />
@@ -33,6 +34,7 @@ export default (props) => {
         className="rays"
         d="M40.0038 40.8406C38.94 40.8406 30.0755 42.3441 30.7847 46.1026M42.1313 46.1026C41.0675 46.1026 36.458 51.3646 38.2309 54.7473M76.8801 10.0205C77.2347 9.26881 79.0076 1 82.9079 1M80.0713 15.2825C81.135 14.1549 86.0992 8.14125 89.2904 10.0205"
         stroke="#F9CF6B" strokeWidth="1.51051" strokeLinecap="round" />
+      </g>
     </svg>
 
   );

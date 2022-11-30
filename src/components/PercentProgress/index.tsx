@@ -22,8 +22,6 @@ const PercentProgress = (props: PercentProgressPropType) => {
     setTimeout(() => {
       if (31 * percent + 2 > count)
         setCount( count + 1);
-
-
     }, 20);
   },[count])
 

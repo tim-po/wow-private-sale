@@ -134,14 +134,14 @@
 
 .keywordsModalAddKeywords::-webkit-scrollbar,
 .keywordsAdded::-webkit-scrollbar,
-.keywords__required::-webkit-scrollbar {
+.keywordsRequired::-webkit-scrollbar {
   width: 6px;
   background: rgba(243, 243, 248, 0.5);
 }
 
 .keywordsModalAddKeywords::-webkit-scrollbar-thumb,
 .keywordsAdded::-webkit-scrollbar-thumb,
-.keywords__required::-webkit-scrollbar-thumb {
+.keywordsRequired::-webkit-scrollbar-thumb {
   background: #e7e8ee;
   border-radius: 6px;
 }
@@ -167,6 +167,7 @@
   position: absolute;
   width: 100%;
   overflow: auto;
+  gap: 8px;
 }
 
 .addKeywordsSearch.extended {

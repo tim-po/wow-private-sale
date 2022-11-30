@@ -240,7 +240,7 @@ const ProfessionDetails = () => {
                   <span className="edit-button-text">Редактировать</span>
                 </div>
               </div>
-              <div className="keywords__required" id="blob-0-bottom-right">
+              <div className="keywordsRequired" id="blob-0-bottom-right">
                 {(!profession || !profession.related_keywords.length) &&
                   <>
                     {makeEmptyList(20).map(index => {

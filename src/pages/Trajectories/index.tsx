@@ -136,7 +136,7 @@ const Trajectories = () => {
               {trajectory.courses.map((course, index) => {
                 return (
                   <div
-                    className={`CourseCard mr-3 trajectories-bg-${index}`}
+                    className={`CourseCard trajectories-bg-${index}`}
                     key="index"
                     onClick={() => trajectoryChosen(trajectory, index + 1)}
                   >

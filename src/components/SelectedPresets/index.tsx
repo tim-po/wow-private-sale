@@ -130,7 +130,8 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         {selectedPresets.map(preset => {
           return(
             <Preset
-              displayAdd={deletePreset !== undefined}
+              key={preset.title}
+              displayAdd={false}
               onClick={() => {
                 if (deletePreset) {
                   deletePreset(preset.id)

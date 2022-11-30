@@ -359,6 +359,9 @@
                   .discipline-card-name {
                     transition: all 0.2s;
                     padding-left: 20px;
+                    span{
+                      opacity: 0;
+                    }
                   }
                 }
 

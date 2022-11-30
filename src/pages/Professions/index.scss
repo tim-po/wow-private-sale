@@ -111,6 +111,10 @@
 
 @media screen and (max-width: 433px) {
 
+
+}
+
+@media screen and (max-width: 570px) {
   .ProfessionsPageContainer {
     .ProfessionsContainer {
       .CardHeaderWidth {
@@ -119,31 +123,14 @@
       }
       .ProfessionContainer {
         margin-bottom: 24px;
+        .skeleton {
+          width: 325px;
+          height: 365px;
+        }
         .ProfessionCardButton {
           min-width: 340px;
           max-width: 100%;
 
-        }
-      }
-
-    }
-  }
-
-
-
-
-
-
-
-}
-
-@media screen and (max-width: 560px) {
-  .ProfessionsPageContainer {
-    .ProfessionsContainer {
-      .ProfessionContainer {
-        .skeleton {
-          width: 325px;
-          height: 365px;
         }
       }
       .ProfessionModalBottom {
@@ -177,16 +164,7 @@
 }
 
 @media screen and (max-width: 410px) {
-  .ProfessionsPageContainer {
-    .ProfessionsContainer {
-      .ProfessionContainer {
-        .ProfessionCardButton {
-          min-width: 320px;
-
-        }
-      }
-
-    }
+  .ProfessionCardButton {
+    min-width: 320px;
   }
-
 }

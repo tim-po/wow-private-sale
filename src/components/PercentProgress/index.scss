@@ -1,1 +1,5 @@
-.PercentProgress{}
+.PercentProgress{
+  .progress-bar{
+    transition: all 0.3s
+  }
+}

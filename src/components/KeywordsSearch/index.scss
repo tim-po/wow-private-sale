@@ -134,14 +134,14 @@
 
 .keywordsModalAddKeywords::-webkit-scrollbar,
 .keywordsAdded::-webkit-scrollbar,
-.keywords__required::-webkit-scrollbar {
+.keywordsRequired::-webkit-scrollbar {
   width: 6px;
   background: rgba(243, 243, 248, 0.5);
 }
 
 .keywordsModalAddKeywords::-webkit-scrollbar-thumb,
 .keywordsAdded::-webkit-scrollbar-thumb,
-.keywords__required::-webkit-scrollbar-thumb {
+.keywordsRequired::-webkit-scrollbar-thumb {
   background: #e7e8ee;
   border-radius: 6px;
 }
@@ -160,13 +160,14 @@
   margin-top: 8px;
   border-radius: 16px;
   margin-bottom: 20px;
-  border: 1px solid rgba(231, 232, 238, 0);
+  border: 0px solid rgba(231, 232, 238, 0);
   /*background: white;*/
   padding: 0px 16px;
   z-index: 10;
   position: absolute;
   width: 100%;
   overflow: auto;
+  gap: 8px;
 }
 
 .addKeywordsSearch.extended {
@@ -237,7 +238,7 @@
     /*top: inherit;*/
     /*bottom: 174px;*/
     z-index: 20;
-    top: 90px;
+    //top: 90px;
     bottom: 200px;
   }
 

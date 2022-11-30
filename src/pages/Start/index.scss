@@ -2,128 +2,237 @@
   display: flex;
   justify-content: center;
 
-  .Landing {
-    max-width: 1920px;
-    min-height: 100vh;
-    margin-top: 24px;
+}
 
-    .LandingCardFlex {
+.Landing {
+  max-width: 1920px;
+  min-height: 100vh;
+  margin-top: 24px;
+
+  .LandingCardFlex {
+    display: flex;
+    justify-content: space-around;
+
+    .InfoCard {
+      border-radius: 20px;
+      background: white;
+      padding: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .InfoTitle {
+      max-width: 700px;
+      font-weight: 500;
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+
+    .HelloCard {
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
+      align-items: center;
+      padding: 70px 30px;
+      justify-content: center;
+      border-radius: 20px;
+      background: var(--color-5-dark);
+      width: 540px;
+      margin-bottom: 20px;
 
-      .InfoCard {
-        border-radius: 20px;
-        background: white;
-        padding: 2.5rem;
-        margin-bottom: 20px;
-      }
-
-      .InfoTitle {
-        max-width: 700px;
+      .HelloText {
+        margin-top: 50px;
         font-weight: 500;
         font-size: 24px;
-        margin-bottom: 40px;
+        color: white;
+      }
+    }
+
+    .point-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 24px;
+
+      .InfoText {
+        font-weight: 500;
+        font-size: 20px;
+      }
+
+      .letter-icon {
+        margin-right: 10px;
+      }
+
+    }
+
+    &.FirstBlock {
+      max-width: 1500px;
+
+
+      .Desires {
+        flex-grow: 4;
+
+        .ImgMain {
+          margin-bottom: 30px;
+        }
+
+        .MainTitle {
+          font-weight: 800;
+          font-size: 64px;
+          margin-bottom: 56px;
+          max-width: 600px;
+        }
+
+        .FlexButton {
+          margin-bottom: 40px;
+          display: flex;
+          gap: 24px;
+
+          .SecondaryButton {
+            color: var(--color-5-dark);
+            border-radius: 8px;
+            padding: 20px 34px;
+            background: white;
+            border: 1px solid var(--color-5-dark);
+            transition: 0.3s;
+            font-weight: 500;
+            font-size: 20px;
+
+            &:hover {
+              background: #F3F3FE;
+              color: #AE78FE;
+            }
+
+            &:active {
+              background: #F3F3FE;
+              color: #7328E2;
+            }
+          }
+
+          .MainButton {
+            transition: 0.3s;
+            align-self: center;
+            background: var(--color-5-dark);
+            color: white;
+            font-weight: 500;
+            font-size: 20px;
+            border: 0;
+            border-radius: 8px;
+            padding: 20px 44px;
+
+            &:hover {
+              background: #AE78FE;
+              color: white;
+            }
+
+            &:active {
+              background: #7328E2;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .LandingCard {
+    background: white;
+    border-radius: 1.25rem;
+    padding: 70px 51px 55px 4rem;
+    margin-bottom: 20px;
+
+    .HeaderSubtext {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 20px;
+      color: var(--text-secondary);
+    }
+  }
+
+  .FinalCard {
+    align-items: center;
+    border-radius: 20px;
+    background: white;
+    padding: 2rem;
+
+    .FinalCardTitle {
+      font-weight: 500;
+      font-size: 22px;
+    }
+  }
+
+  .Stars {
+    margin-right: 23px;
+  }
+
+  .StarsMobil {
+    display: none !important;
+  }
+}
+
+
+@media screen and (max-width: 988px) {
+  .Landing {
+    .LandingCardFlex {
+      display: inherit;
+
+      .InfoTitle {
+        margin-bottom: 24px;
       }
 
       .HelloCard {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 70px 30px;
-        justify-content: center;
-        border-radius: 20px;
-        background: var(--color-5-dark);
-        width: 540px;
+        padding: 20px;
+        width: 100%;
+        margin-right: inherit !important;
         margin-bottom: 20px;
 
-        .HelloText {
-          margin-top: 50px;
-          font-weight: 500;
-          font-size: 24px;
-          color: white;
-        }
       }
 
-      .point-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        margin-bottom: 24px;
-
-        .InfoText {
-          font-weight: 500;
-          font-size: 20px;
-        }
-
-        .letter-icon {
-          margin-right: 10px;
-        }
-
-      }
 
       &.FirstBlock {
-        max-width: 1500px;
-
-
         .Desires {
-          flex-grow: 4;
-
           .ImgMain {
-            margin-bottom: 30px;
+            align-content: center;
+            align-items: center;
+
+            .ImgMain img {
+              width: 184px;
+              height: 194px;
+            }
           }
 
           .MainTitle {
-            font-weight: 800;
-            font-size: 64px;
-            margin-bottom: 56px;
-            max-width: 600px;
+            margin-bottom: 45px;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 30px;
+            text-align: center;
+            max-width: 100%;
           }
 
           .FlexButton {
             margin-bottom: 40px;
             display: flex;
-            gap: 24px;
+            justify-content: center;
+            gap: 10px;
+
+            .LinkProfession {
+              height: fit-content;
+              text-align: center;
+            }
+
             .SecondaryButton {
-              color: var(--color-5-dark);
-              border-radius: 8px;
-              padding: 20px 34px;
-              background: white;
-              border: 1px solid var(--color-5-dark);
-              transition: 0.3s;
-              font-weight: 500;
-              font-size: 20px;
-
-              &:hover {
-                background: #F3F3FE;
-                color: #AE78FE;
-              }
-
-              &:active {
-                background: #F3F3FE;
-                color: #7328E2;
-              }
+              font-size: 17px;
+              padding: 12px 10px;
             }
 
             .MainButton {
-              transition: 0.3s;
-              align-self: center;
-              background: var(--color-5-dark);
-              color: white;
-              font-weight: 500;
-              font-size: 20px;
-              border: 0;
-              border-radius: 8px;
-              padding: 20px 44px;
+              width: 104px;
+              font-size: 17px;
+              padding: 12px 10px;
 
-              &:hover {
-                background: #AE78FE;
-                color: white;
-              }
-
-              &:active {
-                background: #7328E2;
-                color: white;
-              }
             }
           }
         }
@@ -131,258 +240,133 @@
     }
 
     .LandingCard {
-      background: white;
-      border-radius: 1.25rem;
-      padding: 70px 51px 55px 4rem;
-      margin-bottom: 20px;
+      padding: 20px 14px;
 
       .HeaderSubtext {
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
-        font-size: 20px;
+        font-size: 14px;
         line-height: 20px;
-        color: var(--text-secondary);
-      }
-    }
-
-    .FinalCard {
-      align-items: center;
-      border-radius: 20px;
-      background: white;
-      padding: 2rem;
-
-      .FinalCardTitle {
-        font-weight: 500;
-        font-size: 22px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
       }
     }
 
     .Stars {
-      margin-right: 23px;
+      display: none !important;
     }
 
     .StarsMobil {
-      display: none!important;
+      display: inherit !important;
+
+      img {
+        width: 50%;
+      }
     }
   }
-}
 
-
-@media screen and (max-width: 988px) {
-  .ContainerLanding {
-    .Landing {
-      .LandingCardFlex {
-        display: inherit;
-
-        .InfoTitle {
-          margin-bottom: 24px;
-        }
-
-        .HelloCard {
-          padding: 20px;
-          width: 100%;
-          margin-right: inherit !important;
-          margin-bottom: 20px;
-
-        }
-
-
-        &.FirstBlock {
-          .Desires {
-            .ImgMain {
-              align-content: center;
-              align-items: center;
-
-              .ImgMain img {
-                width: 184px;
-                height: 194px;
-              }
-            }
-
-            .MainTitle {
-              margin-bottom: 45px;
-              font-family: 'Inter';
-              font-style: normal;
-              font-weight: 700;
-              font-size: 24px;
-              line-height: 30px;
-              text-align: center;
-              max-width: 100%;
-            }
-
-            .FlexButton {
-              margin-bottom: 40px;
-              display: flex;
-              justify-content: center;
-              gap: 10px;
-              .LinkProfession {
-                height: fit-content;
-              }
-              .SecondaryButton {
-                font-size: 17px;
-                padding: 12px 10px;
-              }
-              .MainButton {
-                width: 104px;
-                font-size: 17px;
-                padding: 12px 10px;
-
-              }
-            }
-          }
-        }
-      }
-
-      .LandingCard {
-        padding: 20px 14px;
-
-        .HeaderSubtext {
-          font-family: 'Inter';
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 20px;
-          display: flex;
-          text-align: center;
-          justify-content: center;
-        }
-      }
-
-      .Stars {
-        display: none!important;
-      }
-
-      .StarsMobil {
-        display: inherit!important;
-        img{
-          width: 50%;
-        }
-      }
+  .FinalCard {
+    .FlexEducationalTrajectory {
+      display: flex;
     }
-    .FinalCard{
-      .FlexEducationalTrajectory {
-        display: flex;
-      }
-      .mobilStar {
-        display: flex;
-      }
+
+    .mobilStar {
+      display: flex;
     }
   }
 
 }
 
 @media screen and (max-width: 724px) {
-  .ContainerLanding {
+  .Landing {
 
-    .Landing {
+    .LandingCardFlex {
 
-      .LandingCardFlex {
+      .InfoTitle {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 24px;
+      }
 
-        .InfoTitle {
+      .HelloCard {
+        width: 100%;
+
+        .HelloText {
           font-weight: 500;
           font-size: 16px;
           line-height: 22px;
-          margin-bottom: 24px;
+          text-align: center;
+          margin-top: 35px;
         }
+      }
 
-        .HelloCard {
-          width: 100%;
+      .point-wrapper {
 
-          .HelloText {
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 22px;
-            text-align: center;
-            margin-top: 35px;
+        .InfoText {
+          margin-left: 0.5rem !important;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+
+      &.FirstBlock {
+        .Desires {
+          .MainTitle {
+            font-size: 24px;
+            margin-bottom: 42px;
           }
-        }
 
-        .point-wrapper {
-
-          .InfoText {
-            margin-left: 0.5rem !important;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-          }
-        }
-
-        &.FirstBlock {
-          .Desires {
-            .MainTitle {
-              font-size: 24px;
-              margin-bottom: 42px;
+          .FlexButton {
+            .SecondaryButton {
+              width: 104px;
+              font-size: 14px;
             }
 
-            .FlexButton {
-              .SecondaryButton {
-                width: 104px;
-                font-size: 14px;
-              }
+            .MainButton {
+              width: 104px;
+              font-size: 14px;
+              margin-right: inherit !important;
 
-              .MainButton {
-                width: 104px;
-                font-size: 14px;
-                margin-right: inherit !important;
-
-              }
             }
           }
         }
       }
-
-
-      .FinalCard {
-        .FinalCardTitle {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 22px;
-        }
-      }
-
     }
+
+    .FinalCard {
+      .FinalCardTitle {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+      }
+    }
+
   }
 }
 
 
 @media screen and (max-width: 375px) {
-  .ContainerLanding {
-    .Landing {
-      .LandingCardFlex {
-        .point-wrapper {
-          .InfoText {
-            font-size: 16px;
-          }
-        }
-        &.FirstBlock {
-          .Desires {
-            .FlexButton {
-              .SecondaryButton {
-                font-size: 13px;
-              }
-            }
-          }
-        }
-      }
-
+  .point-wrapper {
+    .InfoText {
+      font-size: 16px;
+    }
+  }
+  .FlexButton {
+    .SecondaryButton {
+      font-size: 13px;
     }
   }
 }
 
 @media screen and (max-width: 331px) {
-  .ContainerLanding {
-    .Landing {
-      .LandingCardFlex {
-        &.FirstBlock {
-          .Desires {
-            .MainButton {
-              width: 104px;
-              margin-right: inherit !important;
-            }
-          }
-        }
-      }
+  .FlexButton {
+    .MainButton {
+      width: 104px;
+      margin-right: inherit !important;
     }
   }
 }

@@ -136,23 +136,21 @@ const Trajectories = () => {
               {trajectory.courses.map((course, index) => {
                 return (
                   <div
-                    className={`CourseCard mr-3 trajectories-bg-${index}`}
+                    className={`CourseCard trajectories-bg-${index}`}
                     key="index"
                     onClick={() => trajectoryChosen(trajectory, index + 1)}
                   >
                     <div className="CourseCardHeader">{index + 1} курс</div>
                     <div className="mt-2 smallTitle">Ты изучишь</div>
-                    <div
-                      className="mt-2 keywordsWrapper row no-gutters"
-                    >
+                    <div className="mt-2 keywordsWrapper row no-gutters">
                       {course.main_keywords.slice(0, 5).map((keyword, index) => {
                         return (
                           <span
                             key={keyword}
                             className="keywordWrapper mr-2 mb-2"
                           >
-                              {keyword}
-                            </span>
+                            {keyword}
+                          </span>
                         )
                       })}
                     </div>
@@ -175,17 +173,19 @@ const Trajectories = () => {
             </div>
             <div className="mt-3 justify-content-between">
               <div className="TrajectoriesCardFooter">
-                {trajectory.abit &&
-                  <a href={trajectory.abit}>
-                    <button className="ButtonAbit">Читать больше на abit.itmo.ru</button>
-                  </a>
-                }
                 <button
                   onClick={() => trajectoryChosen(trajectory)}
                   className="ButtonTrajectory MainButton mr-2"
                 >
                   Смотреть траекторию
                 </button>
+                <a
+                  href={`https://abit.itmo.ru/en/programs/bachelor?title=${trajectory?.educational_plan.replace('', '+')}`}
+                  target="_blank"
+                  className="ButtonAbit"
+                >
+                  Читать больше на abit.itmo.ru
+                </a>
               </div>
             </div>
           </div>

@@ -1,0 +1,28 @@
+.finderLikeWrap{
+  &:hover{
+    .finderLike{
+      animation: 0.8s linear infinite alternate motionAnimationFinderLike;
+    }
+    .rays{
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: 0.8s linear infinite alternate motionAnimationRays;
+    }
+  }
+}
+@keyframes motionAnimationFinderLike {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform:  rotate(5deg) translateX(10px) translateY(-10px) rotate(5deg);
+  }
+}
+@keyframes motionAnimationRays {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  100% {
+    transform: scale(1.1) rotate(5deg) translateX(3px) translateY(-5px);
+  }
+}

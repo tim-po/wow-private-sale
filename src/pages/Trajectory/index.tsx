@@ -80,7 +80,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   if (!trajectory) {
-    return <LoadingScreen isLoading={true} header={'Троаектория загружается'}/>
+    return <LoadingScreen isLoading={true} header={'Траектория загружается'}/>
   }
 
   const navigateToCourse = (course: number) => {
@@ -112,7 +112,7 @@ const Trajectory = (props: TrajectoryPropType) => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="flex-block flex-row justify-content-between mb-0 align-items-center">
+      <div className="titleNameDiscipline">
         <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
         <div className="CoursesRow">
           <CourseSelector

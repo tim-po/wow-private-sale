@@ -36,7 +36,7 @@ const Keyword = (props: KeywordPropType) => {
       if (onDeleteSelf) {
         onDeleteSelf(keyword);
       }
-    }, 300);
+    }, 200);
   }
 
   return (

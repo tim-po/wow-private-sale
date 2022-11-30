@@ -153,6 +153,22 @@
   font-size: 12px;
   line-height: 16px;
   color: #8533FF;
+
+  .rollNumber{
+    animation: rollup 0.3s ease-in;
+  }
+}
+
+@keyframes rollup {
+  from {
+    transform: rotateX(90deg) translateY(10px) scaleX(1.1);
+  }
+  50% {
+    transform: rotateX(-10deg) translateY(-2px) scaleX(1);
+  }
+  to {
+    transform: rotateX(0deg) translateY(0) scaleX(1);
+  }
 }
 
 
@@ -227,7 +243,7 @@
   /*margin-bottom: 30px;*/
 }
 
-.keywords__requiredContainer {
+.keywordsRequiredContainer {
 
 }
 
@@ -262,6 +278,7 @@
 .keywordsPresets {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .presets {
@@ -280,6 +297,7 @@
 
 .blockDescription {
   display: flex;
+  justify-content: space-between;
 }
 
 .professionDescriptionText {
@@ -417,7 +435,7 @@
   min-height: 600px;
 }
 
-.keywords__required {
+.keywordsRequired {
   max-height: max-content;
   overflow: hidden;
   display: flex;
@@ -426,6 +444,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   /*flex-grow: 5;*/
+  gap: 8px;
   overflow-y: auto;
 }
 
@@ -550,14 +569,14 @@
 
 .keywordsModalAddKeywords::-webkit-scrollbar,
 .keywordsAdded::-webkit-scrollbar,
-.keywords__required::-webkit-scrollbar {
+.keywordsRequired::-webkit-scrollbar {
   width: 6px;
   background: rgba(243, 243, 248, 0.5);
 }
 
 .keywordsModalAddKeywords::-webkit-scrollbar-thumb,
 .keywordsAdded::-webkit-scrollbar-thumb,
-.keywords__required::-webkit-scrollbar-thumb {
+.keywordsRequired::-webkit-scrollbar-thumb {
   background: #e7e8ee;
   border-radius: 6px;
 }
@@ -580,11 +599,11 @@
   width: 100%;
 }
 
-.professionsContainer {
+.professionContainer {
   transition: all 0.5s;
   /*position: relative;*/
   width: 100%;
-  max-width: 550px;
+  max-width: 490px;
   margin-right: 24px;
   /*min-width: 320px;*/
   flex-shrink: 2;
@@ -748,7 +767,7 @@
     margin-bottom: 20px;
   }
 
-  .professionsContainer {
+  .professionContainer {
     max-width: inherit;
     margin-right: inherit;
   }
@@ -766,7 +785,7 @@
     gap: 8px
   }
 
-  .professionsContainer .fontWeightBold {
+  .professionContainer .fontWeightBold {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
@@ -874,7 +893,7 @@
     margin-bottom: inherit !important;
   }
 
-  .keywords__required {
+  .keywordsRequired {
     max-height: inherit;
     /*margin-bottom: 100px;*/
   }
@@ -932,7 +951,7 @@
     flex-direction: column;
   }
 
-  .keywords__required {
+  .keywordsRequired {
     padding-bottom: 74px;
     overflow: inherit;
     overflow-y: inherit;

@@ -1,19 +1,16 @@
 .Keyword {
   background: #EEEEFF;
-  transition: all 0.5s, border 0.3s;
+  transition: all 0.2s, border 0.3s;
   border-radius: 8px;
   padding: 8px 12px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  font-weight: 500;
   font-size: 12px;
-  transform: scale(1) translateY(0);
+  transform: scale(1);
   opacity: 1;
   line-height: 15px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.01);
 
   &.deleted {
-    transform: scale(0) translateY(-50px);
+    transform: scale(0.9);
     opacity: 0;
   }
 

@@ -44,7 +44,7 @@ const ShareModal = (props: ShareModalPropType) => {
           <div className="shareInputContainer">
             <label className="modalShareInputLabel">Мы можем подписать траекторию</label>
             <input
-              className="keywordsInput"
+              className="shareInput"
               placeholder="Введи ключевое слово"
               onChange={(event) => setName(event.target.value)}
             />

@@ -68,8 +68,6 @@ const SkillSets = (props: SkillSetsPropType) => {
     //   setSelectedPresetsHidden(false)
     //   console.log('set selectedPresetsHidden false')
     // }
-    console.log( bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight, e.target.scrollTop)
-    console.log('setIsTopHidden', bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
     setIsTopHidden(bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
   }
 
@@ -81,9 +79,11 @@ const SkillSets = (props: SkillSetsPropType) => {
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
-                <div className="subheader-counter">+{
-                  presets.selected.length
-                }</div>
+                <div className="subheader-counter">
+                  +<span key={presets.selected.length} className="rollNumber">
+                    {presets.selected.length}
+                  </span>
+                </div>
               }
             </div>
             <button className="buttonArrow" onClick={() => setSelectedPresetsHidden(!selectedPresetsHidden)}>
@@ -112,6 +112,7 @@ const SkillSets = (props: SkillSetsPropType) => {
               {presets.display.map(preset => {
                 return (
                   <Preset
+                    key={preset.title}
                     preset={preset}
                     displayAdd={true}
                     onClick={() => presets.select(preset.id)}

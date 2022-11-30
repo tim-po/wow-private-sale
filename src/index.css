@@ -18,7 +18,12 @@ button{
     outline: none !important;
     cursor: pointer;
     border: none ;
-    background: none ;
+    background: none;
+    text-decoration: none;
+}
+
+a button:hover {
+    text-decoration: none;
 }
 
 @font-face {

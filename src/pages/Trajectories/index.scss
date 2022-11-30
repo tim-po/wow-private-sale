@@ -24,6 +24,7 @@
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
+  gap: 16px;
 }
 .trajectoryCardWrapper::-webkit-scrollbar {
   width: 0;
@@ -35,9 +36,14 @@
   outline: none;
   background-color: var(--color-1);
   color: white;
-  min-width: 420px;
+  //min-width: 420px;
   border-radius: 16px;
   cursor: pointer;
+  scroll-snap-align: start;
+
+  .CourseCardControlCard{
+    box-shadow: none !important;
+  }
 }
 
 .trajectories-bg-0 {
@@ -209,10 +215,10 @@
     line-height: 22px;
   }
   .keywordsWrapper{
-    flex-direction: column;
+    flex-direction: row;
     /*max-height: 112px;*/
     max-height: min-content;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   .keywordWrapper{
     max-width: max-content;

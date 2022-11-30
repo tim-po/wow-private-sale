@@ -45,7 +45,7 @@ const Preset = (props: PresetPropType) => {
     return null;
   }
   return (
-    <div className={`preset ${hidden ? 'hidePreset': ''}`}>
+    <div className={`preset ${hidden ? 'hidePreset': ''} ${onClick !== undefined ? 'iteractable': ''}`}>
       <div className="presetTopRow">
         <div className="presetIconFlex">
           <PresetIcon presetClass={preset.category}/>

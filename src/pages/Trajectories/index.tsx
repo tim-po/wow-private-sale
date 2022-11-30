@@ -109,7 +109,7 @@ const Trajectories = () => {
           }}
 
         >
-        <Close width='10' height="10"/>
+          <Close width='10' height="10"/>
         </button>
         <PercentProgress percent={0.8}/>
         <div className="mr-2"/>
@@ -136,8 +136,12 @@ const Trajectories = () => {
             </div>
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
-              <button className="ScrollBtn Right" onClick={scrollToRight}> <ArrowRight props="right" /></button>
-              <button className="ScrollBtn Left" onClick={scrollToLeft}> <ArrowRight props="left" /></button>
+              <button className="ScrollBtn Right" onClick={scrollToRight}>
+                <ArrowRight props="right"/>
+              </button>
+              <button className="ScrollBtn Left" onClick={scrollToLeft}>
+                <ArrowRight props="left"/>
+              </button>
               {trajectory.courses.map((course, index) => {
                 return (
                   <div
@@ -147,17 +151,15 @@ const Trajectories = () => {
                   >
                     <div className="CourseCardHeader">{index + 1} курс</div>
                     <div className="mt-2 smallTitle">Ты изучишь</div>
-                    <div
-                      className="mt-2 keywordsWrapper row no-gutters"
-                    >
+                    <div className="mt-2 keywordsWrapper row no-gutters">
                       {course.main_keywords.slice(0, 5).map((keyword, index) => {
                         return (
                           <span
                             key={keyword}
                             className="keywordWrapper mr-2 mb-2"
                           >
-                              {keyword}
-                            </span>
+                            {keyword}
+                          </span>
                         )
                       })}
                     </div>
@@ -180,17 +182,19 @@ const Trajectories = () => {
             </div>
             <div className="mt-3 justify-content-between">
               <div className="TrajectoriesCardFooter">
-                {trajectory.abit &&
-                  <a href={trajectory.abit}>
-                    <button className="ButtonAbit">Читать больше на abit.itmo.ru</button>
-                  </a>
-                }
                 <button
                   onClick={() => trajectoryChosen(trajectory)}
                   className="ButtonTrajectory MainButton mr-2"
                 >
                   Смотреть траекторию
                 </button>
+                <a
+                  href={`https://abit.itmo.ru/en/programs/bachelor?title=${trajectory?.educational_plan.replace('', '+')}`}
+                  target="_blank"
+                  className="ButtonAbit"
+                >
+                  Читать больше на abit.itmo.ru
+                </a>
               </div>
             </div>
           </div>

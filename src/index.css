@@ -22,6 +22,10 @@ button{
     text-decoration: none;
 }
 
+a:hover{
+    color: var(--color-5-dark)
+}
+
 a button:hover {
     text-decoration: none;
 }

@@ -290,7 +290,8 @@
   }
 
   .control-types-tile {
-    min-width: 340px;
+    max-width: calc(100vw - 30px);
+    min-width: 300px;
     width: 100%;
   }
 

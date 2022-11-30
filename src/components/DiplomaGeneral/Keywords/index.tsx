@@ -17,6 +17,7 @@ const KeywordsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 12px;
+  gap: 8px
 `
 
 const ShowMoreKeywordsButton = styled.button`

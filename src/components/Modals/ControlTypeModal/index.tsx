@@ -50,14 +50,15 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
         <h1 className="KeywordsModalHeader">
           {getModalTitle(controlType.name)}
         </h1>
-        <PromptImg className="VectorStroke" color={isTooltipActive ? "#8533FF" : ""}
-                      onMouseEnter={() => setIsTooltipActive(true)} onMouseLeave={() => setIsTooltipActive(false)}>
+        <div className="VectorStroke" onMouseEnter={() => setIsTooltipActive(true)} onMouseLeave={() => setIsTooltipActive(false)}>
+        <PromptImg color={isTooltipActive ? "#8533FF" : "#B7B6BC"} />
           {isTooltipActive &&
             <div className="Prompt">
               {getTooltipMessage(controlType.name)}
             </div>
           }
-        </PromptImg>
+        {/*</PromptImg>*/}
+        </div>
       </div>
       <div className="ExamModalContainer">
         <div className="KeywordsModalContent">

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import preset from "../Preset";
+import Progress from "../../static/icons/progress";
 
 // CONSTANTS
 
@@ -16,7 +17,7 @@ type PercentProgressPropType = {
 const PercentProgress = (props: PercentProgressPropType) => {
   const { percent } = props;
   const [count, setCount] = useState(0);
-  console.log(percent);
+
   useEffect(() => {
     setTimeout(() => {
       setCount(percent);

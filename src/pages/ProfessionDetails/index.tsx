@@ -15,6 +15,7 @@ import LoadingScreen from "../../components/LoadingScreen";
 import MagicWand from "../../static/icons/MagicWand";
 import FingerLike from "static/icons/fingerLike";
 import ProfessionLamsIcon from "static/icons/professionLamsIcon";
+
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
 // CONSTANTS

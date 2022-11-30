@@ -16,6 +16,8 @@ import MagicWand from "../../static/icons/MagicWand";
 import FingerLike from "static/icons/fingerLike";
 import ProfessionLamsIcon from "static/icons/professionLamsIcon";
 
+import KeywordsModal from "../../components/Modals/KeywordsModal";
+import ModalsContext from "../../Context/Modal";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -25,8 +27,9 @@ const ProfessionDetails = () => {
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
+  const {displayModal} = useContext(ModalsContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const {profession, presets, keywords} = useProfession(searchParams.get('id') || '')
 
   const [isLoading, setIsLoading] = useState(false);
@@ -80,9 +83,9 @@ const ProfessionDetails = () => {
     setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
   }
 
-  // const openKeywordsModal = () => {
-  //   setKeywordsForModal(profession?.related_keywords || [])
-  // }
+  const openKeywordsModal = () => {
+    displayModal(<KeywordsModal keywords={keywords.display} />)
+  }
 
   const clearChoice = () => {
     switch (searchParams.get('view')) {
@@ -141,7 +144,7 @@ const ProfessionDetails = () => {
       </div>
       {searchParams.get('view') === 'main' &&
         <div className="keywordsCustomisationFlex">
-          <div className="professionsContainer">
+          <div className="professionContainer">
             <div className="professionDescription">
               <p className="subheader subheader-mobile">Описание</p>
               <div className="keywords__card">
@@ -284,7 +287,7 @@ const ProfessionDetails = () => {
                   </>
                 }
                 {profession && profession.related_keywords.length > 25 &&
-                  <button className="modalKeywords ">
+                  <button className="modalKeywords" onClick={openKeywordsModal}>
                     +{profession.related_keywords.length - 25}
                   </button>
                 }

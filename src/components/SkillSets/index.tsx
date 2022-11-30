@@ -68,8 +68,6 @@ const SkillSets = (props: SkillSetsPropType) => {
     //   setSelectedPresetsHidden(false)
     //   console.log('set selectedPresetsHidden false')
     // }
-    console.log( bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight, e.target.scrollTop)
-    console.log('setIsTopHidden', bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
     setIsTopHidden(bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
   }
 

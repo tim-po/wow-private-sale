@@ -45,8 +45,8 @@ const Start = () => {
                 <LandingBackground/>
               </div>
               <div className="FlexButton">
-                <Link to="/professions" className="LinkProfession">
-                  <button className="MainButton mr-4">Поехали!</button>
+                <Link to="/professions" className="LinkProfession MainButton mr-4">
+                  Поехали!
                 </Link>
                 <button onClick={scrollToBottom} className="SecondaryButton">Это как?</button>
               </div>

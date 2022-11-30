@@ -1,0 +1,301 @@
+.containerDiscipline {
+  border-radius: 24px;
+  max-width: 1020px;
+  overflow: inherit;
+  background: white;
+  position: relative;
+}
+
+.aligned-keywords-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fallingDiscipline {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01),
+  0px 15px 9px rgba(100, 53, 165, 0.03),
+  0px 7px 7px rgba(100, 53, 165, 0.05),
+  0px 0px 4px rgba(100, 53, 165, 0.06),
+  0px 0px 0px rgba(100, 53, 165, 0.06);
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.arrow-card-modal {
+  position: relative;
+}
+
+.discipline {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F1F22;
+  text-align: left;
+  width: 100%;
+  margin: auto;
+  /*max-width: none;*/
+  max-width: initial;
+  padding-bottom: 12px;
+  background: inherit;
+  border: inherit;
+  border-bottom: 1px solid #E7E8EE;;
+}
+
+.arrow-card {
+
+}
+
+.discipline-card-modal-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.disciplineCardModal {
+  width: max-content;
+  color: #1F1F22;
+}
+
+.replacement_options.Open {
+  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+  border-radius: 8px;
+  gap: 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.close.replacement_options {
+  display: none;
+  opacity: 0;
+  max-height: 12px;
+}
+
+.subjectsFlex {
+  min-width: 340px;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  border-right: 1px solid white;
+}
+
+.subjectsFlex:last-child {
+  border-right: none;
+}
+
+.discipline-modal-column {
+  border-left: 1px solid rgba(255, 255, 255, 0.46);
+  border-right: 1px solid rgba(255, 255, 255, 0.46);
+}
+
+
+.modalColHeader {
+  position: absolute;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
+  top: 44px;
+  left: 0;
+  right: 0;
+}
+
+.modal-col-header-deactive {
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
+  /*opacity: 0.3;*/
+  top: 44px;
+  left: 0;
+  right: 0;
+}
+
+.disciplineDetail {
+  margin-right: 1rem;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+.disciplineDetailYellow {
+  background-color: var(--color-10-light);
+}
+
+.discipline-detail-green {
+  background-color: var(--color-3-verylight);
+}
+
+.discipline-detail-pink {
+  background-color: var(--color-4-light);
+}
+
+.modalKeywordsHeader {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.modalKeywordsCoverage {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.modalKeyword {
+  padding: 10px 12px;
+  background: var(--gray-100);
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.disciplineCardModal {
+  text-align: left;
+  -webkit-appearance: none;
+  border: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  max-width: 240px;
+}
+
+.Arrow {
+  position: inherit;
+  transition: all 0.2s;
+  display: inherit;
+  transform: rotate(0deg);
+}
+
+.Arrow.Open {
+  transform: rotate(180deg);
+}
+
+.discModalHeader {
+  font-weight: bold;
+}
+
+.disciplineImage {
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 340px;
+}
+
+.disciplineModalContent {
+  overflow-y: scroll;
+  text-align: left;
+  padding: 32px 36px 36px 36px;
+}
+
+.containerName {
+  width: 100%;
+  display: flex;
+}
+
+.TextCenter {
+  text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .containerDiscipline {
+    border-radius: 16px;
+    max-width: initial;
+  }
+
+  .disciplineDetail {
+    /*margin-left: inherit;*/
+  }
+
+  .arrow-card-modal {
+    width: 100%;
+  }
+
+  .subjectsFlex {
+    min-width: inherit;
+    border-right: none;
+    margin-bottom: 12px;
+  }
+
+  #ModalDiscipline {
+    margin-top: 86px;
+  }
+
+  h5.discModalHeader {
+    font-size: 16px !important;
+  }
+
+  .margMobile {
+    margin-bottom: 16px;
+  }
+
+  .modalColHeader {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .displayNone {
+    display: none;
+  }
+
+  .containerName {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+  }
+
+  .containerName .discModalHeader {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1F1F22;
+    order: 2;
+    margin-top: 8px;
+  }
+
+  .discipline-modal-column {
+    border-left: initial;
+    border-right: initial;
+  }
+
+  .modalColHeader {
+    position: initial;
+  }
+
+  .disciplineCardModal {
+    text-align: left;
+    width: 100%;
+    margin: auto;
+    max-width: initial;
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .TextCenter {
+    text-align: initial !important;
+  }
+
+  .disciplineImage {
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 32px 20px 32px;
+    height: 100%;
+  }
+
+  .containerName h5 {
+    width: 100%;
+    max-width: initial !important;
+  }
+
+  .containerName .tags {
+    width: 100%;
+  }
+
+}

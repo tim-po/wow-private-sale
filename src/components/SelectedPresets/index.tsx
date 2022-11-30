@@ -101,7 +101,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             className="scrollBtn right"
             onClick={scrollToRight}
           >
-            <ArrowRight props="right" />
+            <ArrowRight turn="right" />
           </button>
         }
         {selectedPresets.length > 0 &&
@@ -110,7 +110,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             style={{opacity: leftScrollPosition ? 1 : 0}}
             onClick={scrollToLeft}
           >
-            <ArrowRight props="left"/>
+            <ArrowRight turn="left"/>
           </button>
         }
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&

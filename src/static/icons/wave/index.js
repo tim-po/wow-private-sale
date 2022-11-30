@@ -1,5 +1,4 @@
 import React from "react";
-import "./animation.scss";
 
 
 export default () => {

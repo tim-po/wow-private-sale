@@ -1,5 +1,4 @@
 import React from "react";
-import "./animation.scss";
 // Import colors from constants or use currentColor
 // If icon uses more than one adjustable color you can pass colors from props
 // BUT you must always provide default values for color props

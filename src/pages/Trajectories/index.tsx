@@ -136,8 +136,8 @@ const Trajectories = () => {
             </div>
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
-              <button className="ScrollBtn Right" onClick={scrollToRight}> <ArrowRight props="right" /></button>
-              <button className="ScrollBtn Left" onClick={scrollToLeft}> <ArrowRight props="left" /></button>
+              <button className="ScrollBtn Right" onClick={scrollToRight}> <ArrowRight turn="right" /></button>
+              <button className="ScrollBtn Left" onClick={scrollToLeft}> <ArrowRight turn="left" /></button>
               {trajectory.courses.map((course, index) => {
                 return (
                   <div

@@ -5,7 +5,7 @@ import * as Scroll from "react-scroll";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Preset from "../Preset";
 import Illustration from "static/icons/illustration";
-import ArrowRight from "../../static/icons/arrowRight";
+import Chevron from "../../static/icons/chevron";
 import Magnifier from "../../static/icons/magnifier";
 
 // CONSTANTS
@@ -99,14 +99,14 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             className="scrollBtn right"
             onClick={scrollToRight}
           >
-            <ArrowRight turn="right" />
+            <Chevron />
           </button>
           <button
             className="scrollBtn left"
             style={{opacity: leftScrollPosition ? 1 : 0}}
             onClick={scrollToLeft}
           >
-            <ArrowRight turn="left"/>
+            <Chevron/>
           </button>
 
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&

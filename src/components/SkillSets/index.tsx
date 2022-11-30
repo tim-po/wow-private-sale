@@ -4,7 +4,7 @@ import SelectedPresets from "../SelectedPresets";
 import Preset from "components/Preset";
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
-import ArrowBottom from "static/icons/arrowBottom";
+import ArrowBottom from "static/icons/arrow";
 
 // CONSTANTS
 

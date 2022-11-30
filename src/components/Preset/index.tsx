@@ -3,7 +3,7 @@ import './index.scss'
 import {PresetType} from "../../types";
 import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
-import Pluse from "static/icons/Pluse";
+import Pluse from "static/icons/pluse";
 
 // CONSTANTS
 

@@ -137,10 +137,10 @@ const Trajectories = () => {
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
               <button className="ScrollBtn Right" onClick={scrollToRight}>
-                <Chevron turn={Turn.left}/>
+                <Chevron turn={Turn.right}/>
               </button>
               <button className="ScrollBtn Left" onClick={scrollToLeft}>
-                <Chevron/>
+                <Chevron turn={Turn.left}/>
               </button>
               {trajectory.courses.map((course, index) => {
                 return (

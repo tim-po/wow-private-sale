@@ -14,7 +14,7 @@ import Card from "components/DiplomaGeneral/Card";
 import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
 import {DiplomaShareDataType} from "types"
-import Like from "images/icons/like";
+import Like from "images/staticIcons/like";
 
 type DiplomaSharePropType = {}
 

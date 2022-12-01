@@ -3,7 +3,7 @@ import './index.scss'
 import {useNavigate} from "react-router-dom";
 import BackButtonContext from "../../Context/BackButton";
 import HeaderContext from "../../Context/Header";
-import Logo from "images/icons/logo";
+import Logo from "images/staticIcons/logo";
 // @ts-ignore
 
 // CONSTANTS

@@ -56,7 +56,9 @@ const Preset = (props: PresetPropType) => {
             className="actionButton"
             onClick={clickSelf}
           >
-            <img src="/static/pluse.svg" style={displayAdd ? {} : {transform: 'rotate(45deg)'}}/>
+            <div style={displayAdd ? {} : {transform: 'rotate(45deg)'}}>
+            <Pluse/>
+            </div>
           </button>
         }
       </div>

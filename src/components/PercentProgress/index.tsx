@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import preset from "../Preset";
-import Progress from "../../static/icons/progress";
+import Progress from "../../images/icons/progress";
 
 // CONSTANTS
 

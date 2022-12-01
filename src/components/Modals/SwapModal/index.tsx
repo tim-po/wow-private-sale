@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './index.scss';
 import { isMobile } from "react-device-detect";
-import ModalStick from "../../../static/icons/modalStick";
+import ModalStick from "../../../images/icons/modalStick";
 
 type SwapModalPropType = {
   children: React.ReactNode | React.ReactNode[]
@@ -31,6 +31,7 @@ const SwapModal = (props: SwapModalPropType) => {
     if (isTouched) {
       const deltaY = prevMovementY - e.touches[0].clientY;
       setDeltaY(deltaY);
+      console.log(deltaY);
 
       setCardHeight(cardHeight + deltaY);
 

@@ -9,7 +9,7 @@ import ProfessionCard from "components/ProfessionCard";
 import './index.scss'
 import BgContext from "../../Context/Background";
 import {makeEmptyList} from "../../utils/general";
-import Close from "../../static/icons/close";
+import Close from "../../images/icons/close";
 
 // CONSTANTS
 

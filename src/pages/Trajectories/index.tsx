@@ -9,9 +9,9 @@ import PercentProgress from "../../components/PercentProgress";
 import ControlTypeTile from "../../components/ControlTypeTile";
 import './index.scss'
 import {allControllTypes, BASE_URL} from "../../constants";
-import Close from "../../static/icons/close";
+import Close from "../../images/icons/close";
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
-import ArrowRight from "../../static/icons/arrowRight";
+import Chevron, {Turn} from "../../images/icons/chevron";
 
 // CONSTANTS
 
@@ -137,10 +137,10 @@ const Trajectories = () => {
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
               <button className="ScrollBtn Right" onClick={scrollToRight}>
-                <ArrowRight turn="right"/>
+                <Chevron turn={Turn.left}/>
               </button>
               <button className="ScrollBtn Left" onClick={scrollToLeft}>
-                <ArrowRight turn="left"/>
+                <Chevron/>
               </button>
               {trajectory.courses.map((course, index) => {
                 return (

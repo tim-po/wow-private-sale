@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import './index.scss'
-import Spinners from "../../static/icons/spinners";
+import Spinners from "../../images/icons/spinners";
 
 // CONSTANTS
 

@@ -3,7 +3,7 @@ import './index.scss';
 import copy from "copy-to-clipboard";
 import {useSearchParams} from "react-router-dom";
 import Button from "components/Button";
-import PicShareDeck from "../../../static/icons/picShareDeck";
+import PicShareDeck from "../../../images/icons/picShareDeck";
 
 type ShareModalPropType = {}
 

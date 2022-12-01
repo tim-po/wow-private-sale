@@ -1,17 +1,17 @@
 import React, {useContext} from "react";
 import './index.scss'
 // @ts-ignore
-import biz from '../../static/icons/biz.svg'
+import biz from '../../images/icons/biz.svg'
 // @ts-ignore
-import optic from '../../static/icons/optic.svg'
+import optic from '../../images/icons/optic.svg'
 // @ts-ignore
-import bio from '../../static/icons/bio.svg'
+import bio from '../../images/icons/bio.svg'
 // @ts-ignore
-import art from'../../static/icons/art.svg'
+import art from '../../images/icons/art.svg'
 // @ts-ignore
-import dev from'../../static/icons/dev.svg'
+import dev from '../../images/icons/dev.svg'
 // @ts-ignore
-import science from'../../static/icons/science.svg'
+import science from '../../images/icons/science.svg'
 
 // CONSTANTS
 

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
-import Close from "../../static/icons/close";
+import Close from "../../images/icons/close";
 
 // CONSTANTS
 

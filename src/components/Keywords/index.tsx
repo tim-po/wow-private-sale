@@ -7,7 +7,7 @@ import {makeEmptyList} from "../../utils/general";
 import BgContext from "../../Context/Background";
 import * as Scroll from "react-scroll";
 import KeywordsSearch from "../KeywordsSearch";
-import Magnifier from "static/icons/magnifier";
+import Magnifier from "images/icons/magnifier";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [

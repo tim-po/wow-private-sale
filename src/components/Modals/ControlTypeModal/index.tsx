@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import './index.scss'
 import {CountType} from "types";
-import PromptImg from "../../../static/icons/promptImg";
+import PromptImg from "../../../images/icons/promptImg";
 
 type ControlTypeModalPropType = {
   controlType: (CountType & { disciplines?: CountType[] | string[] })

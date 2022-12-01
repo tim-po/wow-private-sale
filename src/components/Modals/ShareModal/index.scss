@@ -14,12 +14,12 @@
 }
 
 .share-button {
-  width: 220px !important;
+  width: 220px;
 }
 
 .shareModalHeaderContainer {
   height: 158px;
-  /*background: url("../../static/preview.svg") no-repeat center;*/
+  /*background: url("../../images/preview.svg") no-repeat center;*/
   -moz-background-size: 100%;
   -webkit-background-size: 100%;
   -o-background-size: 100%;
@@ -140,6 +140,12 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .shareModalHeaderContainer {
+    /*background: url("../../images/shareBg.svg") no-repeat center;*/
+  }
+  .share-button {
+    min-width: 100%;
+  }
   .secondaryButtonShare, .mainButtonShare {
     width: 100%;
   }

@@ -117,7 +117,12 @@
   margin: 0;
   margin-bottom: 16px;
 }
-
+.titleNameDiscipline{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 @media screen and (max-width: 1000px) {
   .semesterSeason {
     display: none;
@@ -179,8 +184,6 @@
   .SemesterCol.Off {
     flex-shrink: 0;
   }
-
-
 
   .BottomButtonsCurs {
     padding-top: 16px;

@@ -3,13 +3,14 @@ import * as Scroll from 'react-scroll';
 import {Link} from "react-router-dom";
 import './index.scss'
 import BgContext from "../../Context/Background";
-import ImgMainLetterB from "static/icons/imgMainLetterB";
-import ImgMainLetterA from "../../static/icons/imgMainLetterA";
-import ImgMainLetterC from "static/icons/imgMainLetterC";
-import Stars from "../../static/icons/stars";
-import Wave from "static/icons/wave";
-import LandingBackground from "../../static/icons/landingBackground";
-import Close from "../../static/icons/close";
+import ImgMainLetterB from "images/icons/imgMainLetterB";
+import ImgMainLetterA from "../../images/icons/imgMainLetterA";
+import ImgMainLetterC from "images/icons/imgMainLetterC";
+import Stars from "../../images/icons/stars";
+import Wave from "images/icons/wave";
+import ManOnHomepage from "../../images/icons/manOnHomepage";
+import Close from "../../images/icons/close";
+import Chevron from "../../images/icons/chevron";
 
 // CONSTANTS
 
@@ -43,7 +44,7 @@ const Start = () => {
                 Переведем твои цели на язык дисциплин
               </h1>
               <div className="d-flex flex-column justify-content-center ImgMain StarsMobil">
-                <LandingBackground/>
+                <ManOnHomepage/>
               </div>
               <div className="FlexButton">
                 <Link to="/professions" className="LinkProfession MainButton mr-4">
@@ -53,7 +54,7 @@ const Start = () => {
               </div>
             </div>
             <div className="d-flex flex-column justify-content-center ImgMain Stars">
-              <LandingBackground/>
+              <ManOnHomepage/>
             </div>
           </div>
           <span className="HeaderSubtext">

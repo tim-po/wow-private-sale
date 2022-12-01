@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 import {BASE_URL} from "../../constants";
 import useOnClickOutside from "../../utils/useClickOutside";
 import keywords from "../Keywords";
-import SearchInput from "../../static/icons/searchInput";
+import SearchInput from "../../images/icons/searchInput";
 
 // CONSTANTS
 

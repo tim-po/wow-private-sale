@@ -12,9 +12,9 @@ import {useProfession} from "../../Models/useProfession";
 import Keywords from "../../components/Keywords";
 import SkillSets from "../../components/SkillSets";
 import LoadingScreen from "../../components/LoadingScreen";
-import MagicWand from "../../static/icons/MagicWand";
-import FingerLike from "static/icons/fingerLike";
-import ProfessionLamsIcon from "static/icons/professionLamsIcon";
+import MagicWand from "../../images/icons/MagicWand";
+import FingerLike from "images/icons/fingerLike";
+import ProfessionLamsIcon from "images/icons/professionLamsIcon";
 
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
@@ -203,7 +203,7 @@ const ProfessionDetails = () => {
               {/*  v-if="(keywords && keywords.length > 0) ? (keywords.length <= requiredWordsLimit)  false"*/}
               {/*>*/}
               {/*    <div className="d-flex">*/}
-              {/*        <img src="/static/warning.svg" alt="" className="mr-2"/>*/}
+              {/*        <img src="/images/warning.svg" alt="" className="mr-2"/>*/}
               {/*        Ты можешь удалить не более 30% набора ключевых слов своей профессии*/}
               {/*    </div>*/}
               {/*</div>*/}

@@ -9,6 +9,7 @@ import ImgMainLetterC from "static/icons/imgMainLetterC";
 import Stars from "../../static/icons/stars";
 import Wave from "static/icons/wave";
 import LandingBackground from "../../static/icons/landingBackground";
+import Close from "../../static/icons/close";
 
 // CONSTANTS
 

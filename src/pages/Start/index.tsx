@@ -3,11 +3,11 @@ import * as Scroll from 'react-scroll';
 import {Link} from "react-router-dom";
 import './index.scss'
 import BgContext from "../../Context/Background";
-import ImgMainLetterB from "images/staticIcons/imgMainLetterB";
-import ImgMainLetterA from "../../images/staticIcons/imgMainLetterA";
-import ImgMainLetterC from "images/staticIcons/imgMainLetterC";
-import Stars from "../../images/staticIcons/stars";
-import Wave from "images/staticIcons/wave";
+import ImgMainLetterB from "images/icons/Static/imgMainLetterB";
+import ImgMainLetterA from "../../images/icons/Static/imgMainLetterA";
+import ImgMainLetterC from "images/icons/Static/imgMainLetterC";
+import Stars from "../../images/icons/Static/stars";
+import Wave from "images/icons/Static/wave";
 import ManOnHomepage from "../../images/icons/manOnHomepage";
 import Close from "../../images/icons/close";
 import Chevron from "../../images/icons/chevron";

@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
-import preset from "../Preset";
-import Progress from "../../images/icons/progress";
 
 // CONSTANTS
 

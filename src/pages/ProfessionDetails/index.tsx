@@ -13,8 +13,8 @@ import Keywords from "../../components/Keywords";
 import SkillSets from "../../components/SkillSets";
 import LoadingScreen from "../../components/LoadingScreen";
 import MagicWand from "../../images/icons/MagicWand";
-import FingerLike from "images/staticIcons/fingerLike";
-import ProfessionLamsIcon from "images/staticIcons/lightBulbs";
+import FingerLike from "images/icons/Static/fingerLike";
+import ProfessionLamsIcon from "images/icons/Static/lightBulbs";
 
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";

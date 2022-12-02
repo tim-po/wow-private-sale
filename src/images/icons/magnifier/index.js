@@ -1,8 +1,9 @@
 import React from "react";
 
 export default ({width="94", height='158'}) => {
+  let viewBox = (Number(width) > 94 && Number(height) > 158 ) ? () => (`0 0 ${width} ${height}`) : () => (`0 0 94 158`);
   return (
-    <svg width={width} height={height} viewBox="0 0 94 138" className="magnifierWrap" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox={viewBox(width ,height)} className="magnifierWrap" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g className="magnifier">
       <path
         d="M32.5576 90.0778C26.8843 94.9639 2.7729 99.85 1 98.3466C6.67328 120.522 25.466 137.06 27.5935 137.06C29.2955 137.06 42.0131 127.789 48.1591 123.153C44.8497 116.012 37.0962 99.399 32.5576 90.0778Z"

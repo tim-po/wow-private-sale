@@ -187,7 +187,6 @@ const Trajectory = (props: TrajectoryPropType) => {
               )
             })
             }
-            <div style={{marginBottom: '100px'}}/>
           </div>
         </div>
       }

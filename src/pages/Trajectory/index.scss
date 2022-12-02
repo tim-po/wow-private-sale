@@ -133,13 +133,11 @@
         margin-top: 20px;
 
         .CoursesRowFirstFlex {
-          .CourseButtonActive {
-            width: 50px;
-          }
-
           .CourseButton {
             width: 14px;
-
+            &.CourseButtonActive{
+              width: inherit;
+            }
             .Course {
               min-width: 50px;
             }

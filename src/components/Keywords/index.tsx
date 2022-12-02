@@ -85,7 +85,7 @@ const Keywords = (props: KeywordsPropType) => {
                 <div
                   className="textCenter mt-4 magnifierTextContainer"
                 >
-                  <Magnifier width="94" height="139"/>
+                  <Magnifier width={94} height={139}/>
                   <span className="magnifier">
                   Ищи и добавляй навыки, которые хочешь получить в ИТМО
                   </span>

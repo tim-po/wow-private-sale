@@ -7,11 +7,11 @@ export enum Turn {
   down = 90,
 }
 
-export default ({turn = Turn.right, width='6', height="12", color='#6E6D79'}) => {
+export default ({turn = Turn.right, width=Number(6), height=Number(12), color='#6E6D79'}) => {
   const divStyle = {
     transform: `rotate(${turn}deg)`,
   };
-  let viewBox = (Number(width) > 6 && Number(height) > 12 ) ? () => (`0 0 ${width} ${height}`) : () => (`0 0 6 12`);
+  let viewBox = (width > 6 && height > 12 ) ? () => (`0 0 ${width} ${height}`) : () => (`0 0 6 12`);
   return (
     <svg width={width} height={height} style={divStyle} viewBox={viewBox()} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M1 11L5 6L1 1" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

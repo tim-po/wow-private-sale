@@ -71,6 +71,7 @@ const Trajectories = () => {
     element.classList.remove('Hidden')
   }
   const trajectoryChosen = (trajectory: TrajectoryType, course = 1) => {
+    withLocalStorage({chosenTrajectoriesIds: searchParams.get('ids')}, LocalStorageInteraction.save)
     navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
   }
   const scrollToRight = (event: any) => {
@@ -109,7 +110,7 @@ const Trajectories = () => {
           }}
 
         >
-          <Close width='10' height="10"/>
+          <Close width={10} height={10}/>
         </button>
         <PercentProgress percent={0.8}/>
         <div className="mr-2"/>
@@ -126,6 +127,7 @@ const Trajectories = () => {
             <div className="TrajectoriesCardHeader">
               <h5 className="trajectoryHeader mb-0">
                 {trajectory.educational_plan}
+                <span className={'eduDirectionCode'}>{trajectory.code.replace(/\.$/, "")}</span>
               </h5>
               <div className="d-flex align-items-center TrajectoriesCardProgress">
                 <PercentProgress percent={trajectory.coverage}/>
@@ -134,13 +136,14 @@ const Trajectories = () => {
                   </span>
               </div>
             </div>
+            <div style={{position: "relative"}}>
             <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
                  onScroll={shouldDrawScrollButton}>
               <button className="ScrollBtn Right" onClick={scrollToRight}>
-                <Chevron turn={Turn.left}/>
+                <Chevron/>
               </button>
               <button className="ScrollBtn Left" onClick={scrollToLeft}>
-                <Chevron/>
+                <Chevron turn={Turn.left}/>
               </button>
               {trajectory.courses.map((course, index) => {
                 return (
@@ -150,6 +153,7 @@ const Trajectories = () => {
                     onClick={() => trajectoryChosen(trajectory, index + 1)}
                   >
                     <div className="CourseCardHeader">{index + 1} курс</div>
+                    <div>
                     <div className="mt-2 smallTitle">Ты изучишь</div>
                     <div className="mt-2 keywordsWrapper row no-gutters">
                       {course.main_keywords.slice(0, 5).map((keyword, index) => {
@@ -163,6 +167,8 @@ const Trajectories = () => {
                         )
                       })}
                     </div>
+                    </div>
+                    <div>
                     <div className="mt-3 smallTitle">Ты сдашь</div>
                     <div className="ControlCardContainer">
                       {allControllTypes.map((controlTypeName) => {
@@ -176,9 +182,11 @@ const Trajectories = () => {
                         )
                       })}
                     </div>
+                    </div>
                   </div>
                 )
               })}
+            </div>
             </div>
             <div className="mt-3 justify-content-between">
               <div className="TrajectoriesCardFooter">

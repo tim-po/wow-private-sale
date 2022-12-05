@@ -19,7 +19,7 @@ const Spinner = (props: SpinnerPropType) => {
         className="spinner-container"
       >
 
-        <div className="spinner" style={{...spinnerStyle}}><Spinners width={String(width)}/></div>
+        <div className="spinner" style={{...spinnerStyle}}><Spinners width={Number(width)}/></div>
       </div>
     )
 };

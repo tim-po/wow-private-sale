@@ -8,7 +8,7 @@ import {Profession} from "../../types";
 import ProfessionCard from "components/ProfessionCard";
 import './index.scss'
 import BgContext from "../../Context/Background";
-import {makeEmptyList} from "../../utils/general";
+import {LocalStorageInteraction, makeEmptyList, withLocalStorage} from "../../utils/general";
 import Close from "../../images/icons/close";
 
 // CONSTANTS
@@ -27,6 +27,9 @@ const Professions = () => {
 
   const professionChosen = (profession: any) => {
     setIsHeaderAnimated(true)
+    withLocalStorage({selectedPresetIds: []}, LocalStorageInteraction.save)
+    withLocalStorage({addedKeywords: []}, LocalStorageInteraction.save)
+
     navigate(`/professionDetails?id=${profession.id}&view=main`)
   }
 
@@ -53,7 +56,6 @@ const Professions = () => {
     }
     await setProfessionsWithCustomSvg(newProfessionsWithCustomSvg)
     setIsProfessionsLoading(false)
-
   }
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const Professions = () => {
         {/* @ts-ignore */}
         <div className="ProfessionContainer">
           {isProfessionsLoading &&
-            makeEmptyList(12).map(index => {
+            makeEmptyList(12).map((number, index) => {
               return (
                 <div className="skeleton-v2" key={index}/>
               )
@@ -96,7 +98,7 @@ const Professions = () => {
         <div
           className={`ProfessionModalBottom ${isFeedbackPopupVisible ? 'profession__modal__bottomOn' : 'ProfessionModalBottomNon'}`}>
           <button className="CloseFeedback" onClick={() => setIsFeedbackPopupVisible(false)}>
-            <Close width="10" height="10"/>
+            <Close width={10} height={10}/>
           </button>
           <span className="Text">Сервис работает в тестовом режиме, список профессий будет дополняться.
             <button

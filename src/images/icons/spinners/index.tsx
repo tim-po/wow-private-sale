@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default ({width="64", height='64', circleColor="#E7E8EE", spinnerColor="#8533FF"}) => {
+export default ({width=Number(64), height=Number(64), circleColor="#E7E8EE", spinnerColor="#8533FF"}) => {
+  let viewBox = (width > 64 && height > 64 ) ? () => (`0 0 ${width} ${height}`): () => (`0 0 64 64`);
+
   return (
-    <svg className="loadingKeywords" width={width} height={height} viewBox="0 0 64 64"
+    <svg className="loadingKeywords" width={width} height={height} viewBox={viewBox()}
          fill="#8533FF" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M64 32C64 49.6731 49.6731 64 32 64C14.3269 64 0 49.6731 0 32C0 14.3269 14.3269 0 32 0C49.6731 0 64 14.3269 64 32ZM4.90769 32C4.90769 46.9627 17.0373 59.0923 32 59.0923C46.9627 59.0923 59.0923 46.9627 59.0923 32C59.0923 17.0373 46.9627 4.90769 32 4.90769C17.0373 4.90769 4.90769 17.0373 4.90769 32Z"

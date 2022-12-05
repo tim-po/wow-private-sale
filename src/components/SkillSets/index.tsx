@@ -4,7 +4,7 @@ import SelectedPresets from "../SelectedPresets";
 import Preset from "components/Preset";
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
-import Chevron from "../../images/icons/chevron";
+import Chevron, { Turn } from "../../images/icons/chevron";
 
 // CONSTANTS
 
@@ -89,7 +89,7 @@ const SkillSets = (props: SkillSetsPropType) => {
             <button className="buttonArrow" onClick={() => setSelectedPresetsHidden(!selectedPresetsHidden)}>
 
               <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>
-                <Chevron color="#1F1F22" turn={90}/>
+                <Chevron color="#1F1F22" turn={Turn.down}/>
               </div>
               <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
             </button>

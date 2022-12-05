@@ -1,4 +1,4 @@
-FROM node:11.13.0
+FROM node:16.14.0
 
 ARG TAG
 ARG DOMAIN

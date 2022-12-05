@@ -13,7 +13,6 @@ LABEL traefik.enable=true
 COPY package*.json /app/
 WORKDIR /app
 
-RUN npm ci --only=production
 RUN npm install -g serve
 RUN npm audit fix
 

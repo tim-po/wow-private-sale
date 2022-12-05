@@ -10,12 +10,16 @@ LABEL traefik.http.routers.itmo-track-frontend-${TAG}.tls.certresolver=myresolve
 LABEL entrypoints.web.http.redirections.entryPoint.to=websecure
 LABEL traefik.enable=true
 
-COPY . .
+COPY package*.json /app/
+WORKDIR /app
 
-RUN npm ci --only=production
+RUN npm i
 RUN npm install -g serve
-RUN npm install
+
+COPY . .
+RUN unset CI
 RUN npm run build
 
 ENTRYPOINT ["serve"]
 CMD ["-s", "build"]
+

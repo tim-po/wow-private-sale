@@ -4,7 +4,7 @@ import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
 import BgContext from "Context/Background";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
+import {BASE_URL, colors} from "../../constants";
 import {makeKeywordsArray} from "utils/makeKeywordsArray";
 import {CountType, KeywordType} from "types";
 import ModalsContext from "Context/Modal";
@@ -114,7 +114,13 @@ const Diploma = (props: DiplomaPropType) => {
               <div className="disciplines-wrapper">
                 {diplomaData?.classes_count.map((discipline) => (
                   <Card
-                    onClick={() => {}}
+                    onClick={() => displayModal(
+                      <DisciplinesModal
+                        discipline={discipline.disciplines}
+                        headerBg={colors[discipline.name]}
+                        name={discipline.name}
+                      />
+                    )}
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}

@@ -109,12 +109,14 @@
 }
 
 .MainButton.ButtonTrajectory {
+  order: 0;
   padding: 8px 12px;
   font-weight: 700;
   font-size: 14px;
 }
 
 .ButtonAbit {
+  order: 1;
   border: 0;
   background: 0;
   text-decoration: underline;
@@ -230,13 +232,17 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    gap: 24px;
+    gap: 0;
   }
   .MainButton.ButtonTrajectory{
+    order: 1;
     margin-bottom: 16px;
     width: 100%;
     padding: 10px;
     margin-top: 20px;
+  }
+  .ButtonAbit {
+    order: 0;
   }
   .CourseCardHeader{
     font-family: 'Inter';
@@ -268,7 +274,7 @@
     min-width: 100%;
   }
   .ScrollBtn{
-    top: calc(100%);
+    top: calc(92%);
   }
   .trajectoryCardWrapper.Hidden .ScrollBtn.Right{
     top: calc(100% + 20px);
@@ -278,7 +284,7 @@
   }
 
   .trajectoryCardWrapper{
-    margin-top: 12px!important;
+    margin-top: 25px !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;

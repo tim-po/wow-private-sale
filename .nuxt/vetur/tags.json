@@ -1,0 +1,86 @@
+{
+  "ControlTypeTile": {
+    "description": "Auto imported from components/ControlTypeTile.vue"
+  },
+  "Keyword": {
+    "description": "Auto imported from components/Keyword.vue"
+  },
+  "LoadingScreen": {
+    "description": "Auto imported from components/LoadingScreen.vue"
+  },
+  "ModalTooltip": {
+    "description": "Auto imported from components/ModalTooltip.vue"
+  },
+  "PercentProgress": {
+    "description": "Auto imported from components/PercentProgress.vue"
+  },
+  "ProfessionCard": {
+    "description": "Auto imported from components/ProfessionCard.vue"
+  },
+  "Spinner": {
+    "description": "Auto imported from components/Spinner.vue"
+  },
+  "TrajectoryCard": {
+    "description": "Auto imported from components/Trajectory/Card.vue"
+  },
+  "TrajectoryCourseSelector": {
+    "description": "Auto imported from components/Trajectory/CourseSelector.vue"
+  },
+  "TrajectoryDiplomShare": {
+    "description": "Auto imported from components/Trajectory/DiplomShare.vue"
+  },
+  "TrajectoryDiploma": {
+    "description": "Auto imported from components/Trajectory/Diploma.vue"
+  },
+  "TrajectoryDiplomaDisciplineModal": {
+    "description": "Auto imported from components/Trajectory/DiplomaDisciplineModal.vue"
+  },
+  "TrajectoryDiplomaShareModal": {
+    "description": "Auto imported from components/Trajectory/DiplomaShareModal.vue"
+  },
+  "TrajectoryDisciplineModal": {
+    "description": "Auto imported from components/Trajectory/DisciplineModal.vue"
+  },
+  "TrajectoryFeedbackForm": {
+    "description": "Auto imported from components/Trajectory/FeedbackForm.vue"
+  },
+  "TrajectoryGenericModalComponent": {
+    "description": "Auto imported from components/Trajectory/GenericModalComponent.vue"
+  },
+  "TrajectoryKeywordModal": {
+    "description": "Auto imported from components/Trajectory/KeywordModal.vue"
+  },
+  "TrajectoryKeywordModalDiploma": {
+    "description": "Auto imported from components/Trajectory/KeywordModalDiploma.vue"
+  },
+  "TrajectoryListOfExams": {
+    "description": "Auto imported from components/Trajectory/ListOfExams.vue"
+  },
+  "TrajectoryModalDiplomaDisciplineCreation": {
+    "description": "Auto imported from components/Trajectory/ModalDiplomaDisciplineCreation.vue"
+  },
+  "TrajectoryModalDiplomaExamType": {
+    "description": "Auto imported from components/Trajectory/ModalDiplomaExamType.vue"
+  },
+  "TrajectoryPreset": {
+    "description": "Auto imported from components/Trajectory/Preset.vue"
+  },
+  "TrajectoryRandomFeedback": {
+    "description": "Auto imported from components/Trajectory/RandomFeedback.vue"
+  },
+  "TrajectoryStats": {
+    "description": "Auto imported from components/Trajectory/TrajectoryStats.vue"
+  },
+  "SelectedPresets": {
+    "description": "Auto imported from components/selectedPresets/index.vue"
+  },
+  "SkillSets": {
+    "description": "Auto imported from components/skillSets/index.vue"
+  },
+  "Keywords": {
+    "description": "Auto imported from components/keywords/index.vue"
+  },
+  "IconsPresetIcon": {
+    "description": "Auto imported from components/icons/PresetIcon.vue"
+  }
+}

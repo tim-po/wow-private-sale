@@ -42,7 +42,7 @@
     ]
   },
   "scripts": {
-    "start": "PORT=3000 run-s build:clean react:start",
+    "start": "PORT=3000 && run-s build:clean react:start",
     "react:start": "PORT=3006 && react-scripts --max_old_space_size=4096 start",
     "react:build": "react-scripts --max_old_space_size=4096 build",
     "build:clean": "rimraf ./build",

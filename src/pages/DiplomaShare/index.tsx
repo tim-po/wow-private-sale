@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
+import {BASE_URL, colors} from "../../constants";
 import './index.scss';
 import BgContext from "Context/Background";
 import {KeywordType} from "types";
@@ -15,6 +15,7 @@ import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
 import {DiplomaShareDataType} from "types"
 import Like from "images/icons/Static/like";
+import DisciplinesModal from "components/Modals/DisciplinesModal";
 
 type DiplomaSharePropType = {}
 
@@ -22,7 +23,7 @@ const DiplomaShareDefaultProps = {}
 
 const DiplomaShare = () => {
   const {setBg} = useContext(BgContext)
-  // const {setDisciplinesForModal, setKeywordsForModal} = useContext(ModalsContext)
+  const {displayModal} = useContext(ModalsContext)
 
   const cardRef = useRef();
 
@@ -127,7 +128,14 @@ const DiplomaShare = () => {
                   <div className="d-flexMobil">
                     {course.classes.map((item: any) => (
                       <Card
-                        onClick={() => {}}
+                        onClick={() => displayModal(
+                          <DisciplinesModal
+                            discipline={item.disciplines}
+                            course={course.course}
+                            headerBg={colors[item.name]}
+                            name={item.name}
+                          />
+                        )}
                         isDiplomaCard={false}
                         name={item.name}
                         title={item.name}

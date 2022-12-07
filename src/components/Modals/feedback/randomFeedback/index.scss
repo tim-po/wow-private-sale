@@ -1,17 +1,16 @@
 .container-form-random-feedback {
   padding: 28px 36px 36px 40px;
   position: absolute;
-  transition: all 1s ease;
+  transition: all 0.3s ease;
   bottom: 40px;
   z-index: 1000;
   right: 30px;
   background: white;
   max-width: 520px;
   box-shadow: 0px -1px 12px rgba(31, 31, 34, 0.06), 1px 4px 20px rgba(31, 31, 34, 0.1);
-  max-height: 450px;
   border-radius: 20px;
   &.show{
-    transition: all 1s ease;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,6 +32,9 @@
     }
   }
   .form {
+    max-height: 400px;
+    transform: scale(1);
+    animation:  0.3s linear formTransform;
     .wrapTitle{
       display: flex;
       justify-content: space-between;
@@ -159,20 +161,32 @@
 }
 
 
+@keyframes formTransform {
+  from {
+    transform: scale(0);
+  }
 
+  to {
+    transform: scale(1)
+  }
+}
 
 @media screen and (max-width: 1000px) {
   .container-form-random-feedback {
     min-width: revert;
+    max-width: 100%;
     padding: 20px 16px 24px;
     margin: 0 16px;
     bottom: 140px;
-    max-height: revert;
     right: 0;
     &.show{
       bottom: 140px;
+      max-height: 0;
+      max-width:0;
     }
     .form {
+      animation: linear formTransform;
+      max-height: 500px;
       .containerButton {
         display: flex;
         flex-direction: column;
@@ -180,6 +194,16 @@
       .possibleNumberFormSubmissions{
         display: none;
       }
+    }
+  }
+
+  @keyframes formTransform {
+    from {
+      max-width: 0;
+    }
+
+    to {
+      min-width: 500px;
     }
   }
 }

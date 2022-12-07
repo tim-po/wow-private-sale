@@ -30,15 +30,18 @@ const RandomFeedback = ({ displayForGroup = "", title = "", selectButtons = [""]
   }
 
   function closeFeedback(props: boolean | ((prevState: boolean) => boolean)) {
-    setCheckShowFeedback(props);
-    setCheckSubmit(false);
+    setTimeout(()=>{
+      setCheckShowFeedback(props);
+      setCheckSubmit(false);
+    },100)
+
   }
 
   return (
     <div onClick={() => checkShowFeedback ? closeFeedback(false) : ""}
          className={`${checkShowFeedback ? "show" : ""} container-form-random-feedback`}>
       {checkShowFeedback ? <RandomFeedbackOpen />
-        : <div>
+        : <>
           {!checkSubmit ?
             <div className="form">
               <div className="wrapTitle">
@@ -82,7 +85,7 @@ const RandomFeedback = ({ displayForGroup = "", title = "", selectButtons = [""]
                 <button className="closeModal" onClick={() => closeFeedback(true)}>Круто</button>
               </div>
             </div>
-          }</div>}
+          }</>}
     </div>
 
   );

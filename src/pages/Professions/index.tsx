@@ -107,7 +107,7 @@ const Professions = () => {
               className="LinkText"
               onClick={() => setIsFeedbackFormVisible(true)}
             >
-              Расскажи, какой профессии тебе не хватает?
+              &#160;Расскажи, какой профессии тебе не хватает?
             </button>
           </span>
         </div>

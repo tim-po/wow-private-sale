@@ -23,6 +23,8 @@ const FeedbackStatic = (props:any) => {
       setValidationForm(false)
       return
     }
+    setValues('')
+    setValidationForm(true)
     setCheckSubmit(true)
     setUser( {email: email, text: text, feedback_type: 'profession'})
     console.log(user)

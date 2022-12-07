@@ -1,13 +1,46 @@
 .container-form-random-feedback {
   padding: 28px 36px 36px 40px;
   position: absolute;
+  transition: all 1s ease;
   bottom: 40px;
+  z-index: 1000;
   right: 30px;
   background: white;
   max-width: 520px;
+  max-height: 400px;
   border-radius: 20px;
+  &.show{
+    transition: all 1s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 0px rgba(100, 53, 165, 0.06);
+    border-radius: 16px 0 0 0;
+    max-width: 50px;
+    min-width: 50px;
+    max-height: 84px;
+    min-height: 40px;
+    position: absolute;
+    padding: 0;
+    bottom: 0;
+    right: 0;
 
+    &:hover{
+      min-width: 84px;
+      min-height: 60px;
+    }
+    .form{
+      overflow: hidden;
+      max-height: 0;
+      max-width: 0;
+    }
+  }
   .form {
+    .wrapTitle{
+      display: flex;
+      justify-content: space-between;
+    }
     textarea, input {
       border: 1px solid #E7E8EE;
       border-radius: 8px;
@@ -32,7 +65,9 @@
       gap: 8px;
       display: flex;
       flex-wrap: wrap;
-
+      .validationPrompt{
+        color: red;
+      }
       .selectButton {
         &.active{
           border: 1px solid #8533FF;
@@ -76,6 +111,10 @@
         line-height: 20px;
         padding: 10px 12px;
         color: #FFFFFF;
+        &.notValid{
+          pointer-events: none;
+          background: #C198FF;
+        }
       }
 
       .cancellation {
@@ -122,6 +161,9 @@
     }
   }
 }
+
+
+
 
 @media screen and (max-width: 1000px) {
   .container-form {

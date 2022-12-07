@@ -150,7 +150,7 @@ const Diploma = (props: DiplomaPropType) => {
             </div>
           </div>
         </div>
-        <RandomFeedback display-for-group="5" selectButtons={randomFeedbackSelectOptions} title="Что бы ты добавил в диплом?"/>
+        <RandomFeedback displayForGroup="5" selectButtons={randomFeedbackSelectOptions} feedbackType="diploma" title="Что бы ты добавил в диплом?"/>
         {/*<RandomFeedback display-for-group="6" button=buttonFeedbackTho title="Ты хотел бы сохранить результат?"/>*/}
         {/*<RandomFeedback display-for-group="7" isSecondary="true" button=buttonFeedbackTrack*/}
         {/*                title="Тебе понравилась составленная траектория?"/>*/}

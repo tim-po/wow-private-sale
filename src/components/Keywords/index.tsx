@@ -146,8 +146,8 @@ const Keywords = (props: KeywordsPropType) => {
           </div>
         </div>
       </div>
-        {/*<RandomFeedback displayForGroup="8"*/}
-        {/*                title="Что-то на этой странице вызвало трудности?"/>*/}
+        <RandomFeedback displayForGroup="8" selectButtons={randomFeedbackSelectOptions}
+                        title="Что-то на этой странице вызвало трудности?"/>
     </div>
   )
 };

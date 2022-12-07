@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
 import GenericModal from "../../components/GenericModal";
 import HeaderContext from "../../Context/Header";
@@ -18,10 +18,10 @@ import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
 // DEFAULT FUNCTIONS
 
 const Professions = () => {
+
   const {setIsHeaderAnimated} = useContext(HeaderContext)
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
-
   const [professionsWithCustomSvg, setProfessionsWithCustomSvg] = useState<Profession[]>([]);
   const [isProfessionsLoading, setIsProfessionsLoading] = useState(true);
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false);
@@ -120,8 +120,9 @@ const Professions = () => {
         colorCloseWhite={false}
         hideDesktop={false}
       >
-        <FeedbackStatic/>
+          <FeedbackStatic isModal={isFeedbackFormVisible} onModalClose={() => setIsFeedbackFormVisible(false)}/>
       </GenericModal>
+
     </div>
   )
 };

@@ -1,15 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import './index.scss'
 import axios from "axios";
 import Heart from "../../../../images/icons/Static/heart";
 
-const FeedbackStatic = () => {
+const FeedbackStatic = (props:any) => {
   const [checkSubmit, setCheckSubmit] = useState(false)
   const [user, setUser] = useState({email:'', text:'', feedback_type:'profession'})
   const [email, setEmail] = useState("")
   const [text, setText] = useState("")
   const [values, setValues] = useState("");
   const [validationForm, setValidationForm] = useState<Boolean>(true)
+
+  if(!props.isModal){
+    setTimeout(()=>{
+      setCheckSubmit(false)
+    },1000);
+  }
 
   function handleClick() {
     if (!text) {
@@ -44,7 +50,7 @@ const FeedbackStatic = () => {
           <span></span>
         </div>
         <div className="containerButton">
-          <button className="cancellation ">Отмена</button>
+          <button className="cancellation" onClick={props.onModalClose}>Отмена</button>
           <button className="submit" onClick={handleClick}>Отправить</button>
         </div>
       </div>
@@ -56,7 +62,7 @@ const FeedbackStatic = () => {
           <div className="title">Ответ отправлен!</div>
           <div className="gratitude">Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо! </div>
           <div className="containerButton">
-            <button className="closeModal">Круто</button>
+            <button className="closeModal" onClick={props.onModalClose}>Круто</button>
           </div>
         </div>
       }

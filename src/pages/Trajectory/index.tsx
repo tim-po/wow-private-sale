@@ -15,9 +15,14 @@ import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
 import Card from "../../components/trajectory/Card";
 import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
+import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 
 // CONSTANTS
-
+const randomFeedbackSelectOptions = [
+  'Поиск ключевых слов 🔎️',
+  'Добавление/ удаление слов 🗑',
+  'Все сложно  🤯', 'Все понятно 👌'
+]
 // DEFAULT FUNCTIONS
 
 // TODO: copy this components directory and add your content to make a new page
@@ -210,8 +215,8 @@ const Trajectory = (props: TrajectoryPropType) => {
       {/*   </div>*/}
       {/*<RandomFeedback display-for-group="3" button=randomFeedback.firstOptionSelectButton*/}
       {/*                title="Удобно ли тебе знакомиться с образовательной программой ?"/>*/}
-      {/*<RandomFeedback display-for-group="4" button=randomFeedback.secondOptionSelectButton*/}
-      {/*                title="Что-то на этой странице вызвало трудности? "/>*/}
+      <RandomFeedback display-for-group="4" selectButtons={randomFeedbackSelectOptions}
+                      title="Что-то на этой странице вызвало трудности? "/>
     </div>
   )
 };

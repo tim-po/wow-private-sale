@@ -6,7 +6,6 @@
   z-index: 1000;
   right: 30px;
   background: white;
-  max-width: 520px;
   box-shadow: 0px -1px 12px rgba(31, 31, 34, 0.06), 1px 4px 20px rgba(31, 31, 34, 0.1);
   border-radius: 20px;
   &.show{
@@ -32,6 +31,7 @@
     }
   }
   .form {
+    max-width: 447px;
     max-height: 400px;
     transform: scale(1);
     animation:  0.3s linear formTransform;

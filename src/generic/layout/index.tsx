@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import GenericModal from "components/GenericModal";
 import Header from "components/Header";
+import IdGroup from "../../Context/IdGroup";
 import KeywordsModal from "components/Modals/KeywordsModal";
 import BgContext from "Context/Background";
 import {Route, Routes} from "react-router-dom";
@@ -11,6 +12,11 @@ import {KeywordType} from "types";
 import DisciplinesModal from "components/Modals/DisciplinesModal";
 import modal from "Context/Modal";
 
+import { YMInitializer } from 'react-yandex-metrika';
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { BASE_URL } from "../../constants";
+import IdGroupContext from "../../Context/IdGroup";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -29,6 +35,10 @@ const Layout = (props: layoutPropType) => {
 
   const {backButtonHref} = useContext(BackButtonContext)
 
+  const  [ cookie ,  setCookie ,  removeCookie ]  =  useCookies ( [ '_ym_uid' ]) ;
+
+  const [idGroup, setIdGroup] = useState<any>()
+
   const displayModal = (component: React.ReactNode) => {
     setModalComponent(component)
     setShouldDisplayModal(true)
@@ -39,9 +49,18 @@ const Layout = (props: layoutPropType) => {
     setShouldDisplayModal(false)
   }
 
+  useEffect(() => {
+    axios.get(`${BASE_URL}feedback/split_group?group_id=${cookie._ym_uid}`)
+      .then(res => {
+        setIdGroup(res.data)
+      })
+  },[])
+
 
   return (
     <ModalsContext.Provider value={{ displayModal }}>
+      <YMInitializer accounts={[90901854]} options={{webvisor: true}} />
+      <IdGroupContext.Provider value={{group_id: idGroup}}>
       <BgContext.Provider value={{setBg: setBackgroundColor}}>
         <div className="DefaultLayoutContainer" id="scroll-container" style={{backgroundColor: backgroundColor}}>
           <Header left={backButtonHref === '/'}/>
@@ -59,6 +78,7 @@ const Layout = (props: layoutPropType) => {
           </div>
         </div>
       </BgContext.Provider>
+      </IdGroupContext.Provider>
     </ModalsContext.Provider>
   )
 };

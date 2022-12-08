@@ -1,8 +1,12 @@
 .container-form{
   padding: 28px 36px 36px 40px;
   z-index: 1000;
-  min-width:448px;
+  //min-width:448px;
+
   .form{
+    padding-top: 20px;
+    min-width: 448px;
+    text-align: left;
     textarea, input{
       border: 1px solid #E7E8EE;
       border-radius: 8px;
@@ -22,11 +26,16 @@
       }
       margin-top: 16px;
     }
-    .title{
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 22px;
-      color: #1F1F22;
+    .titleWrap {
+      position: absolute;
+      top: 18px;
+      .title {
+
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #1F1F22;
+      }
     }
     .first-form{
       &.validation{
@@ -64,7 +73,7 @@
     }
   }
   .RequestSent{
-    max-width: 372px;
+    min-width: 448px;
 
     .heartImg{
       margin-bottom: 40px;
@@ -105,6 +114,10 @@
   .container-form{
     min-width: inherit;
     .form {
+      min-width: 100%;
+      .titleWrap{
+        width: 70vw;
+      }
       .containerButton{
         display: flex;
         flex-direction: column;

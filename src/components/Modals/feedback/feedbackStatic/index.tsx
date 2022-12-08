@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import './index.scss'
 import axios from "axios";
 import Heart from "../../../../images/icons/Static/heart";
+import { BASE_URL } from "../../../../constants";
 
 const FeedbackStatic = (props:any) => {
   const [checkSubmit, setCheckSubmit] = useState(false)
-  const [user, setUser] = useState({email:'', text:'', feedback_type:'profession'})
   const [email, setEmail] = useState("")
   const [text, setText] = useState("")
   const [values, setValues] = useState("");
@@ -18,29 +18,30 @@ const FeedbackStatic = (props:any) => {
   }
 
   function handleClick() {
-    if (!text) {
+    if (text === '') {
       setValues('Это поле должно быть заполнено');
       setValidationForm(false)
       return
     }
-    setValues('')
-    setValidationForm(true)
-    setCheckSubmit(true)
-    setUser( {email: email, text: text, feedback_type: 'profession'})
-    console.log(user)
-    axios.post(`/feedback/`, user, {
+    axios.post(`${BASE_URL}/feedback/`, {email: email, text: text, feedback_type: 3}, {
     }).then(res => {
       console.log(res);
+      console.log("bds");
     }).catch(err => {
       console.log(err.response);
     })
-
+    setValidationForm(true)
+    setCheckSubmit(true)
+    setValues('')
   }
+  // console.log(user.text)
   return (
     <div className="container-form">
       { !checkSubmit ?
       <div className="form">
+        <div className="titleWrap">
         <span className="title">Расскажи, какой профессии тебе не хватает?</span>
+        </div>
         <div className="containerText">
           <textarea  value={text} onChange={(e) => setText(e.target.value)} placeholder="Комментарий"
                     className={`${validationForm? '':'validation'} first-form`} />

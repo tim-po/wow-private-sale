@@ -19,6 +19,7 @@ import {DiplomaDataType} from "types";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import IdGroupContext from "../../Context/IdGroup";
 
 type DiplomaPropType = {}
 
@@ -33,6 +34,8 @@ const Diploma = (props: DiplomaPropType) => {
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const {group_id} = useContext<any>(IdGroupContext)
 
   const [searchParams] = useSearchParams()
   const randomFeedbackSelectOptions = [
@@ -150,11 +153,8 @@ const Diploma = (props: DiplomaPropType) => {
             </div>
           </div>
         </div>
-        <RandomFeedback displayForGroup="5" selectButtons={randomFeedbackSelectOptions} feedbackType="diploma" title="Что бы ты добавил в диплом?"/>
-        {/*<RandomFeedback display-for-group="6" button=buttonFeedbackTho title="Ты хотел бы сохранить результат?"/>*/}
-        {/*<RandomFeedback display-for-group="7" isSecondary="true" button=buttonFeedbackTrack*/}
-        {/*                title="Тебе понравилась составленная траектория?"/>*/}
-        {/*<RandomFeedback display-for-group="7" button=buttonFeedbackTrack title="Тебе было удобно пользоваться сайтом?"/>*/}
+        {(group_id.group_id === 5)||(group_id.group_id === 6)||(group_id.group_id === 7) ?
+          <RandomFeedback displayForGroup={group_id.group_id} feedbackType="diploma"/> : <></>}
       </div>
       <GenericModal
         modal={isShareModalOpen}

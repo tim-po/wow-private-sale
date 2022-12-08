@@ -16,6 +16,7 @@ import Card from "../../components/trajectory/Card";
 import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import IdGroupContext from "../../Context/IdGroup";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -36,6 +37,7 @@ const TrajectoryDefaultProps = {
 }
 
 const Trajectory = (props: TrajectoryPropType) => {
+  const { group_id } = useContext<any>(IdGroupContext);
   const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
   const navigate = useNavigate()
@@ -215,8 +217,7 @@ const Trajectory = (props: TrajectoryPropType) => {
       {/*   </div>*/}
       {/*<RandomFeedback display-for-group="3" button=randomFeedback.firstOptionSelectButton*/}
       {/*                title="Удобно ли тебе знакомиться с образовательной программой ?"/>*/}
-      <RandomFeedback display-for-group="4" selectButtons={randomFeedbackSelectOptions}
-                      title="Что-то на этой странице вызвало трудности? "/>
+      {(group_id.group_id === 3) ||(group_id.group_id === 4) ? <RandomFeedback  feedbackType={"trajectory_overall"} displayForGroup={group_id.group_id} />:<></>}
     </div>
   )
 };

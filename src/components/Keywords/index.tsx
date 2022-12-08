@@ -1,22 +1,23 @@
-import React, {useContext, useEffect, useState} from "react";
-import './index.scss'
-import {KeywordType} from "../../types";
+import React, { useContext, useEffect, useState } from "react";
+import "./index.scss";
+import { KeywordType } from "../../types";
 import Keyword from "../Keyword";
 import keyword from "../Keyword";
-import {makeEmptyList} from "../../utils/general";
+import { makeEmptyList } from "../../utils/general";
 import BgContext from "../../Context/Background";
 import * as Scroll from "react-scroll";
 import KeywordsSearch from "../KeywordsSearch";
 import Magnifier from "images/icons/magnifier";
 import GenericModal from "../GenericModal";
 import RandomFeedback from "../Modals/feedback/randomFeedback";
+import IdGroupContext from "../../Context/IdGroup";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
-  'Поиск ключевых слов 🔎️',
-  'Добавление/ удаление слов 🗑',
-  'Все сложно  🤯', 'Все понятно 👌'
-]
+  "Поиск ключевых слов 🔎️",
+  "Добавление/ удаление слов 🗑",
+  "Все сложно  🤯", "Все понятно 👌"
+];
 
 
 // DEFAULT FUNCTIONS
@@ -36,32 +37,32 @@ type KeywordsPropType = {
 }
 
 const Keywords = (props: KeywordsPropType) => {
-  const {keywords} = props
+  const { keywords } = props;
 
-
-  const {setBg} = useContext(BgContext)
+  const { group_id } = useContext<any>(IdGroupContext);
+  const { setBg } = useContext(BgContext);
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
-    setBg('white')
-    let scroll = Scroll.animateScroll
+    setBg("white");
+    let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
 
-    if (localStorage.getItem("Modal1") !== 'active') {
-      localStorage.setItem("Modal1", 'active');
+    if (localStorage.getItem("Modal1") !== "active") {
+      localStorage.setItem("Modal1", "active");
       setTimeout(() => {
         // this.isStatsTooltipVisible = true
-      }, 1000)
+      }, 1000);
     }
-  }, [])
+  }, []);
 
   const calculateRequiredLimit = () => {
-    setRequiredWordsLimit(Math.ceil(keywords.display.length * 0.8))
-  }
+    setRequiredWordsLimit(Math.ceil(keywords.display.length * 0.8));
+  };
 
   useEffect(() => {
     calculateRequiredLimit();
-  }, [keywords.display])
+  }, [keywords.display]);
 
   return (
     <div className="keywords" id="box">
@@ -80,15 +81,15 @@ const Keywords = (props: KeywordsPropType) => {
                   </div>
                 }
               </div>
-              <KeywordsSearch keywords={keywords}/>
-              <div className="keywordsSubtext" id='blob-1-bottom-right'>
+              <KeywordsSearch keywords={keywords} />
+              <div className="keywordsSubtext" id="blob-1-bottom-right">
                 Например: python
               </div>
               {keywords.added.length === 0 &&
                 <div
                   className="textCenter mt-4 magnifierTextContainer"
                 >
-                  <Magnifier width={94} height={139}/>
+                  <Magnifier width={94} height={139} />
                   <span className="magnifier">
                   Ищи и добавляй навыки, которые хочешь получить в ИТМО
                   </span>
@@ -125,9 +126,9 @@ const Keywords = (props: KeywordsPropType) => {
                       <div
                         key={index}
                         className="skeleton"
-                        style={{'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px'}}
+                        style={{ "width": Math.floor(Math.random() * (390 - 41 + 1)) + 41 + "px" }}
                       />
-                    )
+                    );
                   })}
                 </>
               }
@@ -140,16 +141,15 @@ const Keywords = (props: KeywordsPropType) => {
                     bg-color="'var(--color-secondary)'"
                     onDeleteSelf={() => keywords.remove(keyword)}
                   />
-                )
+                );
               })}
             </div>
           </div>
         </div>
       </div>
-        <RandomFeedback displayForGroup="8" selectButtons={randomFeedbackSelectOptions}
-                        title="Что-то на этой странице вызвало трудности?"/>
+      {group_id.group_id === 8 ? <RandomFeedback displayForGroup={group_id.group_id} /> : <></>}
     </div>
-  )
+  );
 };
 
-export default Keywords
+export default Keywords;

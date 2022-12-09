@@ -1,36 +1,55 @@
 .container-form-random-feedback {
   padding: 28px 36px 36px 40px;
   position: absolute;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
   bottom: 40px;
   z-index: 1000;
   right: 30px;
   background: white;
   box-shadow: 0px -1px 12px rgba(31, 31, 34, 0.06), 1px 4px 20px rgba(31, 31, 34, 0.1);
   border-radius: 20px;
-  &.show{
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 56px;
+  min-height: 40px;
+
+  &.feedbackSmall{
     box-shadow: 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 0px rgba(100, 53, 165, 0.06);
     border-radius: 16px 0 0 0;
-    max-width: 50px;
-    min-width: 50px;
-    max-height: 84px;
-    min-height: 40px;
-    position: absolute;
     padding: 0;
     bottom: 0;
     right: 0;
+
+    .randomFeedbackIcon{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .form {
+      transition: all 0.4s ease-in-out, trnsform 0.4s, opacity 0.4s;
+      opacity: 0;
+      transform: scale(0);
+      max-width: 0;
+      max-height: 0;
+    }
 
     &:hover{
       min-width: 84px;
       min-height: 60px;
     }
   }
+  .randomFeedbackIcon{
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    opacity: 0;
+    transform: scale(0);
+  }
   .form {
+    overflow: hidden;
+    transition: all 0.4s ease-in-out, trnsform 0.4s 0.4s, opacity 0.4s 0.4s;
+    opacity: 1;
     max-width: 447px;
     max-height: 400px;
     transform: scale(1);
@@ -179,7 +198,7 @@
     margin: 0 16px;
     bottom: 140px;
     right: 0;
-    &.show{
+    &.feedbackSmall{
       bottom: 140px;
       max-height: 0;
       max-width:0;

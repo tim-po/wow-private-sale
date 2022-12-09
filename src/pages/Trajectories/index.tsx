@@ -12,7 +12,7 @@ import { allControllTypes, BASE_URL } from "../../constants";
 import Close from "../../images/icons/close";
 import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import Chevron, { Turn } from "../../images/icons/chevron";
-import IdGroupContext from "../../Context/IdGroup";
+import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 
 // CONSTANTS
@@ -26,7 +26,7 @@ const randomFeedback = {
 
 
 const Trajectories = () => {
-  const { group_id } = useContext<any>(IdGroupContext);
+  const { group_id } = useContext<any>(FeedbackGroupIdContext);
   const [width, setWidth] = useState(0);
   const [trajectories, setTrajectories] = useState([]);
   const [trajectoriesIds, setTrajectoriesIds] = useState([]);
@@ -34,7 +34,6 @@ const Trajectories = () => {
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  console.log(group_id.group_id)
   useEffect(() => {
     setBg("#F1F2F8");
 
@@ -211,8 +210,8 @@ const Trajectories = () => {
           </div>
         );
       })}
-
-      {(group_id.group_id === 1) || (group_id.group_id === 2) ? <RandomFeedback displayForGroup={group_id.group_id} />: <></>}
+      <RandomFeedback displayForGroup={2} />
+      <RandomFeedback displayForGroup={3} />
     </div>
   );
 };

@@ -18,6 +18,7 @@ import ProfessionLamsIcon from "images/icons/Static/lightBulbs";
 
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
+import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS

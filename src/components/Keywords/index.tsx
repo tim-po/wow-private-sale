@@ -10,7 +10,7 @@ import KeywordsSearch from "../KeywordsSearch";
 import Magnifier from "images/icons/magnifier";
 import GenericModal from "../GenericModal";
 import RandomFeedback from "../Modals/feedback/randomFeedback";
-import IdGroupContext from "../../Context/IdGroup";
+import FeedbackGroupIdContext from "../../Context/IdGroup";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -39,7 +39,6 @@ type KeywordsPropType = {
 const Keywords = (props: KeywordsPropType) => {
   const { keywords } = props;
 
-  const { group_id } = useContext<any>(IdGroupContext);
   const { setBg } = useContext(BgContext);
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
@@ -147,7 +146,7 @@ const Keywords = (props: KeywordsPropType) => {
           </div>
         </div>
       </div>
-      {group_id.group_id === 8 ? <RandomFeedback displayForGroup={group_id.group_id} /> : <></>}
+      <RandomFeedback displayForGroup={1} />
     </div>
   );
 };

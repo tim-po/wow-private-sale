@@ -3,6 +3,7 @@ import './index.scss'
 import axios from "axios";
 import Heart from "../../../../images/icons/Static/heart";
 import { BASE_URL } from "../../../../constants";
+import {useCookies} from "react-cookie";
 
 const FeedbackStatic = (props:any) => {
   const [checkSubmit, setCheckSubmit] = useState(false)
@@ -10,6 +11,7 @@ const FeedbackStatic = (props:any) => {
   const [text, setText] = useState("")
   const [values, setValues] = useState("");
   const [validationForm, setValidationForm] = useState<Boolean>(true)
+  const [cookie] = useCookies(['_ym_uid']);
 
   if(!props.isModal){
     setTimeout(()=>{
@@ -23,7 +25,7 @@ const FeedbackStatic = (props:any) => {
       setValidationForm(false)
       return
     }
-    axios.post(`${BASE_URL}/feedback/`, {email: email, text: text, feedback_type: 3}, {
+    axios.post(`${BASE_URL}feedback/`, {email: email, text: text, feedback_type: 3, user_id: cookie._ym_uid}, {
     }).then(res => {
       console.log(res);
       console.log("bds");

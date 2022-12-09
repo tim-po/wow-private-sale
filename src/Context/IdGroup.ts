@@ -1,4 +1,4 @@
 import {createContext} from "react";
 
-const IdGroupContext = createContext({group_id: (newValue: number) => {}})
-export default IdGroupContext
+const FeedbackGroupIdContext = createContext({groupId: 0})
+export default FeedbackGroupIdContext

@@ -19,7 +19,7 @@ import {DiplomaDataType} from "types";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
-import IdGroupContext from "../../Context/IdGroup";
+import FeedbackGroupIdContext from "../../Context/IdGroup";
 
 type DiplomaPropType = {}
 
@@ -35,7 +35,7 @@ const Diploma = (props: DiplomaPropType) => {
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const {group_id} = useContext<any>(IdGroupContext)
+  const {group_id} = useContext<any>(FeedbackGroupIdContext)
 
   const [searchParams] = useSearchParams()
   const randomFeedbackSelectOptions = [
@@ -153,8 +153,8 @@ const Diploma = (props: DiplomaPropType) => {
             </div>
           </div>
         </div>
-        {(group_id.group_id === 5)||(group_id.group_id === 6)||(group_id.group_id === 7) ?
-          <RandomFeedback displayForGroup={group_id.group_id} feedbackType="diploma"/> : <></>}
+        <RandomFeedback displayForGroup={6}/>
+        <RandomFeedback displayForGroup={7}/>
       </div>
       <GenericModal
         modal={isShareModalOpen}

@@ -67,8 +67,8 @@
 @media screen and (max-width: 570px) {
 
   .professionCard {
-    margin: 0 10px;
-    flex-direction: column-reverse;
+    margin: inherit;
+    width: 100%;
     gap: 20px;
 
     img {
@@ -78,6 +78,7 @@
       text-align: left;
     }
     .professionCardKeywords {
+      text-align: left;
       max-height: inherit;
       min-height: inherit;
     }

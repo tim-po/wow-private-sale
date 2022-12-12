@@ -104,10 +104,6 @@
   }
 }
 
-@media screen and (max-width: 433px) {
-
-
-}
 
 @media screen and (max-width: 570px) {
   .ProfessionsPageContainer {
@@ -124,6 +120,7 @@
         }
         .ProfessionCardButton {
           min-width: 340px;
+          width: 100%;
           max-width: 100%;
 
         }
@@ -159,6 +156,19 @@
 }
 
 @media screen and (max-width: 410px) {
+  .ProfessionsPageContainer {
+    .ProfessionsContainer {
+      .ProfessionContainer {
+        .ProfessionCardButton {
+          min-width: 320px;
+          width: 100%;
+          max-width: 100%;
+
+        }
+      }
+    }
+  }
+
   .ProfessionCardButton {
     min-width: 320px;
   }

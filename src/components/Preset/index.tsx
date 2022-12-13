@@ -57,7 +57,7 @@ const Preset = (props: PresetPropType) => {
             onClick={clickSelf}
           >
             <div style={displayAdd ? {} : {transform: 'rotate(45deg)'}}>
-            <Pluse/>
+            <Pluse width={8.33} height={8.33}/>
             </div>
           </button>
         }

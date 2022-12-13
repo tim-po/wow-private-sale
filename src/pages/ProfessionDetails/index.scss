@@ -102,11 +102,14 @@
 }
 
 .headerFlex {
+  position: absolute;
+  left: 0;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  position: sticky;
+  //position: sticky;
   top: 0;
   z-index: 126;
   background: white;
@@ -179,6 +182,8 @@
 
 .bottomLeftContainer {
   z-index: 2000;
+  gap: 12px;
+  display: flex;
 }
 
 .bottomLeftContainer .clear {
@@ -190,6 +195,13 @@
   font-size: 14px;
   line-height: 20px;
   /*border-radius: 8px;*/
+  &:hover{
+    border-radius: 8px;
+    background: #F3F3F8;
+  }
+  &:active{
+    color: #7328E2;
+      }
 }
 
 .bottomLeftContainer .save {

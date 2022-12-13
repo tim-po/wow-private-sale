@@ -609,7 +609,7 @@
   /*position: relative;*/
   width: 100%;
   max-width: 490px;
-  margin-right: 24px;
+  margin-right: 68px;
   /*min-width: 320px;*/
   flex-shrink: 2;
 }
@@ -684,7 +684,7 @@
   }
 
   .currentHeader {
-    margin-bottom: 17px;
+    margin-bottom: inherit;
   }
 
   .right-flex {
@@ -716,7 +716,7 @@
 
   .blockFlex {
     top: 65px;
-    padding-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   .presets {

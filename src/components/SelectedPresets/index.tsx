@@ -124,9 +124,11 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 Наборы навыков еще не добавлены.
                 Начни добавлять их прямо сейчас
               </span>
-              <button onClick={editSkillSets} className="add-button">
-                Добавить
-              </button>
+              <div className="addPreset">
+                <button onClick={editSkillSets} className="add-button">
+                  Добавить
+                </button>
+              </div>
             </div>
           </div>
         }

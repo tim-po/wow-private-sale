@@ -10,7 +10,6 @@ import Pluse from "images/icons/plus";
 // DEFAULT FUNCTIONS
 import KeywordsModal from "../Modals/KeywordsModal";
 import Keyword from "../Keyword";
-import { isMobile } from "react-device-detect";
 
 type PresetPropType = {
   displayAdd?: boolean
@@ -58,7 +57,7 @@ const Preset = (props: PresetPropType) => {
             onClick={clickSelf}
           >
             <div style={displayAdd ? {} : {transform: 'rotate(45deg)'}}>
-            <Pluse width={8.33} height={8.33}/>
+            <Pluse/>
             </div>
           </button>
         }

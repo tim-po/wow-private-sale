@@ -95,19 +95,20 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .flexPreset {
-    min-width: 290px;
-    width: 100%;
-    max-width: inherit;
     .preset {
       margin-bottom: inherit !important;
       min-width: 100%;
       width: 100%;
+      &.iteractable{
+        .actionButton{
+          transform: scale(1);
+        }
+      }
       .presetTopRow {
         justify-content: space-between;
       }
     }
-  }
+
 }
 
 @keyframes presetAppear {

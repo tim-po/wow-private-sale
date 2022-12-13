@@ -10,6 +10,7 @@ import Pluse from "images/icons/plus";
 // DEFAULT FUNCTIONS
 import KeywordsModal from "../Modals/KeywordsModal";
 import Keyword from "../Keyword";
+import { isMobile } from "react-device-detect";
 
 type PresetPropType = {
   displayAdd?: boolean

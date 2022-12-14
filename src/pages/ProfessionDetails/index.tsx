@@ -18,6 +18,7 @@ import ProfessionLamsIcon from "images/icons/Static/lightBulbs";
 
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
+import { isMobile } from "react-device-detect";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -262,7 +263,7 @@ const ProfessionDetails = () => {
 
                 {profession &&
                   <>
-                    {keywords.added.slice(0, 25).map(keyword => {
+                    {isMobile ? keywords.display.slice(0, 10).map(keyword => {
                       return (
                         <Keyword
                           deletable={false}
@@ -272,8 +273,7 @@ const ProfessionDetails = () => {
                           // onDeleteSelf={()=>deleteKeyword(keyword)}
                         />
                       )
-                    })}
-                    {keywords.display.slice(0, 25).map(keyword => {
+                    }): keywords.display.slice(0, 25).map(keyword => {
                       return (
                         <Keyword
                           deletable={false}
@@ -286,11 +286,15 @@ const ProfessionDetails = () => {
                     })}
                   </>
                 }
-                {profession && profession.related_keywords.length > 25 &&
+                {isMobile ? profession && profession.related_keywords.length > 10 &&
                   <button className="modalKeywords" onClick={openKeywordsModal}>
-                    +{profession.related_keywords.length - 25}
+                    +{profession.related_keywords.length - 10}
                   </button>
-                }
+                :
+                     profession && profession.related_keywords.length > 25 &&
+                    <button className="modalKeywords" onClick={openKeywordsModal}>
+                      +{profession.related_keywords.length - 25}
+                    </button> }
               </div>
 
             </div>

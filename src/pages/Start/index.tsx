@@ -47,7 +47,7 @@ const Start = () => {
                 <ManOnHomepage/>
               </div>
               <div className="FlexButton">
-                <Link to="/professions" className="LinkProfession MainButton mr-4">
+                <Link to="/professions" className="LinkProfession MainButton">
                   Поехали!
                 </Link>
                 <button onClick={scrollToBottom} className="SecondaryButton">Это как?</button>
@@ -58,7 +58,7 @@ const Start = () => {
             </div>
           </div>
           <span className="HeaderSubtext">
-        ITMO.TRACK – Персональные образовательные траектории
+        <span>ITMO.TRACK – Персональные</span>&nbsp;<span>образовательные траектории</span>
       </span>
         </section>
         <section className="info LandingCardFlex" id="scrollToAbout">

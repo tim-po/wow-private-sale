@@ -1,8 +1,22 @@
 .selectedPresetsContainer {
   position: relative;
   max-height: 100%;
-  .add-button {
-    font-weight: 700;
+  .addPreset {
+    display: flex;
+    justify-content: center;
+    .add-button {
+      font-weight: 700;
+      width: min-content;
+      padding: 10px 12px;
+      border-radius: 8px;
+
+      &:hover {
+        background: #F3F3F8;
+      }
+      &:active{
+        color: #7328E2;
+      }
+    }
   }
   .blockMyPreset {
     gap: 32px;
@@ -205,6 +219,8 @@
 @media screen and (max-width: 1000px) {
   .selectedPresetsContainer {
     .blockMyPreset.main {
+      padding-top: 10px;
+      padding-bottom: 10px;
       display: flex;
       flex-direction: column;
       height: unset;

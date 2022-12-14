@@ -79,11 +79,11 @@ const Diploma = (props: DiplomaPropType) => {
                 'white-tile-wrapper'
               ]}
             >
-              <h6 className="marginText">
+              <span className="marginText">
                 Это твоя траектория в университете ИТМО!
                 <br/>
                 Поступай к нам чтобы изучать то, что нравится.
-              </h6>
+              </span>
               <div className="buttons-wrapper">
                 <Button
                   buttonStyle={'main'}

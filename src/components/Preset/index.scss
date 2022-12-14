@@ -49,8 +49,8 @@
     transition: all 0.2s;
     transform: scale(0);
     background: white;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 8px;
   }
 
@@ -81,7 +81,7 @@
     .openKeywordsModalButton {
       color: #8533FF;
       padding: 8px 12px;
-      background: #EBEBFF;
+      background: #D8D7FE;
       border-radius: 8px;
       height: 31px;
       font-size: 12px;
@@ -95,19 +95,20 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .flexPreset {
-    min-width: 290px;
-    width: 100%;
-    max-width: inherit;
     .preset {
       margin-bottom: inherit !important;
       min-width: 100%;
       width: 100%;
+      &.iteractable{
+        .actionButton{
+          transform: scale(1);
+        }
+      }
       .presetTopRow {
         justify-content: space-between;
       }
     }
-  }
+
 }
 
 @keyframes presetAppear {

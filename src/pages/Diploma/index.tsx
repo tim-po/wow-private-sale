@@ -1,24 +1,23 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import './index.scss';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import "./index.scss";
 import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
 import BgContext from "Context/Background";
 import axios from "axios";
-import {BASE_URL, colors} from "../../constants";
-import {makeKeywordsArray} from "utils/makeKeywordsArray";
-import {CountType, KeywordType} from "types";
+import { BASE_URL, colors } from "../../constants";
+import { makeKeywordsArray } from "utils/makeKeywordsArray";
+import { CountType, DiplomaDataType, KeywordType } from "types";
 import ModalsContext from "Context/Modal";
 import Card from "components/DiplomaGeneral/Card";
 import GenericModal from "components/GenericModal";
 import ShareModal from "components/Modals/ShareModal";
 import Button from "components/Button";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SwapModal from "components/Modals/SwapModal";
 import ControlTypeModal from "../../components/Modals/ControlTypeModal";
-import {DiplomaDataType} from "types";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
-
+import { refactorName } from "../../components/refactorName";
 type DiplomaPropType = {}
 
 const DiplomaDefaultProps = {}
@@ -43,6 +42,7 @@ const Diploma = (props: DiplomaPropType) => {
       console.log(e)
     }
   }
+
 
   const closeShareModal = () => {
     setIsShareModalOpen(false)
@@ -138,7 +138,7 @@ const Diploma = (props: DiplomaPropType) => {
                     onClick={() => displayModal(<ControlTypeModal controlType={controlType} />)}
                     name={controlType.name}
                     title={controlType.count}
-                    subtitle={controlType.name}
+                    subtitle={refactorName(controlType.count, controlType.name )}
                     isDiplomaCard
                     isControlTypeCard
                     classNames={[

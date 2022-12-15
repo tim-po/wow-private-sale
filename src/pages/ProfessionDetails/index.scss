@@ -88,7 +88,7 @@
 }
 
 .currentHeader {
-  margin-top: 24px;
+  padding-top: 24px;
   margin-bottom: 24px;
 }
 
@@ -102,15 +102,14 @@
 }
 
 .headerFlex {
-  position: absolute;
+  //position: absolute;
   left: 0;
-  padding: 0 16px;
+  //padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   //position: sticky;
-  top: 0;
   z-index: 126;
   background: white;
 }
@@ -122,10 +121,10 @@
 
 
 .subheader {
-  position: sticky;
+  //position: sticky;
   display: flex;
   align-items: center;
-  top: 72px;
+  //top: 72px;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -327,8 +326,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  position: sticky;
-  top: 72px;
   z-index: 110;
   background: white;
 }
@@ -727,7 +724,6 @@
   }
 
   .blockFlex {
-    top: 65px;
     margin-bottom: 4px;
   }
 

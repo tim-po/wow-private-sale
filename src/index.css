@@ -6,8 +6,6 @@
     src: url('../public/fonts/Inter-Regular.ttf') format('truetype');
 }
 
-body { position: fixed; height: 100% }
-
 @font-face {
     font-family: 'Inter';
     font-style: normal;

@@ -94,8 +94,6 @@ input:focus {
 }
 
 .search {
-  position: sticky;
-  top: 72px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -108,8 +106,6 @@ input:focus {
 }
 
 .subheader {
-  position: sticky;
-  top: 72px;
   z-index: 110;
   background: white;
   width: 100%;
@@ -173,7 +169,7 @@ input:focus {
 
 @media screen and (max-width: 879px) {
   .subheader {
-    top: 65px;
+    //top: 65px;
   }
 
   .deckHidden {

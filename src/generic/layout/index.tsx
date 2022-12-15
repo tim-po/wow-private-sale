@@ -44,7 +44,7 @@ const Layout = (props: layoutPropType) => {
     <ModalsContext.Provider value={{ displayModal }}>
       <BgContext.Provider value={{setBg: setBackgroundColor}}>
         <div className="DefaultLayoutContainer" id="scroll-container" style={{backgroundColor: backgroundColor}}>
-          <Header left={backButtonHref === '/'}/>
+          <Header left={backButtonHref === '/'} style={{backgroundColor: backgroundColor}}/>
           <div className="Content">
             {children}
             <GenericModal

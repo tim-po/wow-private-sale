@@ -19,12 +19,12 @@ import ProfessionLamsIcon from "images/icons/Static/lightBulbs";
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
 import { isMobile } from "react-device-detect";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
 const ProfessionDetails = () => {
-
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
@@ -32,6 +32,8 @@ const ProfessionDetails = () => {
   // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams] = useSearchParams()
   const {profession, presets, keywords} = useProfession(searchParams.get('id') || '')
+
+  const {createStickyBlock, containerRef} = useStickyHeaders();
 
   const [isLoading, setIsLoading] = useState(false);
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
@@ -45,12 +47,13 @@ const ProfessionDetails = () => {
   }, [])
 
   useEffect(() => {
-    if (searchParams.get('view') !== 'main' && profession) {
-      setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
-    }else{
-      setNewBackButtonProps('Все профессии', '/professions')
-    }
-    }, [searchParams.get('view'), profession])
+      if (searchParams.get('view') !== 'main' && profession) {
+        setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
+      }else{
+        setNewBackButtonProps('Все профессии', '/professions')
+      }
+    }, [searchParams.get('view'), profession]
+  )
 
   useEffect(() => {
     calculateRequiredLimit()
@@ -108,7 +111,7 @@ const ProfessionDetails = () => {
       case 'skills':
         return 'Наборы навыков'
       case 'main':
-        return profession ? profession.name : ''
+        return profession ? profession.name : '|'
       default:
         return ''
     }
@@ -128,8 +131,8 @@ const ProfessionDetails = () => {
   }
 
   return (
-    <div className="professionDetails">
-      <div className="headerFlex">
+    <div className="professionDetails" ref={containerRef}>
+      <div className="headerFlex" data-custom-sticky={createStickyBlock(1)} data-margin-top="0">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
         {searchParams.get('view') !== 'main' &&
           <div className="bottomLeftContainer">
@@ -147,7 +150,7 @@ const ProfessionDetails = () => {
         <div className="keywordsCustomisationFlex">
           <div className="professionContainer">
             <div className="professionDescription">
-              <p className="subheader subheader-mobile">Описание</p>
+              <p className="subheader subheader-mobile" data-custom-sticky={createStickyBlock(2)}>Описание</p>
               <div className="keywords__card">
                 <div className="profession-data">
                   {!profession &&
@@ -212,7 +215,7 @@ const ProfessionDetails = () => {
           </div>
           <div className="right-flex">
             <div className="containerPresets">
-              <div className="blockFlex">
+              <div className="blockFlex" data-custom-sticky={createStickyBlock(2)}>
                 <div id="blob-1-top-left" className="subheader">
                   <span className="subheader-title">Наборы навыков</span>
                   {presets.selected.length > 0 &&
@@ -234,7 +237,7 @@ const ProfessionDetails = () => {
             <div className="containerBlockFlex">
               <div className="blockFlex">
                 <div id="blob-0-top-left" className="subheader">
-                  <span className="subheader-title">Ключевые слова</span>
+                  <span className="subheader-title" data-custom-sticky={createStickyBlock(2)}>Ключевые слова</span>
                   {keywords.added.length > 0 &&
                     <div className="subheader-counter">+{
                       keywords.added.length

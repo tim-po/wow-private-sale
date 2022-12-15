@@ -8,6 +8,7 @@ import BgContext from "../../Context/Background";
 import * as Scroll from "react-scroll";
 import KeywordsSearch from "../KeywordsSearch";
 import Magnifier from "images/icons/magnifier";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -37,6 +38,7 @@ const Keywords = (props: KeywordsPropType) => {
   const {keywords} = props
 
   const {setBg} = useContext(BgContext)
+  const {createStickyBlock} = useStickyHeaders();
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const Keywords = (props: KeywordsPropType) => {
           <div className="leftBlock">
             <div className="search">
               {/*<h4 id='blob-1-top-left' className="subheader top deckHidden">Добавь то, что хочешь изучить</h4>*/}
-              <div id="blob-1-top-left" className="subheader top">
+              <div id="blob-1-top-left" className="subheader top" data-custom-sticky={createStickyBlock(2)}>
                 <h4 className="subheader-title">Добавь то, что хочешь изучить</h4>
                 {keywords.added.length > 0 &&
                   <div className="subheader-counter">
@@ -111,7 +113,7 @@ const Keywords = (props: KeywordsPropType) => {
             </div>
           </div>
           <div className="searchBlock">
-            <p className="subheader">
+            <p className="subheader" data-custom-sticky={createStickyBlock(2)}>
               Уже в наборе
             </p>
             <div className="keywordsPresets">

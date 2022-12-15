@@ -1,4 +1,4 @@
-FROM node:16.14.0
+FROM node:18.12.1
 
 ARG TAG
 ARG DOMAIN
@@ -17,4 +17,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "build"]
+CMD ["npm", "start"]

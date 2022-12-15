@@ -148,7 +148,7 @@ const Trajectory = (props: TrajectoryPropType) => {
             className="CourseButtonDiploma"
             onClick={() => navigateToCourse(5)}
           >
-            Итого
+            Результат
           </button>
         </div>
       </div>

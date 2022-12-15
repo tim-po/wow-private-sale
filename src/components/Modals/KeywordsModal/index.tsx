@@ -19,7 +19,7 @@ const KeywordsModal = (props: KeywordsModalPropType) => {
 
   return (
     <div className="KeywordsModalContent">
-      <h1 className="KeywordsModalHeader">Ключевые навыки</h1>
+      <h1 className="KeywordsModalHeader">Ключевые слова</h1>
       <div className="keywords-container">
         {keywords.map((keyword, index) => (
           <Keyword

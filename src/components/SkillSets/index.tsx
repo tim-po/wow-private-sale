@@ -5,6 +5,7 @@ import Preset from "components/Preset";
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import Chevron, { Turn } from "../../images/icons/chevron";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 
 // CONSTANTS
 
@@ -27,6 +28,7 @@ const SkillSets = (props: SkillSetsPropType) => {
   const {presets} = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
   const [isTopHidden, setIsTopHidden] = useState(false);
+  const {createStickyBlock, containerRef} = useStickyHeaders();
 
   useEffect(() => {
     let scroll = Scroll.animateScroll
@@ -72,10 +74,10 @@ const SkillSets = (props: SkillSetsPropType) => {
   }
 
   return (
-    <div className="skillSets">
+    <div className="skillSets" ref={containerRef}>
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className="minTitle top fullWidth">
+          <div className="minTitle top fullWidth" data-custom-sticky={createStickyBlock(2)}>
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
@@ -94,19 +96,20 @@ const SkillSets = (props: SkillSetsPropType) => {
               <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
-          <div className="borderBottom"/>
+          <div className="borderBottom" data-custom-sticky={createStickyBlock(3)}/>
           <div
-            className={`selectedSkillsBlock fullWidth ${selectedPresetsTrueHidden() ? '' : 'stickyPopup'} ${(selectedPresetsHidden && !isTopHidden) ? 'forceHidden' : ''}`}
+            className={`selectedSkillsBlock fullWidth ${selectedPresetsTrueHidden() ? 'stickyPopup' : 'stickyPopup'} ${(selectedPresetsHidden && !isTopHidden) ? 'forceHidden' : ''}`}
+            data-custom-sticky={createStickyBlock(5)}
           >
             <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
-          <div className="shadowBottom fullWidth"/>
           <p
             className={`minTitle bottom fullWidth ${selectedPresetsTrueHidden() ? '' : 'stickyPopup'}`}
             id="hidePresetsBottomTarget"
           >
             Добавь то, что хочешь изучить
           </p>
+          {/*<div className="shadowBottom fullWidth"/>*/}
           <div className="rightBlock">
             <div className="blockPreset">
               {presets.display.map(preset => {

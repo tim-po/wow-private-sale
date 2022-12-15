@@ -121,12 +121,14 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
             <div className="prompt">
               <span>
-                Наборы навыков еще не добавлены.
-                Начни добавлять их прямо сейчас
+                В дополнение к ключевым словам ты можешь
+                добавить наборы навыков, которые тебе интересны
               </span>
-              <button onClick={editSkillSets} className="add-button">
-                Добавить
-              </button>
+              <div className="addPreset">
+                <button onClick={editSkillSets} className="add-button">
+                  Добавить
+                </button>
+              </div>
             </div>
           </div>
         }

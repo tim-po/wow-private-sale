@@ -1,4 +1,5 @@
 .Header {
+  //background: white;
   padding: 24px 0 0 0;
   position: relative;
   width: calc(100vw - 80px);
@@ -89,9 +90,11 @@
         width: 100%;
       }
     }
-    .TrajectoriesLinkBack{
+    .TrajectoriesLinkBack {
       &.preAnimated {
-        left: 0
+        .BackArrow {
+          display: none;
+        }
       }
       .BackText {
         display: none;

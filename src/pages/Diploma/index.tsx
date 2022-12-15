@@ -1,26 +1,26 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import './index.scss';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import "./index.scss";
 import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
 import BgContext from "Context/Background";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
-import {makeKeywordsArray} from "utils/makeKeywordsArray";
-import {CountType, KeywordType} from "types";
+import { BASE_URL, colors } from "../../constants";
+import { makeKeywordsArray } from "utils/makeKeywordsArray";
+import { CountType, DiplomaDataType, KeywordType } from "types";
 import ModalsContext from "Context/Modal";
 import Card from "components/DiplomaGeneral/Card";
 import GenericModal from "components/GenericModal";
 import ShareModal from "components/Modals/ShareModal";
 import Button from "components/Button";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SwapModal from "components/Modals/SwapModal";
 import ControlTypeModal from "../../components/Modals/ControlTypeModal";
-import {DiplomaDataType} from "types";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 
+import { refactorName } from "../../components/refactorName";
 type DiplomaPropType = {}
 
 const DiplomaDefaultProps = {}
@@ -51,6 +51,7 @@ const Diploma = (props: DiplomaPropType) => {
       console.log(e)
     }
   }
+
 
   const closeShareModal = () => {
     setIsShareModalOpen(false)
@@ -87,11 +88,11 @@ const Diploma = (props: DiplomaPropType) => {
                 'white-tile-wrapper'
               ]}
             >
-              <h6 className="marginText">
+              <span className="marginText">
                 Это твоя траектория в университете ИТМО!
                 <br/>
                 Поступай к нам чтобы изучать то, что нравится.
-              </h6>
+              </span>
               <div className="buttons-wrapper">
                 <Button
                   buttonStyle={'main'}
@@ -122,7 +123,13 @@ const Diploma = (props: DiplomaPropType) => {
               <div className="disciplines-wrapper">
                 {diplomaData?.classes_count.map((discipline) => (
                   <Card
-                    onClick={() => {}}
+                    onClick={() => displayModal(
+                      <DisciplinesModal
+                        discipline={discipline.disciplines}
+                        headerBg={colors[discipline.name]}
+                        name={discipline.name}
+                      />
+                    )}
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}
@@ -140,7 +147,7 @@ const Diploma = (props: DiplomaPropType) => {
                     onClick={() => displayModal(<ControlTypeModal controlType={controlType} />)}
                     name={controlType.name}
                     title={controlType.count}
-                    subtitle={controlType.name}
+                    subtitle={refactorName(controlType.count, controlType.name )}
                     isDiplomaCard
                     isControlTypeCard
                     classNames={[

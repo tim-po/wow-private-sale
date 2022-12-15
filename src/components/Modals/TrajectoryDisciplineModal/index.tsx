@@ -239,7 +239,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               </div>
             </div>
             <p className="modalKeywordsHeader">
-              Полученные знания и навыки -
+              <span>Знания и навыки</span>
               <span
                 className="modalKeywordsCoverage"
                 style={{color: `${colors[trajectoryDisciplineData.class]}`}}

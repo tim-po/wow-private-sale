@@ -53,8 +53,11 @@
       margin-bottom: 24px;
 
       .InfoText {
-        font-weight: 500;
+        margin-left:20px;
+        font-weight: 400;
         font-size: 20px;
+        line-height: 28px;
+        color: #1F1F22;
       }
 
       .letter-icon {
@@ -109,6 +112,7 @@
 
           .MainButton {
             transition: 0.3s;
+            margin-right: inherit;
             align-self: center;
             background: var(--color-5-dark);
             color: white;
@@ -140,6 +144,8 @@
     margin-bottom: 20px;
 
     .HeaderSubtext {
+      display: flex;
+      flex-wrap: wrap;
       font-family: 'Inter';
       font-style: normal;
       font-weight: 500;
@@ -195,7 +201,7 @@
             align-content: center;
             align-items: center;
 
-            .ImgMain img {
+            .ImgMain  {
               width: 184px;
               height: 194px;
             }
@@ -261,8 +267,9 @@
     .StarsMobil {
       display: inherit !important;
 
-      img {
-        width: 50%;
+      .startHumanIcon {
+        width: 184px;
+        height: 194px;
       }
     }
   }
@@ -306,10 +313,13 @@
       .point-wrapper {
 
         .InfoText {
-          margin-left: 0.5rem !important;
+
+
+          font-style: normal;
           font-weight: 400;
           font-size: 14px;
-          line-height: 20px;
+          line-height: 24px;
+          color: #1F1F22;
         }
       }
 
@@ -329,7 +339,6 @@
             .MainButton {
               width: 104px;
               font-size: 14px;
-              margin-right: inherit !important;
 
             }
           }
@@ -366,7 +375,6 @@
   .FlexButton {
     .MainButton {
       width: 104px;
-      margin-right: inherit !important;
     }
   }
 }

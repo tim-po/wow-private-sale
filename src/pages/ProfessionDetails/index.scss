@@ -88,7 +88,7 @@
 }
 
 .currentHeader {
-  margin-top: 24px;
+  padding-top: 24px;
   margin-bottom: 24px;
 }
 
@@ -102,12 +102,14 @@
 }
 
 .headerFlex {
+  //position: absolute;
+  left: 0;
+  //padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  position: sticky;
-  top: 0;
+  //position: sticky;
   z-index: 126;
   background: white;
 }
@@ -119,10 +121,10 @@
 
 
 .subheader {
-  position: sticky;
+  //position: sticky;
   display: flex;
   align-items: center;
-  top: 72px;
+  //top: 72px;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -179,6 +181,8 @@
 
 .bottomLeftContainer {
   z-index: 2000;
+  gap: 12px;
+  display: flex;
 }
 
 .bottomLeftContainer .clear {
@@ -190,6 +194,13 @@
   font-size: 14px;
   line-height: 20px;
   /*border-radius: 8px;*/
+  &:hover{
+    border-radius: 8px;
+    background: #F3F3F8;
+  }
+  &:active{
+    color: #7328E2;
+      }
 }
 
 .bottomLeftContainer .save {
@@ -284,6 +295,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  .Keyword:hover{
+    background: #DDDDFD;
+  }
 }
 
 .presets {
@@ -315,8 +329,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  position: sticky;
-  top: 72px;
   z-index: 110;
   background: white;
 }
@@ -326,13 +338,15 @@
 }
 
 .loadingKeywords {
-  position: absolute;
-  top: 30%;
-  left: 48%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  animation: loader 1s ease-in-out infinite;
+  //position: absolute;
+  //transform-box: fill-box;
+  //transform-origin: center;
+  //top: 30%;
+  //left: 48%;
+  ////transform: translate(-50%, -50%);
+  //width: 40px;
+  //height: 40px;
+  //animation: loader 1s ease-in-out infinite;
 }
 
 @keyframes loader {
@@ -609,7 +623,7 @@
   /*position: relative;*/
   width: 100%;
   max-width: 490px;
-  margin-right: 24px;
+  margin-right: 68px;
   /*min-width: 320px;*/
   flex-shrink: 2;
 }
@@ -675,6 +689,9 @@
 }
 
 @media screen and (max-width: 879px) {
+  .professionDescriptionText{
+    justify-content: center;
+  }
   .prompt button {
     text-align: center;
   }
@@ -684,7 +701,7 @@
   }
 
   .currentHeader {
-    margin-bottom: 17px;
+    margin-bottom: inherit;
   }
 
   .right-flex {
@@ -715,8 +732,7 @@
   }
 
   .blockFlex {
-    top: 65px;
-    padding-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   .presets {
@@ -933,8 +949,9 @@
   }
 
   .blockDescriptionMobil.bottom {
-    z-index: 25;
-    padding: 15px;
+    z-index: 111;
+    border-top: 1px solid #E7E8EE;
+    padding: 16px 16px 34px 16px;
     position: fixed;
     bottom: 0;
     /*z-index: 10000;*/

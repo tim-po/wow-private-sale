@@ -11,6 +11,7 @@ import Magnifier from "images/icons/magnifier";
 import GenericModal from "../GenericModal";
 import RandomFeedback from "../Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -39,7 +40,8 @@ type KeywordsPropType = {
 const Keywords = (props: KeywordsPropType) => {
   const { keywords } = props;
 
-  const { setBg } = useContext(BgContext);
+  const {setBg} = useContext(BgContext)
+  const {createStickyBlock} = useStickyHeaders();
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
@@ -70,8 +72,8 @@ const Keywords = (props: KeywordsPropType) => {
           <div className="leftBlock">
             <div className="search">
               {/*<h4 id='blob-1-top-left' className="subheader top deckHidden">Добавь то, что хочешь изучить</h4>*/}
-              <div id="blob-1-top-left" className="subheader top">
-                <h4 className="subheader-title">Добавь то, что хочешь изучить</h4>
+              <div id="blob-1-top-left" className="subheader top" data-custom-sticky={createStickyBlock(2)}>
+                <span className="subheader-title">Добавь то, что хочешь изучить</span>
                 {keywords.added.length > 0 &&
                   <div className="subheader-counter">
                     +<span key={keywords.added.length} className="rollNumber">
@@ -90,7 +92,7 @@ const Keywords = (props: KeywordsPropType) => {
                 >
                   <Magnifier width={94} height={139} />
                   <span className="magnifier">
-                  Ищи и добавляй навыки, которые хочешь получить в ИТМО
+                    <div>Ищи и добавляй навыки,&nbsp;</div><div>которые хочешь получить в ИТМО</div>
                   </span>
                 </div>
               }
@@ -114,7 +116,7 @@ const Keywords = (props: KeywordsPropType) => {
             </div>
           </div>
           <div className="searchBlock">
-            <p className="subheader">
+            <p className="subheader" data-custom-sticky={createStickyBlock(2)}>
               Уже в наборе
             </p>
             <div className="keywordsPresets">

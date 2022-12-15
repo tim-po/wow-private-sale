@@ -67,6 +67,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }, 500)
 
   const getKeywords = async (query: string) => {
+    setIsLoading(true)
     if (query === '') {
       setQueryKeywords([])
     } else {
@@ -85,7 +86,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }
 
   useEffect(() => {
-    if(searchQuery.length > 1) {
+    if(searchQuery.length >= 1) {
       searchKeywords()
     }else{
       setQueryKeywords([])
@@ -114,6 +115,8 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             setIsSearchUnsuccessful(false)
             setIsBadWord(false)
             setSearchQuery(e.target.value)
+            setIsLoading(true)
+
           }}
         />
         <div className="searchInput">

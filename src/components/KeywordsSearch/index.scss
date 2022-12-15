@@ -21,8 +21,12 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-
-  /*color: #B7B6BC;*/
+  &::placeholder{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #B7B6BC;
+  }
 }
 
 .mobile {
@@ -177,7 +181,7 @@
   0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
   border: 1px solid #e7e8ee;
   max-height: calc(100vh - 300px);
-  min-height: 80px;
+  min-height: 160px;
   padding: 16px;
 
   .Keyword{

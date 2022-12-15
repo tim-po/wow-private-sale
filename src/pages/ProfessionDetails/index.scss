@@ -295,6 +295,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  .Keyword:hover{
+    background: #DDDDFD;
+  }
 }
 
 .presets {
@@ -335,13 +338,15 @@
 }
 
 .loadingKeywords {
-  position: absolute;
-  top: 30%;
-  left: 48%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  animation: loader 1s ease-in-out infinite;
+  //position: absolute;
+  //transform-box: fill-box;
+  //transform-origin: center;
+  //top: 30%;
+  //left: 48%;
+  ////transform: translate(-50%, -50%);
+  //width: 40px;
+  //height: 40px;
+  //animation: loader 1s ease-in-out infinite;
 }
 
 @keyframes loader {
@@ -684,6 +689,9 @@
 }
 
 @media screen and (max-width: 879px) {
+  .professionDescriptionText{
+    justify-content: center;
+  }
   .prompt button {
     text-align: center;
   }

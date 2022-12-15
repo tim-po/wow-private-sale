@@ -65,7 +65,10 @@
 }
 
 @media screen and (max-width: 570px) {
-
+  .finderLikeWrap{
+    width: 49px;
+    height: 74px;
+  }
   .professionCard {
     margin: inherit;
     width: 100%;

@@ -89,9 +89,11 @@
         width: 100%;
       }
     }
-    .TrajectoriesLinkBack{
+    .TrajectoriesLinkBack {
       &.preAnimated {
-        left: 0
+        .BackArrow {
+          display: none;
+        }
       }
       .BackText {
         display: none;

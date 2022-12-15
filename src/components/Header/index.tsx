@@ -63,7 +63,7 @@ const Header = (props: HeaderPropType) => {
         <div
           className={`Logo ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
         >
-          <div className="LogoImg" onClick={() => navigate('/professions')}><Logo/></div>
+          <div className="LogoImg" onClick={() => navigate('/')}><Logo/></div>
           <h2 className="LogoText">ITMO.TRACK</h2>
         </div>
       </div>

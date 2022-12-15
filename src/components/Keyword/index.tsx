@@ -43,14 +43,14 @@ const Keyword = (props: KeywordPropType) => {
     <span
       className={`Keyword ${isDeleted ? 'deleted' : ''} ${selected ? 'selected' : ''} ${selected !== undefined ? 'selectable' : ''}`}
       key={keyword.text}
-      onClick={onSelectSelf}
+      onClick={ onSelectSelf ? onSelectSelf : onDeleteSelf ? deleteSelf : undefined}
       style={{background: bgColor}}
     >
          {keyword.text}
       {deletable &&
         <button>
-          <div className="deletedButton" onClick={deleteSelf}>
-            <Close width={12} height={12}/>
+          <div className="deletedButton">
+            <Close width={7.38} height={7.38}/>
           </div>
         </button>
         // />

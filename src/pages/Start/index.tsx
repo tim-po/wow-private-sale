@@ -20,14 +20,15 @@ const Start = () => {
   const {setBg} = useContext(BgContext);
 
   const scrollToBottom = () => {
-    let scroller = Scroll.scroller
-    scroller.scrollTo('scrollToAbout', {
-      duration: 1500,
-      delay: 100,
-      smooth: true,
-      containerId: 'scroll-container',
-      offset: 50, // Scrolls to element + 50 pixels down the page
-    })
+    // let scroller = Scroll.scroller
+    // scroller.scrollTo('scrollToAbout', {
+    //   duration: 1500,
+    //   delay: 100,
+    //   smooth: true,
+    //   containerId: 'scroll-container',
+    //   offset: 50, // Scrolls to element + 50 pixels down the page
+    // })
+
   }
 
   useEffect(() => {

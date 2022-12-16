@@ -128,7 +128,7 @@ const Trajectories = () => {
           >
             <div className="TrajectoriesCardHeader">
               <h5 className="trajectoryHeader mb-0">
-                {trajectory.educational_plan}
+                {trajectory.code.replace(/\.$/, "")} {trajectory.educational_plan}
                 <span className={"eduDirectionCode"}>{trajectory.code.replace(/\.$/, "")}</span>
               </h5>
               <div className="d-flex align-items-center TrajectoriesCardProgress">

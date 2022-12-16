@@ -10,6 +10,7 @@
 
 
 .disciplineModalContainer {
+  min-width: 520px;
   min-height: 388px;
   border-radius: 16px;
   overflow: hidden;
@@ -160,11 +161,14 @@ hr {
 .ExamModalContainer {
   background: white;
   overflow-y: scroll;
-  width: 422px;
+  width: 100%;
   height: 532px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
+  .KeywordsModalContent{
+    padding: initial;
+  }
 }
 
 .KeywordsModalContentDisciplines {

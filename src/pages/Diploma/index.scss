@@ -212,6 +212,8 @@
   }
 
   .tiles-wrapper {
+    max-width: 700px;
+    width: 100%;
     flex-direction: column;
 
     .left-tiles {
@@ -220,7 +222,7 @@
     }
 
     .right-tiles {
-      max-width: 700px;
+      max-width: 100%;
     }
   }
 

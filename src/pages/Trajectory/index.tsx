@@ -111,7 +111,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   const openStatsModal = () => {
-    // displayModal(<TrajectoryStats/>)
+    displayModal(<TrajectoryStats  className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
   const openDisciplineModal = () => {
@@ -120,7 +120,7 @@ const Trajectory = (props: TrajectoryPropType) => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline">
+      <div className="titleNameDiscipline"  style={courseQuery === 5 ? {borderBottom: '2px solid white', backgroundColor:'rgb(241, 242, 248)' } : {borderBottom: '2px solid var(--gray-100)', }}>
         <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
         <div className="CoursesRow">
           <CourseSelector
@@ -152,8 +152,8 @@ const Trajectory = (props: TrajectoryPropType) => {
           </button>
         </div>
       </div>
-      <hr className="HeaderDivider"
-          style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>
+      {/*<hr className="HeaderDivider"*/}
+      {/*    style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>*/}
       {courseQuery !== 5 &&
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats

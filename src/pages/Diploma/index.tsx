@@ -34,7 +34,7 @@ const Diploma = (props: DiplomaPropType) => {
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-
+  const [linkAbit, setLinkAbit]=useState(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`)
   const {group_id} = useContext<any>(FeedbackGroupIdContext)
 
   const [searchParams] = useSearchParams()
@@ -70,6 +70,8 @@ const Diploma = (props: DiplomaPropType) => {
     }
   }, [diplomaData])
 
+
+
   return (
     <>
       <div className="diploma-container">
@@ -97,7 +99,8 @@ const Diploma = (props: DiplomaPropType) => {
                 <Button
                   buttonStyle={'main'}
                   isDisabled={false}
-                  onClick={() => window.open(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`, '_blank')}
+                  // onClick={window.open(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`, '_blank')}
+                  onClick={()=> setTimeout(()=>{   window.open(linkAbit, '_blank')})}
                   classNames={['mobile-button']}
                 >
                   <span className={'button-text'}>Поступить в ИТМО</span>

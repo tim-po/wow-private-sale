@@ -17,6 +17,9 @@ import SwapModal from "components/Modals/SwapModal";
 import ControlTypeModal from "../../components/Modals/ControlTypeModal";
 import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
+import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import FeedbackGroupIdContext from "../../Context/IdGroup";
+
 import { refactorName } from "../../components/refactorName";
 type DiplomaPropType = {}
 
@@ -32,8 +35,14 @@ const Diploma = (props: DiplomaPropType) => {
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const [searchParams] = useSearchParams()
+  const {group_id} = useContext<any>(FeedbackGroupIdContext)
 
+  const [searchParams] = useSearchParams()
+  const randomFeedbackSelectOptions = [
+    'Поиск ключевых слов 🔎️',
+    'Добавление/ удаление слов 🗑',
+    'Все сложно  🤯', 'Все понятно 👌'
+  ]
   const getDiplomaData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`)
@@ -151,11 +160,8 @@ const Diploma = (props: DiplomaPropType) => {
             </div>
           </div>
         </div>
-        {/*<RandomFeedback display-for-group="5" button=buttonFeedback title="Что бы ты добавил в диплом?"/>*/}
-        {/*<RandomFeedback display-for-group="6" button=buttonFeedbackTho title="Ты хотел бы сохранить результат?"/>*/}
-        {/*<RandomFeedback display-for-group="7" isSecondary="true" button=buttonFeedbackTrack*/}
-        {/*                title="Тебе понравилась составленная траектория?"/>*/}
-        {/*<RandomFeedback display-for-group="7" button=buttonFeedbackTrack title="Тебе было удобно пользоваться сайтом?"/>*/}
+        <RandomFeedback displayForGroup={6}/>
+        <RandomFeedback displayForGroup={7}/>
       </div>
       <GenericModal
         modal={isShareModalOpen}

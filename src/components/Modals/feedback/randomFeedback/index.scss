@@ -1,0 +1,245 @@
+.container-form-random-feedback {
+  padding: 28px 36px 36px 40px;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  bottom: 40px;
+  z-index: 1000;
+  right: 30px;
+  background: white;
+  box-shadow: 0px -1px 12px rgba(31, 31, 34, 0.06), 1px 4px 20px rgba(31, 31, 34, 0.1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 56px;
+  min-height: 40px;
+
+  &.feedbackSmall{
+    box-shadow: 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 0px rgba(100, 53, 165, 0.06);
+    border-radius: 16px 0 0 0;
+    padding: 0;
+    bottom: 0;
+    right: 0;
+
+    .randomFeedbackIcon{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .form {
+      transition: all 0.4s ease-in-out, trnsform 0.4s, opacity 0.4s;
+      opacity: 0;
+      transform: scale(0);
+      max-width: 0;
+      max-height: 0;
+    }
+
+    &:hover{
+      min-width: 84px;
+      min-height: 60px;
+    }
+  }
+  .randomFeedbackIcon{
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    opacity: 0;
+    transform: scale(0);
+  }
+  .form {
+    overflow: hidden;
+    transition: all 0.4s ease-in-out, trnsform 0.4s 0.4s, opacity 0.4s 0.4s;
+    opacity: 1;
+    max-width: 447px;
+    max-height: 400px;
+    transform: scale(1);
+    animation:  0.3s linear formTransform;
+    .wrapTitle{
+      display: flex;
+      justify-content: space-between;
+    }
+    textarea, input {
+      border: 1px solid #E7E8EE;
+      border-radius: 8px;
+      padding-left: 16px;
+      width: 100%;
+    }
+
+    .containerText {
+      text-align: left;
+      margin-top: 22px;
+
+      .descriptionСontainerText {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1F1F22;
+      }
+    }
+
+    .bottomFeedback {
+      margin-top: 25px;
+      gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      .validationPrompt{
+        color: red;
+      }
+      .selectButton {
+        &.active{
+          border: 1px solid #8533FF;
+        }
+        background: #EEEEFF;
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #1F1F22;
+    }
+
+    .first-form {
+      margin-top: 8px;
+
+      &.validation {
+        border-color: red;
+      }
+
+      padding-top: 10px;
+      resize: none;
+      height: 60px;
+    }
+
+    .containerButton {
+      margin-top: 24px;
+      gap: 10px;
+      display: flex;
+
+      .submit {
+        min-width: 142px;
+        background: #8533FF;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px 12px;
+        color: #FFFFFF;
+        &.notValid{
+          pointer-events: none;
+          background: #C198FF;
+        }
+      }
+
+      .cancellation {
+        min-width: 142px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px 12px;
+        border: 1px solid #8533FF;
+        border-radius: 8px;
+        color: #8533FF;
+
+      }
+    }
+  }
+
+  .RequestSent {
+    .heartImg {
+      margin-bottom: 40px;
+    }
+
+    .gratitude {
+      font-weight: 400;
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 20px;
+      color: #1F1F22;
+    }
+
+    .containerButton {
+      display: flex;
+
+      .closeModal {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px 10px 10px 10px;
+        color: #FFFFFF;
+        background: #8533FF;
+        border-radius: 8px;
+        min-width: 142px;
+      }
+
+    }
+  }
+}
+
+
+@keyframes formTransform {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1)
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container-form-random-feedback {
+    min-width: revert;
+    max-width: 100%;
+    padding: 20px 16px 24px;
+    //margin: 0 16px;
+    bottom: 0px;
+    margin: 0;
+
+    right: 0px;
+    overflow: hidden;
+    &.feedbackSmall{
+      max-height: 30px;
+      max-width: 30px;
+      min-height: 30px;
+      min-width: 30px;
+      border-radius: 20px;
+      bottom: 80px;
+      right: 4px;
+
+
+      &:hover{
+        max-height: 30px;
+        max-width: 30px;
+        min-height: 30px;
+        min-width: 30px;
+        border-radius: 20px;
+      }
+    }
+    .form {
+      animation: linear formTransform;
+      max-height: 500px;
+      .containerButton {
+        display: flex;
+        flex-direction: column;
+      }
+      .possibleNumberFormSubmissions{
+        display: none;
+      }
+    }
+  }
+
+  @keyframes formTransform {
+    from {
+      max-width: 0;
+    }
+
+    to {
+      min-width: 500px;
+    }
+  }
+}
+

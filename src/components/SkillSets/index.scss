@@ -1,20 +1,16 @@
 .borderBottom {
   border-bottom: 1px solid rgba(231, 232, 238, 1);
   z-index: 110;
-  position: sticky;
-  top: 121px;
-  transform: translateY(1px);
+  //transform: translateY(-1px);
 
   width: 100%;
 }
 
 .shadowBottom {
   z-index: 109;
-  top: 175px;
   width: 100%;
-  position: sticky;
   height: 1px;
-  transform: translateY(2px) translateX(-32px);
+  transform: translateY(-2px) translateX(-32px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -50,6 +46,7 @@
 .selectedSkillsBlock.forceHidden {
   max-height: 0;
   min-height: 0;
+  top: -420px !important;
   border-bottom: 1px solid #E7E8EE;
 }
 
@@ -203,11 +200,11 @@
 
   .minTitle.bottom {
     padding-top: 8px;
-    top: 110px;
+    top: 90px;
   }
 
   .minTitle.bottom.stickyPopup {
-    top: 436px
+    top: 415px
   }
 
   .borderBottom {

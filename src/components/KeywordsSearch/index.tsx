@@ -9,6 +9,7 @@ import {BASE_URL} from "../../constants";
 import useOnClickOutside from "../../utils/useClickOutside";
 import keywords from "../Keywords";
 import SearchInput from "../../images/icons/magnifyingGlass";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 
 // CONSTANTS
 
@@ -28,6 +29,8 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   const [isSearchUnsuccessful, setIsSearchUnsuccessful] = useState(false);
   const [isBadWord, setIsBadWord] = useState(false);
   const [queryKeywords, setQueryKeywords] = useState<KeywordType[]>([]);
+  const {createStickyBlock} = useStickyHeaders();
+
 
   const searching = () => {
     if(!isSearching && searchQuery.length > 0) {
@@ -64,6 +67,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }, 500)
 
   const getKeywords = async (query: string) => {
+    setIsLoading(true)
     if (query === '') {
       setQueryKeywords([])
     } else {
@@ -82,7 +86,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }
 
   useEffect(() => {
-    if(searchQuery.length > 1) {
+    if(searchQuery.length >= 1) {
       searchKeywords()
     }else{
       setQueryKeywords([])
@@ -99,7 +103,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }
 
   return (
-    <div className="searchFieldContainer">
+    <div className="searchFieldContainer"  data-custom-sticky={createStickyBlock(3)}>
       <div ref={searchRef}>
       <div className="inputContainer">
         <input
@@ -111,6 +115,8 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             setIsSearchUnsuccessful(false)
             setIsBadWord(false)
             setSearchQuery(e.target.value)
+            setIsLoading(true)
+
           }}
         />
         <div className="searchInput">

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
 import GenericModal from "../../components/GenericModal";
 import HeaderContext from "../../Context/Header";
@@ -10,16 +10,18 @@ import './index.scss'
 import BgContext from "../../Context/Background";
 import {LocalStorageInteraction, makeEmptyList, withLocalStorage} from "../../utils/general";
 import Close from "../../images/icons/close";
+import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
+// import FeedbackForm from
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
 const Professions = () => {
+
   const {setIsHeaderAnimated} = useContext(HeaderContext)
   const navigate = useNavigate()
   const {setBg} = useContext(BgContext)
-
   const [professionsWithCustomSvg, setProfessionsWithCustomSvg] = useState<Profession[]>([]);
   const [isProfessionsLoading, setIsProfessionsLoading] = useState(true);
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false);
@@ -105,21 +107,22 @@ const Professions = () => {
               className="LinkText"
               onClick={() => setIsFeedbackFormVisible(true)}
             >
-              Расскажи, какой профессии тебе не хватает?
+              &#160;Расскажи, какой профессии тебе не хватает?
             </button>
           </span>
         </div>
       </div>
 
-      {/*<GenericModal*/}
-      {/*  onModalClose={() => setIsFeedbackFormVisible(false)}*/}
-      {/*  modal={isFeedbackFormVisible}*/}
-      {/*  hideMobile={true}*/}
-      {/*  colorCloseWhite={false}*/}
-      {/*  hideDesktop={false}*/}
-      {/*>*/}
-      {/*  <FeedbackForm onmodalClose="disciplineModalVisibleFunc()"/>*/}
-      {/*</GenericModal>*/}
+      <GenericModal
+        onModalClose={() => setIsFeedbackFormVisible(false)}
+        modal={isFeedbackFormVisible}
+        hideMobile={true}
+        colorCloseWhite={false}
+        hideDesktop={false}
+      >
+          <FeedbackStatic isModal={isFeedbackFormVisible} onModalClose={() => setIsFeedbackFormVisible(false)}/>
+      </GenericModal>
+
     </div>
   )
 };

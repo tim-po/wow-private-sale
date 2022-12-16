@@ -1,12 +1,13 @@
 .DefaultLayoutContainer{
-  height: 100vh;
-  overflow: scroll;
+  //width: 100vw;
+  //overflow: scroll;
   transition: all 0.3s;
   /*min-height: 100vh;*/
   /*transition: all 0.3s;*/
   /*min-height: 100vh;*/
 }
 .Content {
+  z-index: 300;
   padding: 0 32px;
 }
 .BtnContainer{

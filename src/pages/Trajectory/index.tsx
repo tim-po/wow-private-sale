@@ -15,9 +15,15 @@ import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
 import Card from "../../components/trajectory/Card";
 import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
+import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import FeedbackGroupIdContext from "../../Context/IdGroup";
 
 // CONSTANTS
-
+const randomFeedbackSelectOptions = [
+  'Поиск ключевых слов 🔎️',
+  'Добавление/ удаление слов 🗑',
+  'Все сложно  🤯', 'Все понятно 👌'
+]
 // DEFAULT FUNCTIONS
 
 // TODO: copy this components directory and add your content to make a new page
@@ -31,6 +37,7 @@ const TrajectoryDefaultProps = {
 }
 
 const Trajectory = (props: TrajectoryPropType) => {
+  const { group_id } = useContext<any>(FeedbackGroupIdContext);
   const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
   const navigate = useNavigate()
@@ -208,10 +215,8 @@ const Trajectory = (props: TrajectoryPropType) => {
       {/*'А тут 2 семестра )'"*/}
       {/*       />*/}
       {/*   </div>*/}
-      {/*<RandomFeedback display-for-group="3" button=randomFeedback.firstOptionSelectButton*/}
-      {/*                title="Удобно ли тебе знакомиться с образовательной программой ?"/>*/}
-      {/*<RandomFeedback display-for-group="4" button=randomFeedback.secondOptionSelectButton*/}
-      {/*                title="Что-то на этой странице вызвало трудности? "/>*/}
+      <RandomFeedback displayForGroup={4} />
+      <RandomFeedback displayForGroup={5} />
     </div>
   )
 };

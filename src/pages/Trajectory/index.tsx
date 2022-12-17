@@ -17,6 +17,7 @@ import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
+import useStickyHeaders from "../../utils/useStickyHeaders";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -46,7 +47,8 @@ const Trajectory = (props: TrajectoryPropType) => {
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
-
+  const {createStickyBlock} = useStickyHeaders()
+  const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
   const courseQuery = +(searchParams.get('course') || '1')
 
   useEffect(() => {
@@ -78,6 +80,7 @@ const Trajectory = (props: TrajectoryPropType) => {
     //   localStorage.setItem("ModelWindow", false);
     // }
   }, [])
+
 
   const getTrajectory = () => {
     axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
@@ -111,7 +114,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   const openStatsModal = () => {
-    displayModal(<TrajectoryStats  className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
+    displayModal(<TrajectoryStats setIsModalTrajectory={setIsModalTrajectory} setSelectedSphere={setSelectedSphere} className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
   const openDisciplineModal = () => {
@@ -120,7 +123,11 @@ const Trajectory = (props: TrajectoryPropType) => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline"  style={courseQuery === 5 ? {borderBottom: '2px solid white', backgroundColor:'rgb(241, 242, 248)' } : {borderBottom: '2px solid var(--gray-100)', }}>
+      <div
+        className="titleNameDiscipline"
+        style={courseQuery === 5 ? {borderBottom: '2px solid white', backgroundColor:'rgb(241, 242, 248)' } : {borderBottom: '2px solid var(--gray-100)', }}
+        data-custom-sticky={createStickyBlock(2)}
+      >
         <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
         <div className="CoursesRow">
           <CourseSelector
@@ -188,6 +195,7 @@ const Trajectory = (props: TrajectoryPropType) => {
             {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
               return (
                 <Card
+                  // id={sphere}
                   key={sphere.name}
                   selectSelf={() => selectNewSphere(sphere.name)}
                   sphere={sphere}

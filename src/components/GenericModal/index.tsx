@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import Close from "../../images/icons/close";
-
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -25,6 +24,7 @@ const GenericModal = (props: GenericModalPropType) => {
   const {hideMobile, hideDesktop, maxHeight, onModalClose, colorCloseWhite, children, modal} = props;
 
   const modalClose = () => {
+
     setBlockContent(false)
     setTimeout(()=>{
       setIsOpen(false)
@@ -38,6 +38,7 @@ const GenericModal = (props: GenericModalPropType) => {
     setIsOpen(modal)
     setBlockContent(modal)
   }, [modal])
+
 
   return (
     <div

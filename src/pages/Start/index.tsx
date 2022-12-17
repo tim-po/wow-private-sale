@@ -19,16 +19,9 @@ import Chevron from "../../images/icons/chevron";
 const Start = () => {
   const {setBg} = useContext(BgContext);
 
-  const scrollToBottom = () => {
-    // let scroller = Scroll.scroller
-    // scroller.scrollTo('scrollToAbout', {
-    //   duration: 1500,
-    //   delay: 100,
-    //   smooth: true,
-    //   containerId: 'scroll-container',
-    //   offset: 50, // Scrolls to element + 50 pixels down the page
-    // })
-
+  function scrollTo(hash: string) {
+    const scrollToContent = document.getElementById(hash);
+    scrollToContent?.scrollIntoView({block: "center", behavior: "smooth"});
   }
 
   useEffect(() => {
@@ -51,7 +44,7 @@ const Start = () => {
                 <Link to="/professions" className="LinkProfession MainButton">
                   Поехали!
                 </Link>
-                <button onClick={scrollToBottom} className="SecondaryButton">Это как?</button>
+                <button onClick={()=> scrollTo('scrollToAbout')} className="SecondaryButton">Это как?</button>
               </div>
             </div>
             <div className="d-flex flex-column justify-content-center ImgMain Stars">

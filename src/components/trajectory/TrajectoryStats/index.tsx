@@ -7,7 +7,7 @@ import { allControllTypes, colors } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
 import ModalContext from "../../../Context/Modal";
 import ControlTypeModal from "../../Modals/ControlTypeModal";
-
+import { scrollToElement } from "../../../utils/scrollToElement";
 
 // CONSTANTS
 const focusedCircleRadius = 90;
@@ -16,17 +16,20 @@ const focusedCircleRadius = 90;
 
 type TrajectoryStatsPropType = {
   course?: CourseType,
-  className: string
+  className: string,
+  setSelectedSphere?:React.SetStateAction<any>
+  setIsModalTrajectory?:React.SetStateAction<any>,
 }
 
 const TrajectoryStatsDefaultProps = {};
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const { course, className = "Mobile" } = props;
+  const { course, className = "Mobile", setSelectedSphere, setIsModalTrajectory} = props;
   const [focusedCircleLoading, setFocusedCircleLoading] = useState(false);
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
   const { displayModal } = useContext(ModalContext);
+  console.log(displayModal)
 
   const transformedClassData = () => {
     return {
@@ -155,6 +158,13 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     }
   };
 
+  const scrollTo = (name:string)=>{
+    scrollToElement (name)
+    if (setSelectedSphere)
+      setIsModalTrajectory(false)
+      setSelectedSphere(name)
+  }
+
   return (
     <div className={`StatsContainer ${className}`}>
       <div className="MainHeader">Статистика</div>
@@ -166,6 +176,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           {layoutData().children?.map((klass: any) => {
             return (
               <div
+                onClick={()=>{scrollTo (klass.data.name) }}
                 className={`Circle ${(focusedCircle && focusedCircle.data.name === klass.data.name) ? "Focused" : ""}`}
                 key={klass.data.name}
                 onMouseEnter={(e) => {

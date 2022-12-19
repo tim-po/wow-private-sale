@@ -300,7 +300,7 @@
         width: 100%;
         color: white;
         display: flex;
-        padding: 0px 16px;
+        padding: 0;
         justify-content: space-between;
         overflow: hidden;
         transition: all 0.2s;
@@ -314,7 +314,6 @@
       }
 
       .SemestersRow {
-        margin-right: 16px;
         width: auto;
 
         .SemesterCol {

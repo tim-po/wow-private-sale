@@ -101,6 +101,7 @@
   }
 
   .MainTrajectoryFlex {
+    margin-bottom: 100px;
     margin-top: 24px;
     gap: 30px;
     display: flex;
@@ -128,7 +129,7 @@
 
 @media screen and (max-width: 1000px) {
   .TrajectoryPage {
-    margin-bottom: 100px;
+    //margin-bottom: 100px;
 
     .titleNameDiscipline {
       .StileText {

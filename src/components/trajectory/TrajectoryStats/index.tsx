@@ -162,7 +162,9 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     if (setSelectedSphere) {
       setIsModalTrajectory(false)
       setSelectedSphere(name)
-      closeModal()
+      setTimeout(() => {
+        closeModal()
+      }, 300);
     }
   }
 

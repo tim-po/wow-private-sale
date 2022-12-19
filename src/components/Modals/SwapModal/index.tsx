@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import './index.scss';
 import { isMobile } from "react-device-detect";
 import Chevron, { Turn } from "../../../images/icons/chevron";
+import LineClose from "../../../images/icons/lineClose";
 
 type SwapModalPropType = {
   children: React.ReactNode | React.ReactNode[]
@@ -62,7 +63,15 @@ const SwapModal = (props: SwapModalPropType) => {
       }
     }
   };
+  const deckHideBlock = () =>{
+    setCardHeight(0)
+    if (cardHeight ===50){
+      setCardHeight(250)
+    }else {
+      setCardHeight(50)
+    }
 
+  }
   useEffect(() => {
     setTimeout(() => {
       setCardHeight(modalHeight)
@@ -76,10 +85,10 @@ const SwapModal = (props: SwapModalPropType) => {
       onTouchMove={touchMove}
       onTouchEnd={touchEnd}
       ref={elementRef}
-      style={{ height: `${isMobile ? `${cardHeight}px` : ``}`}}
+      style={{ height: `${isMobile ? `${cardHeight}px` : `${cardHeight}px`}`}}
     >
       <div className='modal-stick-wrapper'>
-        <Chevron turn={Turn.up} />
+        {isMobile?  <Chevron turn={Turn.up} />: <button onClick={()=>{deckHideBlock()}}><LineClose/></button> }
       </div>
       {children}
     </div>

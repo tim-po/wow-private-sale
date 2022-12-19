@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import * as Scroll from 'react-scroll';
 import {Link} from "react-router-dom";
 import './index.scss'
@@ -10,10 +10,6 @@ import Stars from "../../images/icons/Static/stars";
 import Wave from "images/icons/Static/wave";
 import ManOnHomepage from "../../images/icons/manOnHomepage";
 import {scrollToElement} from "../../utils/scrollToElement";
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
 
 const Start = () => {
   const {setBg} = useContext(BgContext);

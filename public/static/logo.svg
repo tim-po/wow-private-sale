@@ -22,7 +22,7 @@
 <circle opacity="0.5" cx="21.1701" cy="9.56654" r="9.56654" fill="white"/>
 <defs>
 <linearGradient id="paint0_linear_2161_846" x1="0.673827" y1="20.9462" x2="56.0704" y2="20.9462" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FE462D"/>
+<stop stopColor="#FE462D"/>
 <stop offset="0.520833" stop-color="#E33091"/>
 <stop offset="1" stop-color="#8D34FF"/>
 </linearGradient>

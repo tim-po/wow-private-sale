@@ -18,16 +18,13 @@ import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import {createStickyBlock} from "../../utils/stickyHeaders";
+import TrajectoryOnboardingModal from 'components/Modals/TrajectoryOnboardingModal'
 
-// CONSTANTS
 const randomFeedbackSelectOptions = [
   'Поиск ключевых слов 🔎️',
   'Добавление/ удаление слов 🗑',
   'Все сложно  🤯', 'Все понятно 👌'
 ]
-// DEFAULT FUNCTIONS
-
-// TODO: copy this components directory and add your content to make a new page
 
 type TrajectoryPropType = {
   somePropWithDefaultOption?: string
@@ -59,26 +56,27 @@ const Trajectory = (props: TrajectoryPropType) => {
     if (courseNumber === '5') {
       setSelectorLeftOffset("calc(100% - 80px)")
     } else
-    setSelectorLeftOffset(`${(widthOfCourceLabel * (courseQuery - 1))}px`)
+      setSelectorLeftOffset(`${(widthOfCourceLabel * (courseQuery - 1))}px`)
   }, [isMobile, searchParams.get('course')]);
 
   useEffect(() => {
     setNewBackButtonProps("Все траектории", `trajectories?ids=${withLocalStorage({chosenTrajectoriesIds: []}, LocalStorageInteraction.load).chosenTrajectoriesIds}`)
     getTrajectory()
     setBg('white')
-    // setTimeout(() => this.isDisplayTool = true, 1500)
 
     let scroll = Scroll.animateScroll
     scroll.scrollToTop();
-
-    // const localStore = localStorage.getItem("ModelWindow") + 1
-    // localStorage.setItem("ModelWindow", localStore);
-    // if (localStore !== 1) {
-    //   this.isModalPromptActiv = false
-    //   localStorage.setItem("ModelWindow", false);
-    // }
   }, [])
 
+  useEffect(() => {
+    const isOnboardingShown = localStorage.getItem('isOnboarding')
+    if (isOnboardingShown && JSON.parse(isOnboardingShown)) {
+      return
+    } else {
+      localStorage.setItem('isOnboarding', 'true')
+      displayModal(<TrajectoryOnboardingModal />)
+    }
+  } , [])
 
   const getTrajectory = () => {
     axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
@@ -87,6 +85,7 @@ const Trajectory = (props: TrajectoryPropType) => {
       }
     })
   }
+
   if (!trajectory) {
     return <LoadingScreen isLoading={true} header={'Траектория загружается'}/>
   }
@@ -168,7 +167,7 @@ const Trajectory = (props: TrajectoryPropType) => {
           <div className="MobileBlock">
             <div className={`mobileBottomWrapper`}>
               <div className="BottomButtonsCurs">
-                <button className="buttonCourse" onClick={openStatsModal}>
+                <button className="buttonCourse">
                   Статистика по курсу
                 </button>
               </div>
@@ -176,14 +175,14 @@ const Trajectory = (props: TrajectoryPropType) => {
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
-                id="!checkMobi() && 'blob-0-top-left'"
+                id="blob-0-top-left"
                 style={{flexGrow: 2}}
               >
                 Осенний семестр
               </p>
               <p
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
-                id="!checkMobi() && 'blob-1-top-left'"
+                id="blob-1-top-left"
                 style={{flexGrow: 2}}
               >
                 Весенний семестр

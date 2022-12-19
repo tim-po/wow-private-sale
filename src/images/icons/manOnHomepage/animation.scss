@@ -1,3 +1,9 @@
+.parallax-item{
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: all 0.2s;
+}
+
 .startHumanIcon {
   .heart {
     transform: scale(1);

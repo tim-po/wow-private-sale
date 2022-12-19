@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import * as Scroll from 'react-scroll';
 import {Link} from "react-router-dom";
 import './index.scss'
@@ -9,12 +9,6 @@ import ImgMainLetterC from "images/icons/Static/imgMainLetterC";
 import Stars from "../../images/icons/Static/stars";
 import Wave from "images/icons/Static/wave";
 import ManOnHomepage from "../../images/icons/manOnHomepage";
-import Close from "../../images/icons/close";
-import Chevron from "../../images/icons/chevron";
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
 
 const Start = () => {
   const {setBg} = useContext(BgContext);

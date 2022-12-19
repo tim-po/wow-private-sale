@@ -11,6 +11,7 @@ import {useCookies} from "react-cookie";
 import axios from "axios";
 import {BASE_URL} from "../../constants";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
+import {updateStickyBlocks} from "../../utils/stickyHeaders";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -48,7 +49,17 @@ const Layout = (props: layoutPropType) => {
       .then(res => {
         setGroupId(res.data.group_id)
       })
+
+    updateStickyBlocks()
   }, [])
+
+  useEffect(() => {
+    if(shouldDisplayModal){
+      window.document.body.classList.add("no-scroll")
+    }else{
+      window.document.body.classList.remove("no-scroll")
+    }
+  }, [shouldDisplayModal]);
 
 
   return (

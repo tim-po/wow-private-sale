@@ -5,7 +5,7 @@ import Preset from "components/Preset";
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import Chevron, { Turn } from "../../images/icons/chevron";
-import useStickyHeaders from "../../utils/useStickyHeaders";
+import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 
@@ -28,7 +28,6 @@ const SkillSets = (props: SkillSetsPropType) => {
   const {presets} = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
   const [isTopHidden, setIsTopHidden] = useState(false);
-  const {createStickyBlock, containerRef} = useStickyHeaders();
 
   useEffect(() => {
     let scroll = Scroll.animateScroll
@@ -61,23 +60,34 @@ const SkillSets = (props: SkillSetsPropType) => {
     if (!bottomTarget) {
       return
     }
-    // console.log(bottomTarget.offsetTop - 159 < e.target.scrollTop)
-    // if (!isTopHidden && !selectedPresetsHidden && bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight - 69 < bottomTarget.scrollTop) {
-    //   setSelectedPresetsHidden(true)
-    //   console.log('set selectedPresetsHidden true')
-    // }
-    // if (isTopHidden && bottomTarget.offsetTop >= e.target.scrollTop) {
-    //   setSelectedPresetsHidden(false)
-    //   console.log('set selectedPresetsHidden false')
-    // }
+    console.log(bottomTarget.offsetTop - 159 < e.target.scrollTop)
+    if (!isTopHidden && !selectedPresetsHidden && bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight - 69 < bottomTarget.scrollTop) {
+      setSelectedPresetsHidden(true)
+      console.log('set selectedPresetsHidden true')
+    }
+    if (isTopHidden && bottomTarget.offsetTop >= e.target.scrollTop) {
+      setSelectedPresetsHidden(false)
+      console.log('set selectedPresetsHidden false')
+    }
     setIsTopHidden(bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
   }
 
+  useEffect(() => {
+    if(!selectedPresetsHidden){
+      setTimeout(()=>{
+        updateStickyBlocks()
+      }, 200)
+    }else{
+      updateStickyBlocks()
+    }
+  }, [selectedPresetsHidden]);
+
+
   return (
-    <div className="skillSets" ref={containerRef}>
+    <div className="skillSets">
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className="minTitle top fullWidth" data-custom-sticky={createStickyBlock(2)}>
+          <div className="minTitle top fullWidth" {...createStickyBlock(2)}>
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
@@ -88,7 +98,10 @@ const SkillSets = (props: SkillSetsPropType) => {
                 </div>
               }
             </div>
-            <button className="buttonArrow" onClick={() => setSelectedPresetsHidden(!selectedPresetsHidden)}>
+            <button className="buttonArrow" onClick={() => {
+              setSelectedPresetsHidden(!selectedPresetsHidden)
+
+            }}>
 
               <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>
                 <Chevron color="#1F1F22" turn={Turn.down}/>
@@ -96,16 +109,17 @@ const SkillSets = (props: SkillSetsPropType) => {
               <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
-          <div className="borderBottom" data-custom-sticky={createStickyBlock(3)}/>
+          <div className="borderBottom" {...createStickyBlock(3)}/>
           <div
-            className={`selectedSkillsBlock fullWidth ${selectedPresetsTrueHidden() ? 'stickyPopup' : 'stickyPopup'} ${(selectedPresetsHidden && !isTopHidden) ? 'forceHidden' : ''}`}
-            data-custom-sticky={createStickyBlock(5)}
+            className={`selectedSkillsBlock fullWidth ${selectedPresetsTrueHidden() ? 'stickyPopup' : 'stickyPopup'} `}
+            {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
           >
             <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
           <p
             className={`minTitle bottom fullWidth ${selectedPresetsTrueHidden() ? '' : 'stickyPopup'}`}
             id="hidePresetsBottomTarget"
+            {...createStickyBlock(selectedPresetsHidden ? 5 : 6)}
           >
             Добавь то, что хочешь изучить
           </p>

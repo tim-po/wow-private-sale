@@ -114,19 +114,11 @@ const Trajectories = () => {
         >
           <Close width={10} height={10} />
         </button>
-<<<<<<< HEAD
         <PercentProgress percent={0.8}/>
         <div className="mr-2"/>
         Мы собрали подходящие для тебя образовательные программы в ИТМО.
         <br/>
         Индикатор показывает совпадение с ключевыми словами.
-=======
-        <PercentProgress percent={0.8} />
-        <div className="mr-2" />
-        Мы собрали подходяшие для тебя образовательные программы.
-        <br />
-        Индикатор – процентное совпадение с твоими интересами.
->>>>>>> origin/dev
       </div>
       {trajectories.map((trajectory: TrajectoryType) => {
         return (

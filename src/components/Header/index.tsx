@@ -4,8 +4,7 @@ import {useNavigate} from "react-router-dom";
 import BackButtonContext from "../../Context/BackButton";
 import HeaderContext from "../../Context/Header";
 import Logo from "images/icons/Static/logo";
-import useStickyHeaders from "../../utils/useStickyHeaders";
-// @ts-ignore
+import {createStickyBlock} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 
@@ -20,8 +19,6 @@ const Header = (props: HeaderPropType) => {
   const {left, style} = props;
   const leftBlocks = ['/professions', '/', '/diplomaShare']
   const [isHeaderPreAnimated, setIsHeaderPreAnimated] = useState(leftBlocks.includes(window.location.pathname))
-  const {createStickyBlock, containerRef} = useStickyHeaders();
-
 
   const navigate = useNavigate()
   const {backButtonText, backButtonHref} = useContext(BackButtonContext)
@@ -51,7 +48,7 @@ const Header = (props: HeaderPropType) => {
     navigate(backButtonHref)
   }
   return (
-    <div className="Content" style={style} data-custom-sticky={createStickyBlock(0)}>
+    <div className="Content" style={style} {...createStickyBlock(0)}>
       <div className="Header">
         <div
           className={`TrajectoriesLinkBack ${isHeaderPreAnimated ? 'preAnimated' : ''}`}

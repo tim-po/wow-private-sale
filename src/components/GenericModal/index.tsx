@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import Close from "../../images/icons/close";
+import {Events} from "react-scroll";
+import ScrollEvent = Events.ScrollEvent;
 
 // CONSTANTS
 
@@ -39,8 +41,23 @@ const GenericModal = (props: GenericModalPropType) => {
     setBlockContent(modal)
   }, [modal])
 
+  const preventScroll = (e: React.UIEvent) => {
+    console.log('scroll')
+    e.preventDefault()
+  }
+
+  useEffect(() => {
+    if(modal){
+      document.body.style.overflow = 'hidden';
+    }else{
+      document.body.style.overflow = 'unset';
+    }
+  }, [modal]);
+
+
   return (
     <div
+      onWheel={preventScroll}
       className={`ModalContainer ${hideMobile ? 'hideMobile' : ''} ${hideDesktop ? 'hideDesktop' : ''} ${isOpen ? 'active' : ''} ${maxHeight ? 'maxHeight' : ''}`}
     >
       {isOpen &&

@@ -16,22 +16,22 @@
 
 .minTitle.bottom {
   transition: all 0.3s;
-  top: 123px;
-  position: sticky;
+  //top: 123px;
+  //position: sticky;
   background: white;
   z-index: 110;
   padding-top: 16px;
 }
 
 .minTitle.bottom.stickyPopup {
-  top: calc(122px + 320px);
+  //top: calc(122px + 320px);
 }
 
 .selectedSkillsBlock {
   transition: all 0.3s;
-  position: sticky;
+  //position: sticky;
   z-index: 111;
-  top: -420px;
+  //top: -420px;
   background: white;
   overflow: hidden;
   max-height: 380px;
@@ -148,8 +148,8 @@
 
 .minTitle.top {
   align-items: center;
-  position: sticky;
-  top: 64px;
+  //position: sticky;
+  //top: 64px;
   background: white;
   z-index: 112;
 }

@@ -9,7 +9,7 @@ import {BASE_URL} from "../../constants";
 import useOnClickOutside from "../../utils/useClickOutside";
 import keywords from "../Keywords";
 import SearchInput from "../../images/icons/magnifyingGlass";
-import useStickyHeaders from "../../utils/useStickyHeaders";
+import {createStickyBlock} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 
@@ -29,7 +29,6 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   const [isSearchUnsuccessful, setIsSearchUnsuccessful] = useState(false);
   const [isBadWord, setIsBadWord] = useState(false);
   const [queryKeywords, setQueryKeywords] = useState<KeywordType[]>([]);
-  const {createStickyBlock} = useStickyHeaders();
 
 
   const searching = () => {
@@ -103,7 +102,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }
 
   return (
-    <div className="searchFieldContainer"  data-custom-sticky={createStickyBlock(3)}>
+    <div className="searchFieldContainer"  {...createStickyBlock(3)}>
       <div ref={searchRef}>
       <div className="inputContainer">
         <input

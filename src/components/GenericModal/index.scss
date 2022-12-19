@@ -72,15 +72,15 @@
     height: 100vh;
   }
   .ModalContainer{
-    transition: opacity 0.3s, transform 0s 0.3s ;
+    transition: opacity 0.3s;
     background: rgba(45, 43, 68, 0.6);
     z-index: 1100;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     /*max-height: min-content;*/
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     align-items: center;
     justify-content: center;
     transform: scaleY(0);
@@ -90,7 +90,7 @@
   .ModalTrack{
     transform: scale(0);
     flex-shrink: 0;
-    transition: all 0.3s;
+    transition: opacity 0.3s;
     z-index: 2000;
     position: absolute;
     height: max-content;
@@ -182,8 +182,8 @@
   .ModalContainer.active{
     /*transition: opacity 0.3s 0.3s, transform 0s;*/
     /*opacity: 1;*/
-    overflow-y: scroll;
-    height: 100vh;
+    //overflow-y: scroll;
+    //height: 100vh;
   }
 
   .d-block{
@@ -201,7 +201,7 @@
     position: absolute;
 
     bottom: 0;
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
   }
 
   .ModalContainer.active .ModalTrack{
@@ -229,7 +229,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: scroll;
+    //overflow: scroll;
     background: rgba(45, 43, 68, 0.3);
 
   }

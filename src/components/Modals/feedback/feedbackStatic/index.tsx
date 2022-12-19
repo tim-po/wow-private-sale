@@ -28,7 +28,6 @@ const FeedbackStatic = (props:any) => {
     axios.post(`${BASE_URL}feedback/`, {email: email, text: text, feedback_type: 3, user_id: cookie._ym_uid}, {
     }).then(res => {
       console.log(res);
-      console.log("bds");
     }).catch(err => {
       console.log(err.response);
     })

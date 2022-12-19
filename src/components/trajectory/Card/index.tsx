@@ -19,8 +19,8 @@ type CardPropType = {
 const CardDefaultProps = {}
 
 const Card = (props: CardPropType) => {
-
   const {displayModal} = useContext(ModalContext)
+
 
   const {selectSelf, selectedSphere, sphere} = props;
   const getArrowDisciplineNames = (sphere: ClassType) => {
@@ -54,7 +54,8 @@ const Card = (props: CardPropType) => {
   return (
     <div
       className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
-      key="sphere.name"
+      key={sphere.name}
+      id={sphere.name}
       style={{background: colors[sphere.name]}}
     >
       <div className="ClassHeader" onClick={selectSelf}>

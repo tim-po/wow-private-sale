@@ -31,7 +31,6 @@ const SwapModal = (props: SwapModalPropType) => {
     if (isTouched) {
       const deltaY = prevMovementY - e.touches[0].clientY;
       setDeltaY(deltaY);
-      console.log(deltaY);
 
       setCardHeight(cardHeight + deltaY);
 

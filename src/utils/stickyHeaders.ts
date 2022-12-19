@@ -37,8 +37,22 @@ export const updateStickyBlocks = () => {
       block.element.style.position = 'sticky'
       block.element.style.top = `${top}px`
     })
-    console.log(group[0].element)
-    console.log(group[0].element.clientHeight)
     top += group[0].element.offsetHeight
   })
+}
+
+export const calculateTotalStickyHeight = () => {
+  let customStickyBlocks = window.document.querySelectorAll('[data-custom-sticky]')
+
+  let top = 0
+  customStickyBlocks.forEach((element, index) => {
+    // @ts-ignore
+    const attribute = element.attributes['data-custom-sticky'].nodeValue.split('-')
+    if(attribute[1] !== 'hidden'){
+      // @ts-ignore
+      top += element.offsetHeight
+    }
+  })
+
+  return top
 }

@@ -63,7 +63,7 @@ const Layout = (props: layoutPropType) => {
 
 
   return (
-    <ModalsContext.Provider value={{displayModal}}>
+    <ModalsContext.Provider value={{displayModal, closeModal}}>
       <FeedbackGroupIdContext.Provider value={{groupId}}>
         <BgContext.Provider value={{setBg: setBackgroundColor}}>
           <div className="DefaultLayoutContainer" id="scroll-container" style={{backgroundColor: backgroundColor}}>

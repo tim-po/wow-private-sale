@@ -125,8 +125,9 @@
 // Made by Danil --start--
 
 .diploma-container {
+  height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding-top: 24px;
   padding-bottom: 24px;
@@ -212,6 +213,8 @@
   }
 
   .tiles-wrapper {
+    max-width: 700px;
+    width: 100%;
     flex-direction: column;
 
     .left-tiles {
@@ -220,7 +223,7 @@
     }
 
     .right-tiles {
-      max-width: 700px;
+      max-width: 100%;
     }
   }
 

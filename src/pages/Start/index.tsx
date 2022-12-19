@@ -9,8 +9,7 @@ import ImgMainLetterC from "images/icons/Static/imgMainLetterC";
 import Stars from "../../images/icons/Static/stars";
 import Wave from "images/icons/Static/wave";
 import ManOnHomepage from "../../images/icons/manOnHomepage";
-import Close from "../../images/icons/close";
-import Chevron from "../../images/icons/chevron";
+import {scrollToElement} from "../../utils/scrollToElement";
 
 // CONSTANTS
 
@@ -18,17 +17,6 @@ import Chevron from "../../images/icons/chevron";
 
 const Start = () => {
   const {setBg} = useContext(BgContext);
-
-  const scrollToBottom = () => {
-    let scroller = Scroll.scroller
-    scroller.scrollTo('scrollToAbout', {
-      duration: 1500,
-      delay: 100,
-      smooth: true,
-      containerId: 'scroll-container',
-      offset: 50, // Scrolls to element + 50 pixels down the page
-    })
-  }
 
   useEffect(() => {
     setBg('#F1F2F8')
@@ -50,7 +38,7 @@ const Start = () => {
                 <Link to="/professions" className="LinkProfession MainButton">
                   Поехали!
                 </Link>
-                <button onClick={scrollToBottom} className="SecondaryButton">Это как?</button>
+                <button onClick={()=> scrollToElement('scrollToAbout')} className="SecondaryButton">Это как?</button>
               </div>
             </div>
             <div className="d-flex flex-column justify-content-center ImgMain Stars">

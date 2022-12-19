@@ -9,6 +9,11 @@
 
   .titleNameDiscipline {
     display: flex;
+    //position: sticky;
+    //top: 64px;
+    z-index: 1000;
+    background: white;
+    //border-bottom: 1px solid var(--gray-100);
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -96,6 +101,7 @@
   }
 
   .MainTrajectoryFlex {
+    margin-top: 24px;
     gap: 30px;
     display: flex;
     justify-content: space-between;

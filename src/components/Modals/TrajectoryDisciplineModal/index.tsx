@@ -59,8 +59,6 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
       return []
     }
 
-    console.log(trajectoryDisciplineData.next_disciplines)
-
     const result = trajectoryDisciplineData.next_disciplines.sort(itemInner => Math.abs(trajectoryDisciplineData.semester - itemInner.semester)).reverse()
     if(result[0]){
       setSortedNextDisciplines([result[0]])

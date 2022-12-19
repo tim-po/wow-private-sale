@@ -6,6 +6,7 @@ import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
+import {scrollToElement} from "../../utils/scrollToElement";
 
 // CONSTANTS
 
@@ -33,19 +34,9 @@ const SkillSets = (props: SkillSetsPropType) => {
     let scroll = Scroll.animateScroll
     scroll.scrollToTop();
 
-    const scrollContainer = window.document.getElementById('scroll-container')
-    if (!scrollContainer) {
-      return;
-    }
-    scrollContainer.style.scrollSnapType = 'x mandatory'
-    scrollContainer.addEventListener('scroll', handleScroll)
-
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      const scrollContainer = window.document.getElementById('scroll-container')
-      if (!scrollContainer) {
-        return;
-      }
-      scrollContainer.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', handleScroll)
     }
   }, []);
 
@@ -56,20 +47,9 @@ const SkillSets = (props: SkillSetsPropType) => {
   }
 
   const handleScroll = (e: any) => {
-    const bottomTarget = window.document.getElementById('hidePresetsBottomTarget')
-    if (!bottomTarget) {
-      return
-    }
-    console.log(bottomTarget.offsetTop - 159 < e.target.scrollTop)
-    if (!isTopHidden && !selectedPresetsHidden && bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight - 69 < bottomTarget.scrollTop) {
+    if(window.scrollY < 10) {
       setSelectedPresetsHidden(true)
-      console.log('set selectedPresetsHidden true')
     }
-    if (isTopHidden && bottomTarget.offsetTop >= e.target.scrollTop) {
-      setSelectedPresetsHidden(false)
-      console.log('set selectedPresetsHidden false')
-    }
-    setIsTopHidden(bottomTarget.offsetTop - e.target.scrollTop - bottomTarget.clientHeight <= e.target.scrollTop)
   }
 
   useEffect(() => {
@@ -99,8 +79,12 @@ const SkillSets = (props: SkillSetsPropType) => {
               }
             </div>
             <button className="buttonArrow" onClick={() => {
-              setSelectedPresetsHidden(!selectedPresetsHidden)
-
+              if(selectedPresetsHidden){
+                scrollToElement('hidePresetsBottomTarget')
+                setSelectedPresetsHidden(false)
+              }else{
+                setSelectedPresetsHidden(!selectedPresetsHidden)
+              }
             }}>
 
               <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>
@@ -111,13 +95,13 @@ const SkillSets = (props: SkillSetsPropType) => {
           </div>
           <div className="borderBottom" {...createStickyBlock(3)}/>
           <div
-            className={`selectedSkillsBlock fullWidth ${selectedPresetsTrueHidden() ? 'stickyPopup' : 'stickyPopup'} `}
+            className={`selectedSkillsBlock fullWidth `}
             {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
           >
             <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
           <p
-            className={`minTitle bottom fullWidth ${selectedPresetsTrueHidden() ? '' : 'stickyPopup'}`}
+            className={`minTitle bottom fullWidth`}
             id="hidePresetsBottomTarget"
             {...createStickyBlock(selectedPresetsHidden ? 5 : 6)}
           >

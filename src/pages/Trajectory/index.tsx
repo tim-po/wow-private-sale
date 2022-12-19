@@ -17,6 +17,7 @@ import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
+import {createStickyBlock} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -46,7 +47,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
-
+  const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
   const courseQuery = +(searchParams.get('course') || '1')
 
   useEffect(() => {
@@ -56,7 +57,6 @@ const Trajectory = (props: TrajectoryPropType) => {
       widthOfCourceLabel = 44
     }
     if (courseNumber === '5') {
-      console.log(2)
       setSelectorLeftOffset("calc(100% - 80px)")
     } else
     setSelectorLeftOffset(`${(widthOfCourceLabel * (courseQuery - 1))}px`)
@@ -78,6 +78,7 @@ const Trajectory = (props: TrajectoryPropType) => {
     //   localStorage.setItem("ModelWindow", false);
     // }
   }, [])
+
 
   const getTrajectory = () => {
     axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
@@ -111,7 +112,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   }
 
   const openStatsModal = () => {
-    // displayModal(<TrajectoryStats/>)
+    displayModal(<TrajectoryStats setIsModalTrajectory={setIsModalTrajectory} setSelectedSphere={setSelectedSphere} className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
   const openDisciplineModal = () => {
@@ -120,7 +121,11 @@ const Trajectory = (props: TrajectoryPropType) => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline">
+      <div
+        className="titleNameDiscipline"
+        style={courseQuery === 5 ? {borderBottom: '2px solid white', backgroundColor:'rgb(241, 242, 248)' } : {borderBottom: '2px solid var(--gray-100)', }}
+        {...createStickyBlock(2)}
+      >
         <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
         <div className="CoursesRow">
           <CourseSelector
@@ -152,8 +157,8 @@ const Trajectory = (props: TrajectoryPropType) => {
           </button>
         </div>
       </div>
-      <hr className="HeaderDivider"
-          style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>
+      {/*<hr className="HeaderDivider"*/}
+      {/*    style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>*/}
       {courseQuery !== 5 &&
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
@@ -188,6 +193,7 @@ const Trajectory = (props: TrajectoryPropType) => {
             {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
               return (
                 <Card
+                  // id={sphere}
                   key={sphere.name}
                   selectSelf={() => selectNewSphere(sphere.name)}
                   sphere={sphere}

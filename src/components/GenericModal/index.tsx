@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import Close from "../../images/icons/close";
-import {Events} from "react-scroll";
-import ScrollEvent = Events.ScrollEvent;
 
 // CONSTANTS
 
@@ -42,7 +40,6 @@ const GenericModal = (props: GenericModalPropType) => {
   }, [modal])
 
   const preventScroll = (e: React.UIEvent) => {
-    console.log('scroll')
     e.preventDefault()
   }
 
@@ -53,7 +50,6 @@ const GenericModal = (props: GenericModalPropType) => {
       document.body.style.overflow = 'unset';
     }
   }, [modal]);
-
 
   return (
     <div

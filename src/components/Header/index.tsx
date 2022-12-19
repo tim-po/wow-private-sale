@@ -48,7 +48,7 @@ const Header = (props: HeaderPropType) => {
     navigate(backButtonHref)
   }
   return (
-    <div className="Content" style={style} {...createStickyBlock(0)}>
+    <div className="Content" style={style}>
       <div className="Header">
         <div
           className={`TrajectoriesLinkBack ${isHeaderPreAnimated ? 'preAnimated' : ''}`}

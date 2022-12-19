@@ -11,6 +11,7 @@ import BgContext from "../../Context/Background";
 import {LocalStorageInteraction, makeEmptyList, withLocalStorage} from "../../utils/general";
 import Close from "../../images/icons/close";
 import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
+import {updateStickyBlocks} from "../../utils/stickyHeaders";
 // import FeedbackForm from
 
 // CONSTANTS
@@ -65,13 +66,14 @@ const Professions = () => {
     getProfessions().then(() => {
       setTimeout(() => setIsFeedbackPopupVisible(true), 2000)
     })
+    updateStickyBlocks()
   }, [])
 
   return (
     <div className="ProfessionsPageContainer">
       <div className="ProfessionsContainer">
         <div className="d-flex justify-content-between CardHeaderWidth align-items-center">
-          <h3 className="ProfessionTitle">Выбери профессию</h3>
+          <h3 className="ProfessionTitle CardHeaderWidth">Выбери профессию</h3>
         </div>
         {/* @ts-ignore */}
         <div className="ProfessionContainer">

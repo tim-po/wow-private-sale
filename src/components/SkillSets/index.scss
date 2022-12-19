@@ -1,5 +1,4 @@
 .borderBottom {
-  border-bottom: 1px solid rgba(231, 232, 238, 1);
   z-index: 110;
   //transform: translateY(-1px);
 
@@ -152,6 +151,14 @@
   //top: 64px;
   background: white;
   z-index: 112;
+
+  &.isSticky{
+    border-bottom: 1px solid rgba(231, 232, 238, 1);
+  }
+
+  &.hideBorder{
+    border-bottom: none !important;
+  }
 }
 
 .buttonArrow {
@@ -206,11 +213,6 @@
   .minTitle.bottom.stickyPopup {
     top: 415px
   }
-
-  .borderBottom {
-    top: 115px;
-  }
-
   .leftContainer .flexPreset {
     min-width: 300px;
   }
@@ -287,7 +289,7 @@
 
   .buttonArrow {
     background: inherit;
-    border: inherit;
+    border: none;
     display: inherit;
   }
 

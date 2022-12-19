@@ -69,7 +69,7 @@ const Keywords = (props: KeywordsPropType) => {
       <div>
         <div className="keywordsCustomisationFlex">
           <div className="leftBlock">
-            <div className="search">
+            <div className="search"  {...createStickyBlock(2)}>
               {/*<h4 id='blob-1-top-left' className="subheader top deckHidden">Добавь то, что хочешь изучить</h4>*/}
               <div id="blob-1-top-left" className="subheader top" {...createStickyBlock(2)}>
                 <span className="subheader-title">Добавь то, что хочешь изучить</span>
@@ -121,7 +121,7 @@ const Keywords = (props: KeywordsPropType) => {
             <div className="keywordsPresets">
               {keywords.display.length < 1 &&
                 <>
-                  {makeEmptyList(100).map(index => {
+                  {makeEmptyList(100).map((a, index) => {
                     return (
                       <div
                         key={index}

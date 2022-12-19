@@ -67,7 +67,7 @@ const SkillSets = (props: SkillSetsPropType) => {
     <div className="skillSets">
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className="minTitle top fullWidth" {...createStickyBlock(2)}>
+          <div className={`minTitle top ${selectedPresetsHidden ? '': 'hideBorder'}`} {...createStickyBlock(2)}>
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
@@ -93,15 +93,14 @@ const SkillSets = (props: SkillSetsPropType) => {
               <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
-          <div className="borderBottom" {...createStickyBlock(3)}/>
           <div
-            className={`selectedSkillsBlock fullWidth `}
+            className={`selectedSkillsBlock`}
             {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
           >
             <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
           <p
-            className={`minTitle bottom fullWidth`}
+            className={`minTitle bottom`}
             id="hidePresetsBottomTarget"
             {...createStickyBlock(selectedPresetsHidden ? 5 : 6)}
           >

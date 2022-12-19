@@ -11,7 +11,7 @@ import {useCookies} from "react-cookie";
 import axios from "axios";
 import {BASE_URL} from "../../constants";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import {updateStickyBlocks} from "../../utils/stickyHeaders";
+import {calculateTotalStickyHeight, updateStickyBlocks} from "../../utils/stickyHeaders";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS

@@ -90,6 +90,11 @@
     padding-bottom: 24px;
     -webkit-overflow-scrolling: touch;
 
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
     &.hidden {
       max-height: 0;
       border-bottom: 1px solid #E7E8EE;

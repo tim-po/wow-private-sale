@@ -20,7 +20,7 @@ import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { isMobile } from "react-device-detect";
-import {createStickyBlock} from "../../utils/stickyHeaders";
+import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -51,6 +51,7 @@ const ProfessionDetails = () => {
       }else{
         setNewBackButtonProps('Все профессии', '/professions')
       }
+      updateStickyBlocks()
     }, [searchParams.get('view'), profession]
   )
 

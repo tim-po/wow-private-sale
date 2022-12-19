@@ -21,7 +21,7 @@ export const updateStickyBlocks = () => {
       // @ts-ignore
       block.style.top = `${-420}px`
     }else{
-      const props = {id: +attribute[0], order: +attribute[1]}
+      const props = {id: +attribute[0], order: attribute[1]}
       blocksWithProps.push({element: block, ...props})
     }
   })
@@ -36,12 +36,22 @@ export const updateStickyBlocks = () => {
     group.forEach(block => {
       block.element.style.position = 'sticky'
       block.element.style.top = `${top}px`
+
+      block.element.classList.add(`sticky-header-${index}`)
+      block.element.classList.add(`sticky-header`)
+
+      const observer = new IntersectionObserver(
+        ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
+        {threshold: [1], rootMargin: `${-top-2}px 0px 0px 0px`,}
+      );
+
+      observer.observe(block.element);
     })
-    top += group[0].element.offsetHeight
+    top += group[0].element.clientHeight
   })
 }
 
-export const calculateTotalStickyHeight = () => {
+export const calculateTotalStickyHeight = (group?: number) => {
   let customStickyBlocks = window.document.querySelectorAll('[data-custom-sticky]')
 
   let top = 0
@@ -49,8 +59,15 @@ export const calculateTotalStickyHeight = () => {
     // @ts-ignore
     const attribute = element.attributes['data-custom-sticky'].nodeValue.split('-')
     if(attribute[1] !== 'hidden'){
-      // @ts-ignore
-      top += element.offsetHeight
+      if(group){
+        if(group <= attribute[0]){
+          // @ts-ignore
+          top += element.offsetHeight
+        }
+      }else{
+        // @ts-ignore
+        top += element.offsetHeight
+      }
     }
   })
 

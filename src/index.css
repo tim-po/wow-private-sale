@@ -160,11 +160,11 @@ body {
 
 @media screen and (max-width: 1000px) {
     .fullWidth {
+        /*width: 100vw;*/
         transform: translateX(-16px);
         padding-left: 16px;
         padding-right: 16px;
     }
-
     .fullWidthMobile {
         transform: translateX(-16px);
         padding-left: 16px;

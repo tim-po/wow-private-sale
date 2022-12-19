@@ -102,7 +102,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   }
 
   return (
-    <div className="searchFieldContainer"  {...createStickyBlock(3)}>
+    <div className="searchFieldContainer">
       <div ref={searchRef}>
       <div className="inputContainer">
         <input

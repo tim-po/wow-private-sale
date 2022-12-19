@@ -14,6 +14,7 @@ import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 
@@ -49,6 +50,7 @@ const Trajectories = () => {
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
 
+    updateStickyBlocks()
   }, []);
 
   const shouldDrawScrollButton = (event: any) => {
@@ -100,7 +102,7 @@ const Trajectories = () => {
 
   return (
     <div className="TrajectoryChoicePageContainer pb-3">
-      <h1 className="TrajectoryChoiceHeader">
+      <h1 className="TrajectoryChoiceHeader" {...createStickyBlock(1)}>
         Готовые траектории
       </h1>
       <div className="TrajectoriesInfoCard d-flex align-items-center">

@@ -19,7 +19,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 800;
+  z-index: 2000;
   left: 0;
 }
 .ModalTrack{
@@ -75,7 +75,7 @@
   .ModalContainer{
     transition: opacity 0.3s;
     background: rgba(45, 43, 68, 0.6);
-    z-index: 1100;
+    z-index: 11000;
     position: fixed;
     top: 0;
     left: 0;
@@ -169,7 +169,7 @@
   .ModalContainer{
     /*transition: opacity 0.3s ;*/
     /*background: rgba(45, 43, 68, 0.3);*/
-    z-index: 1000;
+    z-index: 10000;
     position: absolute;
     top: 0;
     left: 0;

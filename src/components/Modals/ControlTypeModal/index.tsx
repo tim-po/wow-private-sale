@@ -11,7 +11,7 @@ const ControlTypeModalDefaultProps = {}
 
 const ControlTypeModal = (props: ControlTypeModalPropType) => {
   const {controlType} = props;
-  const [isTooltipActive, setIsTooltipActive] = useState(false)
+  const [isTooltipActive, setIsTooltipActive] = useState(true)
 
   const getTooltipMessage = (name: string) => {
     if (name === "Экзамен" || name === "Экзамены") {
@@ -36,8 +36,8 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
   }
 
   const getModalTitle = (name: string) => {
-    if (name === 'necessary') {
-      return 'Обязательные'
+    if (name === 'Дифференцированный зачет') {
+      return 'Диф. зачет'
     } else if (name === 'chosen') {
       return 'По выбору'
     } else {

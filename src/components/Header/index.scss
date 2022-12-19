@@ -41,11 +41,12 @@
     transition: all 2s;
     position: absolute;
     left: 0;
+    box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
     &.preAnimated {
       left: -100%;
     }
     .BackArrow {
-      margin-right: 4px;
+      //margin-right: 4px;
     }
     .BackText {
       font-family: 'Inter';
@@ -80,10 +81,6 @@
   .sticky-header-0.isSticky{
     padding-left: 30px;
     border-bottom: 1px solid rgba(115, 40, 226, 0.3);
-  }
-
-  .scrollBtn{
-    display: none !important;
   }
 
   .Header {

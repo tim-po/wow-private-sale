@@ -51,6 +51,7 @@ const Header = (props: HeaderPropType) => {
     <div className="Content" style={style}>
       <div className="Header">
         <div
+          style={style}
           className={`TrajectoriesLinkBack ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
           onClick={goBack}
         >

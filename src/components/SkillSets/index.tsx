@@ -60,7 +60,7 @@ const SkillSets = (props: SkillSetsPropType) => {
     }else{
       updateStickyBlocks()
     }
-  }, [selectedPresetsHidden]);
+  }, [selectedPresetsHidden, presets.display]);
 
 
   return (
@@ -115,7 +115,9 @@ const SkillSets = (props: SkillSetsPropType) => {
                     key={preset.title}
                     preset={preset}
                     displayAdd={true}
-                    onClick={() => presets.select(preset.id)}
+                    onClick={() => {
+                      presets.select(preset.id)
+                    }}
                   />
                 );
               })}

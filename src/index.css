@@ -96,6 +96,7 @@ body {
     font-weight: 400;
     font-size: 12px;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 .MainButton {

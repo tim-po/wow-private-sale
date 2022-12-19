@@ -17,7 +17,6 @@ import './index.scss'
 import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import {createStickyBlock} from "../../utils/stickyHeaders";
 import TrajectoryOnboardingModal from 'components/Modals/TrajectoryOnboardingModal'
 
 const randomFeedbackSelectOptions = [
@@ -78,6 +77,7 @@ const Trajectory = (props: TrajectoryPropType) => {
     }
   } , [])
 
+
   const getTrajectory = () => {
     axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
       if (response.status === 200) {
@@ -89,6 +89,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   if (!trajectory) {
     return <LoadingScreen isLoading={true} header={'Траектория загружается'}/>
   }
+
 
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
@@ -122,11 +123,11 @@ const Trajectory = (props: TrajectoryPropType) => {
     <div className="TrajectoryPage">
       <div
         className="titleNameDiscipline"
-        style={courseQuery === 5 ? {borderBottom: '2px solid white', backgroundColor:'rgb(241, 242, 248)' } : {borderBottom: '2px solid var(--gray-100)', }}
-        {...createStickyBlock(2)}
       >
         <h5 className="mb-0 StileText" id="scrollToTop">{trajectory.educational_plan}</h5>
-        <div className="CoursesRow">
+        <div className="CoursesRow"
+             style={courseQuery === 5 ? {borderBottom: '2px solid white' } : {borderBottom: '2px solid var(--gray-100)'}}
+        >
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}
@@ -167,7 +168,7 @@ const Trajectory = (props: TrajectoryPropType) => {
           <div className="MobileBlock">
             <div className={`mobileBottomWrapper`}>
               <div className="BottomButtonsCurs">
-                <button className="buttonCourse">
+                <button className="buttonCourse" onClick={openStatsModal}>
                   Статистика по курсу
                 </button>
               </div>

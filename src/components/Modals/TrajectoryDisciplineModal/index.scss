@@ -263,6 +263,10 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .modalKeywordsHeader{
+    display: flex;
+    flex-direction: column;
+  }
   .containerDiscipline {
     border-radius: 16px;
     max-width: initial;

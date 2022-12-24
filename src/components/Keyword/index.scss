@@ -8,9 +8,6 @@
   opacity: 1;
   line-height: 15px;
   border: 1px solid rgba(255, 255, 255, 0.01);
-  &:hover{
-    background: #DDDDFD;
-  }
   &.deleted {
     transform: scale(0.9);
     opacity: 0;
@@ -23,6 +20,9 @@
 
   &.selectable{
     cursor: pointer;
+    &:hover{
+      background: #DDDDFD;
+    }
   }
 }
 

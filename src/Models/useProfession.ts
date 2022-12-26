@@ -60,8 +60,12 @@ export const useProfession = (id: string) => {
     }
     let allIds = profession.related_keywords.map(keyword => keyword.id)
     allIds = [...allIds, ...addedKeywords.map(keyword => keyword.id)]
+    console.log(selectedPresets)
+    console.log(allIds.length)
     selectedPresets.forEach(preset => {
       allIds = allIds.concat(preset.keywords.map(keyword => keyword.id))
+      console.log(allIds.length)
+
     })
     allIds = allIds.filter(id => !removedKeywords.map(keyword => keyword.id).includes(id))
 
@@ -85,9 +89,14 @@ export const useProfession = (id: string) => {
       withLocalStorage({selectedPresetIds}, LocalStorageInteraction.save)
       updateDisplayPresets()
       updateSelectedPresets()
-      updateAllSelectedKeywordIds()
     }
   }, [selectedPresetIds])
+
+  useEffect(() => {
+    updateAllSelectedKeywordIds()
+  }, [selectedPresets]);
+
+
   useEffect(() => {
     if(!isFirstRender) {
       withLocalStorage({addedKeywords}, LocalStorageInteraction.save)

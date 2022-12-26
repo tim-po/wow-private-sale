@@ -43,7 +43,7 @@ const Trajectories = () => {
     if (trajectories.length === 0) {
       const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
       setTrajectoriesIds(trajectoryIds);
-      axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds[0]},${trajectoryIds[1]},${trajectoryIds[2]}`).then(res => {
+      axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
         setTrajectories(res.data);
       });
     }
@@ -130,7 +130,7 @@ const Trajectories = () => {
           >
             <div className="TrajectoriesCardHeader">
               <h5 className="trajectoryHeader mb-0">
-                {trajectory.code.replace(/\.$/, "")} {trajectory.educational_plan}
+                {trajectory.educational_plan}
                 <span className={"eduDirectionCode"}>{trajectory.code.replace(/\.$/, "")}</span>
               </h5>
               <div className="d-flex align-items-center TrajectoriesCardProgress">

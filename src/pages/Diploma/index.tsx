@@ -34,7 +34,7 @@ const Diploma = (props: DiplomaPropType) => {
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [linkAbit, setLinkAbit]=useState(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`)
+  const [linkAbit, setLinkAbit]=useState('https://abit.itmo.ru/programs/bachelor')
   const {group_id} = useContext<any>(FeedbackGroupIdContext)
 
   const [searchParams] = useSearchParams()
@@ -67,6 +67,7 @@ const Diploma = (props: DiplomaPropType) => {
     if (diplomaData && diplomaData.main_keywords.length) {
       const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
       setKeywords(keywordsArray)
+      setLinkAbit(`https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`)
     }
   }, [diplomaData])
 

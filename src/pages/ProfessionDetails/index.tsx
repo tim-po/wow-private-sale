@@ -66,7 +66,7 @@ const ProfessionDetails = () => {
     withLocalStorage({professionId: profession.id}, LocalStorageInteraction.save)
     setIsLoading(true)
 
-    const response = await axios.post(`${BASE_URL}trajectories/?top_n=3`, {'keywords': keywords.allIds})
+    const response = await axios.post(`${BASE_URL}trajectories/?top_n=10`, {'keywords': keywords.allIds})
 
     let ids: string[] = []
     response.data.forEach((el: any) => ids.push(el.id))
@@ -177,7 +177,7 @@ const ProfessionDetails = () => {
                 <div className="professionDescriptionText">
                   {presets.selected.length === 0 &&
                     <span className="build-trajectory-text">
-                      Мы уже собрали для тебя готовый набор ключевых слов. Этого будет достаточно чтобы построить траекторию
+                      Мы уже собрали для тебя готовый набор ключевых слов. Этого будет достаточно чтобы построить траекторию.
                       <br/>
                       Ты можешь продолжить без изменений или добавить то, что хочешь изучить дополнительно.
                     </span>

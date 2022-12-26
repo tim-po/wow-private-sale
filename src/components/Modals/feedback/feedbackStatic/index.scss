@@ -124,7 +124,7 @@
       }
     }
     .RequestSent{
-      max-width: revert;
+      min-width: revert;
       .containerButton{
         .closeModal {
           width: 100%;

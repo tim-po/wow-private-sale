@@ -206,6 +206,9 @@ hr {
 }
 
 @media screen and (max-width: 1000px) {
+  .disciplineModalContainer{
+    min-width: inherit;
+  }
   .ExamModalContainer {
     overflow-y: scroll;
     width: initial;

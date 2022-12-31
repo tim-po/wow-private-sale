@@ -57,14 +57,13 @@ const Hints = (props:PropsType) => {
     getPosition();
   }, []);
 
-  useEffect(() =>{
-    localStorage.setItem(pageTitle, String(stateLocal));
-  },[stateLocal])
+  // useEffect(() =>{
+  //   localStorage.setItem(pageTitle, String(stateLocal));
+  // },[stateLocal])
   return (
     <div>
-      {stateLocal === 'true' ?
         <HintGeneric
-          status={isLocalStorage === 'true' && numberPages===1? '' : 'closeHint'}
+          status={isLocalStorage === 'true' && numberPages === 1 ? '' : 'closeHint'}
           setIsLocalStorage={setIsLocalStorage}
           title={title}
           setStateLocal={setStateLocal}
@@ -72,18 +71,6 @@ const Hints = (props:PropsType) => {
           pageTitle={pageTitle}
           positionLeft={positionLeft}
           description={description} />
-        :
-        <HintGeneric
-          status={isLocalStorage === 'true' && numberPages===2? '' : 'closeHint'}
-          setIsLocalStorage={setIsLocalStorage}
-          title={title}
-          setStateLocal={setStateLocal}
-          positionTop={positionTop}
-          pageTitle={pageTitle}
-          positionLeft={positionLeft}
-          description={description} />
-      }
-
     </div>
   );
 };

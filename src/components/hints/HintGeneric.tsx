@@ -25,7 +25,7 @@ const HintGeneric = (props:GetPositionType) => {
 
   }
   return (
-    <div className={`wrapHints ${status}`}  style={{ position: "absolute", top: positionTop, left: positionLeft }}>
+    <div className={`wrapHints ${status}`}  style={isMobile? { position: "absolute", top: positionTop, left: positionLeft }:{ position: "absolute", top: positionTop }}>
       <div className="positionArrow">
         <Arrow color={'#323243'} />
       </div>

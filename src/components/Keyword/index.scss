@@ -1,4 +1,6 @@
 .Keyword {
+  display: flex;
+  align-items: center;
   background: #EEEEFF;
   transition: all 0.2s, border 0.3s;
   border-radius: 8px;

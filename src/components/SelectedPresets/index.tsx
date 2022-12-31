@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import './index.scss'
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
@@ -7,6 +7,7 @@ import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
 import Chevron, {Turn} from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
+import Hints from "../hints";
 
 // CONSTANTS
 
@@ -88,8 +89,11 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     navigate(`professionDetails?id=${searchParams.get('id')}&view=skills`)
 
   }
+  const hintEditKeywords = useRef<HTMLDivElement>(null);
   return (
     <div className="selectedPresetsContainer">
+      <Hints pageTitle="ProfessionDetails" numberPages={2} boxRef={hintEditKeywords} nameRef={'hintEditKeywords'} description={'В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.'} title={'Наборы навыков'}/>
+
       <div
         className={`leftSlide ${isHidden ? 'hidden' : ''} ${!isRightArrowHidden ? 'hidden-right' : ''}`}
         onLoad={(e) => shouldDrawScrollButton(e)}
@@ -124,8 +128,8 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 В дополнение к ключевым словам ты можешь
                 добавить наборы навыков, которые тебе интересны
               </span>
-              <div className="addPreset">
-                <button onClick={editSkillSets} className="add-button">
+              <div className="addPreset" ref={hintEditKeywords}>
+                <button  className="add-button">
                   Добавить
                 </button>
               </div>

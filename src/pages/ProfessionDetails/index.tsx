@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import BgContext from "../../Context/Background";
 import {BASE_URL} from "../../constants";
@@ -21,6 +21,7 @@ import ModalsContext from "../../Context/Modal";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { isMobile } from "react-device-detect";
 import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
+import Hints from "../../components/hints";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -129,9 +130,14 @@ const ProfessionDetails = () => {
     }
     return searchParams.get('view') === 'skills' && presets.selected.length < 1;
   }
+  const hintEditKeywords = useRef<HTMLDivElement>(null);
+
+  const windowNumber = 0
 
   return (
     <div className="professionDetails">
+      <Hints boxRef={hintEditKeywords} pageTitle="ProfessionDetails" numberPages={1} nameRef={'hintEditPresets'} description={'Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.'} title={'Ключевые слова'}/>
+
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
         {searchParams.get('view') !== 'main' &&
@@ -246,7 +252,7 @@ const ProfessionDetails = () => {
                 </div>
                 <button onClick={editKeywords} className="edit-button">
                   <div className="edit-button-icon"> <MagicWand width={20} height={20}/></div>
-                  <span className="edit-button-text">Редактировать</span>
+                  <span className="edit-button-text" ref={hintEditKeywords}>Редактировать</span>
                 </button>
               </div>
               <div className="keywordsRequired" id="blob-0-bottom-right">

@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './index.scss';
 import axios from "axios";
 import {BASE_URL, colors} from "../../../constants";
 import {TrajectoryDisciplineType} from 'types'
 import {useSearchParams} from "react-router-dom";
+import Hints from "../../hints";
 
 type TrajectoryDisciplineModalPropType = {
   id: number
@@ -26,7 +27,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<{ id: number, name: string }[]>([]);
   const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] = useState<boolean>(false)
   const [movement, setMovement] = useState<DisciplineMovement>(DisciplineMovement.none)
-
+  const hintSemesterChoice = useRef(null)
   const [initialDisciplineId, setInitialDisciplineId] = useState<number>(0)
 
 
@@ -135,7 +136,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
-              <div>
+              <div ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
                 <button
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
@@ -264,6 +265,15 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               ))}
             </div>
           </div>
+          {filteredReplacementOptions.length  &&
+            <Hints
+              boxRef={[hintSemesterChoice]}
+              pageTitle="hintSemesterChoice"
+              nameRef={['hintSemesterChoice']}
+              description={['Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему']}
+              title={['Смотри альтернативы']} />
+          }
+
         </>
       }
     </div>

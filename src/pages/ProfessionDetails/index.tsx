@@ -131,13 +131,10 @@ const ProfessionDetails = () => {
     return searchParams.get('view') === 'skills' && presets.selected.length < 1;
   }
   const hintEditKeywords = useRef<HTMLDivElement>(null);
-
-  const windowNumber = 0
+  const hintEditPresets = useRef<HTMLDivElement>(null);
 
   return (
     <div className="professionDetails">
-      <Hints boxRef={hintEditKeywords} pageTitle="ProfessionDetails" numberPages={1} nameRef={'hintEditPresets'} description={'Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.'} title={'Ключевые слова'}/>
-
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
         {searchParams.get('view') !== 'main' &&
@@ -232,27 +229,28 @@ const ProfessionDetails = () => {
                 </div>
                 {presets.selected.length > 0 &&
                   <button onClick={editSkillSets} className="edit-button">
-                    <div className="edit-button-icon"> <MagicWand width={20} height={20}/></div>
+                    <div className="edit-button-icon">
+                      <MagicWand width={20} height={20}/></div>
                     <span className="edit-button-text">Редактировать</span>
                   </button>
                 }
               </div>
               <LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>
-              <SelectedPresets isHidden={false} selectedPresets={presets.selected}/>
+              <SelectedPresets hintEditPresets={hintEditPresets} isHidden={false} selectedPresets={presets.selected}/>
             </div>
             <div className="containerBlockFlex">
               <div className="blockFlex">
-                <div id="blob-0-top-left" className="subheader">
-                  <span className="subheader-title" {...createStickyBlock(2)}>Ключевые слова</span>
+                <div id="blob-0-top-left"  className="subheader">
+                  <span className="subheader-title" ref={hintEditKeywords} {...createStickyBlock(2)}>Ключевые слова</span>
                   {keywords.added.length > 0 &&
                     <div className="subheader-counter">+{
                       keywords.added.length
                     }</div>
                   }
                 </div>
-                <button onClick={editKeywords} className="edit-button">
+                <button onClick={editKeywords}  className="edit-button">
                   <div className="edit-button-icon"> <MagicWand width={20} height={20}/></div>
-                  <span className="edit-button-text" ref={hintEditKeywords}>Редактировать</span>
+                  <span className="edit-button-text">Редактировать</span>
                 </button>
               </div>
               <div className="keywordsRequired" id="blob-0-bottom-right">
@@ -321,6 +319,12 @@ const ProfessionDetails = () => {
       {searchParams.get('view') === 'skills' &&
         <SkillSets presets={presets}/>
       }
+      <Hints
+        boxRef={[ hintEditKeywords ,hintEditPresets]}
+        pageTitle="ProfessionDetails"
+        nameRef={['hintEditKeywords','hintEditPresets']}
+        description={['Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.','В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.']}
+        title={['Ключевые слова','Наборы навыков']}/>
     </div>
   )
 }

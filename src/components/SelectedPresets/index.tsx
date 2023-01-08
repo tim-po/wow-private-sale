@@ -20,6 +20,7 @@ type SelectedPresetsPropType = {
   selectedPresets: PresetType[]
   deletePreset?: (presetId: string) => void
   isHidden: boolean
+  hintEditPresets?: React.RefObject<HTMLDivElement>
 }
 
 const SelectedPresetsDefaultProps = {
@@ -30,7 +31,7 @@ const SelectedPresetsDefaultProps = {
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
-  const {selectedPresets, deletePreset, isHidden} = props;
+  const {selectedPresets, deletePreset, isHidden, hintEditPresets } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
 
@@ -89,10 +90,13 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     navigate(`professionDetails?id=${searchParams.get('id')}&view=skills`)
 
   }
-  const hintEditKeywords = useRef<HTMLDivElement>(null);
+  console.log(hintEditPresets?.current?.offsetLeft, 22)
+
+
+
   return (
     <div className="selectedPresetsContainer">
-      <Hints pageTitle="ProfessionDetails" numberPages={2} boxRef={hintEditKeywords} nameRef={'hintEditKeywords'} description={'В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.'} title={'Наборы навыков'}/>
+      {/*<Hints pageTitle="ProfessionDetails" numberPages={2} boxRef={hintEditKeywords} nameRef={'hintEditKeywords'} description={'В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.'} title={'Наборы навыков'}/>*/}
 
       <div
         className={`leftSlide ${isHidden ? 'hidden' : ''} ${!isRightArrowHidden ? 'hidden-right' : ''}`}
@@ -128,7 +132,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 В дополнение к ключевым словам ты можешь
                 добавить наборы навыков, которые тебе интересны
               </span>
-              <div className="addPreset" ref={hintEditKeywords}>
+              <div className="addPreset" ref={hintEditPresets}>
                 <button  className="add-button">
                   Добавить
                 </button>

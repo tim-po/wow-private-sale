@@ -8,70 +8,50 @@ import { isMobile } from "react-device-detect";
 
 
 type PropsType = {
-  boxRef: React.RefObject<HTMLDivElement>
-  pageTitle:string
-  numberPages:number
-  nameRef:string
-  title:string
-  description:string
+  boxRef: React.RefObject<HTMLDivElement>[],
+  pageTitle:string,
+  nameRef:string[],
+  title:string[],
+  description:string[],
 }
 const Hints = (props:PropsType) => {
-  const {boxRef,  nameRef, title, description, pageTitle, numberPages} = props
+  const {boxRef,  nameRef, title, description, pageTitle} = props
   const [isLocalStorage, setIsLocalStorage] = useState<string>();
-  const [positionLeft, setPositionLeft] = useState<number | undefined>();
-  const [numberOpenPage, setNumberOpenPage] = useState<boolean>(true)
+  const [numberOpenPage, setNumberOpenPage] = useState<number>(0)
   const [stateLocal, setStateLocal] = useState<string>('true')
-  const [positionTop, setPositionTop] = useState<number | undefined>();
-
-  const getPosition = () => {
-    const positionLeft = boxRef.current?.offsetLeft;
-    if(positionLeft)
-    setPositionLeft(positionLeft - 280);
-
-    const positionTop = boxRef.current?.offsetTop;
-    if(positionTop)
-    setPositionTop(positionTop + 35);
-  };
-
-
 
   useEffect(() => {
 
-    if (localStorage.getItem(nameRef) === null) {
+    if (localStorage.getItem(nameRef[numberOpenPage]) === null) {
       setIsLocalStorage("true")
     }
     if (typeof isLocalStorage === "string") {
-      localStorage.setItem(nameRef, isLocalStorage);
+      localStorage.setItem(nameRef[numberOpenPage], isLocalStorage);
     }
-  }, [isLocalStorage]);
 
+  }, [isLocalStorage, numberOpenPage]);
 
   useEffect(() => {
-    window.addEventListener("resize", getPosition);
-    if (localStorage.getItem(nameRef) === "true") {
+    if (localStorage.getItem(nameRef[numberOpenPage]) === "true") {
       setIsLocalStorage("true")
+    }else if (localStorage.getItem(nameRef[numberOpenPage]) === 'false') {
+      setIsLocalStorage("false")
     }
+
   }, []);
 
-  useEffect(() => {
-    getPosition();
-  }, []);
-
-  // useEffect(() =>{
-  //   localStorage.setItem(pageTitle, String(stateLocal));
-  // },[stateLocal])
   return (
-    <div>
         <HintGeneric
-          status={isLocalStorage === 'true' && numberPages === 1 ? '' : 'closeHint'}
+          status={isLocalStorage === 'true' ? '' : 'closeHint'}
+          boxRef={boxRef[numberOpenPage]}
+          nameRef={nameRef[numberOpenPage]}
+          listRef={boxRef}
           setIsLocalStorage={setIsLocalStorage}
-          title={title}
-          setStateLocal={setStateLocal}
-          positionTop={positionTop}
-          pageTitle={pageTitle}
-          positionLeft={positionLeft}
-          description={description} />
-    </div>
+          isLocalStorage={isLocalStorage}
+          title={title[numberOpenPage]}
+          setNumberOpenPage={setNumberOpenPage}
+          numberOpenPage={numberOpenPage}
+          description={description[numberOpenPage]} />
   );
 };
 

@@ -119,9 +119,9 @@
   }
   .ModalContainerShad{
     position: absolute;
-    width: 100vw;
+    width: 100%;
     z-index: 60;
-    height: 100vh;
+    height: 100%;
   }
   .ModalContainer.maxHeight.active .d-block .TextCenter{
     height: 100%;
@@ -167,7 +167,7 @@
     max-height: calc(100% - 130px);
   }
   .ModalContainer{
-    /*transition: opacity 0.3s ;*/
+    //transition: opacity 0.3s ;
     /*background: rgba(45, 43, 68, 0.3);*/
     z-index: 10000;
     position: absolute;
@@ -208,6 +208,7 @@
   .ModalContainer.active .ModalTrack{
     height: calc(100%);
     display: block;
+    opacity: 1;
   }
 
 
@@ -223,19 +224,20 @@
     /*opacity: 1;*/
     /*border-radius: 16px 16px 0px 0px;*/
     z-index: 20!important;
-    transition: all 0.5s;
+    transition: opacity 0.5s;
     padding-top: 0;
     height: calc(0%);
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
+    opacity: 0;
     //overflow: scroll;
     background: rgba(45, 43, 68, 0.3);
 
   }
   .ModalContainer .ModalContainer.active .ModalTrack{
     overflow: hidden;
-
+    opacity: 1;
   }
 }

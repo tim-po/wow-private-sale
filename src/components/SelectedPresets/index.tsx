@@ -133,7 +133,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 добавить наборы навыков, которые тебе интересны
               </span>
               <div className="addPreset" ref={hintEditPresets}>
-                <button  className="add-button">
+                <button onClick={editSkillSets} className="add-button">
                   Добавить
                 </button>
               </div>

@@ -34,26 +34,33 @@ const HintGeneric = (props:GetPositionType) => {
 
 
   const getPosition = () => {
-    const offsetLeft = boxRef.current?.getBoundingClientRect().left
-    if(offsetLeft) {
-        if(!isMobile) {
+    if(boxRef.current) {
+      const offsetLeft = boxRef.current.getBoundingClientRect().left
+      if (offsetLeft) {
+        if (!isMobile) {
           setPositionLeft(offsetLeft - 280);
-        }else {
+        } else {
           setPositionLeft(0);
           setArrowPosition(offsetLeft)
         }
+      }
+      const offsetTop = boxRef.current.getBoundingClientRect().top
+      const elementHeight = boxRef.current.getBoundingClientRect().height
+      if (offsetTop && elementHeight)
+        setPositionTop(offsetTop + elementHeight);
+
+      // setPositionTop(0)
+      // setPositionTop(0)
+      console.log(offsetTop,  boxRef.current.getBoundingClientRect().y)
     }
-    const offsetTop = boxRef.current?.getBoundingClientRect().top
-    if(offsetTop)
-      setPositionTop(offsetTop + 35);
   };
 
 
   useEffect(() => {
     if (nameRef[numberOpenPage])
-      window.addEventListener("resize", getPosition);
-
-  }, [numberOpenPage]);
+      document.addEventListener("resize", getPosition);
+      return () => document.removeEventListener("resize", getPosition);
+  });
 
 
   useEffect(() => {
@@ -63,9 +70,7 @@ const HintGeneric = (props:GetPositionType) => {
 
   useEffect(() => {
     if(isLocalStorage === "false" && listRef[numberOpenPage + 1] ){
-      window.removeEventListener("resize", getPosition);
       setNumberOpenPage(numberOpenPage + 1)
-
     }
   }, [isLocalStorage])
 

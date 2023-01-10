@@ -144,14 +144,17 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 >
                   {trajectoryDisciplineData.name}
                   {filteredReplacementOptions.length ?
+                    <div>
                     <img
                       src="/static/arrowBottom.svg"
                       alt="arrow"
                       className={`Arrow ${isOtherReplacementOptionsOpen ? 'open' : 'close'}`}
                     />
+                    </div>
                     :
                     ''
                   }
+
                 </button>
                 {filteredReplacementOptions.length ?
                   <div

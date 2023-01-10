@@ -104,7 +104,6 @@ const Card = (props: CardPropType) => {
                       key={discipline.id}
                     >
                       <div
-                        ref={hintDiscipline}
                         className="DisciplineCardWrapper"
                         onClick={(index === activeSemesterIndex || !(isMobile)) ? () => displayModal(<TrajectoryDisciplineModal id={discipline.id} />):  () =>{}}
                       >
@@ -113,7 +112,7 @@ const Card = (props: CardPropType) => {
                             <div
                               className={`DisciplineCardType ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
                             >
-                              <span> {
+                              <span ref={hintDiscipline}> {
                                 discipline.necessity === "necessary"
                                   ? "Обязательная" :
                                   "По выбору"

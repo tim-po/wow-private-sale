@@ -265,7 +265,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               ))}
             </div>
           </div>
-          {filteredReplacementOptions.length  &&
+          {filteredReplacementOptions.length >0 &&
             <Hints
               boxRef={[hintSemesterChoice]}
               pageTitle="hintSemesterChoice"

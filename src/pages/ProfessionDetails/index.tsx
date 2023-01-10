@@ -241,7 +241,7 @@ const ProfessionDetails = () => {
             <div className="containerBlockFlex">
               <div className="blockFlex">
                 <div id="blob-0-top-left"  className="subheader">
-                  <span className="subheader-title" ref={hintEditKeywords} {...createStickyBlock(2)}>Ключевые слова</span>
+                  <span className="subheader-title" {...createStickyBlock(2)}>Ключевые слова</span>
                   {keywords.added.length > 0 &&
                     <div className="subheader-counter">+{
                       keywords.added.length
@@ -249,8 +249,8 @@ const ProfessionDetails = () => {
                   }
                 </div>
                 <button onClick={editKeywords}  className="edit-button">
-                  <div className="edit-button-icon"> <MagicWand width={20} height={20}/></div>
-                  <span className="edit-button-text">Редактировать</span>
+                  <div className="edit-button-icon" > <MagicWand width={20} height={20}/></div>
+                  <span className="edit-button-text" ref={hintEditKeywords}>Редактировать</span>
                 </button>
               </div>
               <div className="keywordsRequired" id="blob-0-bottom-right">
@@ -320,7 +320,7 @@ const ProfessionDetails = () => {
         <SkillSets presets={presets}/>
       }
       <Hints
-        boxRef={[ hintEditKeywords ,hintEditPresets]}
+        boxRef={[hintEditKeywords, hintEditPresets]}
         pageTitle="ProfessionDetails"
         nameRef={['hintEditKeywords','hintEditPresets']}
         description={['Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.','В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.']}

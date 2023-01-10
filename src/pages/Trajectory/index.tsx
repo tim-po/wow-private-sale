@@ -182,8 +182,9 @@ const Trajectory = (props: TrajectoryPropType) => {
                 </button>
               </div>
             </div>
-            <div className="flex-row flex-block pl-5 semesterSeason" ref={isMobile ? undefined : hintSemester}>
+            <div className="flex-row flex-block pl-5 semesterSeason">
               <p
+                ref={isMobile ? undefined : hintSemester}
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-0-top-left"
 

@@ -30,16 +30,17 @@ const HintGeneric = (props:GetPositionType) => {
 
   const [positionTop, setPositionTop] = useState<number | undefined>();
   const [positionLeft, setPositionLeft] = useState<number | undefined>();
+  const [arrowPosition, setArrowPosition] = useState<number | undefined>();
 
 
   const getPosition = () => {
-    // const offsetLeft = boxRef.current?.offsetLeft;
     const offsetLeft = boxRef.current?.getBoundingClientRect().left
     if(offsetLeft) {
         if(!isMobile) {
           setPositionLeft(offsetLeft - 280);
         }else {
           setPositionLeft(0);
+          setArrowPosition(offsetLeft)
         }
     }
     const offsetTop = boxRef.current?.getBoundingClientRect().top
@@ -51,7 +52,9 @@ const HintGeneric = (props:GetPositionType) => {
   useEffect(() => {
     if (nameRef[numberOpenPage])
       window.addEventListener("resize", getPosition);
+
   }, [numberOpenPage]);
+
 
   useEffect(() => {
     getPosition();
@@ -60,14 +63,16 @@ const HintGeneric = (props:GetPositionType) => {
 
   useEffect(() => {
     if(isLocalStorage === "false" && listRef[numberOpenPage + 1] ){
+      window.removeEventListener("resize", getPosition);
       setNumberOpenPage(numberOpenPage + 1)
+
     }
   }, [isLocalStorage])
 
 
   return (
     <div className={`wrapHints ${status}`}  style={{ position: "absolute", top: positionTop, left: positionLeft }}>
-      <div className="positionArrow">
+      <div className="positionArrow" style={isMobile? {left:arrowPosition} : {}}>
         <Arrow color={'#323243'} />
       </div>
       <span className="title">{title}</span>

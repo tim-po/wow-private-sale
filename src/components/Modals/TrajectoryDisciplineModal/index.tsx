@@ -177,7 +177,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             <div className="subjectsFlex">
               {sortedNextDisciplines.length ?
                 <p
-                  className={`TextCenter modalColHeader`}>
+                className={`TextCenter modalColHeader`}>
                   Где пригодится
                 </p>
                 :

@@ -15,6 +15,7 @@ type PresetPropType = {
   displayAdd?: boolean
   preset: PresetType
   onClick?: () => void
+  presetWindowSize?:React.MutableRefObject<null>
 }
 
 const PresetDefaultProps = {
@@ -25,7 +26,7 @@ const Preset = (props: PresetPropType) => {
   const {displayModal} = useContext(ModalsContext)
   const [hidden, setHidden] = useState(false);
 
-  const {displayAdd, preset, onClick} = props;
+  const {displayAdd, preset, onClick, presetWindowSize} = props;
 
   const openKeywordsModal = () => {
    displayModal(<KeywordsModal keywords={preset.keywords} />)
@@ -45,7 +46,7 @@ const Preset = (props: PresetPropType) => {
     return null;
   }
   return (
-    <div className={`preset ${hidden ? 'hidePreset': ''} ${onClick !== undefined ? 'iteractable': ''}`}>
+    <div ref={presetWindowSize} className={`preset ${hidden ? 'hidePreset': ''} ${onClick !== undefined ? 'iteractable': ''}`}>
       <div className="presetTopRow">
         <div className="presetIconFlex">
           <PresetIcon presetClass={preset.category}/>

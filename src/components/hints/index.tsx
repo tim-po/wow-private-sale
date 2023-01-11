@@ -8,7 +8,7 @@ import { isMobile } from "react-device-detect";
 
 
 type PropsType = {
-  boxRef: React.RefObject<HTMLDivElement>[],
+  boxRef: any,
   pageTitle:string,
   nameRef:string[],
   title:string[],

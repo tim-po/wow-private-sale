@@ -268,18 +268,20 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               ))}
             </div>
           </div>
-          {filteredReplacementOptions.length >0 &&
-            <Hints
-              boxRef={[hintSemesterChoice]}
-              pageTitle="hintSemesterChoice"
-              nameRef={['hintSemesterChoice']}
-              description={['Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему']}
-              title={['Смотри альтернативы']} />
-          }
+
 
         </>
       }
+      {filteredReplacementOptions.length >0 &&
+        <Hints
+          boxRef={[hintSemesterChoice]}
+          pageTitle="hintSemesterChoice"
+          nameRef={['hintSemesterChoice']}
+          description={['Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему']}
+          title={['Смотри альтернативы']} />
+      }
     </div>
+
   )
 };
 

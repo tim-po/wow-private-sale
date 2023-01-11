@@ -22,6 +22,8 @@ import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { isMobile } from "react-device-detect";
 import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
 import Hints from "../../components/hints";
+// import { findDOMNode } from "react-dom";
+// @ts-ignore
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -132,7 +134,8 @@ const ProfessionDetails = () => {
   }
   const hintEditKeywords = useRef<HTMLDivElement>(null);
   const hintEditPresets = useRef<HTMLDivElement>(null);
-
+  // const hintEditKeyword = findDOMNode(hintEditKeywords);
+  console.log(hintEditKeywords.current, 333)
   return (
     <div className="professionDetails">
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">

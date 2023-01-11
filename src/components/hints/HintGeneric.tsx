@@ -58,8 +58,8 @@ const HintGeneric = (props:GetPositionType) => {
 
   useEffect(() => {
     if (nameRef[numberOpenPage])
-      document.addEventListener("resize", getPosition);
-      return () => document.removeEventListener("resize", getPosition);
+      window.addEventListener("resize", getPosition);
+      return () => window.removeEventListener("resize", getPosition);
   });
 
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
 import {PresetType} from "../../types";
 import * as Scroll from "react-scroll";
@@ -32,7 +32,6 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const {selectedPresets, deletePreset, isHidden} = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
-  const presetWindowSize = useRef(null)
 
   useEffect(() => {
     const carousel = document.querySelector('.leftSlide');
@@ -79,19 +78,16 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   }
   const scrollToRight = (event: any) => {
     event.preventDefault()
-    // @ts-ignore
-
-      event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, presetWindowSize?.current?.getBoundingClientRect().width)
+    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 250)
   }
   const scrollToLeft = (event: any) => {
     event.preventDefault()
-    // @ts-ignore
-    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth,  presetWindowSize?.current?.getBoundingClientRect().width)
+    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 250)
   }
   const editSkillSets = () => {
     navigate(`professionDetails?id=${searchParams.get('id')}&view=skills`)
-  }
 
+  }
   return (
     <div className="selectedPresetsContainer">
       <div
@@ -103,18 +99,14 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             className="scrollBtn right"
             onClick={scrollToRight}
           >
-            <span style={{pointerEvents: "none"}}>
             <Chevron />
-            </span>
           </button>
           <button
             className="scrollBtn left"
             style={{opacity: leftScrollPosition ? 1 : 0}}
             onClick={scrollToLeft}
           >
-            <span style={{pointerEvents: "none"}}>
-              <Chevron turn={Turn.left}/>
-            </span>
+            <Chevron turn={Turn.left}/>
           </button>
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
           <div className="blockMyPreset">
@@ -140,10 +132,9 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
           </div>
         }
-        {selectedPresets.map((preset, index) => {
+        {selectedPresets.map(preset => {
           return(
             <Preset
-              presetWindowSize={index === 0? presetWindowSize: undefined}
               key={preset.title}
               displayAdd={false}
               onClick={deletePreset ? () => {

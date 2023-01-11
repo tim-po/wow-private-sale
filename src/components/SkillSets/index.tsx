@@ -74,8 +74,7 @@ const SkillSets = (props: SkillSetsPropType) => {
             <button className="buttonArrow" onClick={() => {
               if(selectedPresetsHidden){
                 if(window.scrollY < 200) {
-                  scrollToElement('hidePresetsBottomTarget')
-                  return
+                  return scrollToElement('hidePresetsBottomTarget')
                 }
                 setSelectedPresetsHidden(false)
               }else{

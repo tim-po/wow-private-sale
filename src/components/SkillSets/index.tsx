@@ -28,7 +28,8 @@ type SkillSetsPropType = {
 const SkillSets = (props: SkillSetsPropType) => {
   const {presets} = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
-  const  { ref, inView }  =  useInView ( {}) ;
+  const [s, setS]=useState(false)
+  const  { ref, inView }  =  useInView ( {threshold:1, initialInView:true}) ;
 
   useEffect(() => {
     let scroll = Scroll.animateScroll
@@ -73,7 +74,7 @@ const SkillSets = (props: SkillSetsPropType) => {
             </div>
             <button className="buttonArrow" onClick={() => {
               if(selectedPresetsHidden){
-                // scrollToElement('hidePresetsBottomTarget')
+                scrollToElement('hidePresetsBottomTarget')
                 setSelectedPresetsHidden(false)
               }else{
                 setSelectedPresetsHidden(!selectedPresetsHidden)
@@ -87,11 +88,11 @@ const SkillSets = (props: SkillSetsPropType) => {
             </button>
           </div>
           <div
-
+            ref={ref}
             className={`selectedSkillsBlock`}
             {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
           >
-            <div ref={ref}/>
+            <div/>
             <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
           <p

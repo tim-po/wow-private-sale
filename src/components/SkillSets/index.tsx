@@ -7,7 +7,7 @@ import * as Scroll from "react-scroll";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
 import {scrollToElement} from "../../utils/scrollToElement";
-
+import { useInView } from 'react-intersection-observer';
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -29,6 +29,7 @@ const SkillSets = (props: SkillSetsPropType) => {
   const {presets} = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
   const [isTopHidden, setIsTopHidden] = useState(false);
+  const  { ref, inView }  =  useInView ( {}) ;
 
   useEffect(() => {
     let scroll = Scroll.animateScroll
@@ -87,13 +88,14 @@ const SkillSets = (props: SkillSetsPropType) => {
               }
             }}>
 
-              <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>
+              <div className={`mobil ${!inView ? 'arrowUp' : 'arrowDown'}`}>
                 <Chevron color="#1F1F22" turn={Turn.down}/>
               </div>
-              <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
+              <span className="deck">{ !inView ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
           <div
+            ref={ref}
             className={`selectedSkillsBlock`}
             {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
           >

@@ -75,6 +75,7 @@ const SkillSets = (props: SkillSetsPropType) => {
               if(selectedPresetsHidden){
                 if(window.scrollY < 200) {
                   scrollToElement('hidePresetsBottomTarget')
+                  return
                 }
                 setSelectedPresetsHidden(false)
               }else{

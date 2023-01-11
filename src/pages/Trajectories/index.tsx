@@ -105,23 +105,26 @@ const Trajectories = () => {
       <h1 className="TrajectoryChoiceHeader" {...createStickyBlock(1)}>
         Готовые траектории
       </h1>
-      <div className="TrajectoriesInfoCard d-flex align-items-center">
-        <button
-          className="border-0 pr-0 py-0 hideButton"
-          onClick={(e) => {
-            // @ts-ignore
-            e.target.parentElement.classList.add("Hidden");
-          }}
 
-        >
-          <Close width={10} height={10} />
-        </button>
-        <PercentProgress percent={0.8}/>
-        <div className="mr-2"/>
-        Мы собрали подходящие для тебя образовательные программы в ИТМО.
-        <br/>
-        Индикатор показывает совпадение с ключевыми словами.
+      <div className={'animationWrap'}>
+        <div className="TrajectoriesInfoCard align-items-center">
+          <PercentProgress percent={0.8}/>
+          Мы собрали подходящие для тебя образовательные программы в ИТМО.
+          <br/>
+          Индикатор показывает совпадение с ключевыми словами.
+          <button
+            className="border-0 pr-0 py-0 hideButton"
+            onClick={(e) => {
+              const card = document.querySelector('.animationWrap')
+              if(card)
+                card.classList.toggle('Hidden')
+            }}
+          >
+            <Close width={10} height={10} />
+          </button>
+        </div>
       </div>
+
       {trajectories.map((trajectory: TrajectoryType) => {
         return (
           <div

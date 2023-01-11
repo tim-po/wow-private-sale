@@ -28,7 +28,6 @@ type SkillSetsPropType = {
 const SkillSets = (props: SkillSetsPropType) => {
   const {presets} = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
-  const [s, setS]=useState(false)
   const  { ref, inView }  =  useInView ( {threshold:1, initialInView:true}) ;
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const SkillSets = (props: SkillSetsPropType) => {
   }, []);
 
   const handleScroll = (e: any) => {
-    if(window.scrollY < 10) {
+    if(window.scrollY < 200) {
       setSelectedPresetsHidden(true)
     }
   }

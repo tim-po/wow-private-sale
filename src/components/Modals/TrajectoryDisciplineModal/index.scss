@@ -6,14 +6,14 @@
   position: relative;
   //overflow: hidden;
 
-  &.move-left{
-    .disciplineCardModal{
+  &.move-left {
+    .disciplineCardModal {
       transform: translateX(-150%);
     }
   }
 
-  &.move-right{
-    .disciplineCardModal{
+  &.move-right {
+    .disciplineCardModal {
       transform: translateX(150%);
     }
   }
@@ -45,11 +45,11 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01),
-  0px 15px 9px rgba(100, 53, 165, 0.03),
-  0px 7px 7px rgba(100, 53, 165, 0.05),
-  0px 0px 4px rgba(100, 53, 165, 0.06),
-  0px 0px 0px rgba(100, 53, 165, 0.06);
+  box-shadow: 0 26px 11px rgba(100, 53, 165, 0.01),
+  0 15px 9px rgba(100, 53, 165, 0.03),
+  0 7px 7px rgba(100, 53, 165, 0.05),
+  0 0 4px rgba(100, 53, 165, 0.06),
+  0 0 0 rgba(100, 53, 165, 0.06);
   left: 50%;
   transform: translate(-50%, 0);
 }
@@ -66,38 +66,57 @@
   text-align: left;
   width: 100%;
   margin: auto;
-  /*max-width: none;*/
   max-width: initial;
   padding: 12px;
-  //padding-bottom: 12px;
   background: inherit;
   border: inherit;
-  border-top: 1px solid #E7E8EE;
   position: relative;
+  border-radius: 8px;
+  transition: all 0.15s;
 
-  &:first-child{
-    border-top: 1px solid rgba(231, 232, 238, 0);
-    //padding-bottom: 8px;
+
+  &:before {
+    position: absolute;
+    top: -1px;
+    left: 8px;
+    content: '';
+    width: calc(100% - 16px);
+    height: 1px;
+    background-color: #E7E8EE;
   }
 
-  &.selected{
-    border: 2px dashed #7328E2;
-    border-radius: 8px;
-    margin-bottom: 16px;
 
-    &:after{
-      content: 'Выбранна для тебя';
-      color: #7328E2;
-      font-weight: bold;
-      font-size: 12px;
-      position: absolute;
-      bottom: calc(100% - 8px);
-      border-radius: 8px;
-      background: white;
-      left: 8px;
-      padding-left: 4px;
-      padding-right: 4px;
+  &:hover {
+    background-color: #F3F3F8;
+
+    &:before {
+      background-color: transparent;
     }
+  }
+
+  &:first-child:before {
+    position: absolute;
+    content: '';
+    width: calc(100% - 16px);
+    height: 1px;
+    background-color: transparent;
+  }
+
+
+  .selected {
+    color: #8533FF;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    position: absolute;
+    background: white;
+    right: -2px;
+    top: -6px;
+    padding-left: 4px;
+    padding-right: 4px;
+    display: flex;
+    box-shadow: 0 26px 11px rgba(100, 53, 165, 0.01), 0 15px 9px rgba(100, 53, 165, 0.03), 0 7px 7px rgba(100, 53, 165, 0.05), 0 0 4px rgba(100, 53, 165, 0.06), 0 0 0 rgba(100, 53, 165, 0.06);
+    border-radius: 16px;
   }
 }
 
@@ -118,7 +137,7 @@
 }
 
 .replacement_options.open {
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+  box-shadow: 0 26px 11px rgba(100, 53, 165, 0.01), 0 15px 9px rgba(100, 53, 165, 0.03), 0 7px 7px rgba(100, 53, 165, 0.05), 0 0 4px rgba(100, 53, 165, 0.06), 0 0 0 rgba(100, 53, 165, 0.06);
   transform: scaleY(1);
   opacity: 1;
 }
@@ -132,7 +151,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.0), 0px 15px 9px rgba(100, 53, 165, 0.0), 0px 7px 7px rgba(100, 53, 165, 0.0), 0px 0px 4px rgba(100, 53, 165, 0.0), 0px 0px 0px rgba(100, 53, 165, 0.0);
+  box-shadow: 0 26px 11px rgba(100, 53, 165, 0.0), 0 15px 9px rgba(100, 53, 165, 0.0), 0 7px 7px rgba(100, 53, 165, 0.0), 0 0 4px rgba(100, 53, 165, 0.0), 0 0 0 rgba(100, 53, 165, 0.0);
   opacity: 0;
   //max-height: 12px;
 }
@@ -269,7 +288,7 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .modalKeywordsHeader{
+  .modalKeywordsHeader {
     display: flex;
     flex-direction: column;
   }

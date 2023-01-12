@@ -41,7 +41,6 @@
     transition: all 2s;
     position: absolute;
     left: 0;
-    box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
     &.preAnimated {
       left: -100%;
     }
@@ -107,6 +106,8 @@
       top: 23px;
       left: 16px;
       z-index: 1600;
+      box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
+
 
       &.preAnimated {
         .BackArrow {

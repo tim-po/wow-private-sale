@@ -56,23 +56,23 @@ const Trajectories = () => {
   const shouldDrawScrollButton = (event: any) => {
     const element = event.target;
     if (!element) {
-      element.classList.remove("Hidden");
-      element.classList.remove("HiddenLeft");
+      element.classList.remove("hidden-right");
+      element.classList.remove("hidden-left");
       return;
     }
 
     if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
-      element.classList.add("Hidden");
+      element.classList.add("hidden-right");
       return;
     }
 
     if (element.scrollLeft <= 10) {
-      element.classList.add("HiddenLeft");
+      element.classList.add("hidden-left");
       return;
     }
 
-    element.classList.remove("HiddenLeft");
-    element.classList.remove("Hidden");
+    element.classList.remove("hidden-left");
+    element.classList.remove("hidden-right");
   };
   const trajectoryChosen = (trajectory: TrajectoryType, course = 1) => {
     withLocalStorage({ chosenTrajectoriesIds: searchParams.get("ids") }, LocalStorageInteraction.save);
@@ -105,23 +105,26 @@ const Trajectories = () => {
       <h1 className="TrajectoryChoiceHeader" {...createStickyBlock(1)}>
         Готовые траектории
       </h1>
-      <div className="TrajectoriesInfoCard d-flex align-items-center">
-        <button
-          className="border-0 pr-0 py-0 hideButton"
-          onClick={(e) => {
-            // @ts-ignore
-            e.target.parentElement.classList.add("Hidden");
-          }}
 
-        >
-          <Close width={10} height={10} />
-        </button>
-        <PercentProgress percent={0.8}/>
-        <div className="mr-2"/>
-        Мы собрали подходящие для тебя образовательные программы в ИТМО.
-        <br/>
-        Индикатор показывает совпадение с ключевыми словами.
+      <div className={'animationWrap'}>
+        <div className="TrajectoriesInfoCard align-items-center">
+          <PercentProgress percent={0.8}/>
+          Мы собрали подходящие для тебя образовательные программы в ИТМО.
+          <br/>
+          Индикатор показывает совпадение с ключевыми словами.
+          <button
+            className="border-0 pr-0 py-0 hideButton"
+            onClick={(e) => {
+              const card = document.querySelector('.animationWrap')
+              if(card)
+                card.classList.toggle('Hidden')
+            }}
+          >
+            <Close width={10} height={10} />
+          </button>
+        </div>
       </div>
+
       {trajectories.map((trajectory: TrajectoryType) => {
         return (
           <div
@@ -141,7 +144,7 @@ const Trajectories = () => {
               </div>
             </div>
             <div style={{ position: "relative" }}>
-              <div className="mt-3 trajectoryCardWrapper HiddenLeft" onLoad={shouldDrawScrollButton}
+              <div className="mt-3 trajectoryCardWrapper hidden-left" onLoad={shouldDrawScrollButton}
                    onScroll={shouldDrawScrollButton}>
                 <button className="ScrollBtn Right" onClick={scrollToRight}>
                   <Chevron />

@@ -128,16 +128,21 @@
   font-weight: 700;
   font-size: 24px;
   z-index: 1500;
-  padding-top: 24px;
   background: rgb(241, 242, 248);
 }
 
+.animationWrap {
+  max-height: 400px;
+  overflow: hidden;
+}
+
 .TrajectoriesInfoCard {
-  transition: all 0.2s;
+  display: inline-flex;
+  column-gap: 12px;
   background: white;
   border-radius: 12px;
   max-width: fit-content;
-  padding: 15px 48px 15px 16px;
+  padding: 16px 48px 16px 16px;
   margin-bottom: 24px;
   position: relative;
   box-sizing: content-box;
@@ -145,13 +150,9 @@
   max-height: 200px;
 }
 
-.TrajectoriesInfoCard.Hidden{
-  /*display: none!important;*/
-  /*margin-bottom: 0px;*/
-  max-height: 0px;
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-bottom: 0;
+.Hidden{
+  max-height: 0;
+  transition: max-height 0.3s ease;
 }
 
 .keywordsWrapper {
@@ -192,12 +193,12 @@
   }
 }
 
-.trajectoryCardWrapper.Hidden .ScrollBtn.Right{
+.trajectoryCardWrapper.hidden-right .ScrollBtn.Right{
   width: 0px;
   height: 0px;
   top: calc(50%);
 }
-.trajectoryCardWrapper.HiddenLeft .ScrollBtn.Left{
+.trajectoryCardWrapper.hidden-left .ScrollBtn.Left{
   width: 0px;
   height: 0px;
   top: calc(50%);
@@ -279,10 +280,10 @@
   .ScrollBtn{
     top: calc(91%);
   }
-  .trajectoryCardWrapper.Hidden .ScrollBtn.Right{
+  .trajectoryCardWrapper.hidden-right .ScrollBtn.Right{
     top: calc(100% + 20px);
   }
-  .trajectoryCardWrapper.HiddenLeft .ScrollBtn.Left{
+  .trajectoryCardWrapper.hidden-left .ScrollBtn.Left{
     top: calc(100% + 20px);
   }
 

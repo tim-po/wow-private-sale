@@ -22,6 +22,30 @@
   padding-top: 16px;
 }
 
+.showNote{
+  max-height: 88px;
+  transition: max-height 0.2s linear;
+}
+
+.hideNote{
+  max-height: 0;
+  transition: max-height 0.2s linear;
+}
+
+.PresetsInfoCard {
+  background: #F3F3F8;
+  border-radius: 12px;
+  max-width: fit-content;
+  padding: 16px 48px 16px 16px;
+  margin-bottom: 24px;
+  position: relative;
+  box-sizing: content-box;
+  overflow: hidden;
+  display: inline-flex;
+  column-gap: 12px;
+  //max-height: a;
+}
+
 .minTitle.bottom.stickyPopup {
   //top: calc(122px + 320px);
 }
@@ -139,10 +163,10 @@
   color: #1F1F22;
   display: flex;
   justify-content: space-between;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 0;
   /*padding-top: 35px;*/
-  padding-bottom: 16px;
+  padding-bottom: 8px;
 }
 
 .minTitle.top {

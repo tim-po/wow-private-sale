@@ -1,20 +1,20 @@
-import React, {useContext, useState} from "react";
-import './index.scss'
-import {PresetType} from "../../types";
+import React, { MouseEventHandler, useContext, useState } from "react";
+import "./index.scss";
+import { PresetType } from "../../types";
 import ModalsContext from "../../Context/Modal";
 import PresetIcon from "../PresetIcon";
 import Pluse from "images/icons/plus";
 
 // CONSTANTS
-
 // DEFAULT FUNCTIONS
 import KeywordsModal from "../Modals/KeywordsModal";
 import Keyword from "../Keyword";
 
 type PresetPropType = {
-  displayAdd?: boolean
   preset: PresetType
   onClick?: () => void
+  disabled?: boolean
+  displayAdd?: boolean
 }
 
 const PresetDefaultProps = {
@@ -24,14 +24,16 @@ const PresetDefaultProps = {
 const Preset = (props: PresetPropType) => {
   const {displayModal} = useContext(ModalsContext)
   const [hidden, setHidden] = useState(false);
+  const [declined, setDeclined] = useState(false);
 
-  const {displayAdd, preset, onClick} = props;
+
+  const {displayAdd, preset, onClick, disabled} = props;
 
   const openKeywordsModal = () => {
    displayModal(<KeywordsModal keywords={preset.keywords} />)
   }
 
-  const clickSelf = () => {
+  const clickSelf:MouseEventHandler<HTMLButtonElement> = () => {
     if(onClick){
       setHidden(true);
       setTimeout(() => {
@@ -39,13 +41,19 @@ const Preset = (props: PresetPropType) => {
         setHidden(false);
       }, 200)
     }
+    if(disabled){
+      setDeclined(true);
+      setTimeout(() => {
+        setDeclined(false);
+      }, 500)
+    }
   }
 
   if (!preset) {
     return null;
   }
   return (
-    <div className={`preset ${hidden ? 'hidePreset': ''} ${onClick !== undefined ? 'iteractable': ''}`}>
+    <div className={`preset ${hidden ? 'hidePreset': ''} ${onClick ? 'iteractable showPreset': ''}  ${disabled ? 'disabled' : ''} ${declined ? 'declineAnimate' : ''}`}>
       <div className="presetTopRow">
         <div className="presetIconFlex">
           <PresetIcon presetClass={preset.category}/>

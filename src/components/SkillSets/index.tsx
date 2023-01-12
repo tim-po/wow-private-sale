@@ -1,12 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
-import './index.scss'
+import React, { useEffect, useState } from "react";
+import "./index.scss";
 import SelectedPresets from "../SelectedPresets";
 import Preset from "components/Preset";
-import {PresetType} from "../../types";
+import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
 import Chevron, { Turn } from "../../images/icons/chevron";
-import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
-import {scrollToElement} from "../../utils/scrollToElement";
+import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
+import { scrollToElement } from "../../utils/scrollToElement";
+import Close from "../../images/icons/close";
+import InfoIcon from "../../images/icons/Static/InfoIcon";
 
 // CONSTANTS
 
@@ -26,48 +28,48 @@ type SkillSetsPropType = {
 }
 
 const SkillSets = (props: SkillSetsPropType) => {
-  const {presets} = props;
+  const { presets } = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
-  const [isTopHidden, setIsTopHidden] = useState(false);
+  const [isNoteOpen, setIsNoteOpen] = useState(true);
 
   useEffect(() => {
-    let scroll = Scroll.animateScroll
+    let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const selectedPresetsTrueHidden = () => {
-    if (selectedPresetsHidden) {
-      return true
-    } else return isTopHidden;
-  }
+  // const selectedPresetsTrueHidden = () => {
+  //   if (selectedPresetsHidden) {
+  //     return true;
+  //   } else return isTopHidden;
+  // };
 
   const handleScroll = (e: any) => {
-    if(window.scrollY < 10) {
-      setSelectedPresetsHidden(true)
+    if (window.scrollY < 10) {
+      setSelectedPresetsHidden(true);
     }
-  }
+  };
 
   useEffect(() => {
-    if(!selectedPresetsHidden){
-      setTimeout(()=>{
-        updateStickyBlocks()
-      }, 200)
-    }else{
-      updateStickyBlocks()
+    if (!selectedPresetsHidden) {
+      setTimeout(() => {
+        updateStickyBlocks();
+      }, 200);
+    } else {
+      updateStickyBlocks();
     }
   }, [selectedPresetsHidden, presets.display]);
-
 
   return (
     <div className="skillSets">
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className={`minTitle top ${selectedPresetsHidden ? '': 'hideBorder'}`} {...createStickyBlock(2)}>
+          <div className={`minTitle top ${selectedPresetsHidden ? "" : "hideBorder"}`} {...createStickyBlock(2)}>
+
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
@@ -79,32 +81,58 @@ const SkillSets = (props: SkillSetsPropType) => {
               }
             </div>
             <button className="buttonArrow" onClick={() => {
-              if(selectedPresetsHidden){
-                scrollToElement('hidePresetsBottomTarget')
-                setSelectedPresetsHidden(false)
-              }else{
-                setSelectedPresetsHidden(!selectedPresetsHidden)
+              if (selectedPresetsHidden) {
+                scrollToElement("hidePresetsBottomTarget");
+                setSelectedPresetsHidden(false);
+              } else {
+                setSelectedPresetsHidden(!selectedPresetsHidden);
               }
             }}>
-
-              <div className={`mobil ${selectedPresetsHidden ? 'arrowUp' : 'arrowDown'}`}>
-                <Chevron color="#1F1F22" turn={Turn.down}/>
+              <div className={`mobil ${selectedPresetsHidden ? "arrowUp" : "arrowDown"}`}>
+                <Chevron color="#1F1F22" turn={Turn.down} />
               </div>
-              <span className="deck">{selectedPresetsHidden ? 'Показать' : 'Скрыть'}</span>
+              <span className="deck">{selectedPresetsHidden ? "Показать" : "Скрыть"}</span>
             </button>
+          </div>
+
+          <div className={`${((presets.selected.length >= 5) && isNoteOpen) ? "showNote" : "hideNote"}`}>
+
+            {/*TODO вынести карточку в отдельный компонент*/}
+            <div className="PresetsInfoCard align-items-center">
+              <InfoIcon/>
+              <div>
+                <span>
+                  Ты не можешь добавить больше <b>5 наборов навыков</b>,
+                </span>
+                 <br />
+                 так как траектория может построиться неточно.
+              </div>
+
+              <button
+                className="border-0 pr-0 py-0 hideButton"
+                onClick={() => {
+                  setIsNoteOpen(false);
+                }}
+              >
+                <Close width={10} height={10} />
+              </button>
+            </div>
+
           </div>
           <div
             className={`selectedSkillsBlock`}
-            {...createStickyBlock(selectedPresetsHidden ? -1: 5)}
+            {...createStickyBlock(selectedPresetsHidden ? -1 : 5)}
           >
-            <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
+            <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)}
+                             selectedPresets={presets.selected} />
           </div>
+
           <p
             className={`minTitle bottom`}
             id="hidePresetsBottomTarget"
             {...createStickyBlock(selectedPresetsHidden ? 5 : 6)}
           >
-            Добавь то, что хочешь изучить
+            {presets.selected.length < 5 ? "Добавь то, что хочешь изучить" : "Максимальное количсетво пресетов – 5"}
           </p>
           {/*<div className="shadowBottom fullWidth"/>*/}
           <div className="rightBlock">
@@ -114,10 +142,12 @@ const SkillSets = (props: SkillSetsPropType) => {
                   <Preset
                     key={preset.title}
                     preset={preset}
-                    displayAdd={true}
-                    onClick={() => {
-                      presets.select(preset.id)
-                    }}
+                    disabled={presets.selected.length >= 5}
+                    displayAdd={presets.selected.length < 5}
+                    onClick={presets.selected.length < 5 ? () => {
+                      setIsNoteOpen(true);
+                      presets.select(preset.id);
+                    } : undefined}
                   />
                 );
               })}
@@ -126,7 +156,7 @@ const SkillSets = (props: SkillSetsPropType) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
-export default SkillSets
+export default SkillSets;

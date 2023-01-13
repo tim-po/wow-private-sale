@@ -48,7 +48,7 @@ const SkillSets = (props: SkillSetsPropType) => {
   //   } else return isTopHidden;
   // };
 
-  const handleScroll = (e: any) => {
+  const handleScroll = () => {
     if (window.scrollY < 10) {
       setSelectedPresetsHidden(true);
     }
@@ -144,10 +144,10 @@ const SkillSets = (props: SkillSetsPropType) => {
                     preset={preset}
                     disabled={presets.selected.length >= 5}
                     displayAdd={presets.selected.length < 5}
-                    onClick={presets.selected.length < 5 ? () => {
+                    onClick={() => {
                       setIsNoteOpen(true);
                       presets.select(preset.id);
-                    } : undefined}
+                    }}
                   />
                 );
               })}

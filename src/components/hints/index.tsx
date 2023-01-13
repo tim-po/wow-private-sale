@@ -22,9 +22,8 @@ const Hints = (props:PropsType) => {
   const [stateLocal, setStateLocal] = useState<string>('true')
 
   useEffect(() => {
-
     if (localStorage.getItem(nameRef[numberOpenPage]) === null) {
-      setIsLocalStorage("true")
+      setTimeout(()=>setIsLocalStorage("true"), 500)
     }
     if (typeof isLocalStorage === "string") {
       localStorage.setItem(nameRef[numberOpenPage], isLocalStorage);

@@ -136,13 +136,12 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
-              <div>
+              <div ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
                 <button
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
                   onClick={toggleReplacementOptions}
                 >
-                  <div ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
                   {trajectoryDisciplineData.name}
                   {filteredReplacementOptions.length ?
                     <img
@@ -153,7 +152,6 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                     :
                     ''
                   }
-                  </div>
                 </button>
                 {filteredReplacementOptions.length ?
                   <div

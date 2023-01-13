@@ -5,7 +5,8 @@ import { isBoolean } from "lodash";
 import getPosition from "./HintGeneric";
 import HintGeneric from "./HintGeneric";
 import { isMobile } from "react-device-detect";
-
+import { ReactPortal } from "react";
+import Portal from "./Portal";
 
 type PropsType = {
   boxRef: any,
@@ -41,6 +42,7 @@ const Hints = (props:PropsType) => {
   }, []);
 
   return (
+    <Portal>
         <HintGeneric
           status={isLocalStorage === 'true' ? '' : 'closeHint'}
           boxRef={boxRef[numberOpenPage]}
@@ -52,6 +54,7 @@ const Hints = (props:PropsType) => {
           setNumberOpenPage={setNumberOpenPage}
           numberOpenPage={numberOpenPage}
           description={description[numberOpenPage]} />
+    </Portal>
   );
 };
 

@@ -9,6 +9,7 @@ import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders
 import { scrollToElement } from "../../utils/scrollToElement";
 import Close from "../../images/icons/close";
 import InfoIcon from "../../images/icons/Static/InfoIcon";
+import { useInView } from "react-intersection-observer";
 
 // CONSTANTS
 
@@ -30,6 +31,7 @@ type SkillSetsPropType = {
 const SkillSets = (props: SkillSetsPropType) => {
   const { presets } = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
+  const [isNoteOpen, setIsNoteOpen] = useState(true)
   const  { ref, inView }  =  useInView ( {threshold:1, initialInView:true}) ;
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const SkillSets = (props: SkillSetsPropType) => {
     };
   }, []);
 
-  const handleScroll = (e: any) => {
+  const handleScroll = () => {
     if(window.scrollY < 200) {
       setSelectedPresetsHidden(true)
     }

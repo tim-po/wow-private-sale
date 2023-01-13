@@ -30,37 +30,30 @@ type SkillSetsPropType = {
 const SkillSets = (props: SkillSetsPropType) => {
   const { presets } = props;
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
-  const [isNoteOpen, setIsNoteOpen] = useState(true);
+  const  { ref, inView }  =  useInView ( {threshold:1, initialInView:true}) ;
 
   useEffect(() => {
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // const selectedPresetsTrueHidden = () => {
-  //   if (selectedPresetsHidden) {
-  //     return true;
-  //   } else return isTopHidden;
-  // };
-
-  const handleScroll = () => {
-    if (window.scrollY < 10) {
-      setSelectedPresetsHidden(true);
+  const handleScroll = (e: any) => {
+    if(window.scrollY < 200) {
+      setSelectedPresetsHidden(true)
     }
   };
 
   useEffect(() => {
-    if (!selectedPresetsHidden) {
-      setTimeout(() => {
-        updateStickyBlocks();
-      }, 200);
-    } else {
-      updateStickyBlocks();
+    if(selectedPresetsHidden){
+      setTimeout(()=>{
+        updateStickyBlocks()
+      }, 200)
+    }else{
+      updateStickyBlocks()
     }
   }, [selectedPresetsHidden, presets.display]);
 
@@ -68,8 +61,7 @@ const SkillSets = (props: SkillSetsPropType) => {
     <div className="skillSets">
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className={`minTitle top ${selectedPresetsHidden ? "" : "hideBorder"}`} {...createStickyBlock(2)}>
-
+          <div className={`minTitle top ${inView ? '': 'hideBorder'}`} {...createStickyBlock(2)}>
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
               {presets.selected.length > 0 &&
@@ -81,17 +73,20 @@ const SkillSets = (props: SkillSetsPropType) => {
               }
             </div>
             <button className="buttonArrow" onClick={() => {
-              if (selectedPresetsHidden) {
-                scrollToElement("hidePresetsBottomTarget");
-                setSelectedPresetsHidden(false);
-              } else {
-                setSelectedPresetsHidden(!selectedPresetsHidden);
+              if(selectedPresetsHidden){
+                if(window.scrollY < 200) {
+                  return scrollToElement('hidePresetsBottomTarget')
+                }
+                setSelectedPresetsHidden(false)
+              }else{
+                setSelectedPresetsHidden(!selectedPresetsHidden)
               }
             }}>
-              <div className={`mobil ${selectedPresetsHidden ? "arrowUp" : "arrowDown"}`}>
-                <Chevron color="#1F1F22" turn={Turn.down} />
+
+              <div className={`mobil ${!inView ? 'arrowUp' : 'arrowDown'}`}>
+                <Chevron color="#1F1F22" turn={Turn.down}/>
               </div>
-              <span className="deck">{selectedPresetsHidden ? "Показать" : "Скрыть"}</span>
+              <span className="deck">{!inView? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
 
@@ -120,11 +115,12 @@ const SkillSets = (props: SkillSetsPropType) => {
 
           </div>
           <div
+            ref={ref}
             className={`selectedSkillsBlock`}
             {...createStickyBlock(selectedPresetsHidden ? -1 : 5)}
           >
-            <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)}
-                             selectedPresets={presets.selected} />
+            <div/>
+            <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
           </div>
 
           <p

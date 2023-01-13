@@ -38,14 +38,11 @@ const HintGeneric = (props:GetPositionType) => {
       const offsetLeft = boxRef.current.getBoundingClientRect().left
       const offsetTop = boxRef.current.getBoundingClientRect().top
       const elementHeight = boxRef.current.getBoundingClientRect().height
+      setPositionTop(offsetTop + window.scrollY + elementHeight)
       if(isMobile){
-        console.log( window.scrollY)
-        console.log( isMobile)
-        setPositionTop(offsetTop + window.scrollY + elementHeight)
         setPositionLeft(0);
         setArrowPosition(offsetLeft)
       }else {
-        setPositionTop(offsetTop + elementHeight)
         setPositionLeft(offsetLeft - 280)
       }
     }
@@ -72,7 +69,7 @@ const HintGeneric = (props:GetPositionType) => {
 
 
   return (
-    <div className={`wrapHints ${status}`}  style={{ position: "absolute", top: positionTop, left: positionLeft }}>
+    <div className={`wrapHints ${status}`}  style={{ position: "absolute", top: positionTop, left: positionLeft, zIndex: nameRef ==='hintSemesterChoice' ? "100000" : '' }}>
       <div className="positionArrow" style={isMobile? {left:arrowPosition} : {}}>
         <Arrow color={'#323243'} />
       </div>

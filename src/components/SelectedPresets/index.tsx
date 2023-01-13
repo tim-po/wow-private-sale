@@ -93,7 +93,6 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   console.log(hintEditPresets?.current?.offsetLeft, 22)
 
 
-
   return (
     <div className="selectedPresetsContainer">
       {/*<Hints pageTitle="ProfessionDetails" numberPages={2} boxRef={hintEditKeywords} nameRef={'hintEditKeywords'} description={'В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.'} title={'Наборы навыков'}/>*/}

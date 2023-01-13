@@ -33,39 +33,35 @@ const HintGeneric = (props:GetPositionType) => {
   const [arrowPosition, setArrowPosition] = useState<number | undefined>();
 
 
-  const getPosition = () => {
+  function getPosition  ()  {
     if(boxRef.current) {
       const offsetLeft = boxRef.current.getBoundingClientRect().left
-      if (offsetLeft) {
-        if (!isMobile) {
-          setPositionLeft(offsetLeft - 280);
-        } else {
-          setPositionLeft(0);
-          setArrowPosition(offsetLeft)
-        }
-      }
       const offsetTop = boxRef.current.getBoundingClientRect().top
       const elementHeight = boxRef.current.getBoundingClientRect().height
-      if (offsetTop && elementHeight)
-        setPositionTop(offsetTop + elementHeight);
-
-      // setPositionTop(0)
-      // setPositionTop(0)
-      console.log(offsetTop,  boxRef.current.getBoundingClientRect().y)
+      if(isMobile){
+        console.log( window.scrollY)
+        console.log( isMobile)
+        setPositionTop(offsetTop + window.scrollY + elementHeight)
+        setPositionLeft(0);
+        setArrowPosition(offsetLeft)
+      }else {
+        setPositionTop(offsetTop + elementHeight)
+        setPositionLeft(offsetLeft - 280)
+      }
     }
-  };
+  }
 
 
   useEffect(() => {
     if (nameRef[numberOpenPage])
       window.addEventListener("resize", getPosition);
       return () => window.removeEventListener("resize", getPosition);
-  });
+  },);
 
 
   useEffect(() => {
     getPosition();
-  }, [numberOpenPage]);
+  }, [numberOpenPage, boxRef.current?.getBoundingClientRect().top,boxRef.current?.getBoundingClientRect().top]);
 
 
   useEffect(() => {

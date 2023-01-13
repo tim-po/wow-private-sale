@@ -137,8 +137,9 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
-              <div ref={isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
+              <div>
                 <button
+                  ref={isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
                   onClick={toggleReplacementOptions}

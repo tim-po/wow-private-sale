@@ -56,6 +56,7 @@ const Card = (props: CardPropType) => {
   useEffect(()=>{
     if(isMobile && hintDiscipline){
       setSelectedSphere(sphere.name)
+      switchSemesters()
     }
   },[isMobile])
   return (
@@ -105,6 +106,7 @@ const Card = (props: CardPropType) => {
                     >
                       <div
                         className="DisciplineCardWrapper"
+                        ref={hintDiscipline}
                         onClick={(index === activeSemesterIndex || !(isMobile)) ? () => displayModal(<TrajectoryDisciplineModal id={discipline.id} />):  () =>{}}
                       >
                         <div className="DisciplineCard">
@@ -112,7 +114,7 @@ const Card = (props: CardPropType) => {
                             <div
                               className={`DisciplineCardType ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
                             >
-                              <span ref={hintDiscipline}> {
+                              <span> {
                                 discipline.necessity === "necessary"
                                   ? "Обязательная" :
                                   "По выбору"

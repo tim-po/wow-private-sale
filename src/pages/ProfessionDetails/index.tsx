@@ -132,8 +132,8 @@ const ProfessionDetails = () => {
     }
     return searchParams.get('view') === 'skills' && presets.selected.length < 1;
   }
-  const hintEditKeywords = useRef<HTMLDivElement>(null);
-  const hintEditPresets = useRef<HTMLDivElement>(null);
+  const hintEditKeywords = useRef<HTMLButtonElement>(null);
+  const hintEditPresets = useRef<HTMLButtonElement>(null);
   // const hintEditKeyword = findDOMNode(hintEditKeywords);
   console.log(hintEditKeywords.current, 333)
 
@@ -252,9 +252,9 @@ const ProfessionDetails = () => {
                     }</div>
                   }
                 </div>
-                <button onClick={editKeywords}  className="edit-button">
+                <button onClick={editKeywords} ref={hintEditKeywords} className="edit-button">
                   <div className="edit-button-icon" > <MagicWand width={20} height={20}/></div>
-                  <span className="edit-button-text" ref={hintEditKeywords}>Редактировать</span>
+                  <span className="edit-button-text">Редактировать</span>
                 </button>
               </div>
               <div className="keywordsRequired" id="blob-0-bottom-right">

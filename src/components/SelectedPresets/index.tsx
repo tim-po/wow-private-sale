@@ -20,7 +20,7 @@ type SelectedPresetsPropType = {
   selectedPresets: PresetType[]
   deletePreset?: (presetId: string) => void
   isHidden: boolean
-  hintEditPresets?: React.RefObject<HTMLDivElement>
+  hintEditPresets?: React.RefObject<HTMLButtonElement>
 }
 
 const SelectedPresetsDefaultProps = {
@@ -132,8 +132,8 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 добавить наборы навыков, которые тебе интересны
               </span>
               <div className="addPreset">
-                <div ref={hintEditPresets} style={{width:"max-content"}}>
-                <button onClick={editSkillSets} className="add-button">
+                <div style={{width:"max-content"}}>
+                <button ref={hintEditPresets} onClick={editSkillSets} className="add-button">
                   Добавить
                 </button>
               </div>

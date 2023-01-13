@@ -139,7 +139,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               </p>
               <div>
                 <button
-                  ref={isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}
+                  ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
                   onClick={toggleReplacementOptions}
@@ -149,7 +149,6 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                     <img
                       src="/static/arrowBottom.svg"
                       alt="arrow"
-                      ref={!isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}
                       className={`Arrow ${isOtherReplacementOptionsOpen ? 'open' : 'close'}`}
                     />
                     :

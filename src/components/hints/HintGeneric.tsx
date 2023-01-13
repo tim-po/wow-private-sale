@@ -39,7 +39,7 @@ const HintGeneric = (props:GetPositionType) => {
       const offsetTop = boxRef.current.getBoundingClientRect().top
       const elementHeight = boxRef.current.getBoundingClientRect().height
       const elementWidth = boxRef.current.getBoundingClientRect().width
-      setPositionTop(offsetTop + window.scrollY + elementHeight)
+      setPositionTop(offsetTop + window.scrollY + elementHeight +10)
       if(isMobile){
         setPositionLeft(0);
         setArrowPosition(offsetLeft)

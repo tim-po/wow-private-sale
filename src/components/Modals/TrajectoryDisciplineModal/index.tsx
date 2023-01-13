@@ -5,6 +5,7 @@ import {BASE_URL, colors} from "../../../constants";
 import {TrajectoryDisciplineType} from 'types'
 import {useSearchParams} from "react-router-dom";
 import Hints from "../../hints";
+import { isMobile } from "react-device-detect";
 
 type TrajectoryDisciplineModalPropType = {
   id: number
@@ -136,7 +137,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
-              <div ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
+              <div ref={isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}>
                 <button
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
@@ -147,6 +148,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                     <img
                       src="/static/arrowBottom.svg"
                       alt="arrow"
+                      ref={!isMobile && filteredReplacementOptions.length ? hintSemesterChoice: undefined}
                       className={`Arrow ${isOtherReplacementOptionsOpen ? 'open' : 'close'}`}
                     />
                     :

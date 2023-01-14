@@ -15,7 +15,7 @@ type PresetPropType = {
   displayAdd?: boolean
   preset: PresetType
   onClick?: () => void
-  presetWindowSize?:React.MutableRefObject<null>
+  presetWindowSize?:React.MutableRefObject<null | HTMLDivElement>
 }
 
 const PresetDefaultProps = {

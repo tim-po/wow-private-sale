@@ -84,7 +84,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   };
   const scrollToLeft = (event: any) => {
     event.preventDefault();
-    // @ts-ignore
+    if (presetWindowSize?.current?.getBoundingClientRect().width)
     event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, presetWindowSize?.current?.getBoundingClientRect().width);
   };
   const editSkillSets = () => {

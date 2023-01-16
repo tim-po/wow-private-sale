@@ -80,12 +80,12 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const scrollToRight = (event: any) => {
     event.preventDefault();
     if (presetWindowSize?.current?.getBoundingClientRect().width)
-    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, presetWindowSize?.current?.getBoundingClientRect().width);
+    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 390);
   };
   const scrollToLeft = (event: any) => {
     event.preventDefault();
     if (presetWindowSize?.current?.getBoundingClientRect().width)
-    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, presetWindowSize?.current?.getBoundingClientRect().width);
+    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 390);
   };
   const editSkillSets = () => {
     navigate(`professionDetails?id=${searchParams.get("id")}&view=skills`);

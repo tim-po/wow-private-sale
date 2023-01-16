@@ -4,7 +4,7 @@
   background: #F3F3F8;
   border-radius: 12px;
   scroll-snap-align: start;
-  width: 390px;
+  width: min(100vw, 390px);
   max-height: 100%;
   flex-grow: 3;
   min-width: min(calc(100vw - 30px), 450px);

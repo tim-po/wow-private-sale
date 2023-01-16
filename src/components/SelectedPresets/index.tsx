@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import './index.scss'
-import {PresetType} from "../../types";
+import React, {  useEffect, useRef,useState } from "react";
+import "./index.scss";
+import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
-import Chevron, {Turn} from "../../images/icons/chevron";
+import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
 import Hints from "../hints";
 
@@ -25,8 +25,8 @@ type SelectedPresetsPropType = {
 
 const SelectedPresetsDefaultProps = {
   // You should declare default props like this, delete this if you don't need props
-  somePropWithDefaultOption: 'default value'
-}
+  somePropWithDefaultOption: "default value"
+};
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -36,95 +36,91 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
 
   useEffect(() => {
-    const carousel = document.querySelector('.leftSlide');
+    const carousel = document.querySelector(".leftSlide");
     if (carousel) {
-      const container = document.querySelector('.selectedPresetsContainer')
+      const container = document.querySelector(".selectedPresetsContainer");
       let sumOfCarouselCards = 0;
       setTimeout(() => {
-        carousel.querySelectorAll('.leftSlide > .preset').forEach(elem => {
+        carousel.querySelectorAll(".leftSlide > .preset").forEach(elem => {
           // @ts-ignore
           sumOfCarouselCards = sumOfCarouselCards + elem.clientWidth;
           // @ts-ignore
-          setIsRightArrowHidden(sumOfCarouselCards > container.clientWidth)
+          setIsRightArrowHidden(sumOfCarouselCards > container.clientWidth);
         });
-      }, 200)
+      }, 200);
     }
-  }, [selectedPresets])
+  }, [selectedPresets]);
 
   useEffect(() => {
-    let scroll = Scroll.animateScroll
+    let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
-  }, [])
+  }, []);
 
   const shouldDrawScrollButton = (event: any) => {
-    const element = event.target
-    setLeftScrollPosition(element.scrollLeft)
+    const element = event.target;
+    setLeftScrollPosition(element.scrollLeft);
     if (!element) {
-      element.classList.remove('hidden-right')
-      element.classList.remove('hidden-left')
-      return
+      element.classList.remove("hidden-right");
+      element.classList.remove("hidden-left");
+      return;
     }
 
     if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
-      element.classList.add('hidden-right')
-      return
+      element.classList.add("hidden-right");
+      return;
     }
 
     if (element.scrollLeft <= 10) {
-      element.classList.add('hidden-left')
-      return
+      element.classList.add("hidden-left");
+      return;
     }
 
-    element.classList.remove('hidden-left')
-    element.classList.remove('hidden-right')
-  }
+    element.classList.remove("hidden-left");
+    element.classList.remove("hidden-right");
+  };
   const scrollToRight = (event: any) => {
-    event.preventDefault()
-    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 250)
-  }
+    event.preventDefault();
+    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 250);
+  };
   const scrollToLeft = (event: any) => {
-    event.preventDefault()
-    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 250)
-  }
+    event.preventDefault();
+    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 250);
+  };
   const editSkillSets = () => {
-    navigate(`professionDetails?id=${searchParams.get('id')}&view=skills`)
+    navigate(`professionDetails?id=${searchParams.get("id")}&view=skills`);
 
-  }
-  console.log(hintEditPresets?.current?.offsetLeft, 22)
-
+  };
 
   return (
     <div className="selectedPresetsContainer">
-      {/*<Hints pageTitle="ProfessionDetails" numberPages={2} boxRef={hintEditKeywords} nameRef={'hintEditKeywords'} description={'В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.'} title={'Наборы навыков'}/>*/}
-
       <div
-        className={`leftSlide ${isHidden ? 'hidden' : ''} ${!isRightArrowHidden ? 'hidden-right' : ''}`}
+        className={`leftSlide ${isHidden ? "hidden" : ""} ${!isRightArrowHidden ? "hidden-right" : ""}`}
         onLoad={(e) => shouldDrawScrollButton(e)}
         onScroll={(e) => shouldDrawScrollButton(e)}
       >
-          <button
-            className="scrollBtn right"
-            onClick={scrollToRight}
-          >
-            <Chevron />
-          </button>
-          <button
-            className="scrollBtn left"
-            style={{opacity: leftScrollPosition ? 1 : 0}}
-            onClick={scrollToLeft}
-          >
-            <Chevron turn={Turn.left}/>
-          </button>
-        {selectedPresets.length === 0 && searchParams.get('view') !== 'main' &&
+        <button
+          className="scrollBtn right"
+          onClick={scrollToRight}
+        >
+          <Chevron />
+        </button>
+        <button
+          className="scrollBtn left"
+          style={{ opacity: leftScrollPosition ? 1 : 0 }}
+          onClick={scrollToLeft}
+        >
+          <Chevron turn={Turn.left} />
+        </button>
+        {selectedPresets.length === 0 && searchParams.get("view") !== "main" &&
           <div className="blockMyPreset">
-            <Magnifier/>
+            <Magnifier />
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         }
-        {selectedPresets.length === 0 && searchParams.get('view') === 'main' &&
+        {selectedPresets.length === 0 && searchParams.get("view") === "main" &&
           <div className="blockMyPreset main">
             <div className="imgPresets">
-              <Illustration/>
+              <Illustration />
             </div>
             <div className="prompt">
               <span>
@@ -141,23 +137,21 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
           </div>
         }
-        {selectedPresets.map(preset => {
-          return(
-            <Preset
-              key={preset.title}
-              displayAdd={false}
-              onClick={deletePreset ? () => {
-                deletePreset(preset.id)
-              }: undefined}
-              preset={preset}
-            />
-          )
-        })}
+        {selectedPresets.map(preset =>
+          <Preset
+            key={preset.title}
+            displayAdd={false}
+            onClick={deletePreset ? () => {
+              deletePreset(preset.id);
+            } : undefined}
+            preset={preset}
+          />
+        )}
       </div>
     </div>
-  )
+  );
 };
 
-SelectedPresets.defaultProps = SelectedPresetsDefaultProps
+SelectedPresets.defaultProps = SelectedPresetsDefaultProps;
 
-export default SelectedPresets
+export default SelectedPresets;

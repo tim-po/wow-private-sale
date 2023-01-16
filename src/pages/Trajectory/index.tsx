@@ -67,15 +67,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     scroll.scrollToTop();
   }, [])
 
-  useEffect(() => {
-    const isOnboardingShown = localStorage.getItem('isOnboarding')
-    if (isOnboardingShown && JSON.parse(isOnboardingShown)) {
-      return
-    } else {
-      localStorage.setItem('isOnboarding', 'true')
-      displayModal(<TrajectoryOnboardingModal />)
-    }
-  } , [])
 
 
   const getTrajectory = () => {

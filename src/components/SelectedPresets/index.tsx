@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useRef,useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
@@ -7,6 +7,7 @@ import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
+import Hints from "../hints";
 
 // CONSTANTS
 
@@ -19,6 +20,7 @@ type SelectedPresetsPropType = {
   selectedPresets: PresetType[]
   deletePreset?: (presetId: string) => void
   isHidden: boolean
+  hintEditPresets?: React.RefObject<HTMLButtonElement>
 }
 
 const SelectedPresetsDefaultProps = {
@@ -27,9 +29,9 @@ const SelectedPresetsDefaultProps = {
 };
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const { selectedPresets, deletePreset, isHidden } = props;
+  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const {selectedPresets, deletePreset, isHidden, hintEditPresets } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
 
@@ -126,9 +128,11 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 добавить наборы навыков, которые тебе интересны
               </span>
               <div className="addPreset">
-                <button onClick={editSkillSets} className="add-button">
+                <div style={{width:"max-content"}}>
+                <button ref={hintEditPresets} onClick={editSkillSets} className="add-button">
                   Добавить
                 </button>
+              </div>
               </div>
             </div>
           </div>

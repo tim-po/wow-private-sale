@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
@@ -32,7 +32,6 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const { selectedPresets, deletePreset, isHidden } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
-  const presetWindowSize = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const carousel = document.querySelector(".leftSlide");
@@ -79,12 +78,10 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   };
   const scrollToRight = (event: any) => {
     event.preventDefault();
-    if (presetWindowSize?.current?.getBoundingClientRect().width)
     event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 390);
   };
   const scrollToLeft = (event: any) => {
     event.preventDefault();
-    if (presetWindowSize?.current?.getBoundingClientRect().width)
     event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 390);
   };
   const editSkillSets = () => {
@@ -142,7 +139,6 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         {selectedPresets.map((preset, index) => {
           return (
             <Preset
-              presetWindowSize={index === 0 ? presetWindowSize : undefined}
               key={preset.title}
               displayAdd={false}
               onClick={deletePreset ? () => {

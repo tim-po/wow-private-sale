@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
@@ -16,14 +16,14 @@ import Magnifier from "../../images/icons/magnifier";
 
 type SelectedPresetsPropType = {
   // You should declare props like this, delete this if you don't need props
-  selectedPresets: PresetType[]
-  deletePreset?: (presetId: string) => void
-  isHidden: boolean
-}
+  selectedPresets: PresetType[];
+  deletePreset?: (presetId: string) => void;
+  isHidden: boolean;
+};
 
 const SelectedPresetsDefaultProps = {
   // You should declare default props like this, delete this if you don't need props
-  somePropWithDefaultOption: "default value"
+  somePropWithDefaultOption: "default value",
 };
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
@@ -32,14 +32,14 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const { selectedPresets, deletePreset, isHidden } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
-
+  const presetWindowSize = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const carousel = document.querySelector(".leftSlide");
     if (carousel) {
       const container = document.querySelector(".selectedPresetsContainer");
       let sumOfCarouselCards = 0;
       setTimeout(() => {
-        carousel.querySelectorAll(".leftSlide > .preset").forEach(elem => {
+        carousel.querySelectorAll(".leftSlide > .preset").forEach((elem) => {
           // @ts-ignore
           sumOfCarouselCards = sumOfCarouselCards + elem.clientWidth;
           // @ts-ignore
@@ -72,33 +72,40 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
       element.classList.add("hidden-left");
       return;
     }
-
     element.classList.remove("hidden-left");
     element.classList.remove("hidden-right");
   };
   const scrollToRight = (event: any) => {
     event.preventDefault();
-    event.target.parentNode.scrollLeft += Math.min(event.target.parentNode.clientWidth, 390);
+    if (presetWindowSize.current)
+      event.target.parentNode.scrollLeft += Math.min(
+        event.target.parentNode.clientWidth,
+        presetWindowSize?.current?.getBoundingClientRect().width
+      );
   };
   const scrollToLeft = (event: any) => {
     event.preventDefault();
-    event.target.parentNode.scrollLeft -= Math.min(event.target.parentNode.clientWidth, 390);
+    if (presetWindowSize.current)
+      event.target.parentNode.scrollLeft -= Math.min(
+        event.target.parentNode.clientWidth,
+        presetWindowSize?.current?.getBoundingClientRect().width
+      );
   };
   const editSkillSets = () => {
     navigate(`professionDetails?id=${searchParams.get("id")}&view=skills`);
-
   };
+  console.log(presetWindowSize?.current?.getBoundingClientRect().width);
   return (
     <div className="selectedPresetsContainer">
       <div
-        className={`leftSlide ${isHidden ? "hidden" : ""} ${!isRightArrowHidden ? "hidden-right" : ""}`}
+        // ref={presetWindowSize}
+        className={`leftSlide ${isHidden ? "hidden" : ""} ${
+          !isRightArrowHidden ? "hidden-right" : ""
+        }`}
         onLoad={(e) => shouldDrawScrollButton(e)}
         onScroll={(e) => shouldDrawScrollButton(e)}
       >
-        <button
-          className="scrollBtn right"
-          onClick={scrollToRight}
-        >
+        <button className="scrollBtn right" onClick={scrollToRight}>
           <span style={{ pointerEvents: "none" }}>
             <Chevron />
           </span>
@@ -108,42 +115,49 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
           style={{ opacity: leftScrollPosition ? 1 : 0 }}
           onClick={scrollToLeft}
         >
-             <span style={{ pointerEvents: "none" }}>
-              <Chevron turn={Turn.left} />
-            </span>
+          <span style={{ pointerEvents: "none" }}>
+            <Chevron turn={Turn.left} />
+          </span>
         </button>
-        {selectedPresets.length === 0 && searchParams.get("view") !== "main" &&
-          <div className="blockMyPreset">
-            <Magnifier />
-            <span>Ты не добавил ни одного набора навыков</span>
-          </div>
-        }
-        {selectedPresets.length === 0 && searchParams.get("view") === "main" &&
-          <div className="blockMyPreset main">
-            <div className="imgPresets">
-              <Illustration />
+        {selectedPresets.length === 0 &&
+          searchParams.get("view") !== "main" && (
+            <div className="blockMyPreset">
+              <Magnifier />
+              <span>Ты не добавил ни одного набора навыков</span>
             </div>
-            <div className="prompt">
-              <span>
-                В дополнение к ключевым словам ты можешь
-                добавить наборы навыков, которые тебе интересны
-              </span>
-              <div className="addPreset">
-                <button onClick={editSkillSets} className="add-button">
-                  Добавить
-                </button>
+          )}
+        {selectedPresets.length === 0 &&
+          searchParams.get("view") === "main" && (
+            <div className="blockMyPreset main">
+              <div className="imgPresets">
+                <Illustration />
+              </div>
+              <div className="prompt">
+                <span>
+                  В дополнение к ключевым словам ты можешь добавить наборы
+                  навыков, которые тебе интересны
+                </span>
+                <div className="addPreset">
+                  <button onClick={editSkillSets} className="add-button">
+                    Добавить
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        }
+          )}
         {selectedPresets.map((preset, index) => {
           return (
             <Preset
+              presetWindowSize={index === 0 ? presetWindowSize : undefined}
               key={preset.title}
               displayAdd={false}
-              onClick={deletePreset ? () => {
-                deletePreset(preset.id);
-              } : undefined}
+              onClick={
+                deletePreset
+                  ? () => {
+                      deletePreset(preset.id);
+                    }
+                  : undefined
+              }
               preset={preset}
             />
           );

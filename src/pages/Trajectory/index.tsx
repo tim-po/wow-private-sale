@@ -18,6 +18,7 @@ import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import Hints from "../../components/hints";
 import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
 const randomFeedbackSelectOptions = [
   'Поиск ключевых слов 🔎️',
@@ -45,6 +46,8 @@ const Trajectory = (props: TrajectoryPropType) => {
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
   const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
+
+  const [responseError, setResponseError] = useState<number>()
 
   const courseQuery = +(searchParams.get('course') || '1')
   useEffect(() => {
@@ -75,7 +78,13 @@ const Trajectory = (props: TrajectoryPropType) => {
       if (response.status === 200) {
         setTrajectory(response.data)
       }
+    }).catch((e)=>{
+      setResponseError(e.response.status)
     })
+  }
+
+  if(courseQuery > 5 || courseQuery < 1 || responseError === 404) {
+    return <NotFound/>
   }
 
   if (!trajectory) {
@@ -115,6 +124,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   const openDisciplineModal = () => {
     // displayModal(<TrajectoryDisciplineModal/>)
   }
+
   console.log(hintDiscipline.current?.offsetLeft)
   return (
     <div className="TrajectoryPage">

@@ -15,6 +15,7 @@ import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
 // CONSTANTS
 
@@ -33,10 +34,10 @@ const Trajectories = () => {
   const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [responseError, setResponseError] = useState<number>()
   const navigate = useNavigate();
   useEffect(() => {
     changeBg("#F1F2F8");
-
     const professionId = withLocalStorage({ professionId: null }, LocalStorageInteraction.load).professionId;
     setNewBackButtonProps("Выбор ключевых слов и пресетов", `/professionDetails?view=main&id=${professionId}`);
     if (trajectories.length === 0) {
@@ -44,7 +45,9 @@ const Trajectories = () => {
       setTrajectoriesIds(trajectoryIds);
       axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
         setTrajectories(res.data);
-      });
+      }).catch(e => {
+        setResponseError(e.response.status)
+      })
     }
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
@@ -98,6 +101,10 @@ const Trajectories = () => {
     });
     return controlTypes;
   };
+
+  if(responseError){
+    return <NotFound/>
+  }
 
   return (
     <div className="TrajectoryChoicePageContainer pb-3">

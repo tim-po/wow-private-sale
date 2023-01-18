@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import BgContext from "../../Context/Background";
-import {BASE_URL} from "../../constants";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { BASE_URL } from "../../constants";
 import axios from "axios";
 import BackButtonContext from "../../Context/BackButton";
 import Keyword from "../../components/Keyword";
-import {LocalStorageInteraction, makeEmptyList, withLocalStorage} from "../../utils/general";
-import './index.scss'
+import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
+import "./index.scss";
 import SelectedPresets from "../../components/SelectedPresets";
-import {useProfession} from "../../Models/useProfession";
+import { useProfession } from "../../Models/useProfession";
 import Keywords from "../../components/Keywords";
 import SkillSets from "../../components/SkillSets";
 import LoadingScreen from "../../components/LoadingScreen";
@@ -18,10 +17,10 @@ import ProfessionLamsIcon from "images/icons/Static/lightBulbs";
 
 import KeywordsModal from "../../components/Modals/KeywordsModal";
 import ModalsContext from "../../Context/Modal";
-import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { isMobile } from "react-device-detect";
-import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
+import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import Hints from "../../components/hints";
+import { changeBg } from "../../utils/background";
 // import { findDOMNode } from "react-dom";
 // @ts-ignore
 // CONSTANTS
@@ -30,7 +29,6 @@ import Hints from "../../components/hints";
 
 const ProfessionDetails = () => {
   const navigate = useNavigate()
-  const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
   const {displayModal} = useContext(ModalsContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
@@ -41,7 +39,7 @@ const ProfessionDetails = () => {
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
-    setBg('white');
+    changeBg('white');
 
     if (searchParams.get('view') === 'main') {
       setNewBackButtonProps('Все профессии', '/professions')

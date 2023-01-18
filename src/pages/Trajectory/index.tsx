@@ -1,24 +1,23 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {ClassType, CourseType, TrajectoryType} from "../../types";
+import { TrajectoryType } from "../../types";
 import Diploma from "../Diploma";
-import { useHref, useNavigate, useSearchParams } from "react-router-dom";
-import {isMobile} from "react-device-detect";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
-import BgContext from "../../Context/Background";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
+import { BASE_URL } from "../../constants";
 import LoadingScreen from "../../components/LoadingScreen";
 import * as Scroll from "react-scroll";
 import ModalContext from "../../Context/Modal";
 import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
 import Card from "../../components/trajectory/Card";
-import './index.scss'
-import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
+import "./index.scss";
+import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import TrajectoryOnboardingModal from 'components/Modals/TrajectoryOnboardingModal'
 import Hints from "../../components/hints";
+import { changeBg } from "../../utils/background";
 
 const randomFeedbackSelectOptions = [
   'Поиск ключевых слов 🔎️',
@@ -41,7 +40,6 @@ const Trajectory = (props: TrajectoryPropType) => {
   const navigate = useNavigate()
   const hintSemester = useRef<HTMLDivElement>(null);
   const hintDiscipline = useRef<HTMLDivElement>(null);
-  const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
@@ -64,7 +62,7 @@ const Trajectory = (props: TrajectoryPropType) => {
   useEffect(() => {
     setNewBackButtonProps("Все траектории", `trajectories?ids=${withLocalStorage({chosenTrajectoriesIds: []}, LocalStorageInteraction.load).chosenTrajectoriesIds}`)
     getTrajectory()
-    setBg('white')
+    changeBg('white')
 
     let scroll = Scroll.animateScroll
     scroll.scrollToTop();
@@ -89,10 +87,10 @@ const Trajectory = (props: TrajectoryPropType) => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
       if (course === 5) {
-        setBg('#F1F2F8')
+        changeBg('#F1F2F8')
 
       } else {
-        setBg('white')
+        changeBg('white')
       }
     }
   }

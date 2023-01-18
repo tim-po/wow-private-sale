@@ -1,7 +1,9 @@
 .DefaultLayoutContainer{
   //width: 100vw;
   //overflow: scroll;
-  transition: all 0.3s;
+  background-color: var(--bg-color);
+  transition: var(--bg-transition);
+
   /*min-height: 100vh;*/
   /*transition: all 0.3s;*/
   /*min-height: 100vh;*/
@@ -9,7 +11,10 @@
 .Content {
   z-index: 300;
   padding: 0 32px;
+  background-color: var(--bg-color);
+  transition: var(--bg-transition);
 }
+
 .BtnContainer{
   display: flex;
 }
@@ -71,7 +76,7 @@
     padding: 10px 11px;
   }
   .ErrorContainer{
-    padding: 64px 0px;
+    padding: 64px 0;
     width: 100%;
     margin: 32px 0 0;
     display: flex;

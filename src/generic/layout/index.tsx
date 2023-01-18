@@ -1,17 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
-import './index.scss'
+import React, { useContext, useEffect, useState } from "react";
+import "./index.scss";
 import GenericModal from "components/GenericModal";
 import Header from "components/Header";
-import BgContext from "Context/Background";
 import BackButtonContext from "Context/BackButton";
 import ModalsContext from "Context/Modal";
-
-import {YMInitializer} from 'react-yandex-metrika';
-import {useCookies} from "react-cookie";
+import { useCookies } from "react-cookie";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
+import { BASE_URL } from "../../constants";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import {calculateTotalStickyHeight, updateStickyBlocks} from "../../utils/stickyHeaders";
+import { updateStickyBlocks } from "../../utils/stickyHeaders";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -26,7 +23,7 @@ const Layout = (props: layoutPropType) => {
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
   const [modalComponent, setModalComponent] = useState<React.ReactNode | undefined>(undefined)
-  const [backgroundColor, setBackgroundColor] = useState('white')
+  // const [backgroundColor, setBackgroundColor] = useState('white')
 
   const {backButtonHref} = useContext(BackButtonContext)
 
@@ -65,9 +62,9 @@ const Layout = (props: layoutPropType) => {
   return (
     <ModalsContext.Provider value={{displayModal, closeModal}}>
       <FeedbackGroupIdContext.Provider value={{groupId}}>
-        <BgContext.Provider value={{setBg: setBackgroundColor}}>
-          <div className="DefaultLayoutContainer" id="scroll-container" style={{backgroundColor: backgroundColor}}>
-            <Header left={backButtonHref === '/'} style={{backgroundColor: backgroundColor}}/>
+        {/*<BgContext.Provider value={{setBg: setBackgroundColor}}>*/}
+          <div className="DefaultLayoutContainer" id="scroll-container" >
+            <Header left={backButtonHref === '/'}/>
             <div className="Content">
               {children}
               <GenericModal
@@ -81,7 +78,7 @@ const Layout = (props: layoutPropType) => {
               </GenericModal>
             </div>
           </div>
-        </BgContext.Provider>
+        {/*</BgContext.Provider>*/}
       </FeedbackGroupIdContext.Provider>
     </ModalsContext.Provider>
   )

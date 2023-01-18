@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {BASE_URL, colors} from "../../constants";
 import './index.scss';
-import BgContext from "Context/Background";
 import {KeywordType} from "types";
 import ModalsContext from "Context/Modal";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -16,13 +15,13 @@ import SwapModal from "components/Modals/SwapModal";
 import {DiplomaShareDataType} from "types"
 import Like from "images/icons/Static/like";
 import DisciplinesModal from "components/Modals/DisciplinesModal";
+import { changeBg } from "../../utils/background";
 
 type DiplomaSharePropType = {}
 
 const DiplomaShareDefaultProps = {}
 
 const DiplomaShare = () => {
-  const {setBg} = useContext(BgContext)
   const {displayModal} = useContext(ModalsContext)
 
   const cardRef = useRef();
@@ -59,7 +58,7 @@ const DiplomaShare = () => {
 
   useEffect(() => {
     getDiplomaShareData()
-    setBg('#F1F2F8')
+    changeBg('#F1F2F8')
   }, [])
 
   useEffect(() => {

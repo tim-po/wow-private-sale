@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import BgContext from "../../Context/Background";
 import BackButtonContext from "../../Context/BackButton";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +13,8 @@ import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
-import {createStickyBlock, updateStickyBlocks} from "../../utils/stickyHeaders";
+import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
+import { changeBg } from "../../utils/background";
 
 // CONSTANTS
 
@@ -31,12 +31,11 @@ const Trajectories = () => {
   const [width, setWidth] = useState(0);
   const [trajectories, setTrajectories] = useState([]);
   const [trajectoriesIds, setTrajectoriesIds] = useState([]);
-  const { setBg } = useContext(BgContext);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   useEffect(() => {
-    setBg("#F1F2F8");
+    changeBg("#F1F2F8");
 
     const professionId = withLocalStorage({ professionId: null }, LocalStorageInteraction.load).professionId;
     setNewBackButtonProps("Выбор ключевых слов и пресетов", `/professionDetails?view=main&id=${professionId}`);
@@ -198,7 +197,8 @@ const Trajectories = () => {
             <div className="mt-3 justify-content-between">
               <div className="TrajectoriesCardFooter">
                 <button
-                  onClick={() => trajectoryChosen(trajectory)}
+                  onClick={() =>trajectoryChosen(trajectory)
+                }
                   className="ButtonTrajectory MainButton mr-2"
                 >
                   Смотреть траекторию

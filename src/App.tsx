@@ -10,7 +10,6 @@ import Start from "pages/Start";
 import Professions from "pages/Professions";
 import ProfessionDetails from "pages/ProfessionDetails";
 import DiplomaShare from "pages/DiplomaShare";
-import Diploma from "pages/Diploma";
 import Trajectories from "./pages/Trajectories";
 import Trajectory from "./pages/Trajectory";
 

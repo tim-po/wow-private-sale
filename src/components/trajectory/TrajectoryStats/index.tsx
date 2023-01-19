@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import { isMobile } from "react-device-detect";
 import { CountType, CourseType } from "../../../types";
@@ -29,6 +29,8 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
   const { displayModal, closeModal } = useContext(ModalContext);
+
+
 
   const transformedClassData = () => {
     return {

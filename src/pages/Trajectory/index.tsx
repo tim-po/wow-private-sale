@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {ClassType, CourseType, TrajectoryType} from "../../types";
 import Diploma from "../Diploma";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import { useHref, useNavigate, useSearchParams } from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
@@ -18,6 +18,7 @@ import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import TrajectoryOnboardingModal from 'components/Modals/TrajectoryOnboardingModal'
+import Hints from "../../components/hints";
 
 const randomFeedbackSelectOptions = [
   'Поиск ключевых слов 🔎️',
@@ -38,14 +39,16 @@ const Trajectory = (props: TrajectoryPropType) => {
   const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
   const navigate = useNavigate()
+  const hintSemester = useRef<HTMLDivElement>(null);
+  const hintDiscipline = useRef<HTMLDivElement>(null);
   const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
   const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
-  const courseQuery = +(searchParams.get('course') || '1')
 
+  const courseQuery = +(searchParams.get('course') || '1')
   useEffect(() => {
     const courseNumber = searchParams.get('course')
     let widthOfCourceLabel = 80
@@ -67,15 +70,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     scroll.scrollToTop();
   }, [])
 
-  useEffect(() => {
-    const isOnboardingShown = localStorage.getItem('isOnboarding')
-    if (isOnboardingShown && JSON.parse(isOnboardingShown)) {
-      return
-    } else {
-      localStorage.setItem('isOnboarding', 'true')
-      displayModal(<TrajectoryOnboardingModal />)
-    }
-  } , [])
 
 
   const getTrajectory = () => {
@@ -115,12 +109,18 @@ const Trajectory = (props: TrajectoryPropType) => {
     displayModal(<TrajectoryStats setIsModalTrajectory={setIsModalTrajectory} setSelectedSphere={setSelectedSphere} className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
+  // useEffect(()=>{
+  //   if(isMobile){
+  //
+  //   }
+  // },[isMobile])
   const openDisciplineModal = () => {
     // displayModal(<TrajectoryDisciplineModal/>)
   }
-
+  console.log(hintDiscipline.current?.offsetLeft)
   return (
     <div className="TrajectoryPage">
+
       <div
         className="titleNameDiscipline"
       >
@@ -175,8 +175,10 @@ const Trajectory = (props: TrajectoryPropType) => {
             </div>
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
+                ref={isMobile ? undefined : hintSemester}
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-0-top-left"
+
                 style={{flexGrow: 2}}
               >
                 Осенний семестр
@@ -190,16 +192,16 @@ const Trajectory = (props: TrajectoryPropType) => {
               </p>
             </div>
 
-            {trajectory.courses.find(course => course.course === courseQuery)?.classes.map(sphere => {
+            {trajectory.courses.find(course => course.course === courseQuery)?.classes.map((sphere,index) => {
               return (
                 <Card
-                  // id={sphere}
+                  hintDiscipline={index === 0 ? hintDiscipline: undefined }
                   key={sphere.name}
+                  hintSemester={index === 0 ? hintSemester: undefined }
                   selectSelf={() => selectNewSphere(sphere.name)}
                   sphere={sphere}
+                  setSelectedSphere={setSelectedSphere}
                   selectedSphere={selectedSphere}
-                  // blockDisclosure="blockDisclosure"
-                  // isDisplayStateTool="isDisplayTool"
                 />
               )
             })
@@ -211,16 +213,15 @@ const Trajectory = (props: TrajectoryPropType) => {
         <Diploma/>
       }
 
-      {/*   <div className="isModalPromptActiv? '':'ModalNone'">*/}
-      {/*       <ModalTooltip*/}
-      {/*         v-if="isDisplayTool && +this.$route.query.course !== 5"*/}
-      {/*         handelClick="hideTooltip"*/}
-      {/*         countOfElement="isFirstTooltip ? [0]  [1]"*/}
-      {/*         position="isFirstTooltip ? 'rightTop'  'leftTop'"*/}
-      {/*         text="isFirstTooltip ? 'Здесь ты можешь увидеть все предметы 1 семестра )'*/}
-      {/*'А тут 2 семестра )'"*/}
-      {/*       />*/}
-      {/*   </div>*/}
+
+      {courseQuery !== 5 &&
+        <Hints
+          boxRef={[hintSemester, hintDiscipline]}
+          pageTitle="trajectoryCard"
+          nameRef={['hintSemester', 'hintDiscipline']}
+          description={['На каждом курсе ты можешь посмотреть дисциплины осеннего и весеннего семестров обучения.','Нажимай и смотри подробную информацию о каждой дисциплине']}
+          title={['Дисциплины по семестрам', 'Информация о дисциплине']} />
+      }
       <RandomFeedback displayForGroup={4} />
       <RandomFeedback displayForGroup={5} />
     </div>

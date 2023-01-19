@@ -1,10 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import './index.scss'
 import {ClassType, CourseType, DisciplineType} from "../../../types";
 import {colors} from "../../../constants";
 import TrajectoryDisciplineModal from "../../Modals/TrajectoryDisciplineModal";
 import ModalContext from "../../../Context/Modal";
 import { isMobile } from "react-device-detect";
+import Hints from "../../hints";
 
 // CONSTANTS
 
@@ -13,16 +14,17 @@ import { isMobile } from "react-device-detect";
 type CardPropType = {
   selectedSphere: string | undefined,
   sphere: ClassType,
+  hintSemester?:React.RefObject<HTMLDivElement> | undefined,
   selectSelf: () => void
+  hintDiscipline?: React.RefObject<HTMLDivElement>,
+  setSelectedSphere: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 const CardDefaultProps = {}
 
 const Card = (props: CardPropType) => {
   const {displayModal} = useContext(ModalContext)
-
-
-  const {selectSelf, selectedSphere, sphere} = props;
+  const {selectSelf, selectedSphere, sphere, hintDiscipline,hintSemester,setSelectedSphere} = props;
   const getArrowDisciplineNames = (sphere: ClassType) => {
     const disciplinesWithArrows: string[] = []
     sphere['first_semesters_disciplines'].forEach((discipline) => {
@@ -51,6 +53,12 @@ const Card = (props: CardPropType) => {
     }
   }
 
+  useEffect(()=>{
+    if(isMobile && hintDiscipline){
+      setSelectedSphere(sphere.name)
+      switchSemesters()
+    }
+  },[isMobile])
   return (
     <div
       className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
@@ -68,7 +76,7 @@ const Card = (props: CardPropType) => {
         </button>
       </div>
       <div className="bodyCard">
-      <div className="Semester">
+      <div className="Semester" ref={isMobile ? hintSemester : undefined}>
         <p className="TrajectorySmallHeader">Осень</p>
         <p className="TrajectorySmallHeader">Весна</p>
       </div>
@@ -98,6 +106,7 @@ const Card = (props: CardPropType) => {
                     >
                       <div
                         className="DisciplineCardWrapper"
+                        ref={hintDiscipline}
                         onClick={(index === activeSemesterIndex || !(isMobile)) ? () => displayModal(<TrajectoryDisciplineModal id={discipline.id} />):  () =>{}}
                       >
                         <div className="DisciplineCard">

@@ -1,6 +1,7 @@
-import React, {useContext, useEffect, useState} from "react";
-import './index.scss'
+import React, { useContext, useEffect, useState } from "react";
+import "./index.scss";
 import Close from "../../images/icons/close";
+import Portal from "../hints/Portal";
 
 // CONSTANTS
 
@@ -10,68 +11,89 @@ import Close from "../../images/icons/close";
 
 type GenericModalPropType = {
   // You should declare props like this, delete this if you don't need props
-  hideMobile: boolean
-  hideDesktop: boolean
-  maxHeight?: boolean
-  onModalClose: () => void
-  colorCloseWhite: boolean
-  children: React.ReactNode | React.ReactNode[]
-  modal: boolean
-}
+  hideMobile: boolean;
+  hideDesktop: boolean;
+  maxHeight?: boolean;
+  onModalClose: () => void;
+  colorCloseWhite: boolean;
+  children: React.ReactNode | React.ReactNode[];
+  modal: boolean;
+};
 
 const GenericModal = (props: GenericModalPropType) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [doubleModal, setDoubleModal] = useState(false);
   const [blockContent, setBlockContent] = useState(false);
-  const {hideMobile, hideDesktop, maxHeight, onModalClose, colorCloseWhite, children, modal} = props;
+  const {
+    hideMobile,
+    hideDesktop,
+    maxHeight,
+    onModalClose,
+    colorCloseWhite,
+    children,
+    modal,
+  } = props;
 
   const modalClose = () => {
-    setBlockContent(false)
-    setTimeout(()=>{
-      setIsOpen(false)
-    }, 300)
+    setBlockContent(false);
     setTimeout(() => {
-      onModalClose()
-    }, 500)
-  }
+      setIsOpen(false);
+    }, 300);
+    setTimeout(() => {
+      onModalClose();
+    }, 500);
+  };
 
   useEffect(() => {
-    setIsOpen(modal)
-    setBlockContent(modal)
-  }, [modal])
+    setIsOpen(modal);
+    setBlockContent(modal);
+  }, [modal]);
 
   const preventScroll = (e: React.UIEvent) => {
-    e.preventDefault()
-  }
-
+    e.preventDefault();
+  };
   useEffect(() => {
-    if(modal){
-      document.body.style.overflow = 'hidden';
-    }else{
-      document.body.style.overflow = 'unset';
+    if (isOpen) setDoubleModal(true);
+  }, [children]);
+  useEffect(() => {
+    if (modal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
   }, [modal]);
 
   return (
     <div
       onWheel={preventScroll}
-      className={`ModalContainer ${hideMobile ? 'hideMobile' : ''} ${hideDesktop ? 'hideDesktop' : ''} ${isOpen ? 'active' : ''} ${maxHeight ? 'maxHeight' : ''}`}
+      className={`ModalContainer ${hideMobile ? "hideMobile" : ""} ${
+        hideDesktop ? "hideDesktop" : ""
+      } ${isOpen ? "active" : ""} ${maxHeight ? "maxHeight" : ""}`}
     >
-      {isOpen &&
-        <div className="ModalContainerShad deck" onClick={modalClose}/>
-      }
+      {isOpen && (
+        <div className="ModalContainerShad deck" onClick={modalClose} />
+      )}
       <div className="ModalTrack">
-        {isOpen &&
-          <div className="ModalContainerShad mobil" onClick={onModalClose}/>
-        }
-        <div className={`d-block TextCenter ${blockContent ? 'activ': ''}`}>
-          <button className="ImgCloseBtn" onClick={onModalClose}>
-            <Close width={12} height={12} color={colorCloseWhite ? 'white': undefined} />
-          </button>
-          {children}
+        {isOpen && (
+          <div className="ModalContainerShad mobil" onClick={onModalClose} />
+        )}
+        <div className={`d-block TextCenter ${blockContent ? "activ" : ""}`}>
+          <div className={"wrapHeaderModal"}>
+            <button className="ImgCloseBtn" onClick={onModalClose}>
+              <Close
+                width={12}
+                height={12}
+                color={colorCloseWhite ? "white" : undefined}
+              />
+            </button>
+          </div>
+          <div className={`modalContainer ${doubleModal ? "doubleModal" : ""}`}>
+            {children}
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GenericModal
+export default GenericModal;

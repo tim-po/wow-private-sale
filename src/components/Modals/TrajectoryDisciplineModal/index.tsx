@@ -10,33 +10,48 @@ import { GiFlame, GiFlamer } from "react-icons/all";
 import Flame from "../../../images/icons/flame";
 
 type TrajectoryDisciplineModalPropType = {
-  id: number
-}
+  id: number;
+};
 
 enum DisciplineMovement {
   left = "left",
   right = "right",
-  none = "none"
+  none = "none",
 }
 
-const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => {
-
+const TrajectoryDisciplineModal = (
+  props: TrajectoryDisciplineModalPropType
+) => {
   const { id } = props;
   const [searchParams] = useSearchParams();
-  const [trajectoryDisciplineData, setTrajectoryDisciplineData] = useState<TrajectoryDisciplineType | undefined>(undefined);
-  const [sortedPrevDisciplines, setSortedPrevDisciplines] = useState<{ id: number, name: string, semester: number }[]>([]);
-  const [sortedNextDisciplines, setSortedNextDisciplines] = useState<{ id: number, name: string, semester: number }[]>([]);
-  const [replacementOptions, setReplacementOptions] = useState<{ id: number, name: string }[]>([]);
-  const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<{ id: number, name: string }[]>([]);
-  const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] = useState<boolean>(false);
-  const [movement, setMovement] = useState<DisciplineMovement>(DisciplineMovement.none);
-  const hintSemesterChoice = useRef(null)
+  const [trajectoryDisciplineData, setTrajectoryDisciplineData] = useState<
+    TrajectoryDisciplineType | undefined
+  >(undefined);
+  const [sortedPrevDisciplines, setSortedPrevDisciplines] = useState<
+    { id: number; name: string; semester: number }[]
+  >([]);
+  const [sortedNextDisciplines, setSortedNextDisciplines] = useState<
+    { id: number; name: string; semester: number }[]
+  >([]);
+  const [replacementOptions, setReplacementOptions] = useState<
+    { id: number; name: string }[]
+  >([]);
+  const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<
+    { id: number; name: string }[]
+  >([]);
+  const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] =
+    useState<boolean>(false);
+  const [movement, setMovement] = useState<DisciplineMovement>(
+    DisciplineMovement.none
+  );
+  const hintSemesterChoice = useRef(null);
   const [initialDisciplineId, setInitialDisciplineId] = useState<number>(0);
-
 
   const getDisciplineData = async (disciplineId?: number) => {
     try {
-      const response = await axios.get(`${BASE_URL}trajectory_disciplines/${disciplineId ? disciplineId : id}/`);
+      const response = await axios.get(
+        `${BASE_URL}trajectory_disciplines/${disciplineId ? disciplineId : id}/`
+      );
       setTrajectoryDisciplineData(response.data);
       setMovement(DisciplineMovement.none);
     } catch (e) {
@@ -45,11 +60,18 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   };
 
   const sortPrevDisciplines = () => {
-    if (!trajectoryDisciplineData || !trajectoryDisciplineData.prev_disciplines) {
+    if (
+      !trajectoryDisciplineData ||
+      !trajectoryDisciplineData.prev_disciplines
+    ) {
       return [];
     }
 
-    const result = trajectoryDisciplineData.prev_disciplines.sort(itemInner => Math.abs(itemInner.semester - trajectoryDisciplineData.semester)).reverse();
+    const result = trajectoryDisciplineData.prev_disciplines
+      .sort((itemInner) =>
+        Math.abs(itemInner.semester - trajectoryDisciplineData.semester)
+      )
+      .reverse();
 
     if (result[0]) {
       setSortedPrevDisciplines([result[0]]);
@@ -59,11 +81,18 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   };
 
   const sortNextDisciplines = () => {
-    if (!trajectoryDisciplineData || !trajectoryDisciplineData.next_disciplines) {
+    if (
+      !trajectoryDisciplineData ||
+      !trajectoryDisciplineData.next_disciplines
+    ) {
       return [];
     }
 
-    const result = trajectoryDisciplineData.next_disciplines.sort(itemInner => Math.abs(trajectoryDisciplineData.semester - itemInner.semester)).reverse();
+    const result = trajectoryDisciplineData.next_disciplines
+      .sort((itemInner) =>
+        Math.abs(trajectoryDisciplineData.semester - itemInner.semester)
+      )
+      .reverse();
     if (result[0]) {
       setSortedNextDisciplines([result[0]]);
     } else {
@@ -88,23 +117,33 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   useEffect(() => {
     sortPrevDisciplines();
     sortNextDisciplines();
-    if (trajectoryDisciplineData && trajectoryDisciplineData.replacement_options) {
-      setReplacementOptions([{
-        id: trajectoryDisciplineData.id,
-        name: trajectoryDisciplineData.name
-      }, ...trajectoryDisciplineData.replacement_options]);
+    if (
+      trajectoryDisciplineData &&
+      trajectoryDisciplineData.replacement_options
+    ) {
+      setReplacementOptions([
+        {
+          id: trajectoryDisciplineData.id,
+          name: trajectoryDisciplineData.name,
+        },
+        ...trajectoryDisciplineData.replacement_options,
+      ]);
     }
   }, [trajectoryDisciplineData]);
 
   useEffect(() => {
     if (trajectoryDisciplineData) {
-      setFilteredReplacementOptions(replacementOptions.filter(item => item.id != trajectoryDisciplineData.id));
+      setFilteredReplacementOptions(
+        replacementOptions.filter(
+          (item) => item.id != trajectoryDisciplineData.id
+        )
+      );
     }
   }, [replacementOptions, trajectoryDisciplineData]);
 
   return (
     <div className={`containerDiscipline move-${movement}`}>
-      {trajectoryDisciplineData &&
+      {trajectoryDisciplineData && (
         <>
           <div
             className="disciplineImage"
@@ -114,15 +153,13 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               {trajectoryDisciplineData.class}
             </h3>
             <div className="subjectsFlex">
-              {trajectoryDisciplineData.prev_disciplines?.length ?
-                <p className="TextCenter modalColHeader">
-                  Сначала изучить
-                </p>
-                :
+              {trajectoryDisciplineData.prev_disciplines?.length ? (
+                <p className="TextCenter modalColHeader">Сначала изучить</p>
+              ) : (
                 ""
-              }
+              )}
               <div style={{ position: "relative" }}>
-                {sortedPrevDisciplines.map(sortedDiscipline => (
+                {sortedPrevDisciplines.map((sortedDiscipline) => (
                   <button
                     key={sortedDiscipline.semester}
                     className="disciplineCardModal mx-auto"
@@ -135,36 +172,41 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 ))}
               </div>
             </div>
-            <div
-              className="subjectsFlex"
-            >
-              <p
-                className="TextCenter modalColHeader">
+            <div className="subjectsFlex">
+              <p className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
               <div>
                 <button
-                  ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}
+                  ref={
+                    filteredReplacementOptions.length
+                      ? hintSemesterChoice
+                      : undefined
+                  }
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
                   onClick={toggleReplacementOptions}
                 >
                   {trajectoryDisciplineData.name}
-                  {filteredReplacementOptions.length ?
+                  {filteredReplacementOptions.length ? (
                     <img
                       src="/static/arrowBottom.svg"
                       alt="arrow"
-                      className={`Arrow ${isOtherReplacementOptionsOpen ? "open" : "close"}`}
+                      className={`Arrow ${
+                        isOtherReplacementOptionsOpen ? "open" : "close"
+                      }`}
                     />
-                    :
+                  ) : (
                     ""
-                  }
+                  )}
                 </button>
-                {filteredReplacementOptions.length ?
+                {filteredReplacementOptions.length ? (
                   <div
-                    className={`disciplineCardModal fallingDiscipline mx-auto mt-3 replacement_options ${isOtherReplacementOptionsOpen ? "open" : "close"}`}
+                    className={`disciplineCardModal fallingDiscipline mx-auto mt-3 replacement_options ${
+                      isOtherReplacementOptionsOpen ? "open" : "close"
+                    }`}
                   >
-                    {filteredReplacementOptions.map(replacementOption => (
+                    {filteredReplacementOptions.map((replacementOption) => (
                       <button
                         className={`discipline`}
                         onClick={() => {
@@ -173,31 +215,29 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                         }}
                       >
                         {replacementOption.name}
-                        {initialDisciplineId === replacementOption.id &&
+                        {initialDisciplineId === replacementOption.id && (
                           <div className={"selected"}>
                             <Flame />
                             Выбранна для тебя
-                          </div>}
+                          </div>
+                        )}
                       </button>
                     ))}
                   </div>
-                  :
+                ) : (
                   ""
-                }
+                )}
               </div>
             </div>
             <div className="subjectsFlex">
-              {sortedNextDisciplines.length ?
-                <p
-                className={`TextCenter modalColHeader`}>
-                  Где пригодится
-                </p>
-                :
+              {sortedNextDisciplines.length ? (
+                <p className={`TextCenter modalColHeader`}>Где пригодится</p>
+              ) : (
                 ""
-              }
-              {sortedNextDisciplines.length ?
+              )}
+              {sortedNextDisciplines.length ? (
                 <div>
-                  {sortedNextDisciplines.map(nextDiscipline => (
+                  {sortedNextDisciplines.map((nextDiscipline) => (
                     <button
                       key={nextDiscipline.semester}
                       className="disciplineCardModal mx-auto"
@@ -209,15 +249,14 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                     </button>
                   ))}
                 </div>
-                :
+              ) : (
                 ""
-              }
+              )}
               <div>
-
                 <div
-                  // v-for="disc in sort(discipline.next_disciplines)"
-                  // className="disc ? furtherUse= true  ''"
-                  // className="disciplineCardModal mb-2 mx-auto"
+                // v-for="disc in sort(discipline.next_disciplines)"
+                // className="disc ? furtherUse= true  ''"
+                // className="disciplineCardModal mb-2 mx-auto"
                 >
                   {/*{{disc}}*/}
                 </div>
@@ -225,25 +264,24 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             </div>
           </div>
           <div className="disciplineModalContent">
-            <div
-              className="justify-content-between align-items-center mb-4 containerName">
-              <h5
-                className="discModalHeader mb-0"
-                style={{ maxWidth: "700px" }}
-              >
+            <div className="justify-content-between align-items-center mb-4 containerName">
+              <h5 className="discModalHeader mb-0">
                 {trajectoryDisciplineData.name}
               </h5>
               <div className="tags">
-              <span
-                className={`disciplineDetail ${trajectoryDisciplineData.necessity && "discipline-detail-pink"} ${!trajectoryDisciplineData.necessity && "discipline-detail-green"}`}
-              >
-                {
-                  trajectoryDisciplineData.necessity ?
-                    "Обязательный предмет"
-                    :
-                    "Предмет по выбору"
-                }
-              </span>
+                <span
+                  className={`disciplineDetail ${
+                    trajectoryDisciplineData.necessity &&
+                    "discipline-detail-pink"
+                  } ${
+                    !trajectoryDisciplineData.necessity &&
+                    "discipline-detail-green"
+                  }`}
+                >
+                  {trajectoryDisciplineData.necessity
+                    ? "Обязательный предмет"
+                    : "Предмет по выбору"}
+                </span>
                 <span className="disciplineDetail disciplineDetailYellow">
                   {trajectoryDisciplineData.control}
                 </span>
@@ -255,40 +293,56 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 className="modalKeywordsCoverage"
                 style={{ color: `${colors[trajectoryDisciplineData.class]}` }}
               >
-                {` Пересечение с ключевыми словами ${Math.round(trajectoryDisciplineData.keywords_coverage * 100)}%`}
+                {` Пересечение с ключевыми словами ${Math.round(
+                  trajectoryDisciplineData.keywords_coverage * 100
+                )}%`}
               </span>
             </p>
             <div className={"aligned-keywords-wrapper"}>
-              {trajectoryDisciplineData.keywords_aligned_with_user.map(keyword => (
-                <div
-                  className="modalKeyword mr-2 mb-2"
-                  style={{ background: `${colors[trajectoryDisciplineData.class]}60` }}
-                >
-                  {keyword}
-                </div>
-              ))}
-              {trajectoryDisciplineData.keywords.filter(word => !trajectoryDisciplineData.keywords_aligned_with_user.includes(word) && word !== "").map(keyword => (
-                <div
-                  style={{ background: `${colors[trajectoryDisciplineData.class]}20` }}
-                  className="mr-2 mb-2 modalKeyword"
-                >
-                  {keyword}
-                </div>
-              ))}
+              {trajectoryDisciplineData.keywords_aligned_with_user.map(
+                (keyword) => (
+                  <div
+                    className="modalKeyword mr-2 mb-2"
+                    style={{
+                      background: `${colors[trajectoryDisciplineData.class]}60`,
+                    }}
+                  >
+                    {keyword}
+                  </div>
+                )
+              )}
+              {trajectoryDisciplineData.keywords
+                .filter(
+                  (word) =>
+                    !trajectoryDisciplineData.keywords_aligned_with_user.includes(
+                      word
+                    ) && word !== ""
+                )
+                .map((keyword) => (
+                  <div
+                    style={{
+                      background: `${colors[trajectoryDisciplineData.class]}20`,
+                    }}
+                    className="mr-2 mb-2 modalKeyword"
+                  >
+                    {keyword}
+                  </div>
+                ))}
             </div>
           </div>
-
-
         </>
-      }
-      {filteredReplacementOptions.length >0 &&
+      )}
+      {filteredReplacementOptions.length > 0 && (
         <Hints
           boxRef={[hintSemesterChoice]}
           pageTitle="hintSemesterChoice"
-          nameRef={['hintSemesterChoice']}
-          description={['Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему']}
-          title={['Смотри альтернативы']} />
-      }
+          nameRef={["hintSemesterChoice"]}
+          description={[
+            "Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему",
+          ]}
+          title={["Смотри альтернативы"]}
+        />
+      )}
     </div>
   );
 };

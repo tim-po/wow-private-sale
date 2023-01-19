@@ -94,11 +94,9 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const editSkillSets = () => {
     navigate(`professionDetails?id=${searchParams.get("id")}&view=skills`);
   };
-  console.log(presetWindowSize?.current?.getBoundingClientRect().width);
   return (
     <div className="selectedPresetsContainer">
       <div
-        // ref={presetWindowSize}
         className={`leftSlide ${isHidden ? "hidden" : ""} ${
           !isRightArrowHidden ? "hidden-right" : ""
         }`}

@@ -1,4 +1,9 @@
-import React, { MouseEventHandler, useContext, useEffect, useState } from "react";
+import React, {
+  MouseEventHandler,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import ModalsContext from "../../Context/Modal";
@@ -11,14 +16,15 @@ import KeywordsModal from "../Modals/KeywordsModal";
 import Keyword from "../Keyword";
 
 type PresetPropType = {
-  preset: PresetType
-  onClick?: () => void
-  disabled?: boolean
-  displayAdd?: boolean
-}
+  preset: PresetType;
+  presetWindowSize?: React.MutableRefObject<null | HTMLDivElement>;
+  onClick?: () => void;
+  disabled?: boolean;
+  displayAdd?: boolean;
+};
 
 const PresetDefaultProps = {
-  somePropWithDefaultOption: "default value"
+  somePropWithDefaultOption: "default value",
 };
 
 const Preset = (props: PresetPropType) => {
@@ -27,7 +33,7 @@ const Preset = (props: PresetPropType) => {
   const [declined, setDeclined] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
-  const { displayAdd, preset, onClick, disabled } = props;
+  const { displayAdd, preset, onClick, disabled, presetWindowSize } = props;
 
   const openKeywordsModal = () => {
     displayModal(<KeywordsModal keywords={preset.keywords} />);
@@ -37,7 +43,7 @@ const Preset = (props: PresetPropType) => {
     if (disabled) {
       setDeclined(true);
       setTimeout(() => {
-        setDeclined( false);
+        setDeclined(false);
       }, 500);
     }
 
@@ -50,28 +56,29 @@ const Preset = (props: PresetPropType) => {
     }
   };
 
-  useEffect(()=>{
-    setTimeout(()=>
-      setIsFirst(false),
-      200)
-  })
+  useEffect(() => {
+    setTimeout(() => setIsFirst(false), 200);
+  });
 
   if (!preset) {
     return null;
   }
   return (
     <div
-      className={`preset ${hidden ? "hidePreset" : ""} ${onClick && !disabled ? "iteractable" : ""} ${disabled ? "disabled" : ""} ${declined ? "declineAnimate" : ""} ${isFirst ? 'showPreset' : ''}`}>
+      ref={presetWindowSize ? presetWindowSize : undefined}
+      className={`preset ${hidden ? "hidePreset" : ""} ${
+        onClick && !disabled ? "iteractable" : ""
+      } ${disabled ? "disabled" : ""} ${declined ? "declineAnimate" : ""} ${
+        isFirst ? "showPreset" : ""
+      }`}
+    >
       <div className="presetTopRow">
         <div className="presetIconFlex">
           <PresetIcon presetClass={preset.category} />
           {preset.category}
         </div>
-        {onClick != undefined &&
-          <button
-            className="actionButton"
-            onClick={clickSelf}
-          >
+        {onClick != undefined && (
+          <button className="actionButton" onClick={clickSelf}>
             <div style={displayAdd ? {} : { transform: "rotate(45deg)" }}>
               <Pluse />
             </div>

@@ -21,6 +21,7 @@ import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 
 import { refactorName } from "../../components/refactorName";
+import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
 type DiplomaPropType = {};
 
 const DiplomaDefaultProps = {};
@@ -28,7 +29,6 @@ const DiplomaDefaultProps = {};
 const Diploma = (props: DiplomaPropType) => {
   const { setBg } = useContext(BgContext);
   const { displayModal } = useContext(ModalsContext);
-
   const cardRef = useRef();
 
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(
@@ -55,10 +55,6 @@ const Diploma = (props: DiplomaPropType) => {
       );
       setDiplomaData(response.data);
     } catch (e) {}
-  };
-
-  const closeShareModal = () => {
-    setIsShareModalOpen(false);
   };
 
   useEffect(() => {
@@ -191,15 +187,6 @@ const Diploma = (props: DiplomaPropType) => {
         <RandomFeedback displayForGroup={6} />
         <RandomFeedback displayForGroup={7} />
       </div>
-      <GenericModal
-        modal={isShareModalOpen}
-        colorCloseWhite={false}
-        hideMobile={false}
-        hideDesktop={false}
-        onModalClose={closeShareModal}
-      >
-        <ShareModal />
-      </GenericModal>
     </>
   );
 };

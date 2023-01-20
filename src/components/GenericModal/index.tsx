@@ -42,7 +42,7 @@ const GenericModal = (props: GenericModalPropType) => {
     refLastModals,
     currentLastModals,
   } = props;
-  console.log(modalNumber);
+
   const modalClose = () => {
     setBlockContent(false);
     setTimeout(() => {
@@ -52,24 +52,23 @@ const GenericModal = (props: GenericModalPropType) => {
       onModalClose();
     }, 500);
   };
-  if (document.getElementsByClassName("ModalContainer")) {
-    const elem = document.getElementsByClassName("ModalContainer");
-  }
+
   useEffect(() => {
     setIsOpen(modal);
     setBlockContent(modal);
   }, [modal]);
   useEffect(() => {});
+
   const preventScroll = (e: React.UIEvent) => {
     e.preventDefault();
   };
+
   useEffect(() => {
     if (isOpen) setDoubleModal(true);
   }, [children]);
-  console.log(currentLastModals?.offsetHeight);
+
   return (
     <div
-      ref={refLastModals}
       onWheel={preventScroll}
       className={`ModalContainer ${hideMobile ? "hideMobile" : ""} ${
         hideDesktop ? "hideDesktop" : ""
@@ -85,8 +84,12 @@ const GenericModal = (props: GenericModalPropType) => {
         <div
           className={`d-block TextCenter ${blockContent ? "activ" : ""}`}
           style={
-            isMobile && modalNumber !== undefined
-              ? { maxHeight: `calc(100% - ${modalNumber * 80}px - 80px)` }
+            isMobile && modalNumber
+              ? {
+                  maxHeight: `calc(100% - ${
+                    currentLastModals?.getBoundingClientRect().top
+                  }px - 60px)`,
+                }
               : {}
           }
         >
@@ -99,7 +102,10 @@ const GenericModal = (props: GenericModalPropType) => {
               />
             </button>
           </div>
-          <div className={`modalContainer ${doubleModal ? "doubleModal" : ""}`}>
+          <div
+            ref={refLastModals}
+            className={`modalContainer ${doubleModal ? "doubleModal" : ""}`}
+          >
             {children}
           </div>
         </div>

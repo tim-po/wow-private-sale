@@ -54,9 +54,7 @@ const TrajectoryDisciplineModal = (
       );
       setTrajectoryDisciplineData(response.data);
       setMovement(DisciplineMovement.none);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const sortPrevDisciplines = () => {

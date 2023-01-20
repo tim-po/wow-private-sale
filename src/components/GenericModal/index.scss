@@ -60,15 +60,12 @@
 .ModalTrack{
   display: initial;
 }
-/*.mobil{*/
-/*  display: none;*/
-/*}*/
+
 @media screen and (min-width: 1000px) {
   .mobil{
     display: none;
   }
   .ModalContainerShad{
-    /*position: absolute;*/
     width: 100vw;
     height: 100vh;
   }
@@ -191,12 +188,7 @@
     /*transition: opacity 0.3s 0.3s, transform 0s;*/
     display: flex;
   }
-  .ModalContainer.active{
-    /*transition: opacity 0.3s 0.3s, transform 0s;*/
-    /*opacity: 1;*/
-    //overflow-y: scroll;
-    //height: 100vh;
-  }
+
 
   .d-block{
     opacity: 1;

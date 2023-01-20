@@ -59,17 +59,12 @@ const GenericModal = (props: GenericModalPropType) => {
   }, [modal]);
   useEffect(() => {});
 
-  const preventScroll = (e: React.UIEvent) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     if (isOpen) setDoubleModal(true);
   }, [children]);
 
   return (
     <div
-      onWheel={preventScroll}
       className={`ModalContainer ${hideMobile ? "hideMobile" : ""} ${
         hideDesktop ? "hideDesktop" : ""
       } ${isOpen ? "active" : ""} ${maxHeight ? "maxHeight" : ""}`}

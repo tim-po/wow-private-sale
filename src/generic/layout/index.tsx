@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./index.scss";
 import GenericModal from "components/GenericModal";
 import Header from "components/Header";
@@ -15,6 +21,7 @@ import {
   calculateTotalStickyHeight,
   updateStickyBlocks,
 } from "../../utils/stickyHeaders";
+import Portal from "../../components/hints/Portal";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -29,23 +36,24 @@ const Layout = (props: layoutPropType) => {
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false);
   const [modalComponent, setModalComponent] = useState<
-    React.ReactNode | undefined
-  >(undefined);
+    Array<ReactNode | undefined>
+  >([]);
   const [backgroundColor, setBackgroundColor] = useState("white");
 
   const { backButtonHref } = useContext(BackButtonContext);
   const [cookie] = useCookies(["_ym_uid"]);
 
   const [groupId, setGroupId] = useState<number>(0);
+  const refLastModals = useRef<HTMLDivElement>(null);
 
   const displayModal = (component: React.ReactNode) => {
-    setModalComponent(component);
+    setModalComponent((prevState) => [...prevState, component]);
     setShouldDisplayModal(true);
   };
 
   const closeModal = () => {
-    setModalComponent(undefined);
-    setShouldDisplayModal(false);
+    setModalComponent(modalComponent.slice(0, -1));
+    // setShouldDisplayModal(false);
   };
 
   useEffect(() => {
@@ -65,7 +73,13 @@ const Layout = (props: layoutPropType) => {
       window.document.body.classList.remove("no-scroll");
     }
   }, [shouldDisplayModal]);
-
+  useEffect(() => {
+    if (modalComponent.length > 0) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [modalComponent]);
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
@@ -81,15 +95,24 @@ const Layout = (props: layoutPropType) => {
             />
             <div className="Content">
               {children}
-              <GenericModal
-                modal={shouldDisplayModal}
-                colorCloseWhite={false}
-                hideMobile={false}
-                hideDesktop={false}
-                onModalClose={closeModal}
-              >
-                {modalComponent}
-              </GenericModal>
+              {modalComponent.map((component, index) => (
+                <GenericModal
+                  refLastModals={
+                    modalComponent.length - 1 === index
+                      ? refLastModals
+                      : undefined
+                  }
+                  currentLastModals={refLastModals.current}
+                  modalNumber={index}
+                  modal={shouldDisplayModal}
+                  colorCloseWhite={false}
+                  hideMobile={false}
+                  hideDesktop={false}
+                  onModalClose={closeModal}
+                >
+                  {component}
+                </GenericModal>
+              ))}
             </div>
           </div>
         </BgContext.Provider>

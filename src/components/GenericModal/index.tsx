@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import Close from "../../images/icons/close";
 import Portal from "../hints/Portal";
+import { isMobile } from "react-device-detect";
 
 // CONSTANTS
 
@@ -18,6 +19,10 @@ type GenericModalPropType = {
   colorCloseWhite: boolean;
   children: React.ReactNode | React.ReactNode[];
   modal: boolean;
+  modalNumber?: number;
+  refLastModals?: React.RefObject<HTMLDivElement> | undefined;
+  lengthListModalComponent?: number;
+  currentLastModals?: HTMLDivElement | null;
 };
 
 const GenericModal = (props: GenericModalPropType) => {
@@ -25,6 +30,7 @@ const GenericModal = (props: GenericModalPropType) => {
   const [doubleModal, setDoubleModal] = useState(false);
   const [blockContent, setBlockContent] = useState(false);
   const {
+    lengthListModalComponent,
     hideMobile,
     hideDesktop,
     maxHeight,
@@ -32,8 +38,11 @@ const GenericModal = (props: GenericModalPropType) => {
     colorCloseWhite,
     children,
     modal,
+    modalNumber,
+    refLastModals,
+    currentLastModals,
   } = props;
-
+  console.log(modalNumber);
   const modalClose = () => {
     setBlockContent(false);
     setTimeout(() => {
@@ -43,28 +52,24 @@ const GenericModal = (props: GenericModalPropType) => {
       onModalClose();
     }, 500);
   };
-
+  if (document.getElementsByClassName("ModalContainer")) {
+    const elem = document.getElementsByClassName("ModalContainer");
+  }
   useEffect(() => {
     setIsOpen(modal);
     setBlockContent(modal);
   }, [modal]);
-
+  useEffect(() => {});
   const preventScroll = (e: React.UIEvent) => {
     e.preventDefault();
   };
   useEffect(() => {
     if (isOpen) setDoubleModal(true);
   }, [children]);
-  useEffect(() => {
-    if (modal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modal]);
-
+  console.log(currentLastModals?.offsetHeight);
   return (
     <div
+      ref={refLastModals}
       onWheel={preventScroll}
       className={`ModalContainer ${hideMobile ? "hideMobile" : ""} ${
         hideDesktop ? "hideDesktop" : ""
@@ -75,11 +80,18 @@ const GenericModal = (props: GenericModalPropType) => {
       )}
       <div className="ModalTrack">
         {isOpen && (
-          <div className="ModalContainerShad mobil" onClick={onModalClose} />
+          <div className="ModalContainerShad mobil" onClick={modalClose} />
         )}
-        <div className={`d-block TextCenter ${blockContent ? "activ" : ""}`}>
+        <div
+          className={`d-block TextCenter ${blockContent ? "activ" : ""}`}
+          style={
+            isMobile && modalNumber !== undefined
+              ? { maxHeight: `calc(100% - ${modalNumber * 80}px - 80px)` }
+              : {}
+          }
+        >
           <div className={"wrapHeaderModal"}>
-            <button className="ImgCloseBtn" onClick={onModalClose}>
+            <button className="ImgCloseBtn" onClick={modalClose}>
               <Close
                 width={12}
                 height={12}

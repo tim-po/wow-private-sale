@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import axios from "axios";
+import Hints from "../../hints";
+import { isMobile } from "react-device-detect";
 import { BASE_URL, colors } from "../../../constants";
 import { TrajectoryDisciplineType } from "types";
 import { useSearchParams } from "react-router-dom";
@@ -28,7 +30,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<{ id: number, name: string }[]>([]);
   const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] = useState<boolean>(false);
   const [movement, setMovement] = useState<DisciplineMovement>(DisciplineMovement.none);
-
+  const hintSemesterChoice = useRef(null)
   const [initialDisciplineId, setInitialDisciplineId] = useState<number>(0);
 
 
@@ -142,6 +144,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               </p>
               <div>
                 <button
+                  ref={filteredReplacementOptions.length ? hintSemesterChoice: undefined}
                   key={trajectoryDisciplineData.semester}
                   className="disciplineCardModal mx-auto"
                   onClick={toggleReplacementOptions}
@@ -186,7 +189,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             <div className="subjectsFlex">
               {sortedNextDisciplines.length ?
                 <p
-                  className={`TextCenter modalColHeader`}>
+                className={`TextCenter modalColHeader`}>
                   Где пригодится
                 </p>
                 :
@@ -274,7 +277,17 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               ))}
             </div>
           </div>
+
+
         </>
+      }
+      {filteredReplacementOptions.length >0 &&
+        <Hints
+          boxRef={[hintSemesterChoice]}
+          pageTitle="hintSemesterChoice"
+          nameRef={['hintSemesterChoice']}
+          description={['Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему']}
+          title={['Смотри альтернативы']} />
       }
     </div>
   );

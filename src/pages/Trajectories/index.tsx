@@ -29,25 +29,28 @@ const randomFeedback = {
 
 const Trajectories = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  const [width, setWidth] = useState(0);
+  // const [width, setWidth] = useState(0);
   const [trajectories, setTrajectories] = useState([]);
-  const [trajectoriesIds, setTrajectoriesIds] = useState([]);
+  // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [responseError, setResponseError] = useState<number>()
+  const [searchParams] = useSearchParams();
+  const [responseError, setResponseError] = useState<unknown>()
   const navigate = useNavigate();
   useEffect(() => {
     changeBg("#F1F2F8");
     const professionId = withLocalStorage({ professionId: null }, LocalStorageInteraction.load).professionId;
     setNewBackButtonProps("Выбор ключевых слов и пресетов", `/professionDetails?view=main&id=${professionId}`);
     if (trajectories.length === 0) {
-      const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
-      setTrajectoriesIds(trajectoryIds);
-      axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
-        setTrajectories(res.data);
-      }).catch(e => {
-        setResponseError(e.response.status)
-      })
+      try{
+        const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
+        // setTrajectoriesIds(trajectoryIds);
+        axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
+          setTrajectories(res.data);
+        }).catch(e =>setResponseError(e))
+      } catch (e){
+        setResponseError(e)
+      }
+
     }
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
@@ -120,7 +123,7 @@ const Trajectories = () => {
           Индикатор показывает совпадение с ключевыми словами.
           <button
             className="border-0 pr-0 py-0 hideButton"
-            onClick={(e) => {
+            onClick={() => {
               const card = document.querySelector('.animationWrap')
               if(card)
                 card.classList.toggle('Hidden')
@@ -169,7 +172,7 @@ const Trajectories = () => {
                       <div>
                         <div className="mt-2 smallTitle">Ты изучишь</div>
                         <div className="mt-2 keywordsWrapper row no-gutters">
-                          {course.main_keywords.slice(0, 5).map((keyword, index) => {
+                          {course.main_keywords.slice(0, 5).map((keyword) => {
                             return (
                               <span
                                 key={keyword}

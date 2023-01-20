@@ -27,14 +27,10 @@ const randomFeedbackSelectOptions = [
 ]
 
 type TrajectoryPropType = {
-  somePropWithDefaultOption?: string
 }
 
-const TrajectoryDefaultProps = {
-  somePropWithDefaultOption: 'default value'
-}
 
-const Trajectory = (props: TrajectoryPropType) => {
+const Trajectory = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext);
   const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
@@ -83,7 +79,7 @@ const Trajectory = (props: TrajectoryPropType) => {
     })
   }
 
-  if(courseQuery > 5 || courseQuery < 1 || responseError === 404) {
+  if(courseQuery > 5 || courseQuery < 1 || responseError === 404 || !+(searchParams.get('course') ?? '')) {
     return <NotFound/>
   }
 
@@ -121,9 +117,9 @@ const Trajectory = (props: TrajectoryPropType) => {
   //
   //   }
   // },[isMobile])
-  const openDisciplineModal = () => {
+  // const openDisciplineModal = () => {
     // displayModal(<TrajectoryDisciplineModal/>)
-  }
+  // }
 
   console.log(hintDiscipline.current?.offsetLeft)
   return (
@@ -235,8 +231,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     </div>
   )
 };
-
-Trajectory.defaultProps = TrajectoryDefaultProps
 
 export default Trajectory
 

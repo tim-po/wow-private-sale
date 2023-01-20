@@ -77,7 +77,7 @@ const GenericModal = (props: GenericModalPropType) => {
           <div className="ModalContainerShad mobil" onClick={modalClose} />
         )}
         <div
-          className={`d-block TextCenter ${blockContent ? "activ" : ""}`}
+          className={`d-block TextCenter ${blockContent ? "active" : ""}`}
           style={
             isMobile && modalNumber
               ? {

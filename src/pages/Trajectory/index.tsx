@@ -112,16 +112,6 @@ const Trajectory = () => {
     displayModal(<TrajectoryStats setIsModalTrajectory={setIsModalTrajectory} setSelectedSphere={setSelectedSphere} className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
-  // useEffect(()=>{
-  //   if(isMobile){
-  //
-  //   }
-  // },[isMobile])
-  // const openDisciplineModal = () => {
-    // displayModal(<TrajectoryDisciplineModal/>)
-  // }
-
-  console.log(hintDiscipline.current?.offsetLeft)
   return (
     <div className="TrajectoryPage">
 
@@ -161,8 +151,6 @@ const Trajectory = () => {
           </button>
         </div>
       </div>
-      {/*<hr className="HeaderDivider"*/}
-      {/*    style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>*/}
       {courseQuery !== 5 &&
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats

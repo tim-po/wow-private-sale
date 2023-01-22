@@ -43,95 +43,95 @@ const ProfessionDetails = () => {
   useEffect(() => {
     changeBg('white');
 
-    if (searchParams.get('view') === 'main') {
-      setNewBackButtonProps('Все профессии', '/professions')
+    if (searchParams.get("view") === "main") {
+      setNewBackButtonProps("Все профессии", "/professions");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-      if (searchParams.get('view') !== 'main' && profession) {
-        setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
-      }else{
-        setNewBackButtonProps('Все профессии', '/professions')
+      if (searchParams.get("view") !== "main" && profession) {
+        setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get("id")}`);
+      } else {
+        setNewBackButtonProps("Все профессии", "/professions");
       }
-      updateStickyBlocks()
-    }, [searchParams.get('view'), profession]
-  )
+      updateStickyBlocks();
+    }, [searchParams.get("view"), profession]
+  );
 
   useEffect(() => {
-    calculateRequiredLimit()
-  }, [profession])
+    calculateRequiredLimit();
+  }, [profession]);
 
   const openTrajectoryChoice = async () => {
     if (!profession) {
-      return
+      return;
     }
-    withLocalStorage({professionId: profession.id}, LocalStorageInteraction.save)
-    setIsLoading(true)
+    withLocalStorage({ professionId: profession.id }, LocalStorageInteraction.save);
+    setIsLoading(true);
 
-    const response = await axios.post(`${BASE_URL}trajectories/?top_n=10`, {'keywords': keywords.allIds})
+    const response = await axios.post(`${BASE_URL}trajectories/?top_n=10`, { "keywords": keywords.allIds });
 
-    let ids: string[] = []
-    response.data.forEach((el: any) => ids.push(el.id))
-    navigate(`/trajectories?ids=${JSON.stringify(ids)}`)
-  }
+    let ids: string[] = [];
+    response.data.forEach((el: any) => ids.push(el.id));
+    navigate(`/trajectories?ids=${JSON.stringify(ids)}`);
+  };
 
   const saveChoice = () => {
-    navigate(`professionDetails?id=${profession?.id}&view=main`)
-  }
+    navigate(`professionDetails?id=${profession?.id}&view=main`);
+  };
 
   const editKeywords = () => {
-    navigate(`professionDetails?id=${profession?.id}&view=keywords`)
-    setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
-  }
+    navigate(`professionDetails?id=${profession?.id}&view=keywords`);
+    setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get("id")}`);
+  };
 
   const editSkillSets = () => {
-    navigate(`professionDetails?id=${profession?.id}&view=skills`)
-    setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get('id')}`)
-  }
+    navigate(`professionDetails?id=${profession?.id}&view=skills`);
+    setNewBackButtonProps(`${profession?.name}: описание`, `/professionDetails?view=main&id=${searchParams.get("id")}`);
+  };
 
   const openKeywordsModal = () => {
-    displayModal(<KeywordsModal keywords={keywords.display} />)
-  }
+    displayModal(<KeywordsModal keywords={keywords.display} />);
+  };
 
   const clearChoice = () => {
-    switch (searchParams.get('view')) {
-      case 'keywords':
-        keywords.clear()
+    switch (searchParams.get("view")) {
+      case "keywords":
+        keywords.clear();
         break;
-      case 'skills':
-        presets.clear()
+      case "skills":
+        presets.clear();
         break;
       default:
         break;
     }
-  }
+  };
 
   const currentHeader = () => {
-    switch (searchParams.get('view')) {
-      case 'keywords':
-        return 'Ключевые слова'
-      case 'skills':
-        return 'Наборы навыков'
-      case 'main':
-        return profession ? profession.name : '|'
+    switch (searchParams.get("view")) {
+      case "keywords":
+        return "Ключевые слова";
+      case "skills":
+        return "Наборы навыков";
+      case "main":
+        return profession ? profession.name : "|";
       default:
-        return ''
+        return "";
     }
-  }
+  };
 
   const calculateRequiredLimit = () => {
     if (profession) {
-      setRequiredWordsLimit(Math.ceil(profession.related_keywords.length * 0.8))
+      setRequiredWordsLimit(Math.ceil(profession.related_keywords.length * 0.8));
     }
-  }
+  };
 
   const isClearButtonDisabled = () => {
-    if (searchParams.get('view') === 'keywords' && keywords.added.length < 1) {
-      return true
+    if (searchParams.get("view") === "keywords" && keywords.added.length < 1) {
+      return true;
     }
-    return searchParams.get('view') === 'skills' && presets.selected.length < 1;
-  }
+    return searchParams.get("view") === "skills" && presets.selected.length < 1;
+  };
   const hintEditKeywords = useRef<HTMLButtonElement>(null);
   const hintEditPresets = useRef<HTMLButtonElement>(null);
   // const hintEditKeyword = findDOMNode(hintEditKeywords);
@@ -142,10 +142,10 @@ const ProfessionDetails = () => {
     <div className="professionDetails">
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
         <h4 className="currentHeader fontWeightBold" id="scrollToTop"> {currentHeader()}</h4>
-        {searchParams.get('view') !== 'main' &&
+        {searchParams.get("view") !== "main" &&
           <div className="bottomLeftContainer">
             <button
-              className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
+              className={`clear ${isClearButtonDisabled() ? "disabled" : ""}`}
               onClick={clearChoice}
             >
               Очистить выбор
@@ -154,31 +154,26 @@ const ProfessionDetails = () => {
           </div>
         }
       </div>
-      {searchParams.get('view') === 'main' &&
+      {searchParams.get("view") === "main" &&
         <div className="keywordsCustomisationFlex">
           <div className="professionContainer">
             <div className="professionDescription">
               <p className="subheader subheader-mobile" {...createStickyBlock(2)}>Описание</p>
               <div className="keywords__card">
                 <div className="profession-data">
-                  {!profession &&
-                    <>
-                      {makeEmptyList(40).map((_, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className="skeleton"
-                            style={{'width': Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px', 'height': '12px'}}
-                          />
-                        )
-                      })}
-                    </>
-                  }
-                  {profession &&
+
+                  {profession ?
                     <p className="mb-0">
-                      {profession ? profession.description : ""}
-                    </p>
-                  }
+                      {profession.description ?? ""}
+                    </p> : makeEmptyList(40).map((_, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="skeleton"
+                          style={{ "width": Math.floor(Math.random() * (100 - 30 + 1)) + 30 + "px", "height": "12px" }}
+                        />
+                      );
+                    })}
                 </div>
               </div>
               <div className="blockDescription">
@@ -186,7 +181,7 @@ const ProfessionDetails = () => {
                   {presets.selected.length === 0 &&
                     <span className="build-trajectory-text">
                       Мы уже собрали для тебя готовый набор ключевых слов. Этого будет достаточно чтобы построить траекторию.
-                      <br/>
+                      <br />
                       Ты можешь продолжить без изменений или добавить то, что хочешь изучить дополнительно.
                     </span>
                   }
@@ -197,17 +192,17 @@ const ProfessionDetails = () => {
                   }
                   <div className="blockDescriptionMobil">
                     <button className="button-primary" onClick={openTrajectoryChoice}>
-                      {presets.selected.length ? 'Мне все нравится' : 'Построить'}
+                      {presets.selected.length ? "Мне все нравится" : "Построить"}
                     </button>
                   </div>
                 </div>
                 {presets.selected.length === 0 &&
                   <div className="lamp-icon">
-                    <ProfessionLamsIcon/>
+                    <ProfessionLamsIcon />
                   </div>
                 }
                 {presets.selected.length > 0 &&
-                  <div className="like"><FingerLike/></div>
+                  <div className="like"><FingerLike /></div>
                 }
               </div>
               {/*<div*/}
@@ -235,17 +230,17 @@ const ProfessionDetails = () => {
                 {presets.selected.length > 0 &&
                   <button onClick={editSkillSets} className="edit-button">
                     <div className="edit-button-icon">
-                      <MagicWand width={20} height={20}/></div>
+                      <MagicWand width={20} height={20} /></div>
                     <span className="edit-button-text">Редактировать</span>
                   </button>
                 }
               </div>
-              <LoadingScreen header="Подбираем траектории" isLoading={isLoading}/>
-              <SelectedPresets hintEditPresets={hintEditPresets} isHidden={false} selectedPresets={presets.selected}/>
+              <LoadingScreen header="Подбираем траектории" isLoading={isLoading} />
+              <SelectedPresets hintEditPresets={hintEditPresets} isHidden={false} selectedPresets={presets.selected} />
             </div>
             <div className="containerBlockFlex">
               <div className="blockFlex">
-                <div id="blob-0-top-left"  className="subheader">
+                <div id="blob-0-top-left" className="subheader">
                   <span className="subheader-title" {...createStickyBlock(2)}>Ключевые слова</span>
                   {keywords.added.length > 0 &&
                     <div className="subheader-counter">+{
@@ -254,7 +249,7 @@ const ProfessionDetails = () => {
                   }
                 </div>
                 <button onClick={editKeywords} ref={hintEditKeywords} className="edit-button">
-                  <div className="edit-button-icon" > <MagicWand width={20} height={20}/></div>
+                  <div className="edit-button-icon"><MagicWand width={20} height={20} /></div>
                   <span className="edit-button-text">Редактировать</span>
                 </button>
               </div>
@@ -266,9 +261,9 @@ const ProfessionDetails = () => {
                         <div
                           key={index}
                           className="skeleton"
-                          style={{width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + 'px'}}
+                          style={{ width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + "px" }}
                         />
-                      )
+                      );
                     })}
                   </>
                 }
@@ -284,8 +279,8 @@ const ProfessionDetails = () => {
                           bg-color="'var(--color-secondary)'"
                           // onDeleteSelf={()=>deleteKeyword(keyword)}
                         />
-                      )
-                    }): keywords.display.slice(0, 25).map(keyword => {
+                      );
+                    }) : keywords.display.slice(0, 25).map(keyword => {
                       return (
                         <Keyword
                           deletable={false}
@@ -294,7 +289,7 @@ const ProfessionDetails = () => {
                           bg-color="'var(--color-secondary)'"
                           // onDeleteSelf={()=>deleteKeyword(keyword)}
                         />
-                      )
+                      );
                     })}
                   </>
                 }
@@ -302,11 +297,11 @@ const ProfessionDetails = () => {
                   <button className="modalKeywords" onClick={openKeywordsModal}>
                     +{profession.related_keywords.length - 10}
                   </button>
-                :
-                     profession && profession.related_keywords.length > 25 &&
-                    <button className="modalKeywords" onClick={openKeywordsModal}>
-                      +{profession.related_keywords.length - 25}
-                    </button> }
+                  :
+                  profession && profession.related_keywords.length > 25 &&
+                  <button className="modalKeywords" onClick={openKeywordsModal}>
+                    +{profession.related_keywords.length - 25}
+                  </button>}
               </div>
 
             </div>
@@ -315,24 +310,24 @@ const ProfessionDetails = () => {
       }
       <div className="blockDescriptionMobil bottom">
         <button className="button-primary" onClick={openTrajectoryChoice}>
-          {presets.selected.length ? 'Мне все нравится' : 'Построить'}
+          {presets.selected.length ? "Мне все нравится" : "Построить"}
         </button>
       </div>
-      {profession && searchParams.get('view') === 'keywords' &&
+      {profession && searchParams.get("view") === "keywords" &&
         <Keywords keywords={keywords} />
       }
-      {searchParams.get('view') === 'skills' &&
-        <SkillSets presets={presets}/>
+      {searchParams.get("view") === "skills" &&
+        <SkillSets presets={presets} />
       }
       <Hints
         boxRef={[hintEditKeywords, hintEditPresets]}
         pageTitle="ProfessionDetails"
-        nameRef={['hintEditKeywords','hintEditPresets']}
-        description={['Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.','В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов.']}
-        title={['Ключевые слова','Наборы навыков']}/>
+        nameRef={["hintEditKeywords", "hintEditPresets"]}
+        description={["Мы уже собрали для тебя набор ключевых слов для траектории твоей профессии. Ты можешь его редактировать - удалять и добавлять навыки.", "В дополнение к ключевым словам ты можешь добавить наборы навыков, которые тебе интересны. Набор навыков - заранее собранный комплект ключевых слов."]}
+        title={["Ключевые слова", "Наборы навыков"]} />
     </div>
-  )
-}
+  );
+};
 
-export default ProfessionDetails
+export default ProfessionDetails;
 

@@ -1,23 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {ClassType, CourseType, TrajectoryType} from "../../types";
+import { TrajectoryType } from "../../types";
 import Diploma from "../Diploma";
-import { useHref, useNavigate, useSearchParams } from "react-router-dom";
-import {isMobile} from "react-device-detect";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
 import BgContext from "../../Context/Background";
 import axios from "axios";
-import {BASE_URL} from "../../constants";
+import { BASE_URL } from "../../constants";
 import LoadingScreen from "../../components/LoadingScreen";
 import * as Scroll from "react-scroll";
 import ModalContext from "../../Context/Modal";
 import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
 import Card from "../../components/trajectory/Card";
-import './index.scss'
-import {LocalStorageInteraction, withLocalStorage} from "../../utils/general";
+import "./index.scss";
+import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import TrajectoryOnboardingModal from 'components/Modals/TrajectoryOnboardingModal'
 import Hints from "../../components/hints";
 
 const randomFeedbackSelectOptions = [
@@ -27,14 +26,10 @@ const randomFeedbackSelectOptions = [
 ]
 
 type TrajectoryPropType = {
-  somePropWithDefaultOption?: string
 }
 
-const TrajectoryDefaultProps = {
-  somePropWithDefaultOption: 'default value'
-}
 
-const Trajectory = (props: TrajectoryPropType) => {
+const Trajectory = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext);
   const [searchParams] = useSearchParams()
   const {displayModal} = useContext(ModalContext)
@@ -109,15 +104,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     displayModal(<TrajectoryStats setIsModalTrajectory={setIsModalTrajectory} setSelectedSphere={setSelectedSphere} className="Desktop"  course={trajectory.courses.find(course => course.course === courseQuery)} />)
   }
 
-  // useEffect(()=>{
-  //   if(isMobile){
-  //
-  //   }
-  // },[isMobile])
-  const openDisciplineModal = () => {
-    // displayModal(<TrajectoryDisciplineModal/>)
-  }
-  console.log(hintDiscipline.current?.offsetLeft)
   return (
     <div className="TrajectoryPage">
 
@@ -157,8 +143,6 @@ const Trajectory = (props: TrajectoryPropType) => {
           </button>
         </div>
       </div>
-      {/*<hr className="HeaderDivider"*/}
-      {/*    style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>*/}
       {courseQuery !== 5 &&
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
@@ -227,8 +211,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     </div>
   )
 };
-
-Trajectory.defaultProps = TrajectoryDefaultProps
 
 export default Trajectory
 

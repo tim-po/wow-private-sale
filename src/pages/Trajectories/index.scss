@@ -1,132 +1,10 @@
-
-.ControlCardContainer .CourseCardControlCard{
-  text-align: left;
-}
-
-.TrajectoriesCard {
-  border-radius: 16px;
-  max-width: max-content;
-  margin: auto;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  background: white;
-  padding: 20px;
-  position: relative;
-}
-
-.trajectoryHeader {
+.TrajectoryChoiceHeader {
+  font-family: 'Inter', serif;
+  font-style: normal;
   font-weight: 700;
   font-size: 20px;
-  position: relative;
-
-
-  .eduDirectionCode{
-    display: block;
-    font-weight: normal;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    color: #6e6d79;
-    font-size: 12px;
-  }
-}
-
-.TrajectoriesCardFooter{
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.trajectoryCardWrapper {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 16px;
-}
-.trajectoryCardWrapper::-webkit-scrollbar {
-  width: 0;
-}
-.CourseCard {
-  padding: 20px;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  background-color: var(--color-1);
-  color: white;
-  //min-width: 420px;
-  border-radius: 16px;
-  cursor: pointer;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .CourseCardControlCard{
-    box-shadow: none !important;
-    //cursor: default;
-  }
-
-  &:hover {
-    box-shadow: inset 0 0 0 1px #ffffff;
-  }
-}
-
-.trajectories-bg-0 {
-  background: #f18aa7;
-  border: 1px solid #f18aa7;
-}
-
-.trajectories-bg-1 {
-  background: #989cf8;
-  border: 1px solid #989cf8;
-}
-
-.trajectories-bg-2 {
-  background: #75c2dc;
-  border: 1px solid #75c2dc;
-
-}
-
-.trajectories-bg-3 {
-  background: #f18069;
-  border: 1px solid #f18069;
-
-}
-
-.CourseCardHeader {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.keywordWrapper {
-  background: white;
-  color: #1f1f22;
-  font-weight: 500;
-  font-size: 12px;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-.MainButton.ButtonTrajectory {
-  order: 0;
-  padding: 8px 12px;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.ButtonAbit {
-  order: 1;
-  border: 0;
-  background: 0;
-  text-decoration: underline;
-  color: var(--gray);
-}
-
-.TrajectoryChoiceHeader{
-  margin: 24px 0;
-  font-weight: 700;
-  font-size: 24px;
+  line-height: 24px;
+  margin: 0 0 20px ;
   z-index: 1500;
   background: rgb(241, 242, 248);
 }
@@ -134,202 +12,36 @@
 .animationWrap {
   max-height: 400px;
   overflow: hidden;
-}
 
-.TrajectoriesInfoCard {
-  display: inline-flex;
-  column-gap: 12px;
-  background: white;
-  border-radius: 12px;
-  max-width: fit-content;
-  padding: 16px 48px 16px 16px;
-  margin-bottom: 24px;
-  position: relative;
-  box-sizing: content-box;
-  overflow: hidden;
-  max-height: 200px;
-}
-
-.Hidden{
-  max-height: 0;
-  transition: max-height 0.3s ease;
-}
-
-.keywordsWrapper {
-  //max-height: 82px;
-  overflow: hidden;
-}
-.hideButton {
-  position: absolute;
-  padding-left: 0;
-  right: 10px;
-  top: 10px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ScrollBtn{
-  transition: all 0.2s;
-  padding: 0;
-  position: absolute;
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  background-position: center;
-  z-index: 1000;
-  right: -10px;
-  top: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
-  &.Left{
-    left: -10px;
-    right: unset;
-  }
-}
-
-.trajectoryCardWrapper.Hidden .ScrollBtn.Right{
-  width: 0px;
-  height: 0px;
-  top: calc(50%);
-}
-.trajectoryCardWrapper.HiddenLeft .ScrollBtn.Left{
-  width: 0px;
-  height: 0px;
-  top: calc(50%);
-}
-
-.TrajectoriesCardHeader{
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-}
-.ControlCardContainer{
-  display: flex;
-  gap: 8px;
-}
-@media screen and (max-width: 1000px){
-  .TrajectoriesInfoCard{
-    margin-bottom: 16px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-  }
-  .TrajectoriesCardHeader{
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-  .TrajectoriesCardProgress{
-    margin-bottom: 8px;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-  }
-  .TrajectoriesCardFooter{
-    width: 100%;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 0;
-  }
-  .MainButton.ButtonTrajectory{
-    order: 1;
-    margin-bottom: 16px;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-  }
-  .ButtonAbit {
-    order: 0;
-  }
-  .CourseCardHeader{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px;
-  }
-  .keywordsWrapper{
-    flex-direction: row;
-    /*max-height: 112px;*/
-    max-height: min-content;
-    flex-wrap: wrap;
-  }
-  .keywordWrapper{
-    max-width: max-content;
-    line-height: 16px;
-  }
-  .ControlCardContainer{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 8px;
-    grid-row-gap: 8px;
-  }
-  .listDisciplinesItem{
-    margin-right: 0;
-  }
-  .CourseCard{
-    min-width: 100%;
-  }
-  .ScrollBtn{
-    top: calc(91%);
-  }
-  .trajectoryCardWrapper.Hidden .ScrollBtn.Right{
-    top: calc(100% + 20px);
-  }
-  .trajectoryCardWrapper.HiddenLeft .ScrollBtn.Left{
-    top: calc(100% + 20px);
+  &.Hidden{
+    max-height: 0;
+    transition: max-height 0.3s ease;
   }
 
-  .trajectoryCardWrapper{
-    margin-top: 25px !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-  .CardBody{
-    scroll-snap-align: start;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
-    padding: 16px 12px;
-  }
-
-  .IndicatorItem{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #E7E8EE;
-  }
-  .TrajectoryChoiceHeader {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    margin: 0 0 20px ;
-  }
-  .trajectoryHeader{
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px; /* or 138% */
-    color: #1F1F22;
+  .TrajectoriesInfoCard {
+    display: inline-flex;
+    column-gap: 12px;
+    background: white;
+    border-radius: 12px;
+    max-width: fit-content;
+    padding: 16px 48px 16px 16px;
+    margin-bottom: 24px;
     position: relative;
-  }
-  .smallTitle{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    /* identical to box height, or 143% */
-    color: #FFFFFF;
+    box-sizing: content-box;
+    overflow: hidden;
+    max-height: 200px;
+
+    .hideButton {
+      position: absolute;
+      padding-left: 0;
+      right: 10px;
+      top: 10px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
+

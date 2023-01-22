@@ -3,17 +3,17 @@ import BackButtonContext from "../../Context/BackButton";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import * as Scroll from "react-scroll";
-import { TrajectoryType } from "../../types";
 import PercentProgress from "../../components/PercentProgress";
 import "./index.scss";
 import { BASE_URL } from "../../constants";
 import Close from "../../images/icons/close";
 import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
-import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
+import TrajectorySkeleton from "../../components/TrajectoryPreview/TrajectoryPreviewSkeleton";
+import TrajectoryPreview from "../../components/TrajectoryPreview";
 
 // CONSTANTS
 
@@ -35,14 +35,14 @@ const randomFeedback = {
 // DEFAULT FUNCTIONS
 
 const Trajectories = () => {
-  const { group_id } = useContext<any>(FeedbackGroupIdContext);
+  // const { group_id } = useContext<any>(FeedbackGroupIdContext);
   // const [width, setWidth] = useState(0);
   const [trajectories, setTrajectories] = useState([]);
   // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams] = useSearchParams();
   const [responseError, setResponseError] = useState<unknown>()
-  const navigate = useNavigate();
+
   useEffect(() => {
     changeBg("#F1F2F8");
     const professionId = withLocalStorage({ professionId: null }, LocalStorageInteraction.load).professionId;

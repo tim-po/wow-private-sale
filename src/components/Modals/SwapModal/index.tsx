@@ -63,6 +63,7 @@ const SwapModal = (props: SwapModalPropType) => {
       }
     }
   };
+
   const deckHideBlock = () =>{
     setCardHeight(0)
     if (cardHeight ===50){
@@ -84,6 +85,7 @@ const SwapModal = (props: SwapModalPropType) => {
       onTouchStart={touchStart}
       onTouchMove={touchMove}
       onTouchEnd={touchEnd}
+      onClick={isMobile ? ()=> cardHeight !== 250 ? setCardHeight(250) :setCardHeight(50) : undefined}
       ref={elementRef}
       style={{ height: `${isMobile ? `${cardHeight}px` : `${cardHeight}px`}`}}
     >

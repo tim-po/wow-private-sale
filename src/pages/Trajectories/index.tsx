@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import BgContext from "../../Context/Background";
 import BackButtonContext from "../../Context/BackButton";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import * as Scroll from "react-scroll";
-import { TrajectoryType } from "../../types";
 import PercentProgress from "../../components/PercentProgress";
 import "./index.scss";
 import { BASE_URL } from "../../constants";
 import Close from "../../images/icons/close";
 import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
-import FeedbackGroupIdContext from "../../Context/IdGroup";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
-import TrajectoryPreview from "../../components/TrajectoryPreview";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 import TrajectorySkeleton from "../../components/TrajectoryPreview/TrajectoryPreviewSkeleton";
+import TrajectoryPreview from "../../components/TrajectoryPreview";
 
 // CONSTANTS
 
@@ -36,30 +35,29 @@ const randomFeedback = {
 // DEFAULT FUNCTIONS
 
 const Trajectories = () => {
-  const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  const [trajectories, setTrajectories] = useState<TrajectoryType[]>([]);
-  const { setBg } = useContext(BgContext);
+  // const { group_id } = useContext<any>(FeedbackGroupIdContext);
+  // const [width, setWidth] = useState(0);
+  const [trajectories, setTrajectories] = useState([]);
+  // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams] = useSearchParams();
+  const [responseError, setResponseError] = useState<unknown>()
 
   useEffect(() => {
-    setBg("#F1F2F8");
-
-    const professionId = withLocalStorage(
-      { professionId: null },
-      LocalStorageInteraction.load
-    ).professionId;
-    setNewBackButtonProps(
-      "Выбор ключевых слов и пресетов",
-      `/professionDetails?view=main&id=${professionId}`
-    );
+    changeBg("#F1F2F8");
+    const professionId = withLocalStorage({ professionId: null }, LocalStorageInteraction.load).professionId;
+    setNewBackButtonProps("Выбор ключевых слов и пресетов", `/professionDetails?view=main&id=${professionId}`);
     if (trajectories.length === 0) {
-      const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
-      axios
-        .get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(",")}`)
-        .then((res) => {
+      try{
+        const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
+        // setTrajectoriesIds(trajectoryIds);
+        axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
           setTrajectories(res.data);
-        });
+        }).catch(e =>setResponseError(e))
+      } catch (e){
+        setResponseError(e)
+      }
+
     }
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
@@ -67,6 +65,10 @@ const Trajectories = () => {
     updateStickyBlocks();
   }, []);
 
+
+  if(responseError){
+    return <NotFound/>
+  }
 
   return (
     <div className="pb-3">

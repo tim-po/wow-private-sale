@@ -144,7 +144,6 @@ input:focus {
 
 .subheader {
   z-index: 110;
-  background: white;
   width: 100%;
   padding-bottom: 8px;
   padding-top: 8px;
@@ -153,6 +152,9 @@ input:focus {
   font-size: 16px;
   line-height: 22px;
   color: #1F1F22;
+
+  background-color: var(--bg-color);
+  transition: var(--bg-transition);
 }
 
 .subheader.top {

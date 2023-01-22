@@ -6,7 +6,8 @@
   line-height: 24px;
   margin: 0 0 20px ;
   z-index: 1500;
-  background: rgb(241, 242, 248);
+  background: var(--bg-color);
+  transition: var(--bg-transition);
 }
 
 .animationWrap {

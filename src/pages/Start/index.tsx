@@ -1,21 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
-import * as Scroll from 'react-scroll';
-import {Link} from "react-router-dom";
-import './index.scss'
-import BgContext from "../../Context/Background";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./index.scss";
 import ImgMainLetterB from "images/icons/Static/imgMainLetterB";
 import ImgMainLetterA from "../../images/icons/Static/imgMainLetterA";
 import ImgMainLetterC from "images/icons/Static/imgMainLetterC";
 import Stars from "../../images/icons/Static/stars";
 import Wave from "images/icons/Static/wave";
 import ManOnHomepage from "../../images/icons/manOnHomepage";
-import {scrollToElement} from "../../utils/scrollToElement";
+import { scrollToElement } from "../../utils/scrollToElement";
+import { changeBg } from "../../utils/background";
 
 const Start = () => {
-  const {setBg} = useContext(BgContext);
 
   useEffect(() => {
-    setBg('#F1F2F8')
+    changeBg('#F1F2F8')
   }, [])
 
   return (
@@ -34,7 +32,9 @@ const Start = () => {
                 <Link to="/professions" className="LinkProfession MainButton">
                   Поехали!
                 </Link>
-                <button onClick={()=> scrollToElement('scrollToAbout')} className="SecondaryButton">Это как?</button>
+                <button onClick={()=>
+                  scrollToElement('scrollToAbout')
+                } className="SecondaryButton">Это как?</button>
               </div>
             </div>
             <div className="d-flex flex-column justify-content-center ImgMain Stars">

@@ -5,7 +5,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
-import BgContext from "../../Context/Background";
 import axios from "axios";
 import { BASE_URL } from "../../constants";
 import LoadingScreen from "../../components/LoadingScreen";
@@ -18,6 +17,8 @@ import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import Hints from "../../components/hints";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
 const randomFeedbackSelectOptions = [
   'Поиск ключевых слов 🔎️',
@@ -36,12 +37,13 @@ const Trajectory = () => {
   const navigate = useNavigate()
   const hintSemester = useRef<HTMLDivElement>(null);
   const hintDiscipline = useRef<HTMLDivElement>(null);
-  const {setBg} = useContext(BgContext)
   const {setNewBackButtonProps} = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
   const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
+
+  const [responseError, setResponseError] = useState<number>()
 
   const courseQuery = +(searchParams.get('course') || '1')
   useEffect(() => {
@@ -59,7 +61,7 @@ const Trajectory = () => {
   useEffect(() => {
     setNewBackButtonProps("Все траектории", `trajectories?ids=${withLocalStorage({chosenTrajectoriesIds: []}, LocalStorageInteraction.load).chosenTrajectoriesIds}`)
     getTrajectory()
-    setBg('white')
+    changeBg('white')
 
     let scroll = Scroll.animateScroll
     scroll.scrollToTop();
@@ -72,7 +74,13 @@ const Trajectory = () => {
       if (response.status === 200) {
         setTrajectory(response.data)
       }
+    }).catch((e)=>{
+      setResponseError(e.response.status)
     })
+  }
+
+  if(courseQuery > 5 || courseQuery < 1 || responseError === 404 || !+(searchParams.get('course') ?? '')) {
+    return <NotFound/>
   }
 
   if (!trajectory) {
@@ -84,10 +92,10 @@ const Trajectory = () => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
       if (course === 5) {
-        setBg('#F1F2F8')
+        changeBg('#F1F2F8')
 
       } else {
-        setBg('white')
+        changeBg('white')
       }
     }
   }

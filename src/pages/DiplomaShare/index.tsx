@@ -1,46 +1,44 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import {BASE_URL, colors} from "../../constants";
-import './index.scss';
-import BgContext from "Context/Background";
-import {KeywordType} from "types";
+import { BASE_URL, colors } from "../../constants";
+import "./index.scss";
+import { KeywordType } from "types";
 import ModalsContext from "Context/Modal";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import Link from 'components/Link';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Link from "components/Link";
 import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
-import {makeKeywordsArray} from "utils/makeKeywordsArray";
+import { makeKeywordsArray } from "utils/makeKeywordsArray";
 import Card from "components/DiplomaGeneral/Card";
 import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
-import {DiplomaShareDataType} from "types"
+import { DiplomaShareDataType } from "types";
 import Like from "images/icons/Static/like";
 import DisciplinesModal from "components/Modals/DisciplinesModal";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
-type DiplomaSharePropType = {}
-
-const DiplomaShareDefaultProps = {}
 
 const DiplomaShare = () => {
-  const {setBg} = useContext(BgContext)
-  const {displayModal} = useContext(ModalsContext)
+  const { displayModal } = useContext(ModalsContext);
 
   const cardRef = useRef();
 
   const [diplomaShareData, setDiplomaShareData] = useState<DiplomaShareDataType | undefined>(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
+  const [error, setError] = useState<unknown>(null);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
 
   const getDiplomaShareData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/share/`)
-      setDiplomaShareData(response.data)
+      const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get("id")}/share/`);
+      setDiplomaShareData(response.data);
     } catch (e) {
-      console.log(e)
+      setError(e);
     }
-  }
+  };
 
   const getDeclension = (count: number) => {
     count %= 100;
@@ -55,31 +53,37 @@ const DiplomaShare = () => {
       return "предмета";
     }
     return "предметов";
-  }
+  };
 
   useEffect(() => {
-    getDiplomaShareData()
-    setBg('#F1F2F8')
-  }, [])
+    getDiplomaShareData();
+    changeBg("#F1F2F8");
+  }, []);
 
   useEffect(() => {
     if (diplomaShareData && diplomaShareData.main_keywords.length) {
-      const keywordsArray = makeKeywordsArray(diplomaShareData.main_keywords)
-      setKeywords(keywordsArray)
+      const keywordsArray = makeKeywordsArray(diplomaShareData.main_keywords);
+      setKeywords(keywordsArray);
     }
-  }, [diplomaShareData])
+  }, [diplomaShareData]);
+
+  if (error) {
+    return <NotFound />;
+  }
 
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
         <h5
-          className="mb-0 titleShare">Траектория построена для {searchParams.get('name') ? searchParams.get('name') : 'анонимного будущего студента'}</h5>
+          className="mb-0 titleShare">Траектория построена
+          для {searchParams.get("name") ? searchParams.get("name") : "анонимного будущего студента"}</h5>
         <div>
         </div>
       </div>
       <div className="DiplomaContainerShare">
         <div className="DiplomaCardShareLeft">
-          <Description iconUrl={'/static/school.svg'} title={diplomaShareData ? diplomaShareData.educational_plan : ''}/>
+          <Description iconUrl={"/static/school.svg"}
+                       title={diplomaShareData ? diplomaShareData.educational_plan : ""} />
           <Keywords
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
@@ -89,12 +93,12 @@ const DiplomaShare = () => {
             modalHeight={250}
             elementRef={cardRef}
             classes={[
-              'diplomaCardAbout',
+              "diplomaCardAbout"
             ]}
           >
             <div className="row">
               <div className="likes-icon">
-                <Like/>
+                <Like />
               </div>
               <div className="col">
                 <div className="mb-2">
@@ -103,14 +107,15 @@ const DiplomaShare = () => {
                 </div>
                 <div className="buttons-wrapper">
                   <Button
-                    buttonStyle={'secondary'}
-                    onClick={() => navigate('/')}
+                    buttonStyle={"secondary"}
+                    onClick={() => navigate("/")}
                     isDisabled={false}
-                    classNames={['mobile-button']}
+                    classNames={["mobile-button"]}
                   >
                     <span>Хочу так же</span>
                   </Button>
-                  <Link href={diplomaShareData ? diplomaShareData.educational_plan.replace('', '+') : ''}>Читать больше на abit.itmo.ru</Link>
+                  <Link href={diplomaShareData ? diplomaShareData.educational_plan.replace("", "+") : ""}>Читать больше
+                    на abit.itmo.ru</Link>
                 </div>
               </div>
             </div>
@@ -119,7 +124,7 @@ const DiplomaShare = () => {
         <div className="MargTopMobil">
           <div className="DiplomaCard mb-4">
             <div className="d-flex flexColumn DiplomaDisciplinesCard">
-              <div className="LineImg"/>
+              <div className="LineImg" />
               {diplomaShareData?.courses.map((course: any) => (
                 <div className="flex-grow-1 mr-3 blockShare" key={course.course}>
                   <p
@@ -140,7 +145,7 @@ const DiplomaShare = () => {
                         name={item.name}
                         title={item.name}
                         subtitle={item.disciplines_count}
-                        classNames={['mobile-card-share']}
+                        classNames={["mobile-card-share"]}
                       />
                     ))}
                   </div>
@@ -151,10 +156,8 @@ const DiplomaShare = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
-DiplomaShare.defaultProps = DiplomaShareDefaultProps
-
-export default DiplomaShare
+export default DiplomaShare;
 

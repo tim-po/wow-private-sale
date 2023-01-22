@@ -17,14 +17,15 @@ export const useProfession = (id: string) => {
   const [displayKeywords, setDisplayKeywords] = useState<KeywordType[]>([]);
   const [allSelectedKeywordIds, setAllSelectedKeywordIds] = useState<string[]>([]);
 
+  const [error, setError] = useState<unknown>(null)
+
   useEffect(() => {
     setIsFirstRender(false)
   }, [])
 
   //<editor-fold desc="Getters">
   const getProfession = async (id: string) => {
-    const response = await axios.get(`${BASE_URL}professions/${id}/`)
-    setProfession(response.data)
+    await axios.get(`${BASE_URL}professions/${id}/`).then(({data})=>setProfession(data)).catch(setError)
 
     const {addedKeywords} = withLocalStorage({addedKeywords: []}, LocalStorageInteraction.load)
     setAddedKeywords(addedKeywords)
@@ -33,16 +34,15 @@ export const useProfession = (id: string) => {
   }
 
   const getPresets = async () => {
-    const response = await axios.get(`${BASE_URL}presets/`)
-    setPresets(response.data)
+    await axios.get(`${BASE_URL}presets/`).then(({data})=>setPresets(data)).catch(setError)
 
     const selectedPresetIds = withLocalStorage({selectedPresetIds: []}, LocalStorageInteraction.load).selectedPresetIds
     setSelectedPresetIds(selectedPresetIds)
   }
 
   useEffect(() => {
-    getProfession(id)
-    getPresets()
+      getProfession(id)
+      getPresets()
   }, [])
   //</editor-fold>
 
@@ -172,6 +172,7 @@ export const useProfession = (id: string) => {
         addBulk: addKeywordsBulk,
         remove: removeKeyword,
         clear: clearKeywords
-      }
+      },
+    error: error
   }
 }

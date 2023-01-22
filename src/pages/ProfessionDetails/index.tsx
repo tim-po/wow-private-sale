@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import BgContext from "../../Context/Background";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
 import BackButtonContext from "../../Context/BackButton";
@@ -21,6 +20,8 @@ import ModalsContext from "../../Context/Modal";
 import { isMobile } from "react-device-detect";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import Hints from "../../components/hints";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 // import { findDOMNode } from "react-dom";
 // @ts-ignore
 // CONSTANTS
@@ -28,19 +29,19 @@ import Hints from "../../components/hints";
 // DEFAULT FUNCTIONS
 
 const ProfessionDetails = () => {
-  const navigate = useNavigate();
-  const { setBg } = useContext(BgContext);
-  const { setNewBackButtonProps } = useContext(BackButtonContext);
-  const { displayModal } = useContext(ModalsContext);
+  const navigate = useNavigate()
+  const {setNewBackButtonProps} = useContext(BackButtonContext)
+  const {displayModal} = useContext(ModalsContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
-  const [searchParams] = useSearchParams();
-  const { profession, presets, keywords } = useProfession(searchParams.get("id") || "");
+  const [searchParams] = useSearchParams()
+
+  const {profession, presets, keywords, error} = useProfession(searchParams.get('id') || '')
 
   const [isLoading, setIsLoading] = useState(false);
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
-    setBg("white");
+    changeBg('white');
 
     if (searchParams.get("view") === "main") {
       setNewBackButtonProps("Все профессии", "/professions");
@@ -134,8 +135,9 @@ const ProfessionDetails = () => {
   const hintEditKeywords = useRef<HTMLButtonElement>(null);
   const hintEditPresets = useRef<HTMLButtonElement>(null);
   // const hintEditKeyword = findDOMNode(hintEditKeywords);
-  console.log(hintEditKeywords.current, 333);
-
+  if(error || !searchParams.get('view') || !['keywords', 'skills', 'main'].includes(searchParams.get('view') ?? '')){
+    return <NotFound/>
+  }
   return (
     <div className="professionDetails">
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">

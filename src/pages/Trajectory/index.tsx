@@ -27,9 +27,7 @@ const randomFeedbackSelectOptions = [
   "Все понятно 👌",
 ];
 
-type TrajectoryPropType = {
-}
-
+type TrajectoryPropType = {};
 
 const Trajectory = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext);
@@ -38,15 +36,19 @@ const Trajectory = () => {
   const navigate = useNavigate();
   const hintSemester = useRef<HTMLDivElement>(null);
   const hintDiscipline = useRef<HTMLDivElement>(null);
-  const {setNewBackButtonProps} = useContext(BackButtonContext)
-  const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
-  const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
-  const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
-  const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
+  const { setNewBackButtonProps } = useContext(BackButtonContext);
+  const [selectorLeftOffset, setSelectorLeftOffset] = useState("0px");
+  const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(
+    undefined
+  );
+  const [selectedSphere, setSelectedSphere] = useState<string | undefined>(
+    undefined
+  );
+  const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true);
 
-  const [responseError, setResponseError] = useState<number>()
+  const [responseError, setResponseError] = useState<number>();
 
-  const courseQuery = +(searchParams.get('course') || '1')
+  const courseQuery = +(searchParams.get("course") || "1");
   useEffect(() => {
     const courseNumber = searchParams.get("course");
     let widthOfCourceLabel = 80;
@@ -59,26 +61,42 @@ const Trajectory = () => {
   }, [isMobile, searchParams.get("course")]);
 
   useEffect(() => {
-    setNewBackButtonProps("Все траектории", `trajectories?ids=${withLocalStorage({chosenTrajectoriesIds: []}, LocalStorageInteraction.load).chosenTrajectoriesIds}`)
-    getTrajectory()
-    changeBg('white')
+    setNewBackButtonProps(
+      "Все траектории",
+      `trajectories?ids=${
+        withLocalStorage(
+          { chosenTrajectoriesIds: [] },
+          LocalStorageInteraction.load
+        ).chosenTrajectoriesIds
+      }`
+    );
+    getTrajectory();
+    changeBg("white");
 
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
   }, []);
 
   const getTrajectory = () => {
-    axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
-      if (response.status === 200) {
-        setTrajectory(response.data)
-      }
-    }).catch((e)=>{
-      setResponseError(e.response.status)
-    })
-  }
+    axios
+      .get(`${BASE_URL}trajectories/${searchParams.get("id")}/`)
+      .then((response) => {
+        if (response.status === 200) {
+          setTrajectory(response.data);
+        }
+      })
+      .catch((e) => {
+        setResponseError(e.response.status);
+      });
+  };
 
-  if(courseQuery > 5 || courseQuery < 1 || responseError === 404 || !+(searchParams.get('course') ?? '')) {
-    return <NotFound/>
+  if (
+    courseQuery > 5 ||
+    courseQuery < 1 ||
+    responseError === 404 ||
+    !+(searchParams.get("course") ?? "")
+  ) {
+    return <NotFound />;
   }
 
   if (!trajectory) {
@@ -89,10 +107,9 @@ const Trajectory = () => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`);
       if (course === 5) {
-        changeBg('#F1F2F8')
-
+        changeBg("#F1F2F8");
       } else {
-        changeBg('white')
+        changeBg("white");
       }
     }
   };
@@ -165,7 +182,7 @@ const Trajectory = () => {
           </button>
         </div>
       </div>
-      {courseQuery !== 5 &&
+      {courseQuery !== 5 && (
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
             className="Mobile"
@@ -236,7 +253,5 @@ const Trajectory = () => {
     </div>
   );
 };
-
-export default Trajectory
 
 export default Trajectory;

@@ -18,7 +18,6 @@ import DisciplinesModal from "components/Modals/DisciplinesModal";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
 
-
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext);
 
@@ -32,10 +31,11 @@ const DiplomaShare = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-
   const getDiplomaShareData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get("id")}/share/`);
+      const response = await axios.get(
+        `${BASE_URL}trajectories/${searchParams.get("id")}/share/`
+      );
       setDiplomaShareData(response.data);
     } catch (e) {
       setError(e);
@@ -76,16 +76,20 @@ const DiplomaShare = () => {
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
-        <h5
-          className="mb-0 titleShare">Траектория построена
-          для {searchParams.get("name") ? searchParams.get("name") : "анонимного будущего студента"}</h5>
-        <div>
-        </div>
+        <h5 className="mb-0 titleShare">
+          Траектория построена для{" "}
+          {searchParams.get("name")
+            ? searchParams.get("name")
+            : "анонимного будущего студента"}
+        </h5>
+        <div></div>
       </div>
       <div className="DiplomaContainerShare">
         <div className="DiplomaCardShareLeft">
-          <Description iconUrl={"/static/school.svg"}
-                       title={diplomaShareData ? diplomaShareData.educational_plan : ""} />
+          <Description
+            iconUrl={"/static/school.svg"}
+            title={diplomaShareData ? diplomaShareData.educational_plan : ""}
+          />
           <Keywords
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
@@ -94,9 +98,7 @@ const DiplomaShare = () => {
           <SwapModal
             modalHeight={250}
             elementRef={cardRef}
-            classes={[
-              "diplomaCardAbout"
-            ]}
+            classes={["diplomaCardAbout"]}
           >
             <div className="row">
               <div className="likes-icon">
@@ -119,8 +121,15 @@ const DiplomaShare = () => {
                   >
                     <span>Хочу так же</span>
                   </Button>
-                  <Link href={diplomaShareData ? diplomaShareData.educational_plan.replace("", "+") : ""}>Читать больше
-                    на abit.itmo.ru</Link>
+                  <Link
+                    href={
+                      diplomaShareData
+                        ? diplomaShareData.educational_plan.replace("", "+")
+                        : ""
+                    }
+                  >
+                    Читать больше на abit.itmo.ru
+                  </Link>
                 </div>
               </div>
             </div>
@@ -170,7 +179,5 @@ const DiplomaShare = () => {
     </div>
   );
 };
-
-export default DiplomaShare;
 
 export default DiplomaShare;

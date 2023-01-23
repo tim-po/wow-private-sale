@@ -79,7 +79,7 @@ const GenericModal = (props: GenericModalPropType) => {
         <div
           className={`d-block TextCenter ${blockContent ? "active" : ""}`}
           style={
-            isMobile && modalNumber
+            isMobile && modalNumber && blockContent
               ? {
                   maxHeight: `calc(100% - ${
                     currentLastModals?.getBoundingClientRect().top

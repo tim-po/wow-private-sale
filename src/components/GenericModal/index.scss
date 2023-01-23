@@ -176,6 +176,7 @@
   }
   .ModalContainer .ModalContainer.active .d-block{
     overflow-y: scroll;
+    height: 0;
     max-height: calc(100% - 130px);
   }
   .ModalContainer{

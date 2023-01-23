@@ -19,6 +19,7 @@ type GenericModalPropType = {
   colorCloseWhite: boolean;
   children: React.ReactNode | React.ReactNode[];
   modal: boolean;
+  modalCount: number;
   modalNumber?: number;
   refLastModals?: React.RefObject<HTMLDivElement> | undefined;
   lengthListModalComponent?: number;
@@ -39,6 +40,7 @@ const GenericModal = (props: GenericModalPropType) => {
     children,
     modal,
     modalNumber,
+    modalCount,
     refLastModals,
     currentLastModals,
   } = props;
@@ -79,13 +81,27 @@ const GenericModal = (props: GenericModalPropType) => {
         <div
           className={`d-block TextCenter ${blockContent ? "active" : ""}`}
           style={
-            isMobile && modalNumber && blockContent
-              ? {
-                  maxHeight: `calc(100% - ${
-                    currentLastModals?.getBoundingClientRect().top
-                  }px - 60px)`,
-                }
+            isMobile
+              ? modalNumber && blockContent
+                ? {
+                    maxHeight: `calc(100% - ${
+                      currentLastModals?.getBoundingClientRect().top
+                    }px - 60px)`,
+                  }
+                : !modalNumber && blockContent && modalCount > 1
+                ? {
+                    transform: "scaleX(0.98)",
+                  }
+                : {}
               : {}
+
+            // isMobile && modalNumber && blockContent
+            //   ? {
+            //       maxHeight: `calc(100% - ${
+            //         currentLastModals?.getBoundingClientRect().top
+            //       }px - 60px)`,
+            //     }
+            //   : {}
           }
         >
           <div className={"wrapHeaderModal"}>

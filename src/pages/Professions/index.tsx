@@ -7,17 +7,11 @@ import axios from "axios";
 import { Profession } from "../../types";
 import ProfessionCard from "components/ProfessionCard";
 import "./index.scss";
-import BgContext from "../../Context/Background";
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from "../../utils/general";
+import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
 import Close from "../../images/icons/close";
 import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
 import { updateStickyBlocks } from "../../utils/stickyHeaders";
-import TrajectoryStats from "../../components/trajectory/TrajectoryStats";
-import ModalContext from "../../Context/Modal";
+import { changeBg } from "../../utils/background";
 // import FeedbackForm from
 
 // CONSTANTS
@@ -25,12 +19,10 @@ import ModalContext from "../../Context/Modal";
 // DEFAULT FUNCTIONS
 
 const Professions = () => {
-  const { setIsHeaderAnimated } = useContext(HeaderContext);
-  const navigate = useNavigate();
-  const { setBg } = useContext(BgContext);
-  const [professionsWithCustomSvg, setProfessionsWithCustomSvg] = useState<
-    Profession[]
-  >([]);
+
+  const {setIsHeaderAnimated} = useContext(HeaderContext)
+  const navigate = useNavigate()
+  const [professionsWithCustomSvg, setProfessionsWithCustomSvg] = useState<Profession[]>([]);
   const [isProfessionsLoading, setIsProfessionsLoading] = useState(true);
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false);
   const [isFeedbackFormVisible, setIsFeedbackFormVisible] = useState(false);
@@ -76,7 +68,7 @@ const Professions = () => {
   };
 
   useEffect(() => {
-    setBg("white");
+    changeBg('white')
     getProfessions().then(() => {
       setTimeout(() => setIsFeedbackPopupVisible(true), 2000);
     });

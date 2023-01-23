@@ -1,22 +1,20 @@
-import React, { useContext, useEffect, useState} from "react";
-import './index.scss'
-import {useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import "./index.scss";
+import { useNavigate } from "react-router-dom";
 import BackButtonContext from "../../Context/BackButton";
 import HeaderContext from "../../Context/Header";
 import Logo from "images/icons/Static/logo";
-import {createStickyBlock} from "../../utils/stickyHeaders";
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
 type HeaderPropType = {
-  left: boolean,
-  style: any
+  left: boolean
 }
 
 const Header = (props: HeaderPropType) => {
-  const {left, style} = props;
+  const {left} = props;
   const leftBlocks = ['/professions', '/', '/diplomaShare']
   const [isHeaderPreAnimated, setIsHeaderPreAnimated] = useState(leftBlocks.includes(window.location.pathname))
 
@@ -48,10 +46,9 @@ const Header = (props: HeaderPropType) => {
     navigate(backButtonHref)
   }
   return (
-    <div className="Content" style={style}>
+    <div className="Content">
       <div className="Header">
         <div
-          style={style}
           className={`TrajectoriesLinkBack ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
           onClick={goBack}
         >
@@ -65,7 +62,9 @@ const Header = (props: HeaderPropType) => {
         <div
           className={`Logo ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
         >
-          <div className="LogoImg" onClick={() => navigate('/')}><Logo/></div>
+          <div className="LogoImg" onClick={() => navigate('/')}>
+            <Logo/>
+          </div>
           <h2 className="LogoText">ITMO.TRACK</h2>
         </div>
       </div>

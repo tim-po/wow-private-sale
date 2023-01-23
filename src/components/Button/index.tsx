@@ -6,11 +6,11 @@ type ButtonPropType = {
   buttonStyle: 'secondary' | 'main',
   onClick: () => void,
   children: React.ReactNode,
-  isDisabled: boolean,
+  isDisabled?: boolean,
   classNames?: string[]
 }
 
-const StyledButton = styled.button<{ buttonStyle: 'secondary' | 'main', isDisabled: boolean }>`
+const StyledButton = styled.button<{ buttonStyle: 'secondary' | 'main', isDisabled?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;

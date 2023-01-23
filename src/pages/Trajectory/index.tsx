@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ClassType, CourseType, TrajectoryType } from "../../types";
+import { TrajectoryType } from "../../types";
 import Diploma from "../Diploma";
-import { useHref, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import CourseSelector from "../../components/trajectory/CourseSelector";
 import BackButtonContext from "../../Context/BackButton";
-import BgContext from "../../Context/Background";
 import axios from "axios";
 import { BASE_URL } from "../../constants";
 import LoadingScreen from "../../components/LoadingScreen";
@@ -17,8 +16,9 @@ import "./index.scss";
 import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-import TrajectoryOnboardingModal from "components/Modals/TrajectoryOnboardingModal";
 import Hints from "../../components/hints";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
 const randomFeedbackSelectOptions = [
   "Поиск ключевых слов 🔎️",
@@ -28,32 +28,25 @@ const randomFeedbackSelectOptions = [
 ];
 
 type TrajectoryPropType = {
-  somePropWithDefaultOption?: string;
-};
+}
 
-const TrajectoryDefaultProps = {
-  somePropWithDefaultOption: "default value",
-};
 
-const Trajectory = (props: TrajectoryPropType) => {
+const Trajectory = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext);
   const [searchParams] = useSearchParams();
   const { displayModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const hintSemester = useRef<HTMLDivElement>(null);
   const hintDiscipline = useRef<HTMLDivElement>(null);
-  const { setBg } = useContext(BgContext);
-  const { setNewBackButtonProps } = useContext(BackButtonContext);
-  const [selectorLeftOffset, setSelectorLeftOffset] = useState("0px");
-  const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(
-    undefined
-  );
-  const [selectedSphere, setSelectedSphere] = useState<string | undefined>(
-    undefined
-  );
-  const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true);
+  const {setNewBackButtonProps} = useContext(BackButtonContext)
+  const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px');
+  const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined);
+  const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined);
+  const [isModalTrajectory, setIsModalTrajectory] =  useState<boolean>(true)
 
-  const courseQuery = +(searchParams.get("course") || "1");
+  const [responseError, setResponseError] = useState<number>()
+
+  const courseQuery = +(searchParams.get('course') || '1')
   useEffect(() => {
     const courseNumber = searchParams.get("course");
     let widthOfCourceLabel = 80;
@@ -66,31 +59,27 @@ const Trajectory = (props: TrajectoryPropType) => {
   }, [isMobile, searchParams.get("course")]);
 
   useEffect(() => {
-    setNewBackButtonProps(
-      "Все траектории",
-      `trajectories?ids=${
-        withLocalStorage(
-          { chosenTrajectoriesIds: [] },
-          LocalStorageInteraction.load
-        ).chosenTrajectoriesIds
-      }`
-    );
-    getTrajectory();
-    setBg("white");
+    setNewBackButtonProps("Все траектории", `trajectories?ids=${withLocalStorage({chosenTrajectoriesIds: []}, LocalStorageInteraction.load).chosenTrajectoriesIds}`)
+    getTrajectory()
+    changeBg('white')
 
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
   }, []);
 
   const getTrajectory = () => {
-    axios
-      .get(`${BASE_URL}trajectories/${searchParams.get("id")}/`)
-      .then((response) => {
-        if (response.status === 200) {
-          setTrajectory(response.data);
-        }
-      });
-  };
+    axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/`).then((response) => {
+      if (response.status === 200) {
+        setTrajectory(response.data)
+      }
+    }).catch((e)=>{
+      setResponseError(e.response.status)
+    })
+  }
+
+  if(courseQuery > 5 || courseQuery < 1 || responseError === 404 || !+(searchParams.get('course') ?? '')) {
+    return <NotFound/>
+  }
 
   if (!trajectory) {
     return <LoadingScreen isLoading={true} header={"Траектория загружается"} />;
@@ -100,9 +89,10 @@ const Trajectory = (props: TrajectoryPropType) => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`);
       if (course === 5) {
-        setBg("#F1F2F8");
+        changeBg('#F1F2F8')
+
       } else {
-        setBg("white");
+        changeBg('white')
       }
     }
   };
@@ -128,14 +118,6 @@ const Trajectory = (props: TrajectoryPropType) => {
     );
   };
 
-  // useEffect(()=>{
-  //   if(isMobile){
-  //
-  //   }
-  // },[isMobile])
-  const openDisciplineModal = () => {
-    // displayModal(<TrajectoryDisciplineModal/>)
-  };
   return (
     <div className="TrajectoryPage">
       <div className="titleNameDiscipline">
@@ -183,9 +165,7 @@ const Trajectory = (props: TrajectoryPropType) => {
           </button>
         </div>
       </div>
-      {/*<hr className="HeaderDivider"*/}
-      {/*    style={courseQuery === 5 ? {backgroundColor: '#FFFFFF'} : {backgroundColor: 'var(--gray-100)'}}/>*/}
-      {courseQuery !== 5 && (
+      {courseQuery !== 5 &&
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
             className="Mobile"
@@ -257,6 +237,6 @@ const Trajectory = (props: TrajectoryPropType) => {
   );
 };
 
-Trajectory.defaultProps = TrajectoryDefaultProps;
+export default Trajectory
 
 export default Trajectory;

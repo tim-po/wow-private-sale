@@ -19,30 +19,24 @@ export const useProfession = (id: string) => {
     []
   );
 
+  const [error, setError] = useState<unknown>(null)
+
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
 
   //<editor-fold desc="Getters">
   const getProfession = async (id: string) => {
-    const response = await axios.get(`${BASE_URL}professions/${id}/`);
-    setProfession(response.data);
+    await axios.get(`${BASE_URL}professions/${id}/`).then(({data})=>setProfession(data)).catch(setError)
 
-    const { addedKeywords } = withLocalStorage(
-      { addedKeywords: [] },
-      LocalStorageInteraction.load
-    );
-    setAddedKeywords(addedKeywords);
-    const { removedKeywords } = withLocalStorage(
-      { removedKeywords: [] },
-      LocalStorageInteraction.load
-    );
-    setRemovedKeywords(removedKeywords);
-  };
+    const {addedKeywords} = withLocalStorage({addedKeywords: []}, LocalStorageInteraction.load)
+    setAddedKeywords(addedKeywords)
+    const {removedKeywords} = withLocalStorage({removedKeywords: []}, LocalStorageInteraction.load)
+    setRemovedKeywords(removedKeywords)
+  }
 
   const getPresets = async () => {
-    const response = await axios.get(`${BASE_URL}presets/`);
-    setPresets(response.data);
+    await axios.get(`${BASE_URL}presets/`).then(({data})=>setPresets(data)).catch(setError)
 
     const selectedPresetIds = withLocalStorage(
       { selectedPresetIds: [] },
@@ -52,9 +46,9 @@ export const useProfession = (id: string) => {
   };
 
   useEffect(() => {
-    getProfession(id);
-    getPresets();
-  }, []);
+      getProfession(id)
+      getPresets()
+  }, [])
   //</editor-fold>
 
   const updateSelectedPresets = () => {
@@ -172,22 +166,25 @@ export const useProfession = (id: string) => {
 
   return {
     profession,
-    presets: {
-      all: presets,
-      selected: selectedPresets,
-      display: displayPresets,
-      select: selectPreset,
-      deSelect: deSelectPreset,
-      clear: clearPresets,
-    },
-    keywords: {
-      added: addedKeywords,
-      display: displayKeywords,
-      allIds: allSelectedKeywordIds,
-      add: addKeyword,
-      addBulk: addKeywordsBulk,
-      remove: removeKeyword,
-      clear: clearKeywords,
-    },
-  };
-};
+    presets:
+      {
+        all: presets,
+        selected: selectedPresets,
+        display: displayPresets,
+        select: selectPreset,
+        deSelect: deSelectPreset,
+        clear: clearPresets
+      },
+    keywords:
+      {
+        added: addedKeywords,
+        display: displayKeywords,
+        allIds: allSelectedKeywordIds,
+        add: addKeyword,
+        addBulk: addKeywordsBulk,
+        remove: removeKeyword,
+        clear: clearKeywords
+      },
+    error: error
+  }
+}

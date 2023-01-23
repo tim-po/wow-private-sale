@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { BASE_URL, colors } from "../../constants";
 import "./index.scss";
-import BgContext from "Context/Background";
 import { KeywordType } from "types";
 import ModalsContext from "Context/Modal";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -16,13 +15,11 @@ import SwapModal from "components/Modals/SwapModal";
 import { DiplomaShareDataType } from "types";
 import Like from "images/icons/Static/like";
 import DisciplinesModal from "components/Modals/DisciplinesModal";
+import { changeBg } from "../../utils/background";
+import NotFound from "../../components/NotFound";
 
-type DiplomaSharePropType = {};
-
-const DiplomaShareDefaultProps = {};
 
 const DiplomaShare = () => {
-  const { setBg } = useContext(BgContext);
   const { displayModal } = useContext(ModalsContext);
 
   const cardRef = useRef();
@@ -31,17 +28,18 @@ const DiplomaShare = () => {
     DiplomaShareDataType | undefined
   >(undefined);
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
-
+  const [error, setError] = useState<unknown>(null);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+
   const getDiplomaShareData = async () => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}trajectories/${searchParams.get("id")}/share/`
-      );
+      const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get("id")}/share/`);
       setDiplomaShareData(response.data);
-    } catch (e) {}
+    } catch (e) {
+      setError(e);
+    }
   };
 
   const getDeclension = (count: number) => {
@@ -61,7 +59,7 @@ const DiplomaShare = () => {
 
   useEffect(() => {
     getDiplomaShareData();
-    setBg("#F1F2F8");
+    changeBg("#F1F2F8");
   }, []);
 
   useEffect(() => {
@@ -71,23 +69,23 @@ const DiplomaShare = () => {
     }
   }, [diplomaShareData]);
 
+  if (error) {
+    return <NotFound />;
+  }
+
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
-        <h5 className="mb-0 titleShare">
-          Траектория построена для{" "}
-          {searchParams.get("name")
-            ? searchParams.get("name")
-            : "анонимного будущего студента"}
-        </h5>
-        <div></div>
+        <h5
+          className="mb-0 titleShare">Траектория построена
+          для {searchParams.get("name") ? searchParams.get("name") : "анонимного будущего студента"}</h5>
+        <div>
+        </div>
       </div>
       <div className="DiplomaContainerShare">
         <div className="DiplomaCardShareLeft">
-          <Description
-            iconUrl={"/static/school.svg"}
-            title={diplomaShareData ? diplomaShareData.educational_plan : ""}
-          />
+          <Description iconUrl={"/static/school.svg"}
+                       title={diplomaShareData ? diplomaShareData.educational_plan : ""} />
           <Keywords
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
@@ -96,7 +94,9 @@ const DiplomaShare = () => {
           <SwapModal
             modalHeight={250}
             elementRef={cardRef}
-            classes={["diplomaCardAbout"]}
+            classes={[
+              "diplomaCardAbout"
+            ]}
           >
             <div className="row">
               <div className="likes-icon">
@@ -119,15 +119,8 @@ const DiplomaShare = () => {
                   >
                     <span>Хочу так же</span>
                   </Button>
-                  <Link
-                    href={
-                      diplomaShareData
-                        ? diplomaShareData.educational_plan.replace("", "+")
-                        : ""
-                    }
-                  >
-                    Читать больше на abit.itmo.ru
-                  </Link>
+                  <Link href={diplomaShareData ? diplomaShareData.educational_plan.replace("", "+") : ""}>Читать больше
+                    на abit.itmo.ru</Link>
                 </div>
               </div>
             </div>
@@ -178,6 +171,6 @@ const DiplomaShare = () => {
   );
 };
 
-DiplomaShare.defaultProps = DiplomaShareDefaultProps;
+export default DiplomaShare;
 
 export default DiplomaShare;

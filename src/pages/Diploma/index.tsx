@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./index.scss";
 import Description from "components/DiplomaGeneral/Description";
 import Keywords from "components/DiplomaGeneral/Keywords";
-import BgContext from "Context/Background";
 import axios from "axios";
 import { BASE_URL, colors } from "../../constants";
 import { makeKeywordsArray } from "utils/makeKeywordsArray";
@@ -19,16 +18,16 @@ import DisciplinesModal from "../../components/Modals/DisciplinesModal";
 import Share from "../../images/icons/share";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
-
 import { refactorName } from "../../components/refactorName";
-import FeedbackStatic from "../../components/Modals/feedback/feedbackStatic";
-type DiplomaPropType = {};
+import { changeBg } from "../../utils/background";
+
+type DiplomaPropType = {}
 
 const DiplomaDefaultProps = {};
 
 const Diploma = (props: DiplomaPropType) => {
-  const { setBg } = useContext(BgContext);
-  const { displayModal } = useContext(ModalsContext);
+  const {displayModal} = useContext(ModalsContext)
+
   const cardRef = useRef();
 
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(
@@ -58,7 +57,7 @@ const Diploma = (props: DiplomaPropType) => {
   };
 
   useEffect(() => {
-    setBg("#F1F2F8");
+    changeBg('#F1F2F8')
 
     getDiplomaData();
   }, []);

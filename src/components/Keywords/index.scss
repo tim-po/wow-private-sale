@@ -9,8 +9,8 @@
   border-radius: 8px;
 }
 
-.skeleton::after,
-.skeleton::before
+.skeleton:after,
+.skeleton:before,
 .skeleton div {
   opacity: 0;
 }
@@ -34,6 +34,34 @@
   40%, 100% {
     background-position: 390px
   }
+}
+
+.skeleton-v3 {
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
+
+  &::before{
+    content: '';
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    background: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+    animation: skeleton-animation 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+  }
+
+}
+
+@keyframes skeleton-animation {
+  from {
+    left: -200px;
+  } to {
+      left: 100%;
+    }
 }
 
 
@@ -116,7 +144,6 @@ input:focus {
 
 .subheader {
   z-index: 110;
-  background: white;
   width: 100%;
   padding-bottom: 8px;
   padding-top: 8px;
@@ -125,6 +152,9 @@ input:focus {
   font-size: 16px;
   line-height: 22px;
   color: #1F1F22;
+
+  background-color: var(--bg-color);
+  transition: var(--bg-transition);
 }
 
 .subheader.top {

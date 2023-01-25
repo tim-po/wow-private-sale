@@ -27,8 +27,9 @@ const CourseCard = (props: ICourseCardProps) => {
     }
       onMouseMove={(event) => {
         if (card.current) {
-          setPosition({ x: event.pageX - card.current.offsetLeft - 55, y: event.pageY-card.current.offsetTop -285})
-          console.log({x:event.pageX-card.current.offsetLeft-55, y:event.pageY-card.current.offsetTop-285})
+          const {left, top} = card.current.getBoundingClientRect()
+          setPosition({ x: event.clientX - left, y: event.clientY - top})
+          console.log({ x: event.clientX - left, y: event.clientY-top})
         }
       }}
 

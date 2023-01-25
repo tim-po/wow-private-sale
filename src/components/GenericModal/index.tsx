@@ -6,8 +6,6 @@ import Close from "../../images/icons/close";
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type GenericModalPropType = {
   // You should declare props like this, delete this if you don't need props
   hideMobile: boolean

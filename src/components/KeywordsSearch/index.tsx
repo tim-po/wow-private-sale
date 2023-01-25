@@ -153,6 +153,14 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             <img src="/static/bigBoss.png" alt="big_boss"/>
             <div>Не ругайся... Не поступишь</div>
           </div>
+        {/*{!isSearchUnsuccessful && !isBadWord &&*/}
+        {/*  <button*/}
+        {/*    onClick={addKeywords}*/}
+        {/*    className="buttonSecondary inModal"*/}
+        {/*  >*/}
+        {/*    Добавить*/}
+        {/*  </button>*/}
+        {/*}*/}
         </div>
       </div>
     </div>

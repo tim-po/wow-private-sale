@@ -10,15 +10,12 @@
   position: relative;
 }
 
-
-
 .TrajectoriesCardHeader{
   align-items: center;
   justify-content: space-between;
   display: flex;
   flex-direction: row;
 }
-
 
 .trajectoryHeader {
   font-weight: 700;
@@ -86,57 +83,6 @@
   }
 }
 
-
-.CourseCard {
-  padding: 20px;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  color: white;
-  border-radius: 16px;
-  cursor: pointer;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .CourseCardControlCard{
-    box-shadow: none !important;
-  }
-
-  &:hover {
-    box-shadow: inset 0 0 0 1px #ffffff;
-  }
-}
-
-.CourseCardHeader {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.keywordsWrapper {
-  //max-height: 82px;
-  overflow: hidden;
-}
-
-.keywordWrapper {
-  background: white;
-  color: #1f1f22;
-  font-weight: 500;
-  font-size: 12px;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-.ControlCardContainer{
-  display: flex;
-  gap: 8px;
-
-  .CourseCardControlCard{
-    text-align: left;
-  }
-}
-
 .TrajectoriesCardFooter{
   display: flex;
   align-items: center;
@@ -157,6 +103,7 @@
   text-decoration: underline;
   color: var(--gray);
 }
+
 
 .trajectories-bg-0 {
   background: #f18aa7;
@@ -194,6 +141,7 @@
   min-width: 440px;
   flex-shrink: 0;
   cursor: unset;
+  background-color: #ddd !important;
 
   &:hover{
     box-shadow: none;
@@ -255,35 +203,10 @@
   .ButtonAbit {
     order: 0;
   }
-  .CourseCardHeader{
-    font-family: 'Inter', serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px;
-  }
-  .keywordsWrapper{
-    flex-direction: row;
-    /*max-height: 112px;*/
-    max-height: min-content;
-    flex-wrap: wrap;
-  }
-  .keywordWrapper{
-    max-width: max-content;
-    line-height: 16px;
-  }
-  .ControlCardContainer{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 8px;
-    grid-row-gap: 8px;
-  }
   .listDisciplinesItem{
     margin-right: 0;
   }
-  .CourseCard{
-    min-width: 100%;
-  }
+
   .ScrollBtn{
     top: calc(91%);
   }
@@ -323,12 +246,5 @@
     color: #1F1F22;
     position: relative;
   }
-  .smallTitle{
-    font-family: 'Inter', serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    /* identical to box height, or 143% */
-    color: #FFFFFF;
-  }
+
 }

@@ -1,0 +1,119 @@
+//noinspection CssInvalidAtRule
+@property --p {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 10px;
+}
+
+.CourseCardWrapper{
+  background-color: var(--color-brand);
+}
+
+
+
+.CourseCard {
+  --p:0px;
+
+  padding: 20px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: white;
+  border-radius: 16px;
+  cursor: pointer;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  //background:radial-gradient(circle at 0 0,  rgba(255, 51, 247, 0.8) 0, var(--color-brand) 0) no-repeat border-box border-box var(--color-brand);
+  background: var(--color-brand);
+  transition: --p 0.3s linear;
+
+
+  .CourseCardControlCard{
+    box-shadow: none !important;
+  }
+
+  &:hover {
+    --p: 300px;
+    box-shadow: inset 0 0 0 1px #ffffff;
+  }
+}
+
+.CourseCardHeader {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.keywordsWrapper {
+  //max-height: 82px;
+  overflow: hidden;
+}
+.keywordWrapper {
+  background: white;
+  color: #1f1f22;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.ControlCardContainer{
+  display: flex;
+  gap: 8px;
+
+  .CourseCardControlCard{
+    text-align: left;
+  }
+}
+
+.mouseWatcher{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 51, 247, 0.8);
+  top: 30px;
+  left: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .CourseCard{
+    min-width: 100%;
+  }
+
+  .CourseCardHeader{
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .smallTitle{
+    font-family: 'Inter', serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #FFFFFF;
+  }
+
+  .keywordsWrapper{
+    flex-direction: row;
+    /*max-height: 112px;*/
+    max-height: min-content;
+    flex-wrap: wrap;
+  }
+  .keywordWrapper{
+    max-width: max-content;
+    line-height: 16px;
+  }
+
+  .ControlCardContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+  }
+}

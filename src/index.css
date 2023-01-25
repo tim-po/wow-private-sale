@@ -87,9 +87,12 @@ body {
     --gray-10: #F8F8F8;
     --gray-dark: #B1AFC4;
     --gray: #6E6D79;
+    --bg-transition-duration: 0.3s;
+    --bg-transition: background-color var(--bg-transition-duration) ease
 }
 
 .TrajectoriesLinkBack {
+    background-color: var(--bg-color);
     display: flex;
     align-items: center;
     color: #6E6D79;
@@ -141,6 +144,11 @@ body {
 .skeleton-v2 {
     opacity: .7;
     animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.sticky-header {
+    background-color: var(--bg-color);
+    transition: var(--bg-transition);
 }
 
 @keyframes skeleton-loading {

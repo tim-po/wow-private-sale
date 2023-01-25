@@ -261,6 +261,7 @@
 }
 
 .discModalHeader {
+  width: 60%;
   font-weight: bold;
 }
 
@@ -380,6 +381,8 @@
 
   .containerName .tags {
     width: 100%;
+    display: flex;
+    gap: 5px;
   }
 
 }

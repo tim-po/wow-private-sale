@@ -1,4 +1,4 @@
-.professionDetails{
+.professionDetails {
   padding-bottom: 40px;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .skeleton::after,
-.skeleton::before
+.skeleton::before,
 .skeleton div {
   opacity: 0;
 }
@@ -111,7 +111,6 @@
   width: 100%;
   //position: sticky;
   z-index: 126;
-  background: white;
 }
 
 .right-flex {
@@ -161,7 +160,7 @@
   line-height: 16px;
   color: #8533FF;
 
-  .rollNumber{
+  .rollNumber {
     animation: rollup 0.3s ease-in;
   }
 }
@@ -194,13 +193,14 @@
   font-size: 14px;
   line-height: 20px;
   /*border-radius: 8px;*/
-  &:hover{
+  &:hover {
     border-radius: 8px;
     background: #F3F3F8;
   }
-  &:active{
+
+  &:active {
     color: #7328E2;
-      }
+  }
 }
 
 .bottomLeftContainer .save {
@@ -295,7 +295,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  .Keyword:hover{
+
+  .Keyword:hover {
     background: #DDDDFD;
     cursor: pointer;
   }
@@ -690,7 +691,7 @@
 }
 
 @media screen and (max-width: 879px) {
-  .professionDescriptionText{
+  .professionDescriptionText {
     justify-content: center;
   }
   .prompt button {

@@ -5,6 +5,7 @@ import { CountType, CourseType } from "../../../types";
 import { hierarchy, pack } from "d3-hierarchy";
 import { allControllTypes, colors } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
+import titleModal from "../../../Context/Modal";
 import ModalContext from "../../../Context/Modal";
 import ControlTypeModal from "../../Modals/ControlTypeModal";
 import { scrollToElement } from "../../../utils/scrollToElement";
@@ -15,22 +16,25 @@ const focusedCircleRadius = 90;
 // DEFAULT FUNCTIONS
 
 type TrajectoryStatsPropType = {
-  course?: CourseType,
-  className: string,
-  setSelectedSphere?:React.SetStateAction<any>
-  setIsModalTrajectory?:React.SetStateAction<any>,
-}
+  course?: CourseType;
+  className: string;
+  setSelectedSphere?: React.SetStateAction<any>;
+  setIsModalTrajectory?: React.SetStateAction<any>;
+};
 
 const TrajectoryStatsDefaultProps = {};
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const { course, className = "Mobile", setSelectedSphere, setIsModalTrajectory} = props;
+  const {
+    course,
+    className = "Mobile",
+    setSelectedSphere,
+    setIsModalTrajectory,
+  } = props;
   const [focusedCircleLoading, setFocusedCircleLoading] = useState(false);
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
   const { displayModal, closeModal } = useContext(ModalContext);
-
-
 
   const transformedClassData = () => {
     return {
@@ -38,15 +42,15 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       children: amount().map((klass) => ({
         ...klass,
         size: klass.amount,
-        parent: "Top Level"
-      }))
+        parent: "Top Level",
+      })),
     };
   };
 
   const getNecessityCount = () => {
     const necessityCount = { necessary: 0, chosen: 0 };
     if (course) {
-      course.necessity_count.forEach(type => {
+      course.necessity_count.forEach((type) => {
         // @ts-ignore
         necessityCount[type.name] = type.count;
       });
@@ -68,13 +72,13 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   };
 
   const amount = () => {
-    let amountReturn: { name: any; amount: any; }[] = [];
+    let amountReturn: { name: any; amount: any }[] = [];
 
     if (course !== undefined) {
-      course.classes_count.forEach(klass => {
+      course.classes_count.forEach((klass) => {
         amountReturn.push({
           name: klass["name"],
-          amount: klass["count"]
+          amount: klass["count"],
         });
       });
     }
@@ -83,7 +87,8 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   };
 
   const getCircleTextOf = (klass: any) => {
-    if (klass.data.name.length < klass.r / 3.2 ||
+    if (
+      klass.data.name.length < klass.r / 3.2 ||
       (!focusedCircleLoading && isFocusedOnCircleOf(klass)) ||
       klass.r > focusedCircleRadius
     ) {
@@ -111,22 +116,24 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     }
 
     if (focusedCircle.x + focusedCircleRadius > 400) {
-      focusCircleXtrans = 400 - (focusedCircleRadius * 2);
+      focusCircleXtrans = 400 - focusedCircleRadius * 2;
     }
     if (focusedCircle.y + focusedCircleRadius > 400) {
-      focusCircleYtrans = 400 - (focusedCircleRadius * 2);
+      focusCircleYtrans = 400 - focusedCircleRadius * 2;
     }
 
     if (isFocusedOnCircleOf(klass)) {
       return { x: focusCircleXtrans, y: focusCircleYtrans };
     }
 
-    let rDiff = (focusedCircleRadius - focusedCircle.r);
+    let rDiff = focusedCircleRadius - focusedCircle.r;
     let xDiff = klass.x - focusedCircle.x;
     let yDiff = klass.y - focusedCircle.y;
 
-    xTrans += xDiff / 2 * (rDiff / Math.abs(xDiff)) * Math.sqrt(400 - xDiff) / 20;
-    yTrans += yDiff / 2 * (rDiff / Math.abs(yDiff)) * Math.sqrt(400 - yDiff) / 20;
+    xTrans +=
+      ((xDiff / 2) * (rDiff / Math.abs(xDiff)) * Math.sqrt(400 - xDiff)) / 20;
+    yTrans +=
+      ((yDiff / 2) * (rDiff / Math.abs(yDiff)) * Math.sqrt(400 - yDiff)) / 20;
 
     return { x: xTrans, y: yTrans };
   };
@@ -147,42 +154,51 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
-      const necessaryDiscipline: (CountType & { disciplines?: string[] }) = course.necessity_count.filter(discipline => discipline.name === "necessary")[0];
+      const necessaryDiscipline: CountType & { disciplines?: string[] } =
+        course.necessity_count.filter(
+          (discipline) => discipline.name === "necessary"
+        )[0];
       displayModal(<ControlTypeModal controlType={necessaryDiscipline} />);
     }
   };
 
   const openChosenDisciplinesModal = () => {
     if (course) {
-      const chosenDiscipline: (CountType & { disciplines?: string[] }) = course.necessity_count.filter(discipline => discipline.name === "chosen")[0];
+      const chosenDiscipline: CountType & { disciplines?: string[] } =
+        course.necessity_count.filter(
+          (discipline) => discipline.name === "chosen"
+        )[0];
       displayModal(<ControlTypeModal controlType={chosenDiscipline} />);
     }
   };
 
-  const onCircleClick = (name:string)=>{
-    scrollToElement (name)
+  const onCircleClick = (name: string) => {
+    scrollToElement(name);
     if (setSelectedSphere) {
-      setIsModalTrajectory(false)
-      setSelectedSphere(name)
+      setIsModalTrajectory(false);
+      setSelectedSphere(name);
       setTimeout(() => {
-        closeModal()
+        closeModal();
       }, 300);
     }
-  }
+  };
 
   return (
     <div className={`StatsContainer ${className}`}>
       <div className="MainHeader">Статистика</div>
-      <div
-        className="TrajectoryCard"
-        style={{ "padding": 0 }}
-      >
+      <div className="TrajectoryCard" style={{ padding: 0 }}>
         <div className="StatsCircles">
           {layoutData().children?.map((klass: any) => {
             return (
               <div
-                onClick={()=>{onCircleClick (klass.data.name) }}
-                className={`Circle ${(focusedCircle && focusedCircle.data.name === klass.data.name) ? "Focused" : ""}`}
+                onClick={() => {
+                  onCircleClick(klass.data.name);
+                }}
+                className={`Circle ${
+                  focusedCircle && focusedCircle.data.name === klass.data.name
+                    ? "Focused"
+                    : ""
+                }`}
                 key={klass.data.name}
                 onMouseEnter={(e) => {
                   setFocusedCircle(klass);
@@ -192,24 +208,22 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
                     setFocusedCircle(undefined);
                   }
                 }}
-                style={
-                  {
-                    "background": `${isFocusedOnCircleOf(klass) ? colors[klass.data.name] : "#F3F3F4"}`,
-                    "left": `${getTransitionOf(klass).x}px`,
-                    "top": `${getTransitionOf(klass).y}px`,
-                    "width": `${klass.r * 2}px`,
-                    "height": `${klass.r * 2}px`,
-                    "minWidth": `${klass.r * 2}px`,
-                    "minHeight": `${klass.r * 2}px`
-                  }
-                }
+                style={{
+                  background: `${
+                    isFocusedOnCircleOf(klass)
+                      ? colors[klass.data.name]
+                      : "#F3F3F4"
+                  }`,
+                  left: `${getTransitionOf(klass).x}px`,
+                  top: `${getTransitionOf(klass).y}px`,
+                  width: `${klass.r * 2}px`,
+                  height: `${klass.r * 2}px`,
+                  minWidth: `${klass.r * 2}px`,
+                  minHeight: `${klass.r * 2}px`,
+                }}
               >
-                <div className="CircleValue">
-                  {klass.data.amount}
-                </div>
-                <div className="CircleText">
-                  {getCircleTextOf(klass)}
-                </div>
+                <div className="CircleValue">{klass.data.amount}</div>
+                <div className="CircleText">{getCircleTextOf(klass)}</div>
               </div>
             );
           })}
@@ -224,8 +238,9 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
             return (
               <ControlTypeTile
                 controlType={
-                  course.control_type_count.find((controlType) => controlType.name === controlTypeName) ||
-                  { name: controlTypeName, count: 0 }
+                  course.control_type_count.find(
+                    (controlType) => controlType.name === controlTypeName
+                  ) || { name: controlTypeName, count: 0 }
                 }
               />
             );
@@ -233,40 +248,35 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         </div>
       </div>
       <div className="descriptionTypeDisciplines">
-      <h6 className="disciplines">Дисциплины</h6>
-        <button className="questionСircle" onMouseEnter={() => setIsTooltipActive(true)}
-                onMouseLeave={() => setIsTooltipActive(false)}>
-          {isTooltipActive &&
-            <div className="Prompt">
-              Учебные предметы
-            </div>
-          }
+        <h6 className="disciplines">Дисциплины</h6>
+        <button
+          className="questionСircle"
+          onMouseEnter={() => setIsTooltipActive(true)}
+          onMouseLeave={() => setIsTooltipActive(false)}
+        >
+          {isTooltipActive && <div className="Prompt">Учебные предметы</div>}
         </button>
       </div>
       <div className="DisciplinesNecessityCol TrajectoryCard mt-1 marginMobil">
         <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().necessary ? "" : "notActive"}`}
+          className={`DisciplinesNecessityFlex ${
+            getNecessityCount().necessary ? "" : "notActive"
+          }`}
           onClick={openNecessaryDisciplinesModal}
         >
           <button className="HoverDisciplinesNecessityFlex">
             Обязательные
           </button>
-          <span>
-          {getNecessityCount().necessary}
-        </span>
+          <span>{getNecessityCount().necessary}</span>
         </div>
         <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().chosen ? "" : "notActive"}`}
+          className={`DisciplinesNecessityFlex ${
+            getNecessityCount().chosen ? "" : "notActive"
+          }`}
           onClick={openChosenDisciplinesModal}
         >
-          <button className="HoverDisciplinesNecessityFlex">
-            По выбору
-          </button>
-          <span>
-          {
-            getNecessityCount().chosen
-          }
-        </span>
+          <button className="HoverDisciplinesNecessityFlex">По выбору</button>
+          <span>{getNecessityCount().chosen}</span>
         </div>
       </div>
     </div>

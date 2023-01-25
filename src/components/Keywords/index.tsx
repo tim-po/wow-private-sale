@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { KeywordType } from "../../types";
 import Keyword from "../Keyword";
-import keyword from "../Keyword";
 import { makeEmptyList } from "../../utils/general";
-import BgContext from "../../Context/Background";
 import * as Scroll from "react-scroll";
 import KeywordsSearch from "../KeywordsSearch";
 import Magnifier from "images/icons/magnifier";
-import GenericModal from "../GenericModal";
 import RandomFeedback from "../Modals/feedback/randomFeedback";
-import FeedbackGroupIdContext from "../../Context/IdGroup";
-import {createStickyBlock} from "../../utils/stickyHeaders";
+import { createStickyBlock } from "../../utils/stickyHeaders";
+import { changeBg } from "../../utils/background";
 
 // CONSTANTS
 const randomFeedbackSelectOptions = [
@@ -40,11 +37,10 @@ type KeywordsPropType = {
 const Keywords = (props: KeywordsPropType) => {
   const { keywords } = props;
 
-  const {setBg} = useContext(BgContext)
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0);
 
   useEffect(() => {
-    setBg("white");
+    changeBg('white')
     let scroll = Scroll.animateScroll;
     scroll.scrollToTop();
 

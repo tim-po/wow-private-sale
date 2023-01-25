@@ -104,7 +104,7 @@
 
 
 .buttonSecondary {
-  transition: all 0.5s, background 0.3s;
+  transition: all 0.5s, var(--bg-transition);
 
   border-radius: 8px;
   font-weight: 700;

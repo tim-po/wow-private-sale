@@ -19,7 +19,9 @@
       position: sticky;
       top: 0;
       padding-top: 12px;
-      background: white;
+
+      background-color: var(--bg-color);
+      transition: var(--bg-transition);
 
       .ProfessionTitle {
         font-weight: 700;

@@ -196,6 +196,7 @@
 @media screen and (max-width: 1000px) {
   .container-form-random-feedback {
     min-width: revert;
+    max-height: 600px;
     max-width: 100%;
     padding: 20px 16px 24px;
     //margin: 0 16px;

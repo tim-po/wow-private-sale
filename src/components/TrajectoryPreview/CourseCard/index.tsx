@@ -25,7 +25,7 @@ const addSpotlightEffect = (ref: React.RefObject<HTMLElement>) => {
         const {left, top} = element.getBoundingClientRect()
 
         const savedElementTransition = element.style.transition
-        element.style.transition = 'none'
+        element.style.transition = 'all 0s'
         element.style.backgroundPosition = '0 0'
         element.style.transition = savedElementTransition
 

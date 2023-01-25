@@ -161,7 +161,6 @@ const ProfessionDetails = () => {
               <p className="subheader subheader-mobile" {...createStickyBlock(2)}>Описание</p>
               <div className="keywords__card">
                 <div className="profession-data">
-
                   {profession ?
                     <p className="mb-0">
                       {profession.description ?? ""}

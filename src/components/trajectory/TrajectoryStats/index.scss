@@ -24,35 +24,30 @@
   gap: 12px;
   margin-top: 12px;
 }
-.notActive.DisciplinesNecessityFlex{
-  pointer-events: none;
-}
-.notActive.DisciplinesNecessityFlex button{
-  color: #6E6D79;
-}.notActive.DisciplinesNecessityFlex span{
-   color: #6E6D79;
- }
 
-.DisciplinesNecessityCol.TrajectoryCard{
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 16px 12px;
-}
-.HoverDisciplinesNecessityFlex{
-  background: inherit;
-  color: #1F1F22;
-  border: inherit;
-}
-.DisciplinesNecessityFlex{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.DisciplinesNecessityFlex:hover .HoverDisciplinesNecessityFlex{
-  color: #8533FF;
+  .TrajectoryCard{
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 14px;
 
-}
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+
+    .DisciplinesNecessityFlex{
+      padding: 8px;
+      border-radius: 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+
+    }
+  }
+
 .StatsCircles{
   width: 100%;
   height: 400px;
@@ -99,9 +94,6 @@
   color: white;
 }
 
-.TrajectoryCardBorder {
-  border: 1px solid var(--gray-100);
-}
 .descriptionTypeDisciplines{
   display: flex;
   margin-top: 32px;
@@ -138,13 +130,7 @@
   }
 
 }
-.TrajectoryCard {
-  border: 1px solid var(--gray-100);
-  border-radius: 12px;
-  padding: 14px;
-  font-weight: 500;
-  font-size: 14px;
-}
+
 
 
 @media screen and (max-width: 1000px) {

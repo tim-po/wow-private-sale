@@ -1,8 +1,8 @@
-import React, {useContext, useState} from "react";
-import './index.scss'
+import React, { useContext } from "react";
+import "./index.scss";
 import ModalContext from "../../Context/Modal";
 import ControlTypeModal from "../Modals/ControlTypeModal";
-import {CountType} from "../../types";
+import { CountType } from "../../types";
 
 // CONSTANTS
 
@@ -31,7 +31,7 @@ const ControlTypeTile = (props: ControlTypeTilePropType) => {
     }
 
     return (
-      <button className={`CourseCardControlCard ${additionalClassnames} ${controlType.count > 0 ? '' : 'notActive'}`}
+      <button className={`hoverTech CourseCardControlCard ${additionalClassnames} ${controlType.count > 0 ? '' : 'notActive'}`}
               onClick={openModal}>
         <span className={'ControlTypeName'}>
           {

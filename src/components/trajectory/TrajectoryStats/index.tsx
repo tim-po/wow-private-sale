@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.scss";
-import { isMobile } from "react-device-detect";
 import { CountType, CourseType } from "../../../types";
 import { hierarchy, pack } from "d3-hierarchy";
 import { allControllTypes, colors } from "../../../constants";
@@ -135,15 +134,15 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name;
   };
 
-  const focusOnCircle = (klass: any) => {
-    if (focusedCircle === undefined) {
-      setFocusedCircle(klass);
-      setFocusedCircleLoading(true);
-      setTimeout(() => {
-        setFocusedCircleLoading(false);
-      }, 300);
-    }
-  };
+  // const focusOnCircle = (klass: any) => {
+  //   if (focusedCircle === undefined) {
+  //     setFocusedCircle(klass);
+  //     setFocusedCircleLoading(true);
+  //     setTimeout(() => {
+  //       setFocusedCircleLoading(false);
+  //     }, 300);
+  //   }
+  // };
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
@@ -184,10 +183,10 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
                 onClick={()=>{onCircleClick (klass.data.name) }}
                 className={`Circle ${(focusedCircle && focusedCircle.data.name === klass.data.name) ? "Focused" : ""}`}
                 key={klass.data.name}
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   setFocusedCircle(klass);
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   if (focusedCircle.data.name === klass.data.name) {
                     setFocusedCircle(undefined);
                   }
@@ -234,8 +233,11 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="descriptionTypeDisciplines">
       <h6 className="disciplines">Дисциплины</h6>
-        <button className="questionСircle" onMouseEnter={() => setIsTooltipActive(true)}
-                onMouseLeave={() => setIsTooltipActive(false)}>
+        <button
+          className="questionСircle"
+          onMouseEnter={() => setIsTooltipActive(true)}
+          onMouseLeave={() => setIsTooltipActive(false)}
+        >
           {isTooltipActive &&
             <div className="Prompt">
               Учебные предметы
@@ -243,31 +245,24 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           }
         </button>
       </div>
-      <div className="DisciplinesNecessityCol TrajectoryCard mt-1 marginMobil">
-        <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().necessary ? "" : "notActive"}`}
+
+      <div className="TrajectoryCard mt-1">
+        <button
+          disabled={!getNecessityCount().necessary}
+          className={`DisciplinesNecessityFlex hoverTech`}
           onClick={openNecessaryDisciplinesModal}
         >
-          <button className="HoverDisciplinesNecessityFlex">
-            Обязательные
-          </button>
-          <span>
-          {getNecessityCount().necessary}
-        </span>
-        </div>
-        <div
-          className={`DisciplinesNecessityFlex ${getNecessityCount().chosen ? "" : "notActive"}`}
+          <span>Обязательные</span>
+          <span>{getNecessityCount().necessary}</span>
+        </button>
+        <button
+          disabled={!getNecessityCount().chosen}
+          className={`DisciplinesNecessityFlex hoverTech`}
           onClick={openChosenDisciplinesModal}
         >
-          <button className="HoverDisciplinesNecessityFlex">
-            По выбору
-          </button>
-          <span>
-          {
-            getNecessityCount().chosen
-          }
-        </span>
-        </div>
+          <span>По выбору</span>
+          <span>{getNecessityCount().chosen}</span>
+        </button>
       </div>
     </div>
   );

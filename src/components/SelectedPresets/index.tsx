@@ -7,7 +7,6 @@ import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
-import Hints from "../hints";
 
 // CONSTANTS
 
@@ -29,7 +28,7 @@ const SelectedPresetsDefaultProps = {
 };
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { selectedPresets, deletePreset, isHidden, hintEditPresets } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
@@ -109,7 +108,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
       >
         <button className="scrollBtn right" onClick={scrollToRight}>
           <span style={{ pointerEvents: "none" }}>
-            <Chevron />
+            <Chevron color={undefined}/>
           </span>
         </button>
         <button

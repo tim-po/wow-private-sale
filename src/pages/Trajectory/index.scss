@@ -1,3 +1,35 @@
+.hoverTech {
+  background-color: var(--bg-tech);
+
+  transition-property: color, background-color, box-shadow;
+  transition-duration: var(--bg-transition-duration);
+
+  &:hover{
+    background-color: var(--bg-tech-hover);
+    color: var(--color-brand);
+
+    transition-property: color, background-color, box-shadow;
+    transition-duration: var(--bg-transition-duration);
+
+    &:active{
+      background-color: var(--bg-tech-active);
+      color: var(--color-brand);
+    }
+  }
+
+  &:disabled{
+    background-color: white;
+    cursor: unset;
+    color: #6E6D79;
+
+    &:active{
+      background-color: white;
+      color: #6E6D79;
+    }
+  }
+
+}
+
 .TrajectoryPage {
   max-width: 1500px;
   margin: 0 auto;

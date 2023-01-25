@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import axios from "axios";
 import Hints from "../../hints";
-import { isMobile } from "react-device-detect";
 import { BASE_URL, colors } from "../../../constants";
 import { TrajectoryDisciplineType } from "types";
-import { useSearchParams } from "react-router-dom";
-import { GiFlame, GiFlamer } from "react-icons/all";
 import Flame from "../../../images/icons/flame";
 
 type TrajectoryDisciplineModalPropType = {
@@ -22,7 +19,6 @@ enum DisciplineMovement {
 const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => {
 
   const { id } = props;
-  const [searchParams] = useSearchParams();
   const [trajectoryDisciplineData, setTrajectoryDisciplineData] = useState<TrajectoryDisciplineType | undefined>(undefined);
   const [sortedPrevDisciplines, setSortedPrevDisciplines] = useState<{ id: number, name: string, semester: number }[]>([]);
   const [sortedNextDisciplines, setSortedNextDisciplines] = useState<{ id: number, name: string, semester: number }[]>([]);
@@ -176,7 +172,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                         {initialDisciplineId === replacementOption.id &&
                           <div className={"selected"}>
                             <Flame />
-                            Выбранна для тебя
+                            Выбрана для тебя
                           </div>}
                       </button>
                     ))}

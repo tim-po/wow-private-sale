@@ -44,9 +44,10 @@
 }
 @media screen and (max-width: 1000px) {
   .KeywordsModalContent{
+    max-width: 100%;
     border-radius: 16px 16px 0 0;
   }
   .keywords-container{
-    max-height: max(492px, 60vh);
+    max-height: 60vh !important;
   }
 }

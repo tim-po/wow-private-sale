@@ -13,8 +13,6 @@ import Hints from "../hints";
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type SelectedPresetsPropType = {
   // You should declare props like this, delete this if you don't need props
   selectedPresets: PresetType[];

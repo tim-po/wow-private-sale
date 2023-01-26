@@ -19,13 +19,20 @@
   }
 }
 
-.ModalClassHeaderText {
+.containerName .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ModalClassHeaderText{
   font-size: 16px;
   font-weight: 700;
   color: white;
   position: absolute;
   top: 20px;
   left: 20px;
+  margin-right: 40px;
 }
 
 .aligned-keywords-wrapper {
@@ -190,7 +197,6 @@
 }
 
 .disciplineDetail {
-  margin-left: 1rem;
   font-weight: 500;
   font-size: 12px;
   border-radius: 4px;
@@ -268,7 +274,7 @@
 }
 
 .disciplineModalContent {
-  overflow-y: scroll;
+  //overflow-y: scroll;
   text-align: left;
   padding: 32px 36px 36px 36px;
 }
@@ -288,13 +294,8 @@
     flex-direction: column;
   }
   .containerDiscipline {
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
     max-width: initial;
-  }
-
-  .disciplineDetail {
-    margin-left: revert;
-    margin-right: 1rem;
   }
 
   .arrow-card-modal {

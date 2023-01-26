@@ -1,8 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, { useRef } from "react";
 import "./index.scss";
-import {allControllTypes} from "../../../constants";
+import { allControllTypes } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
-import {CourseType} from "../../../types";
+import { CourseType } from "../../../types";
+import { Colors } from "../../../utils/background";
 
 //TYPES
 interface ICourseCardProps {
@@ -14,10 +15,13 @@ const makeBackgroundSpotlight = (at: { x: number, y: number }, forElement: HTMLE
   const gradientCircle = `circle at ${at.x}px ${at.y}px`
   const colorTransition = `${spotlightColor} 0, rgba(255, 255, 255, 0.0) 100px`
 
-  forElement.style.background = `radial-gradient(${gradientCircle}, ${colorTransition}) no-repeat, ${withBackgroundColor}`
+  forElement.style.background = `radial-gradient(${gradientCircle}, ${colorTransition}) no-repeat ${withBackgroundColor}`
 }
 
-const addSpotlightEffect = (ref: React.RefObject<HTMLElement>) => {
+const addSpotlightEffect = (ref: React.RefObject<HTMLElement>, defaultBg: Colors | string, hoverBg:Colors | string) => {
+  if(ref.current){
+    ref.current.style.backgroundColor = defaultBg
+  }
   return {
     onMouseMove: (event: React.MouseEvent<HTMLElement>) => {
       if(ref.current) {
@@ -32,7 +36,7 @@ const addSpotlightEffect = (ref: React.RefObject<HTMLElement>) => {
         makeBackgroundSpotlight(
           {x: event.clientX - left, y: event.clientY - top},
           element,
-          'var(--color-brand)',
+          hoverBg,
           'rgba(255, 51, 247, 0.8)',
         )
       }
@@ -45,7 +49,7 @@ const addSpotlightEffect = (ref: React.RefObject<HTMLElement>) => {
         makeBackgroundSpotlight(
           {x: event.clientX - left, y: event.clientY - top},
           element,
-          'var(--color-brand)',
+          defaultBg,
           'rgba(255, 51, 247, 0.8)',
         )
 
@@ -60,8 +64,6 @@ const addSpotlightEffect = (ref: React.RefObject<HTMLElement>) => {
 const CourseCard = (props: ICourseCardProps) => {
   const {course, onClick} = props
   const card = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<{ x: number, y: number }>({x: 0, y: 0})
-
 
   return (
     <div
@@ -69,7 +71,7 @@ const CourseCard = (props: ICourseCardProps) => {
       className={`CourseCard`}
       key="index"
       onClick={onClick}
-      {...addSpotlightEffect(card)}
+      {...addSpotlightEffect(card, `var(--trajectories-bg-${course.course})`, 'var(--color-brand)')}
     >
       <div className="CourseCardHeader">{course.course} курс</div>
       <div>

@@ -112,7 +112,15 @@ body {
     --bg-tech: #FFFFFF;
     --bg-tech-hover: #F3F3F8;
     --bg-tech-active: #EBE9F3;
-    --bg-tech-disabled: #6E6D79
+    --bg-tech-disabled: #6E6D79;
+
+
+    --trajectories-bg-1: #f18aa7;
+    --trajectories-bg-2: #989cf8;
+    --trajectories-bg-3: #75c2dc;
+    --trajectories-bg-4: #f18069;
+
+
 }
 
 .TrajectoriesLinkBack {

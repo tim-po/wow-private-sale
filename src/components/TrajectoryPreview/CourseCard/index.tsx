@@ -22,6 +22,7 @@ const addSpotlightEffect = (ref: React.RefObject<HTMLElement>, defaultBg: Colors
   if(ref.current){
     ref.current.style.backgroundColor = defaultBg
   }
+
   return {
     onMouseMove: (event: React.MouseEvent<HTMLElement>) => {
       if(ref.current) {
@@ -71,6 +72,7 @@ const CourseCard = (props: ICourseCardProps) => {
       className={`CourseCard`}
       key="index"
       onClick={onClick}
+      style={{backgroundColor: `var(--trajectories-bg-${course.course})`}}
       {...addSpotlightEffect(card, `var(--trajectories-bg-${course.course})`, 'var(--color-brand)')}
     >
       <div className="CourseCardHeader">{course.course} курс</div>

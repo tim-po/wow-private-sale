@@ -31,7 +31,7 @@ const ControlTypeTile = (props: ControlTypeTilePropType) => {
     }
 
     return (
-      <button className={`hoverTech CourseCardControlCard ${additionalClassnames} ${controlType.count > 0 ? '' : 'notActive'}`}
+      <button className={`CourseCardControlCard ${additionalClassnames} ${controlType.count > 0 ? '' : 'notActive'}`}
               onClick={openModal}>
         <span className={'ControlTypeName'}>
           {

@@ -25,14 +25,12 @@
   background-position: 0 0;
   transition: all 0.2s linear;
 
+  &:hover{
+      transform: translateY(-8px) scale(1.015);
+    }
 
   .CourseCardControlCard{
     box-shadow: none !important;
-  }
-
-  &:hover {
-    //--p: 300px;
-    box-shadow: inset 0 0 0 1px #ffffff;
   }
 }
 

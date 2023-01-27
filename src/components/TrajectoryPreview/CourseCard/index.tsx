@@ -40,7 +40,6 @@ export const addSpotlightEffect = (ref: React.RefObject<HTMLElement>, defaultBg:
 
   return {
     onMouseEnter: (event: React.MouseEvent<HTMLElement>) => {
-
       if (ref.current) {
         const element: HTMLElement = ref.current;
         const { left, top } = element.getBoundingClientRect();
@@ -61,25 +60,25 @@ export const addSpotlightEffect = (ref: React.RefObject<HTMLElement>, defaultBg:
         }, 1)
       }
     },
-    // onMouseMove: (event: React.MouseEvent<HTMLElement>) => {
-    //   if (ref.current) {
-    //     const element: HTMLElement = ref.current;
-    //     const { left, top } = element.getBoundingClientRect();
-    //
-    //     const savedElementTransition = element.style.transition;
-    //     element.style.transition = "all 0.3s";
-    //     element.style.backgroundPosition = "0 0";
-    //     element.style.transition = savedElementTransition;
-    //
-    //       makeBackgroundSpotlight(
-    //         { x: event.clientX - left, y: event.clientY - top },
-    //         element,
-    //         hoverBg,
-    //         'rgba(255, 255, 255, 0.5)'
-    //         // "#F0C64C"
-    //       );
-    //   }
-    // },
+    onMouseMove: (event: React.MouseEvent<HTMLElement>) => {
+      if (ref.current) {
+        const element: HTMLElement = ref.current;
+        const { left, top } = element.getBoundingClientRect();
+
+        const savedElementTransition = element.style.transition;
+        element.style.transition = "all 0.3s";
+        element.style.backgroundPosition = "0 0";
+        element.style.transition = savedElementTransition;
+
+          makeBackgroundSpotlight(
+            { x: event.clientX - left, y: event.clientY - top },
+            element,
+            hoverBg,
+            'rgba(255, 255, 255, 0.5)'
+            // "#F0C64C"
+          );
+      }
+    },
 
     onMouseLeave: (event: React.MouseEvent<HTMLElement>) => {
       if (ref.current) {

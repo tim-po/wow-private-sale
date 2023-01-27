@@ -11,7 +11,6 @@ export default (ref: RefObject<HTMLElement>, spotlightColor: Colors | string, wi
       const element: HTMLElement = ref.current;
       const { left, top } = element.getBoundingClientRect();
       const at = { x: event.clientX - left, y: event.clientY - top };
-
       const gradientCircle = `circle at ${at.x}px ${at.y}px`;
 
       if (step === "leave") {

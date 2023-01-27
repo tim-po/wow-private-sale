@@ -23,61 +23,67 @@ import { changeBg } from "../../utils/background";
 
 type DiplomaPropType = {}
 
-const DiplomaDefaultProps = {}
+const DiplomaDefaultProps = {};
 
 const Diploma = (props: DiplomaPropType) => {
   const {displayModal} = useContext(ModalsContext)
 
   const cardRef = useRef();
 
-  const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined);
+  const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(
+    undefined
+  );
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [linkAbit, setLinkAbit]=useState('https://abit.itmo.ru/programs/bachelor')
-  const {group_id} = useContext<any>(FeedbackGroupIdContext)
+  const [linkAbit, setLinkAbit] = useState(
+    "https://abit.itmo.ru/programs/bachelor"
+  );
+  const { group_id } = useContext<any>(FeedbackGroupIdContext);
 
-  const [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams();
   const randomFeedbackSelectOptions = [
-    'Поиск ключевых слов 🔎️',
-    'Добавление/ удаление слов 🗑',
-    'Все сложно  🤯', 'Все понятно 👌'
-  ]
+    "Поиск ключевых слов 🔎️",
+    "Добавление/ удаление слов 🗑",
+    "Все сложно  🤯",
+    "Все понятно 👌",
+  ];
   const getDiplomaData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`)
-      setDiplomaData(response.data)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-
-  const closeShareModal = () => {
-    setIsShareModalOpen(false)
-  }
+      const response = await axios.get(
+        `${BASE_URL}trajectories/${searchParams.get("id")}/diploma/`
+      );
+      setDiplomaData(response.data);
+    } catch (e) {}
+  };
 
   useEffect(() => {
     changeBg('#F1F2F8')
 
-    getDiplomaData()
+    getDiplomaData();
   }, []);
 
   useEffect(() => {
     if (diplomaData && diplomaData.main_keywords.length) {
-      const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
-      setKeywords(keywordsArray)
-      setLinkAbit(`https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`)
+      const keywordsArray = makeKeywordsArray(diplomaData.main_keywords);
+      setKeywords(keywordsArray);
+      setLinkAbit(
+        `https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace(
+          "",
+          "+"
+        )}`
+      );
     }
-  }, [diplomaData])
-
-
+  }, [diplomaData]);
 
   return (
     <>
       <div className="diploma-container">
         <div className="tiles-wrapper">
           <div className="left-tiles">
-            <Description iconUrl={'/static/star.svg'} title={'Высшее образование'}/>
+            <Description
+              iconUrl={"/static/star.svg"}
+              title={"Высшее образование"}
+            />
             <Keywords
               keywords={keywords}
               keywordsCount={keywords?.length}
@@ -86,35 +92,39 @@ const Diploma = (props: DiplomaPropType) => {
             <SwapModal
               modalHeight={250}
               elementRef={cardRef}
-              classes={[
-                'white-tile-wrapper'
-              ]}
+              classes={["white-tile-wrapper"]}
             >
               <span className="marginText">
                 Это твоя траектория в университете ИТМО!
-                <br/>
+                <br />
                 Поступай к нам чтобы изучать то, что нравится.
               </span>
               <div className="buttons-wrapper">
                 <Button
-                  buttonStyle={'main'}
+                  buttonStyle={"main"}
                   isDisabled={false}
                   // onClick={window.open(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`, '_blank')}
-                  onClick={()=> setTimeout(()=>{   window.open(linkAbit, '_blank')})}
-                  classNames={['mobile-button']}
+                  onClick={() =>
+                    setTimeout(() => {
+                      window.open(linkAbit, "_blank");
+                    })
+                  }
+                  classNames={["mobile-button"]}
                 >
-                  <span className={'button-text'}>Поступить в ИТМО</span>
+                  <span className={"button-text"}>Поступить в ИТМО</span>
                 </Button>
                 <Button
-                  buttonStyle={'secondary'}
+                  buttonStyle={"secondary"}
                   onClick={() => displayModal(<ShareModal />)}
                   isDisabled={false}
-                  classNames={['mobile-button']}
+                  classNames={["mobile-button"]}
                 >
                   <div className="share-button-content">
-                    <span className={'button-text'}>Поделиться</span>
-                    <div className={'share-icon'}> <Share/></div>
-
+                    <span className={"button-text"}>Поделиться</span>
+                    <div className={"share-icon"}>
+                      {" "}
+                      <Share />
+                    </div>
                   </div>
                 </Button>
               </div>
@@ -122,22 +132,26 @@ const Diploma = (props: DiplomaPropType) => {
           </div>
           <div className="right-tiles">
             <div className="white-tile-wrapper disciplines-tile">
-              <h6 className="tileHeader">Изучу {diplomaData?.total_disciplines} дисциплины</h6>
+              <h6 className="tileHeader">
+                Изучу {diplomaData?.total_disciplines} дисциплины
+              </h6>
               <div className="disciplines-wrapper">
                 {diplomaData?.classes_count.map((discipline) => (
                   <Card
-                    onClick={() => displayModal(
-                      <DisciplinesModal
-                        discipline={discipline.disciplines}
-                        headerBg={colors[discipline.name]}
-                        name={discipline.name}
-                      />
-                    )}
+                    onClick={() =>
+                      displayModal(
+                        <DisciplinesModal
+                          discipline={discipline.disciplines}
+                          headerBg={colors[discipline.name]}
+                          name={discipline.name}
+                        />
+                      )
+                    }
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}
                     isDiplomaCard
-                    classNames={['mobile-card']}
+                    classNames={["mobile-card"]}
                   />
                 ))}
               </div>
@@ -145,39 +159,37 @@ const Diploma = (props: DiplomaPropType) => {
             <div className="white-tile-wrapper control-types-tile">
               <h6 className="tileHeader">Сдам</h6>
               <div className="control-types-wrapper">
-                {diplomaData?.control_types_count.map((controlType: (CountType & { disciplines: CountType[] })) => (
-                  <Card
-                    onClick={() => displayModal(<ControlTypeModal controlType={controlType} />)}
-                    name={controlType.name}
-                    title={controlType.count}
-                    subtitle={refactorName(controlType.count, controlType.name )}
-                    isDiplomaCard
-                    isControlTypeCard
-                    classNames={[
-                      'mobile-card',
-                      'control-type-card-mobile'
-                    ]}
-                  />
-                ))}
+                {diplomaData?.control_types_count.map(
+                  (controlType: CountType & { disciplines: CountType[] }) => (
+                    <Card
+                      onClick={() =>
+                        displayModal(
+                          <ControlTypeModal controlType={controlType} />
+                        )
+                      }
+                      name={controlType.name}
+                      title={controlType.count}
+                      subtitle={refactorName(
+                        controlType.count,
+                        controlType.name
+                      )}
+                      isDiplomaCard
+                      isControlTypeCard
+                      classNames={["mobile-card", "control-type-card-mobile"]}
+                    />
+                  )
+                )}
               </div>
             </div>
           </div>
         </div>
-        <RandomFeedback displayForGroup={6}/>
-        <RandomFeedback displayForGroup={7}/>
+        <RandomFeedback displayForGroup={6} />
+        <RandomFeedback displayForGroup={7} />
       </div>
-      <GenericModal
-        modal={isShareModalOpen}
-        colorCloseWhite={false}
-        hideMobile={false}
-        hideDesktop={false}
-        onModalClose={closeShareModal}>
-        <ShareModal/>
-      </GenericModal>
     </>
-  )
+  );
 };
 
-Diploma.defaultProps = DiplomaDefaultProps
+Diploma.defaultProps = DiplomaDefaultProps;
 
-export default Diploma
+export default Diploma;

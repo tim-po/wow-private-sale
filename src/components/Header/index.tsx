@@ -26,22 +26,6 @@ const Header = (props: HeaderPropType) => {
     setIsHeaderPreAnimated(leftBlocks.includes(window.location.pathname))
   }, [window.location.pathname])
 
-  useEffect(() => {
-    // setIsHeaderPreAnimated(!left)
-  }, [left])
-
-  useEffect(() => {
-    if(isHeaderAnimated && isHeaderPreAnimated){
-      // setIsHeaderPreAnimated(true)
-      setTimeout(() => {
-        setIsHeaderPreAnimated(false)
-      }, 1000)
-      setTimeout(() => {
-        setIsHeaderAnimated(false)
-      }, 3000)
-    }
-  })
-
   const goBack = () => {
     navigate(backButtonHref)
   }

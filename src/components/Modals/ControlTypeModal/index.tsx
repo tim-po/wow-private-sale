@@ -20,11 +20,11 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
       return 'Дополнительные учебные предметы на твой выбор'
     } else if (name === "Зачет" || name === "Зачеты") {
       return 'Проверка готовности к экзамену по всей программе. Оценка не ставится'
-    } else if (name === "Курсовые" || name === "Курсовая" || name ==="Курсовая работа") {
+    } else if (name === "Курсовые" || name === "Курсовая" || name === "Курсовая работа") {
       return 'Учебная работа с элементами научных исследований'
     } else if (name === "Диф.зачеты" || name === "Диф.зачет" || name === 'Дифференцированный зачет') {
       return 'Проверка знаний по всей программе. Ставится оценка'
-    }else if (name === "Консультация" || name === "Консультации") {
+    } else if (name === "Консультация" || name === "Консультации") {
       return 'Занятие, на котором преподаватель рассказывает о порядке проведения экзамена и отвечает на вопросы студентов.'
     } else if (name === "chosen") {
       return 'Учебные предметы на твой выбор'
@@ -52,14 +52,11 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
         <h1 className="KeywordsModalHeader">
           {getModalTitle(controlType.name)}
         </h1>
-        <div className="VectorStroke" onMouseEnter={() => setIsTooltipActive(true)} onMouseLeave={() => setIsTooltipActive(false)}>
-        <PromptImg color={isTooltipActive ? "#8533FF" : "#B7B6BC"} />
-          {isTooltipActive &&
-            <div className="Prompt">
-              {getTooltipMessage(controlType.name)}
-            </div>
-          }
-        {/*</PromptImg>*/}
+        <div className="VectorStroke">
+          <PromptImg/>
+          <div className="Prompt">
+            {getTooltipMessage(controlType.name)}
+          </div>
         </div>
       </div>
       <div className="ExamModalContainer">

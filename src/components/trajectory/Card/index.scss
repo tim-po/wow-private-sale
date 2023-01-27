@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 24px;
-    padding-left: 64px;
+    padding-left: 45px;
 
     &::first-letter {
       text-transform: capitalize;
@@ -46,8 +46,7 @@
   }
 
   .bodyCard {
-    padding: 0 40px;
-
+    padding: 0 25px;
     .TrajectorySmallHeader {
       color: #6E6D79;
       font-weight: 500;
@@ -60,7 +59,7 @@
       //margin-right: 40px;
       //margin-left: 14px;
       height: 100%;
-      width: calc(100% - 80px);
+      //width: calc(100% - 80px);
       position: relative;
       display: flex;
       justify-content: space-between;

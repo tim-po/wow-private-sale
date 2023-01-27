@@ -42,7 +42,9 @@
 }
 
 .trajectoryCardWrapper {
+  padding: 11px 4px 0 4px;
   display: flex;
+  overflow-y: visible;
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 16px;
@@ -196,6 +198,7 @@
 
   .trajectoryCardWrapper{
     margin-top: 25px !important;
+    overflow-y: visible;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;

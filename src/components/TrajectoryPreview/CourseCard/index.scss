@@ -7,7 +7,6 @@
 //
 
 
-
 .CourseCard {
   padding: 20px;
   border: none;
@@ -25,11 +24,11 @@
   background-position: 0 0;
   transition: all 0.2s linear;
 
-  &:hover{
-      transform: translateY(-8px) scale(1.015);
-    }
+  &:hover {
+    transform: translateY(-8px) scale(1.015);
+  }
 
-  .CourseCardControlCard{
+  .CourseCardControlCard {
     box-shadow: none !important;
   }
 }
@@ -43,6 +42,7 @@
   //max-height: 82px;
   overflow: hidden;
 }
+
 .keywordWrapper {
   background: white;
   color: #1f1f22;
@@ -52,16 +52,16 @@
   border-radius: 8px;
 }
 
-.ControlCardContainer{
+.ControlCardContainer {
   display: flex;
   gap: 8px;
 
-  .CourseCardControlCard{
+  .CourseCardControlCard {
     text-align: left;
   }
 }
 
-.mouseWatcher{
+.mouseWatcher {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -71,17 +71,38 @@
 }
 
 
+.trajectories-bg-0 {
+  background: #f18aa7;
+  border: 1px solid #f18aa7;
+}
 
+.trajectories-bg-1 {
+  background: #989cf8;
+  border: 1px solid #989cf8;
+}
 
+.trajectories-bg-2 {
+  background: #75c2dc;
+  border: 1px solid #75c2dc;
 
+}
+
+.trajectories-bg-3 {
+  background: #f18069;
+  border: 1px solid #f18069;
+}
 
 
 @media screen and (max-width: 1000px) {
-  .CourseCard{
+  .CourseCard {
     min-width: 100%;
+
+    &:hover {
+      transform: none;
+    }
   }
 
-  .CourseCardHeader{
+  .CourseCardHeader {
     font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 600;
@@ -89,7 +110,7 @@
     line-height: 22px;
   }
 
-  .smallTitle{
+  .smallTitle {
     font-family: 'Inter', serif;
     font-weight: 500;
     font-size: 14px;
@@ -98,18 +119,18 @@
     color: #FFFFFF;
   }
 
-  .keywordsWrapper{
+  .keywordsWrapper {
     flex-direction: row;
     /*max-height: 112px;*/
     max-height: min-content;
     flex-wrap: wrap;
   }
-  .keywordWrapper{
+  .keywordWrapper {
     max-width: max-content;
     line-height: 16px;
   }
 
-  .ControlCardContainer{
+  .ControlCardContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 8px;

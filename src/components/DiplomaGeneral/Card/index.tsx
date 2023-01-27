@@ -110,7 +110,7 @@ const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   const card = useRef<HTMLDivElement>(null)
 
-  const flashlight = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.5)', 'var(--color-brand)')
+  const flashlight = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.8)', 'var(--color-brand)')
 
   return (
     <StyledCard

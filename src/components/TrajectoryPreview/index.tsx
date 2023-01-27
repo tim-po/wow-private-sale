@@ -99,7 +99,7 @@ const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
       </div>
       <div style={{ position: "relative" }}>
         <div
-          className="mt-3 trajectoryCardWrapper HiddenLeft"
+          className="pt-3 trajectoryCardWrapper HiddenLeft"
           onLoad={shouldDrawScrollButton}
           onScroll={shouldDrawScrollButton}
         >

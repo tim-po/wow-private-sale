@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import "./index.scss";
 import styled, { css } from "styled-components";
 import { colors } from "../../../constants";
-import { addSpotlightEffect } from "../../TrajectoryPreview/CourseCard";
+import useFlashlightAnimation from "../../../hooks/useFlashlightAnimation";
 
 type CardPropType = {
   name: string
@@ -110,6 +110,8 @@ const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   const card = useRef<HTMLDivElement>(null)
 
+  const flashlight = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.5)', 'var(--color-brand)')
+
   return (
     <StyledCard
       ref={card}
@@ -117,7 +119,9 @@ const Card = (props: CardPropType) => {
       isDiplomaCard={isDiplomaCard}
       className={classNames?.join(' ')}
       onClick={onClick}
-      {...addSpotlightEffect(card, `*#78a3ec`, 'var(--color-brand)')}
+      onMouseEnter={(event) => flashlight(event, 'enter')}
+      onMouseMove={(event) => flashlight(event, 'move')}
+      onMouseLeave={(event) => flashlight(event, 'leave')}
     >
       <CardTitle
         isDiplomaCard={isDiplomaCard}

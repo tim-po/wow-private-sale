@@ -1,7 +1,7 @@
 import { MouseEvent, RefObject } from "react";
 import { Colors } from "../utils/background";
 
-export default (ref: RefObject<HTMLElement>, spotlightColor: Colors | string, withBackgroundColor: string) => {
+export default (ref: RefObject<HTMLElement>, spotlightColor: Colors | string, withBackgroundColor: string, isMobile:boolean) => {
 
   let size = 0,
     maxSize = 100,
@@ -56,10 +56,10 @@ export default (ref: RefObject<HTMLElement>, spotlightColor: Colors | string, wi
         clearBg()
       }
   }
-  
 
-  return {
-    enter: (event: MouseEvent<HTMLElement>) => {
+
+  return isMobile ? undefined : {
+    onMouseEnter: (event: MouseEvent<HTMLElement>) => {
       state = 'enter'
       clearInterval(leaveTimer)
       mainRender = setInterval(renderFlashLight, 3)
@@ -67,14 +67,14 @@ export default (ref: RefObject<HTMLElement>, spotlightColor: Colors | string, wi
       setPosition(event)
     },
 
-    move: (event: MouseEvent<HTMLElement>) => {
+    onMouseMove: (event: MouseEvent<HTMLElement>) => {
       setPosition(event)
     },
 
-    leave: (event: MouseEvent<HTMLElement>) => {
+    onMouseLeave: (event: MouseEvent<HTMLElement>) => {
       clearInterval(enterTimer)
       leaveTimer = setInterval(flashlightDisappear, 1)
       setPosition(event)
     }
-  };
+  }
 }

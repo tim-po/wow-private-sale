@@ -3,6 +3,7 @@ import "./index.scss";
 import styled, { css } from "styled-components";
 import { colors } from "../../../constants";
 import useFlashlightAnimation from "../../../hooks/useFlashlightAnimation";
+import { isMobile } from "react-device-detect";
 
 type CardPropType = {
   name: string
@@ -110,8 +111,7 @@ const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   const card = useRef<HTMLDivElement>(null)
 
-  const { enter, move, leave } = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.8)', 'var(--color-brand)')
-
+  console.log(isMobile)
   return (
     <StyledCard
       ref={card}
@@ -119,9 +119,7 @@ const Card = (props: CardPropType) => {
       isDiplomaCard={isDiplomaCard}
       className={classNames?.join(' ')}
       onClick={onClick}
-      onMouseEnter={enter}
-      onMouseMove={move}
-      onMouseLeave={leave}
+      {...useFlashlightAnimation(card, "rgba(255, 255, 255, 0.8)", "var(--color-brand)", isMobile)}
     >
       <CardTitle
         isDiplomaCard={isDiplomaCard}

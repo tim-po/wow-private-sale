@@ -110,7 +110,7 @@ const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   const card = useRef<HTMLDivElement>(null)
 
-  const flashlight = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.8)', 'var(--color-brand)')
+  const { enter, move, leave } = useFlashlightAnimation(card, 'rgba(255, 255, 255, 0.8)', 'var(--color-brand)')
 
   return (
     <StyledCard
@@ -119,9 +119,9 @@ const Card = (props: CardPropType) => {
       isDiplomaCard={isDiplomaCard}
       className={classNames?.join(' ')}
       onClick={onClick}
-      onMouseEnter={(event) => flashlight(event, 'enter')}
-      onMouseMove={(event) => flashlight(event, 'move')}
-      onMouseLeave={(event) => flashlight(event, 'leave')}
+      onMouseEnter={enter}
+      onMouseMove={move}
+      onMouseLeave={leave}
     >
       <CardTitle
         isDiplomaCard={isDiplomaCard}

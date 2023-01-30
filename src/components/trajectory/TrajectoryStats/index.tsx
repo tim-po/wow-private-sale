@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.scss";
-import { isMobile } from "react-device-detect";
 import { CountType, CourseType } from "../../../types";
 import { hierarchy, pack } from "d3-hierarchy";
 import { allControllTypes, colors } from "../../../constants";
@@ -142,15 +141,15 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name;
   };
 
-  const focusOnCircle = (klass: any) => {
-    if (focusedCircle === undefined) {
-      setFocusedCircle(klass);
-      setFocusedCircleLoading(true);
-      setTimeout(() => {
-        setFocusedCircleLoading(false);
-      }, 300);
-    }
-  };
+  // const focusOnCircle = (klass: any) => {
+  //   if (focusedCircle === undefined) {
+  //     setFocusedCircle(klass);
+  //     setFocusedCircleLoading(true);
+  //     setTimeout(() => {
+  //       setFocusedCircleLoading(false);
+  //     }, 300);
+  //   }
+  // };
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
@@ -200,10 +199,10 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
                     : ""
                 }`}
                 key={klass.data.name}
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   setFocusedCircle(klass);
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   if (focusedCircle.data.name === klass.data.name) {
                     setFocusedCircle(undefined);
                   }

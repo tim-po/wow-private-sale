@@ -87,7 +87,6 @@ const Professions = () => {
         <div className="d-flex justify-content-between CardHeaderWidth align-items-center">
           <h3 className="ProfessionTitle CardHeaderWidth">Выбери профессию</h3>
         </div>
-        {/* @ts-ignore */}
         <div className="ProfessionContainer">
           {isProfessionsLoading &&
             makeEmptyList(12).map((number, index) => {

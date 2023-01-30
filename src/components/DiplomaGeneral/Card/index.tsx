@@ -1,7 +1,9 @@
-import React from "react";
-import './index.scss'
-import styled, {css} from "styled-components";
-import {colors} from "../../../constants";
+import React, { useRef } from "react";
+import "./index.scss";
+import styled, { css } from "styled-components";
+import { colors } from "../../../constants";
+import useFlashlightAnimation from "../../../hooks/useFlashlightAnimation";
+import { isMobile } from "react-device-detect";
 
 type CardPropType = {
   name: string
@@ -20,10 +22,11 @@ const StyledCard = styled.div<{ bgColor: string, isDiplomaCard: boolean }>`
   border-radius: ${p => p.isDiplomaCard ? '20px' : '16px'};
   color: white;
   background: ${p => p.bgColor || '#78a3ec'};
-  border: 1px solid ${p => p.bgColor || '#78a3ec'};
+  // border: 1px solid ${p => p.bgColor || '#78a3ec'};
   padding: 20px;
   cursor: pointer;
   margin-bottom: ${p => p.isDiplomaCard ? '0px' : '12px'};
+  transition: background-color 0.3s;
 
   ${({isDiplomaCard}) => isDiplomaCard && css`
     padding: 25px 20px;
@@ -32,7 +35,6 @@ const StyledCard = styled.div<{ bgColor: string, isDiplomaCard: boolean }>`
   `};
 
   &:hover {
-    box-shadow: inset 0 0 0 1px #ffffff;
     cursor: pointer;
   }
 
@@ -107,12 +109,17 @@ const CardSubtitle = styled.div<{ isDiplomaCard: boolean, isControlTypeCard?: bo
 
 const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
+  const card = useRef<HTMLDivElement>(null)
+
+  console.log(isMobile)
   return (
     <StyledCard
+      ref={card}
       bgColor={colors[name]}
       isDiplomaCard={isDiplomaCard}
       className={classNames?.join(' ')}
       onClick={onClick}
+      {...useFlashlightAnimation(card, "rgba(255, 255, 255, 0.8)", "var(--color-brand)", isMobile)}
     >
       <CardTitle
         isDiplomaCard={isDiplomaCard}

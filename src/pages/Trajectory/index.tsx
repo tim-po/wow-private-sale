@@ -86,7 +86,8 @@ const Trajectory = () => {
         }
       })
       .catch((e) => {
-        setResponseError(e.response.status);
+        throw new Error()
+        // setResponseError(e.response.status);
       });
   };
 

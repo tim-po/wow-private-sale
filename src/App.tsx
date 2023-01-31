@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Layout from "generic/layout";
-import HeaderContext from "Context/Header"
-import BackButtonContext from "Context/BackButton"
-import './index.css'
-import {Route, Routes} from "react-router-dom";
+import HeaderContext from "Context/Header";
+import BackButtonContext from "Context/BackButton";
+import "./index.css";
+import { Route, Routes } from "react-router-dom";
 import Start from "pages/Start";
 import Professions from "pages/Professions";
 import ProfessionDetails from "pages/ProfessionDetails";
@@ -29,7 +29,7 @@ export const App = () => {
       >
         <Layout>
           <Routes>
-            <Route path="/" element={<Start />}/>
+            <Route path="/" element={<Start />} errorElement={<NotFound/>}/>
             <Route path="/professions" element={<Professions />}/>
             <Route path="/professionDetails*" element={<ProfessionDetails />}/>
             <Route path="/diplomaShare*" element={<DiplomaShare />}/>

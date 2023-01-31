@@ -19,7 +19,9 @@
       position: sticky;
       top: 0;
       padding-top: 12px;
-      background: white;
+
+      background-color: var(--bg-color);
+      transition: var(--bg-transition);
 
       .ProfessionTitle {
         font-weight: 700;
@@ -142,6 +144,8 @@
         padding: 16px;
         transition-duration: 0.4s;
         border-radius: 12px;
+        padding-right: 40px;
+
         &.ProfessionModalBottomNon{
           right: -100%;
           overflow: hidden;

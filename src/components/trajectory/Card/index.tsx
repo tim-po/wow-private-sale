@@ -1,20 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './index.scss'
-import {ClassType, CourseType, DisciplineType} from "../../../types";
+import {ClassType} from "../../../types";
 import {colors} from "../../../constants";
 import TrajectoryDisciplineModal from "../../Modals/TrajectoryDisciplineModal";
 import ModalContext from "../../../Context/Modal";
-import { isMobile } from "react-device-detect";
-import Hints from "../../hints";
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import {isMobile} from "react-device-detect";
 
 type CardPropType = {
   selectedSphere: string | undefined,
   sphere: ClassType,
-  hintSemester?:React.RefObject<HTMLDivElement> | undefined,
+  hintSemester?: React.RefObject<HTMLDivElement> | undefined,
   selectSelf: () => void
   hintDiscipline?: React.RefObject<HTMLDivElement>,
   setSelectedSphere: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -22,9 +17,14 @@ type CardPropType = {
 
 const CardDefaultProps = {}
 
+const semesterDiscipline: ('first_semesters_disciplines' | 'second_semesters_disciplines')[] = [
+  'first_semesters_disciplines',
+  'second_semesters_disciplines'
+]
+
 const Card = (props: CardPropType) => {
   const {displayModal} = useContext(ModalContext)
-  const {selectSelf, selectedSphere, sphere, hintDiscipline,hintSemester,setSelectedSphere} = props;
+  const {selectSelf, selectedSphere, sphere, hintDiscipline, hintSemester, setSelectedSphere} = props;
   const getArrowDisciplineNames = (sphere: ClassType) => {
     const disciplinesWithArrows: string[] = []
     sphere['first_semesters_disciplines'].forEach((discipline) => {
@@ -53,12 +53,13 @@ const Card = (props: CardPropType) => {
     }
   }
 
-  useEffect(()=>{
-    if(isMobile && hintDiscipline){
+  useEffect(() => {
+    if (isMobile && hintDiscipline) {
       setSelectedSphere(sphere.name)
       switchSemesters()
     }
-  },[isMobile])
+  }, [isMobile])
+
   return (
     <div
       className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
@@ -76,79 +77,76 @@ const Card = (props: CardPropType) => {
         </button>
       </div>
       <div className="bodyCard">
-      <div className="Semester" ref={isMobile ? hintSemester : undefined}>
-        <p className="TrajectorySmallHeader">Осень</p>
-        <p className="TrajectorySmallHeader">Весна</p>
-      </div>
-      <div className="SemestersRow">
-        {[
-          'first_semesters_disciplines',
-          'second_semesters_disciplines',
-        ].map((index) => {
-          return (
-            <div
-              className={`SemesterCol ${((index === activeSemesterIndex) ? 'On' : 'Off')}  ${index}`}
-              key={index}
-              // id="getTooltipId(sphere, index)"
-            >
-              <div className="SemesterSeparator"/>
-              <button
-                className={`BottomDisclosure ${(index === activeSemesterIndex) ? 'On' : 'Off'}`}
-                onClick={(index === activeSemesterIndex) ? () => {
-                } : switchSemesters}
+        <div className="Semester" ref={isMobile ? hintSemester : undefined}>
+          <p className="TrajectorySmallHeader">Осень</p>
+          <p className="TrajectorySmallHeader">Весна</p>
+        </div>
+        <div className="SemestersRow">
+          {semesterDiscipline.map((index) => {
+            return (
+              <div
+                className={`SemesterCol ${((index === activeSemesterIndex) ? 'On' : 'Off')}  ${index}`}
+                key={index}
               >
-                {/*@ts-ignore*/}
-                {getDisciplines(sphere, index).map(discipline => {
-                  return (
-                    <div
-                      className="ModalCardButton"
-                      key={discipline.id}
-                    >
+                <div className="SemesterSeparator"/>
+                <button
+                  className={`BottomDisclosure ${(index === activeSemesterIndex) ? 'On' : 'Off'}`}
+                  onClick={(index === activeSemesterIndex) ? () => {
+                  } : switchSemesters}
+                >
+                  {getDisciplines(sphere, index).map(discipline => {
+                    return (
                       <div
-                        className="DisciplineCardWrapper"
-                        ref={hintDiscipline}
-                        onClick={(index === activeSemesterIndex || !(isMobile)) ? () => displayModal(<TrajectoryDisciplineModal id={discipline.id} />):  () =>{}}
+                        className="ModalCardButton"
+                        key={discipline.id}
                       >
-                        <div className="DisciplineCard">
-                          <div className="flex-row flex-block justify-content-between">
-                            <div
-                              className={`DisciplineCardType ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
-                            >
+                        <div
+                          className="DisciplineCardWrapper"
+                          ref={hintDiscipline}
+                          onClick={(index === activeSemesterIndex || !(isMobile)) ? () => displayModal(
+                            <TrajectoryDisciplineModal id={discipline.id}/>) : () => {
+                          }}
+                        >
+                          <div className="DisciplineCard">
+                            <div className="flex-row flex-block justify-content-between">
+                              <div
+                                className={`DisciplineCardType ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
+                              >
                               <span> {
                                 discipline.necessity === "necessary"
                                   ? "Обязательная" :
                                   "По выбору"
                               }</span>
+                              </div>
+                              <div className="ChangeType">
+                                {
+                                  discipline.control_type === "Дифференцированный зачет"
+                                    ? "Диф. зачет" :
+                                    discipline.control_type
+                                }
+                              </div>
                             </div>
-                            <div className="ChangeType">
-                              {
-                                discipline.control_type === "Дифференцированный зачет"
-                                  ? "Диф. зачет" :
-                                  discipline.control_type
-                              }
+                            <div
+                              className={`discipline-card-name ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
+                            >
+                              <span>{discipline.name}</span>
                             </div>
-                          </div>
-                          <div
-                            className={`discipline-card-name ${discipline.necessity === 'chosen' ? 'optional' : ''}`}
-                          >
-                            <span>{discipline.name}</span>
                           </div>
                         </div>
+                        {getArrowDisciplineNames(sphere).includes(discipline.name) && index === 'first_semesters_disciplines' &&
+                            <div
+                                className="discipline-arrow">
+                                <img className="DisciplineArrowPointer" src="/static/discArrow.svg"/>
+                            </div>
+                        }
                       </div>
-                      {getArrowDisciplineNames(sphere).includes(discipline.name) && index === 'first_semesters_disciplines' &&
-                        <div
-                          className="discipline-arrow">
-                          <img className="DisciplineArrowPointer" src="/static/discArrow.svg"/>
-                        </div>
-                      }
-                    </div>
-                  )
-                })}
-              </button>
-            </div>
-          )
-        })}
-      </div>
+                    )
+                  })}
+                </button>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

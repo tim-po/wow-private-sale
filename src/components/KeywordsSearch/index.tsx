@@ -41,12 +41,12 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
     setIsSearching(false);
   }
 
-  const clicKOutside = () => {
+  const clickOutside = () => {
     addKeywords()
     notSearching()
   }
 
-  useOnClickOutside(searchRef, clicKOutside)
+  useOnClickOutside(searchRef, clickOutside)
 
   const addKeywords = () => {
     keywords.addBulk(keywordsToAdd)
@@ -153,6 +153,14 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             <img src="/static/bigBoss.png" alt="big_boss"/>
             <div>Не ругайся... Не поступишь</div>
           </div>
+        {/*{!isSearchUnsuccessful && !isBadWord &&*/}
+        {/*  <button*/}
+        {/*    onClick={addKeywords}*/}
+        {/*    className="buttonSecondary inModal"*/}
+        {/*  >*/}
+        {/*    Добавить*/}
+        {/*  </button>*/}
+        {/*}*/}
         </div>
       </div>
     </div>

@@ -5,7 +5,15 @@ import Heart from "../../../../images/icons/Static/heart";
 import { BASE_URL } from "../../../../constants";
 import {useCookies} from "react-cookie";
 
-const FeedbackStatic = (props:any) => {
+interface FeedbackStaticProps {
+  isModalActive: boolean,
+  onModalClose: () => void
+}
+
+const FeedbackStatic = (props: FeedbackStaticProps) => {
+
+  const {isModalActive, onModalClose} = props
+
   const [checkSubmit, setCheckSubmit] = useState(false)
   const [email, setEmail] = useState("")
   const [text, setText] = useState("")
@@ -13,7 +21,7 @@ const FeedbackStatic = (props:any) => {
   const [validationForm, setValidationForm] = useState<Boolean>(true)
   const [cookie] = useCookies(['_ym_uid']);
 
-  if(!props.isModal){
+  if(!isModalActive){
     setTimeout(()=>{
       setCheckSubmit(false)
     },1000);
@@ -54,7 +62,7 @@ const FeedbackStatic = (props:any) => {
           <span></span>
         </div>
         <div className="containerButton">
-          <button className="cancellation" onClick={props.onModalClose}>Отмена</button>
+          <button className="cancellation" onClick={onModalClose}>Отмена</button>
           <button className="submit" onClick={handleClick}>Отправить</button>
         </div>
       </div>
@@ -66,7 +74,7 @@ const FeedbackStatic = (props:any) => {
           <div className="title">Ответ отправлен!</div>
           <div className="gratitude">Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо! </div>
           <div className="containerButton">
-            <button className="closeModal" onClick={props.onModalClose}>Круто</button>
+            <button className="closeModal" onClick={onModalClose}>Круто</button>
           </div>
         </div>
       }

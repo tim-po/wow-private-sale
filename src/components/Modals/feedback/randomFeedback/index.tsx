@@ -64,6 +64,8 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
     };
     axios.post(`${BASE_URL}feedback/`, user, {}).then(res => {
       setIsSubmitted(true)
+      setSelectedButton(-1)
+      setTextDetailed("")
       setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1)
       withLocalStorage({alreadySentFeedbackCount: alreadySentFeedbackCount + 1}, LocalStorageInteraction.save)
     }).catch(err => {
@@ -108,7 +110,7 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
             </button>
           </div>
           <div className="bottomFeedback">
-            {feedbackDataByGroup[displayForGroup]["mapButton"].map((controlTypeName: string, index: any) => {
+            {feedbackDataByGroup[displayForGroup]["mapButton"].map((controlTypeName: string, index: number) => {
               return (
                 <button
                   onClick={() => setSelectedButton(index)}

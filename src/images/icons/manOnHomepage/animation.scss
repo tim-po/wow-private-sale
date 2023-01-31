@@ -1,7 +1,7 @@
 .parallax-item{
   transform-origin: center;
   transform-box: fill-box;
-  transition: all 0.2s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1)
 }
 
 .startHumanIcon {

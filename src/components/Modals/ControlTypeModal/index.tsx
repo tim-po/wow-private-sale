@@ -54,10 +54,15 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
   };
   const promptRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log(222);
-    window.addEventListener("click", () => setIsTooltipActive(false));
+    const scrollElem = document.getElementsByClassName("d-block");
+    if (scrollElem)
+      scrollElem[scrollElem.length - 1].addEventListener("scroll", () =>
+        setIsTooltipActive(false)
+      );
     return () =>
-      window.removeEventListener("click", () => setIsTooltipActive(false));
+      scrollElem[scrollElem.length - 1].removeEventListener("scroll", () =>
+        setIsTooltipActive(false)
+      );
   });
 
   return (

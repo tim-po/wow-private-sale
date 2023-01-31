@@ -34,6 +34,7 @@
   border-radius: 12px;
 }
 .ModalTrack .d-block{
+  overflow: inherit;
   position: relative;
   background: white;
   border-radius: 16px;
@@ -59,57 +60,74 @@
 .ModalTrack{
   display: initial;
 }
-/*.mobil{*/
-/*  display: none;*/
-/*}*/
+
 @media screen and (min-width: 1000px) {
+  .d-block{
+    transform: scale(0);
+    transition: all 0.5s;
+    &.active{
+      transform: scale(1);
+    }
+  }
+
   .mobil{
     display: none;
   }
-
   .ModalContainerShad{
-    /*position: absolute;*/
     width: 100vw;
     height: 100vh;
   }
   .ModalContainer{
-    transition: opacity 0.3s;
+    //transition: opacity 0.3s;
     background: rgba(45, 43, 68, 0.6);
     z-index: 11000;
     position: fixed;
     top: 0;
     left: 0;
-    /*max-height: min-content;*/
-    width: 100vw;
+    //width: 0;
+    //transition: all 0.1s;
     height: 100%;
     align-items: center;
     justify-content: center;
-    transform: scaleY(0);
+    //transform: scale(0);
     opacity: 0;
     display: flex;
   }
   .ModalTrack{
-    transform: scale(0);
+    //transform: scale(0);
     flex-shrink: 0;
-    transition: opacity 0.3s;
+    //transition: opacity 0.3s;
     z-index: 2000;
     position: absolute;
     height: max-content;
-    /*overflow-y: scroll;*/
   }
   .ModalContainer.active{
-    transition: opacity 0.3s 0.3s, transform 0s;
-    transform: scaleY(1);
+    //transition: opacity 0.3s 0.3s, transform 0s;
+    //transform: scale(1);
     opacity: 1;
+    //width: 100vw;
   }
   .ModalContainer.active .ModalTrack{
-    transform: scale(1);
+    //transform: scale(1);
     /*z-index: 9000;*/
+    //width: 100vw;
+
   }
 }
 
 
 @media screen and (max-width: 1000px) {
+
+  .wrapHeaderModal{
+    width: 100%;
+    //background: white;
+    height: 20px;
+    position: fixed;
+    z-index: 10000;
+    border-radius: 16px 16px 0 0;
+
+
+  }
   .maxHeight.active .d-block{
     height: 100%!important;
     background: white;
@@ -119,17 +137,15 @@
   }
   .ModalContainerShad{
     position: absolute;
-    width: 100vw;
+    width: 100%;
     z-index: 60;
-    height: 100vh;
+    height: 100%;
   }
   .ModalContainer.maxHeight.active .d-block .TextCenter{
     height: 100%;
     background: white;
   }
-  .d-block{
-    padding: inherit;
-  }
+
   .hideDesktop{
     display: inherit;
   }
@@ -146,61 +162,49 @@
 
   .ModalContainer .ModalContainer{
     max-height: 0!important;
-    /*transform: inherit;*/
   }
   .ModalContainer .ModalContainer .ModalTrack{
     max-height: 0!important;
-    /*transform: inherit;*/
   }
   .ModalContainer .ModalContainer.active{
-    /*transform: inherit;*/
     border-radius: 0px 0px 0px 0px;
     background: #F3F3F8;
     height: 100%;
   }
   .ModalContainer .ModalContainer.active .ModalTrack{
     max-height: calc(100%)!important;
-    /*transform: inherit;*/
   }
   .ModalContainer .ModalContainer.active .d-block{
     overflow-y: scroll;
+    height: 0;
     max-height: calc(100% - 130px);
   }
   .ModalContainer{
-    /*transition: opacity 0.3s ;*/
-    /*background: rgba(45, 43, 68, 0.3);*/
     z-index: 10000;
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 0;
+    height: 100vh;
     align-items: center;
     justify-content: center;
-    /*transition: opacity 0.3s 0.3s, transform 0s;*/
     display: flex;
-  }
-  .ModalContainer.active{
-    /*transition: opacity 0.3s 0.3s, transform 0s;*/
-    /*opacity: 1;*/
-    //overflow-y: scroll;
-    //height: 100vh;
   }
 
   .d-block{
+    padding: inherit;
     opacity: 1;
-    transition: all 0.5s;
+    transition: all 0.3s;
     max-height: 0;
     position: absolute!important;
     bottom: 0;
     width: 100%;
   }
-  .d-block.activ{
+  .d-block.active{
     z-index: 1000;
     transition: all 0.5s;
     max-height: calc(100% - 80px);
     position: absolute;
-
     bottom: 0;
     border-radius: 16px 16px 0 0;
   }
@@ -208,6 +212,7 @@
   .ModalContainer.active .ModalTrack{
     height: calc(100%);
     display: block;
+    opacity: 1;
   }
 
 
@@ -220,22 +225,21 @@
     position: absolute;
   }
   .ModalTrack{
-    /*opacity: 1;*/
-    /*border-radius: 16px 16px 0px 0px;*/
     z-index: 20!important;
-    transition: all 0.5s;
     padding-top: 0;
     height: calc(0%);
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
-    //overflow: scroll;
     background: rgba(45, 43, 68, 0.3);
 
   }
   .ModalContainer .ModalContainer.active .ModalTrack{
     overflow: hidden;
-
+    opacity: 1;
+  }
+  .modalContainer{
+    overflow-y:auto;
   }
 }

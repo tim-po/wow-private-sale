@@ -19,13 +19,20 @@
   }
 }
 
-.ModalClassHeaderText {
+.containerName .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ModalClassHeaderText{
   font-size: 16px;
   font-weight: 700;
   color: white;
   position: absolute;
   top: 20px;
   left: 20px;
+  margin-right: 40px;
 }
 
 .aligned-keywords-wrapper {
@@ -123,14 +130,24 @@
 }
 
 .disciplineCardModal {
+  text-align: left;
+  -webkit-appearance: none;
+  border: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  max-width: 240px;
   transition: all 0.4s;
   transform: translateX(0);
   width: max-content;
   color: #1F1F22;
 }
 
+
 .replacement_options.open {
-  box-shadow: 0 26px 11px rgba(100, 53, 165, 0.01), 0 15px 9px rgba(100, 53, 165, 0.03), 0 7px 7px rgba(100, 53, 165, 0.05), 0 0 4px rgba(100, 53, 165, 0.06), 0 0 0 rgba(100, 53, 165, 0.06);
   transform: scaleY(1);
   opacity: 1;
 }
@@ -144,7 +161,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  box-shadow: 0 26px 11px rgba(100, 53, 165, 0.0), 0 15px 9px rgba(100, 53, 165, 0.0), 0 7px 7px rgba(100, 53, 165, 0.0), 0 0 4px rgba(100, 53, 165, 0.0), 0 0 0 rgba(100, 53, 165, 0.0);
+  box-shadow: var(--default-shadow);
   opacity: 0;
   //max-height: 12px;
 }
@@ -190,7 +207,6 @@
 }
 
 .disciplineDetail {
-  margin-left: 1rem;
   font-weight: 500;
   font-size: 12px;
   border-radius: 4px;
@@ -230,19 +246,6 @@
   font-size: 12px;
 }
 
-.disciplineCardModal {
-  text-align: left;
-  -webkit-appearance: none;
-  border: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  max-width: 240px;
-}
-
 .Arrow {
   position: inherit;
   transition: all 0.2s;
@@ -255,6 +258,7 @@
 }
 
 .discModalHeader {
+  width: 60%;
   font-weight: bold;
 }
 
@@ -267,7 +271,7 @@
 }
 
 .disciplineModalContent {
-  overflow-y: scroll;
+  //overflow-y: scroll;
   text-align: left;
   padding: 32px 36px 36px 36px;
 }
@@ -287,13 +291,8 @@
     flex-direction: column;
   }
   .containerDiscipline {
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
     max-width: initial;
-  }
-
-  .disciplineDetail {
-    margin-left: revert;
-    margin-right: 1rem;
   }
 
   .arrow-card-modal {
@@ -379,6 +378,8 @@
 
   .containerName .tags {
     width: 100%;
+    display: flex;
+    gap: 5px;
   }
 
 }

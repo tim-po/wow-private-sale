@@ -87,9 +87,44 @@ body {
     --gray-10: #F8F8F8;
     --gray-dark: #B1AFC4;
     --gray: #6E6D79;
+
+    --bg-transition-duration: 0.3s;
+    --bg-transition: background-color var(--bg-transition-duration) ease;
+
+    /*Shadow*/
+
+    --default-shadow: 0px 0px 1px rgba(31, 31, 34, 0.1), 0px 4px 10px rgba(31, 31, 34, 0.06);
+
+    /*Brand font color*/
+    --color-brand: var(--color-5-dark);
+
+    /*Preset card*/
+    --bg-preset: #F3F3F8;
+    --bg-preset-hover: #EBE9F3;
+    --bg-preset-active: #E7E4F1;
+
+    /*Subject item*/
+    --bg-subject: #FFFFFF;
+    --bg-subject-hover: #F7F5FA;
+    --bg-subject-active: #E7E4F1;
+
+    /*Rows and tags*/
+    --bg-tech: #FFFFFF;
+    --bg-tech-hover: #F3F3F8;
+    --bg-tech-active: #EBE9F3;
+    --bg-tech-disabled: #6E6D79;
+
+
+    --trajectories-bg-1: #f18aa7;
+    --trajectories-bg-2: #989cf8;
+    --trajectories-bg-3: #75c2dc;
+    --trajectories-bg-4: #f18069;
+
+
 }
 
 .TrajectoriesLinkBack {
+    background-color: var(--bg-color);
     display: flex;
     align-items: center;
     color: #6E6D79;
@@ -141,6 +176,11 @@ body {
 .skeleton-v2 {
     opacity: .7;
     animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.sticky-header {
+    background-color: var(--bg-color);
+    transition: var(--bg-transition);
 }
 
 @keyframes skeleton-loading {

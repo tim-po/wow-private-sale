@@ -1,9 +1,4 @@
-import React, {
-  MouseEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { MouseEventHandler, useContext, useEffect, useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import ModalsContext from "../../Context/Modal";
@@ -24,7 +19,7 @@ type PresetPropType = {
 };
 
 const PresetDefaultProps = {
-  somePropWithDefaultOption: "default value",
+  somePropWithDefaultOption: "default value"
 };
 
 const Preset = (props: PresetPropType) => {

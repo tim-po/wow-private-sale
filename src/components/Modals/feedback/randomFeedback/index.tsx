@@ -64,6 +64,8 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
     };
     axios.post(`${BASE_URL}feedback/`, user, {}).then(res => {
       setIsSubmitted(true)
+      setSelectedButton(-1)
+      setTextDetailed("")
       setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1)
       withLocalStorage({alreadySentFeedbackCount: alreadySentFeedbackCount + 1}, LocalStorageInteraction.save)
     }).catch(err => {

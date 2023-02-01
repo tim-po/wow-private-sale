@@ -2,16 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import axios from "axios";
 import Hints from "../../hints";
-import { isMobile } from "react-device-detect";
 import { BASE_URL, colors } from "../../../constants";
 import { TrajectoryDisciplineType } from "types";
-import { useSearchParams } from "react-router-dom";
-import { GiFlame, GiFlamer } from "react-icons/all";
 import Flame from "../../../images/icons/flame";
 
 type TrajectoryDisciplineModalPropType = {
   id: number;
 };
+
+interface IDiscipline {
+  id: number;
+  name: string;
+}
+
+interface ISemesterDiscipline extends IDiscipline {
+  semester: number;
+}
 
 enum DisciplineMovement {
   left = "left",
@@ -23,22 +29,11 @@ const TrajectoryDisciplineModal = (
   props: TrajectoryDisciplineModalPropType
 ) => {
   const { id } = props;
-  const [searchParams] = useSearchParams();
-  const [trajectoryDisciplineData, setTrajectoryDisciplineData] = useState<
-    TrajectoryDisciplineType | undefined
-  >(undefined);
-  const [sortedPrevDisciplines, setSortedPrevDisciplines] = useState<
-    { id: number; name: string; semester: number }[]
-  >([]);
-  const [sortedNextDisciplines, setSortedNextDisciplines] = useState<
-    { id: number; name: string; semester: number }[]
-  >([]);
-  const [replacementOptions, setReplacementOptions] = useState<
-    { id: number; name: string }[]
-  >([]);
-  const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<
-    { id: number; name: string }[]
-  >([]);
+  const [trajectoryDisciplineData, setTrajectoryDisciplineData] = useState<TrajectoryDisciplineType | undefined>(undefined);
+  const [sortedPrevDisciplines, setSortedPrevDisciplines] = useState<ISemesterDiscipline[]>([]);
+  const [sortedNextDisciplines, setSortedNextDisciplines] = useState<ISemesterDiscipline[]>([]);
+  const [replacementOptions, setReplacementOptions] = useState<IDiscipline[]>([]);
+  const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<IDiscipline[]>([]);
   const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] =
     useState<boolean>(false);
   const [movement, setMovement] = useState<DisciplineMovement>(
@@ -54,7 +49,8 @@ const TrajectoryDisciplineModal = (
       );
       setTrajectoryDisciplineData(response.data);
       setMovement(DisciplineMovement.none);
-    } catch (e) {}
+    } catch (e) {
+    }
   };
 
   const sortPrevDisciplines = () => {
@@ -122,9 +118,9 @@ const TrajectoryDisciplineModal = (
       setReplacementOptions([
         {
           id: trajectoryDisciplineData.id,
-          name: trajectoryDisciplineData.name,
+          name: trajectoryDisciplineData.name
         },
-        ...trajectoryDisciplineData.replacement_options,
+        ...trajectoryDisciplineData.replacement_options
       ]);
     }
   }, [trajectoryDisciplineData]);
@@ -216,9 +212,8 @@ const TrajectoryDisciplineModal = (
                         {initialDisciplineId === replacementOption.id && (
                           <div className={"selected"}>
                             <Flame />
-                            Выбранна для тебя
-                          </div>
-                        )}
+                            Выбрана для тебя
+                          </div>)}
                       </button>
                     ))}
                   </div>
@@ -252,9 +247,9 @@ const TrajectoryDisciplineModal = (
               )}
               <div>
                 <div
-                // v-for="disc in sort(discipline.next_disciplines)"
-                // className="disc ? furtherUse= true  ''"
-                // className="disciplineCardModal mb-2 mx-auto"
+                  // v-for="disc in sort(discipline.next_disciplines)"
+                  // className="disc ? furtherUse= true  ''"
+                  // className="disciplineCardModal mb-2 mx-auto"
                 >
                   {/*{{disc}}*/}
                 </div>
@@ -302,7 +297,7 @@ const TrajectoryDisciplineModal = (
                   <div
                     className="modalKeyword mr-2 mb-2"
                     style={{
-                      background: `${colors[trajectoryDisciplineData.class]}60`,
+                      background: `${colors[trajectoryDisciplineData.class]}60`
                     }}
                   >
                     {keyword}
@@ -319,7 +314,7 @@ const TrajectoryDisciplineModal = (
                 .map((keyword) => (
                   <div
                     style={{
-                      background: `${colors[trajectoryDisciplineData.class]}20`,
+                      background: `${colors[trajectoryDisciplineData.class]}20`
                     }}
                     className="mr-2 mb-2 modalKeyword"
                   >
@@ -336,7 +331,7 @@ const TrajectoryDisciplineModal = (
           pageTitle="hintSemesterChoice"
           nameRef={["hintSemesterChoice"]}
           description={[
-            "Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему",
+            "Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему"
           ]}
           title={["Смотри альтернативы"]}
         />

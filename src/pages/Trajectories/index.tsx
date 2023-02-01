@@ -65,7 +65,6 @@ const Trajectories = () => {
     updateStickyBlocks();
   }, []);
 
-
   if(responseError){
     return <NotFound/>
   }
@@ -93,8 +92,6 @@ const Trajectories = () => {
           </button>
         </div>
       </div>
-
-
       {trajectories.length ?
         trajectories.map((trajectory) =>
           <TrajectoryPreview trajectory={trajectory}/>

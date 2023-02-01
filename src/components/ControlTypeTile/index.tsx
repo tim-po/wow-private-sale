@@ -1,8 +1,8 @@
-import React, {useContext, useState} from "react";
-import './index.scss'
+import React, { useContext } from "react";
+import "./index.scss";
 import ModalContext from "../../Context/Modal";
 import ControlTypeModal from "../Modals/ControlTypeModal";
-import {CountType} from "../../types";
+import { CountType } from "../../types";
 
 // CONSTANTS
 

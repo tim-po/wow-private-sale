@@ -15,8 +15,6 @@ import { useInView } from "react-intersection-observer";
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
 type SkillSetsPropType = {
   // You should declare props like this, delete this if you don't need props
   presets: {

@@ -176,9 +176,7 @@
 
 .addKeywordsSearch.extended {
   background: white;
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01),
-  0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05),
-  0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+  box-shadow: var(--default-shadow);
   border: 1px solid #e7e8ee;
   max-height: calc(100vh - 300px);
   min-height: 160px;
@@ -226,7 +224,6 @@
     background: white;
     padding-top: 8px;
     padding-bottom: 8px;
-    z-index: 119;
   }
 
   .addKeywordsSearch.extended {

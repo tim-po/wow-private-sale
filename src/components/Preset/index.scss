@@ -19,8 +19,18 @@
             0px 0px 4px rgba(100, 53, 165, 0.06),
             0px 0px 0px rgba(100, 53, 165, 0.06);
 
+    background: var(--bg-preset-hover);
+
     .actionButton {
       transform: scale(1.3);
+    }
+  }
+
+  &.iteractable:active {
+    background-color: var(--bg-preset-active);
+
+    .presetTitle {
+      color: var(--color-brand)
     }
   }
 
@@ -34,6 +44,7 @@
     z-index: 1;
     opacity: 0;
   }
+
 
   &.hidePreset{
     animation: presetDisappear 0.2s ease-in;
@@ -110,6 +121,9 @@
     }
   }
 }
+
+
+
 
 
 .declineAnimate{

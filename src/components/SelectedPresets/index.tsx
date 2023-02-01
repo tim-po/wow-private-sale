@@ -7,13 +7,10 @@ import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
-import Hints from "../hints";
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
-
-// TODO: copy this components directory and add your content to make your page
 
 type SelectedPresetsPropType = {
   // You should declare props like this, delete this if you don't need props
@@ -29,7 +26,7 @@ const SelectedPresetsDefaultProps = {
 };
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { selectedPresets, deletePreset, isHidden, hintEditPresets } = props;
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
@@ -109,7 +106,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
       >
         <button className="scrollBtn right" onClick={scrollToRight}>
           <span style={{ pointerEvents: "none" }}>
-            <Chevron />
+            <Chevron color={undefined}/>
           </span>
         </button>
         <button

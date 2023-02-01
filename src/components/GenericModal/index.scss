@@ -137,9 +137,9 @@
   }
   .ModalContainerShad{
     position: absolute;
-    width: 100vw;
+    width: 100%;
     z-index: 60;
-    height: 100vh;
+    height: 100%;
   }
   .ModalContainer.maxHeight.active .d-block .TextCenter{
     height: 100%;
@@ -212,6 +212,7 @@
   .ModalContainer.active .ModalTrack{
     height: calc(100%);
     display: block;
+    opacity: 1;
   }
 
 
@@ -225,7 +226,6 @@
   }
   .ModalTrack{
     z-index: 20!important;
-    //transition: all 0.3s;
     padding-top: 0;
     height: calc(0%);
     position: fixed;
@@ -237,7 +237,7 @@
   }
   .ModalContainer .ModalContainer.active .ModalTrack{
     overflow: hidden;
-
+    opacity: 1;
   }
   .modalContainer{
     overflow-y:auto;

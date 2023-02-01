@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.scss";
-import { isMobile } from "react-device-detect";
 import { CountType, CourseType } from "../../../types";
 import { hierarchy, pack } from "d3-hierarchy";
 import { allControllTypes, colors } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
-import titleModal from "../../../Context/Modal";
 import ModalContext from "../../../Context/Modal";
 import ControlTypeModal from "../../Modals/ControlTypeModal";
 import { scrollToElement } from "../../../utils/scrollToElement";
@@ -31,7 +29,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     setSelectedSphere,
     setIsModalTrajectory,
   } = props;
-  const [focusedCircleLoading, setFocusedCircleLoading] = useState(false);
+  const [focusedCircleLoading] = useState(false);
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
   const { displayModal, closeModal } = useContext(ModalContext);
@@ -142,15 +140,15 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name;
   };
 
-  const focusOnCircle = (klass: any) => {
-    if (focusedCircle === undefined) {
-      setFocusedCircle(klass);
-      setFocusedCircleLoading(true);
-      setTimeout(() => {
-        setFocusedCircleLoading(false);
-      }, 300);
-    }
-  };
+  // const focusOnCircle = (klass: any) => {
+  //   if (focusedCircle === undefined) {
+  //     setFocusedCircle(klass);
+  //     setFocusedCircleLoading(true);
+  //     setTimeout(() => {
+  //       setFocusedCircleLoading(false);
+  //     }, 300);
+  //   }
+  // };
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
@@ -200,10 +198,10 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
                     : ""
                 }`}
                 key={klass.data.name}
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   setFocusedCircle(klass);
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   if (focusedCircle.data.name === klass.data.name) {
                     setFocusedCircle(undefined);
                   }
@@ -258,26 +256,25 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         </button>
       </div>
       <div className="DisciplinesNecessityCol TrajectoryCard mt-1 marginMobil">
-        <div
-          className={`DisciplinesNecessityFlex ${
-            getNecessityCount().necessary ? "" : "notActive"
-          }`}
+        <button
+          className={'DisciplinesNecessityFlex hoverTech'}
+          disabled={!getNecessityCount().necessary}
           onClick={openNecessaryDisciplinesModal}
         >
-          <button className="HoverDisciplinesNecessityFlex">
+          <span>
             Обязательные
-          </button>
+          </span>
           <span>{getNecessityCount().necessary}</span>
-        </div>
-        <div
-          className={`DisciplinesNecessityFlex ${
-            getNecessityCount().chosen ? "" : "notActive"
-          }`}
+        </button>
+
+        <button
+          className={'DisciplinesNecessityFlex hoverTech'}
+          disabled={!getNecessityCount().chosen}
           onClick={openChosenDisciplinesModal}
         >
-          <button className="HoverDisciplinesNecessityFlex">По выбору</button>
+          <span>По выбору</span>
           <span>{getNecessityCount().chosen}</span>
-        </div>
+        </button>
       </div>
     </div>
   );

@@ -37,7 +37,7 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-
+      padding-top: 11px;
       margin-bottom: 24px;
 
       .skeleton-v2 {
@@ -82,7 +82,7 @@
         right: 16px;
       }
       .Text {
-        font-family: 'Inter';
+        font-family: 'Inter', serif;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -94,9 +94,7 @@
           padding: inherit;
           border: inherit;
         }
-
       }
-
     }
   }
 }
@@ -144,6 +142,8 @@
         padding: 16px;
         transition-duration: 0.4s;
         border-radius: 12px;
+        padding-right: 40px;
+
         &.ProfessionModalBottomNon{
           right: -100%;
           overflow: hidden;

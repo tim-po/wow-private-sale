@@ -38,7 +38,7 @@ const Diploma = (props: DiplomaPropType) => {
   const [linkAbit, setLinkAbit] = useState(
     "https://abit.itmo.ru/programs/bachelor"
   );
-  const { group_id } = useContext<any>(FeedbackGroupIdContext);
+  const { groupId } = useContext(FeedbackGroupIdContext);
 
   const [searchParams] = useSearchParams();
   const randomFeedbackSelectOptions = [

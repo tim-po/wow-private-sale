@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import GenericModal from "../../components/GenericModal";
 import HeaderContext from "../../Context/Header";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
@@ -27,7 +28,7 @@ const Professions = () => {
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false);
   const [isFeedbackFormVisible, setIsFeedbackFormVisible] = useState(false);
   const { displayModal } = useContext(ModalContext);
-  const professionChosen = (profession: Profession) => {
+  const professionChosen = (profession: any) => {
     setIsHeaderAnimated(true);
     withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.save);
     withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.save);

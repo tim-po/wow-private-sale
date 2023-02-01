@@ -38,11 +38,13 @@
       color: #6E6D79;
     }
   }
+
   .scrollBtn {
-    transition: all 0.2s;
+    transition: all 0.3s;
     padding: 0;
     position: absolute;
-    background-color: #ffffff;
+    overflow: hidden;
+    background-color: var(--bg-tech);
     background-repeat: no-repeat;
     background-position: center;
     z-index: 13;
@@ -52,12 +54,28 @@
     height: 40px;
     border: none;
     border-radius: 50%;
-    box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
+    box-shadow: var(--default-shadow);
+    color: red;
+
+    &:hover{
+      span svg{
+        stroke: var(--color-brand) !important;
+        transition: stroke var(--bg-transition-duration);
+      }
+
+      &:active{
+        background-color: var(--bg-tech-hover);
+        transition: var(--bg-transition)
+      }
+    }
+
+
+
     &.left {
       left: -10px;
-      //transform: scaleX(-1);
     }
   }
+
   .prompt {
     width: 257px;
     display: flex;
@@ -132,30 +150,6 @@
     }
   }
 }
-
-.scrollBtn {
-  overflow: hidden;
-  transition: all 0.3s;
-  padding: 0;
-  position: absolute;
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 9;
-  right: -10px;
-  top: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0px 26px 11px rgba(100, 53, 165, 0.01), 0px 15px 9px rgba(100, 53, 165, 0.03), 0px 7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
-}
-
-.scrollBtn.left {
-  left: -10px;
-  //transform: scaleX(-1);
-}
-
 
 .leftSlide .presets {
   /*min-width: 437px;*/

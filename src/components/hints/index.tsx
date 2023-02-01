@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss"
-import Arrow from "../../images/icons/Arrow";
-import { isBoolean } from "lodash";
-import getPosition from "./HintGeneric";
 import HintGeneric from "./HintGeneric";
-import { isMobile } from "react-device-detect";
-import { ReactPortal } from "react";
 import Portal from "./Portal";
 
 type PropsType = {

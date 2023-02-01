@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useEffect, useRef,useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
@@ -7,7 +7,6 @@ import Preset from "../Preset";
 import Illustration from "images/icons/illustration";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
-import Hints from "../hints";
 
 type SelectedPresetsPropType = {
   selectedPresets: PresetType[];
@@ -26,7 +25,6 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [leftScrollPosition, setLeftScrollPosition] = useState(0);
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
   const presetWindowSize = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const carousel: Element | null = document.querySelector(".leftSlide");
     if (carousel) {
@@ -106,7 +104,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
       >
         <button className="scrollBtn right" onClick={scrollToRight}>
           <span style={{ pointerEvents: "none" }}>
-            <Chevron />
+            <Chevron color={undefined}/>
           </span>
         </button>
         <button

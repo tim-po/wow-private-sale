@@ -47,14 +47,12 @@ const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
   };
 
   const scrollToRight = (event: any) => {
-    event.preventDefault();
     event.target.parentNode.scrollLeft += Math.min(
       event.target.parentNode.clientWidth,
       460
     );
   };
   const scrollToLeft = (event: any) => {
-    event.preventDefault();
     event.target.parentNode.scrollLeft -= Math.min(
       event.target.parentNode.clientWidth,
       460
@@ -106,6 +104,7 @@ const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
           <button className="ScrollBtn Right" onClick={scrollToRight}>
             <Chevron />
           </button>
+
           <button className="ScrollBtn Left" onClick={scrollToLeft}>
             <Chevron turn={Turn.left} />
           </button>

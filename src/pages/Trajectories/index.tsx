@@ -84,7 +84,7 @@ const Trajectories = () => {
           <button
             className="border-0 pr-0 py-0 hideButton"
             onClick={() => {
-              const card = document.querySelector(".Не");
+              const card = document.querySelector(".animationWrap");
               if (card) card.classList.toggle("Hidden");
             }}
           >

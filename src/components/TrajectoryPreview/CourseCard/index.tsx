@@ -1,32 +1,26 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./index.scss";
 import { allControllTypes } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
 import { CourseType } from "../../../types";
 
 //TYPES
-interface ICourseCardProps {
+interface CourseCardProps {
   course?: CourseType;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const CourseCard = (props: ICourseCardProps) => {
-  const { course, onClick } = props;
-  const card = useRef<HTMLDivElement>(null);
 
-  const isSkeleton = (...props:unknown[]) =>{
-    return !props.reduce((acc, item)=> acc && item)
-  }
+const CourseCard = (props: CourseCardProps) => {
+  const { course, onClick } = props;
+  const isSkeleton = !course
 
   return (
     <div
-      ref={card}
-      className={`CourseCard ${isSkeleton(course, onClick) && `MainSkeleton`}`}
-      key="index"
+      className={`CourseCard  ${isSkeleton ? 'MainSkeleton' : `trajectories-bg-${course.course}`}`}
       onClick={onClick}
-      style={course && { backgroundColor: `var(--trajectories-bg-${course.course})`}}
     >
-      {course && onClick &&
+      {!isSkeleton &&
         <>
           <div className="CourseCardHeader">{course.course} курс</div>
           <div>

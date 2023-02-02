@@ -14,6 +14,7 @@ interface ITrajectoryPreview {
 const TrajectoryPreview = (props: ITrajectoryPreview) => {
   const { trajectory } = props;
 
+  const isSkeleton = !trajectory
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -81,8 +82,8 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
 
   return (
     <div className="TrajectoriesCard mb-3">
-      <div className={`TrajectoriesCardHeader ${!trajectory && "MainSkeleton"}`}>
-        {trajectory &&
+      <div className={`TrajectoriesCardHeader${isSkeleton ? " MainSkeleton" : ''}`}>
+        {!isSkeleton &&
           <>
             <h5 className="trajectoryHeader mb-0">
               {trajectory.educational_plan}
@@ -105,7 +106,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
           onLoad={shouldDrawScrollButton}
           onScroll={shouldDrawScrollButton}
         >
-          {trajectory &&
+          {!isSkeleton &&
             <>
               <button className="ScrollBtn Right" onClick={scrollToRight}>
                 <Chevron />
@@ -117,10 +118,10 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
             </>
           }
 
-          {trajectory ?
+          {!isSkeleton ?
             trajectory.courses.map((course) => (
             <CourseCard course={course} onClick={() => trajectoryChosen(trajectory, course.course)} />
-          )) : makeEmptyList(4).map(() => <CourseCard />)}
+          )) : makeEmptyList(4).map(() => <CourseCard/>)}
         </div>
       </div>
 
@@ -128,7 +129,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
         <div className="TrajectoriesCardFooter">
           <button
             onClick={trajectory && (() => trajectoryChosen(trajectory))}
-            className={`ButtonTrajectory MainButton mr-2${!trajectory && " MainSkeleton"}`}
+            className={`ButtonTrajectory MainButton mr-2${isSkeleton ? " MainSkeleton" : ''}`}
           >
             Смотреть траекторию
           </button>
@@ -138,7 +139,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
               "+"
             )}`}
             target="_blank"
-            className={`ButtonAbit ${!trajectory && "MainSkeleton"}`}
+            className={`ButtonAbit${isSkeleton ? " MainSkeleton" : ''}`}
           >
             Читать больше на abit.itmo.ru
           </a>

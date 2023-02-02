@@ -11,6 +11,7 @@
 
 }
 
+
 .TrajectoriesCardHeader {
   align-items: center;
   justify-content: space-between;
@@ -109,47 +110,6 @@
   color: var(--gray);
 }
 
-//Styles for skeletons
-
-.CourseCardSkeleton {
-  padding: 20px;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  color: white;
-  border-radius: 16px;
-  height: 350px;
-  min-width: 440px;
-  flex-shrink: 0;
-  cursor: unset;
-  background-color: #ddd !important;
-
-  &:hover {
-    box-shadow: none;
-  }
-}
-
-.ButtonSkeleton {
-  height: 21px;
-  box-sizing: content-box;
-  background-color: #ddd;
-
-  &:hover {
-    background-color: #ddd;
-  }
-}
-
-
-.TrajectoriesCardSkeleton {
-  margin: 0;
-  max-width: 100%;
-
-  .trajectoryCardWrapper {
-    overflow: hidden;
-  }
-}
-
-
 @media screen and (max-width: 1000px) {
   .TrajectoriesCard {
     min-width: 100%;
@@ -242,46 +202,3 @@
 
 }
 
-$base-color: #ddd;
-$shine-color: #e8e8e8;
-
-.MainSkeleton {
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.1) !important;
-  background-image: linear-gradient(-45deg, $base-color 0, $base-color 45%, $shine-color 50%, $base-color 55%, $base-color 100%) !important;
-  content: "" !important;
-  animation: shine-lines 2s infinite;
-  background-size: 400% 400% !important;
-  backdrop-filter: blur(30px);
-  border: none !important;
-  z-index: 1000;
-  pointer-events: none;
-
-  &::placeholder {
-    opacity: 0 !important;
-  }
-
-  &::before {
-    opacity: 0;
-  }
-
-  &::after {
-    opacity: 0;
-  }
-
-  div, span, img, video, p, source {
-    opacity: 0 !important;
-  }
-}
-
-@keyframes shine-lines {
-  from {
-    background-position: right;
-  }
-  50% {
-    background-position: left;
-  }
-  to {
-    background-position: right;
-  }
-}

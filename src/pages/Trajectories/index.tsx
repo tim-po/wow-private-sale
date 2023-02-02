@@ -35,7 +35,7 @@ const randomFeedback = {
 
 const Trajectories = () => {
   // const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  // const [width, setWidth] = useState(0);
+  // const [width, setWidth] = useState(0);>
   const [trajectories, setTrajectories] = useState([]);
   // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);

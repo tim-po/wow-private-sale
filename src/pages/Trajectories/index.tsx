@@ -12,7 +12,6 @@ import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
-import TrajectorySkeleton from "../../components/TrajectoryPreview/TrajectoryPreviewSkeleton";
 import TrajectoryPreview from "../../components/TrajectoryPreview";
 
 // CONSTANTS
@@ -36,7 +35,7 @@ const randomFeedback = {
 
 const Trajectories = () => {
   // const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  // const [width, setWidth] = useState(0);
+  // const [width, setWidth] = useState(0);>
   const [trajectories, setTrajectories] = useState([]);
   // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
@@ -75,7 +74,7 @@ const Trajectories = () => {
         Готовые траектории
       </h1>
 
-      <div className={"animationWrap"}>
+      <div className={"animationWrap Hidden"}>
         <div className="TrajectoriesInfoCard align-items-center">
           <PercentProgress percent={0.8} />
           Мы собрали подходящие для тебя образовательные программы в ИТМО.
@@ -97,7 +96,7 @@ const Trajectories = () => {
           <TrajectoryPreview trajectory={trajectory}/>
         ) :
         makeEmptyList(5).map(()=>
-          <TrajectorySkeleton/>
+          <TrajectoryPreview/>
         )}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />

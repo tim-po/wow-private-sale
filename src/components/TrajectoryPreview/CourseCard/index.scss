@@ -8,6 +8,9 @@
 
 
 .CourseCard {
+  min-height: 350px;
+  min-width: 440px;
+
   padding: 20px;
   border: none;
   box-shadow: none;
@@ -31,6 +34,19 @@
   .CourseCardControlCard {
     box-shadow: none !important;
   }
+}
+
+.trajectories-bg-1{
+  background-color: #f18aa7;
+}
+.trajectories-bg-2{
+  background-color: #989cf8;
+}
+.trajectories-bg-3{
+  background-color: #75c2dc;
+}
+.trajectories-bg-4{
+  background-color: #f18069;
 }
 
 .CourseCardHeader {
@@ -71,26 +87,7 @@
 }
 
 
-.trajectories-bg-0 {
-  background: #f18aa7;
-  border: 1px solid #f18aa7;
-}
 
-.trajectories-bg-1 {
-  background: #989cf8;
-  border: 1px solid #989cf8;
-}
-
-.trajectories-bg-2 {
-  background: #75c2dc;
-  border: 1px solid #75c2dc;
-
-}
-
-.trajectories-bg-3 {
-  background: #f18069;
-  border: 1px solid #f18069;
-}
 
 
 @media screen and (max-width: 1000px) {

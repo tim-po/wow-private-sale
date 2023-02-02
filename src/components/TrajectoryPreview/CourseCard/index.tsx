@@ -17,7 +17,7 @@ const CourseCard = (props: CourseCardProps) => {
 
   return (
     <div
-      className={`CourseCard  ${isSkeleton ? 'MainSkeleton' : `trajectories-bg-${course.course}`}`}
+      className={`CourseCard ${isSkeleton ? 'MainSkeleton' : `trajectories-bg-${course.course}`}`}
       onClick={onClick}
     >
       {!isSkeleton &&

@@ -82,7 +82,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
 
   return (
     <div className="TrajectoriesCard mb-3">
-      <div className={`TrajectoriesCardHeader${isSkeleton ? " MainSkeleton" : ''}`}>
+      <div className={`TrajectoriesCardHeader ${isSkeleton ? "MainSkeleton" : ''}`}>
         {!isSkeleton &&
           <>
             <h5 className="trajectoryHeader mb-0">
@@ -129,7 +129,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
         <div className="TrajectoriesCardFooter">
           <button
             onClick={trajectory && (() => trajectoryChosen(trajectory))}
-            className={`ButtonTrajectory MainButton mr-2${isSkeleton ? " MainSkeleton" : ''}`}
+            className={`ButtonTrajectory MainButton mr-2 ${isSkeleton ? "MainSkeleton" : ''}`}
           >
             Смотреть траекторию
           </button>
@@ -139,7 +139,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
               "+"
             )}`}
             target="_blank"
-            className={`ButtonAbit${isSkeleton ? " MainSkeleton" : ''}`}
+            className={`ButtonAbit ${isSkeleton ? "MainSkeleton" : ''}`}
           >
             Читать больше на abit.itmo.ru
           </a>

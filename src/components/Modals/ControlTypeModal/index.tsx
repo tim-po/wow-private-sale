@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { CountType } from "types";
 import PromptImg from "../../../images/icons/questionСircle";
+import { isMobile } from "react-device-detect";
 
 type ControlTypeModalPropType = {
   controlType: CountType & { disciplines?: CountType[] | string[] };
@@ -11,7 +12,7 @@ const ControlTypeModalDefaultProps = {};
 
 const ControlTypeModal = (props: ControlTypeModalPropType) => {
   const { controlType } = props;
-  const [isTooltipActive, setIsTooltipActive] = useState(true);
+  const [isTooltipActive, setIsTooltipActive] = useState(false);
 
   const getTooltipMessage = (name: string) => {
     if (name === "Экзамен" || name === "Экзамены") {
@@ -54,17 +55,19 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
   };
   const promptRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const scrollElem = document.getElementsByClassName("d-block");
-    if (scrollElem)
-      scrollElem[scrollElem.length - 1].addEventListener("scroll", () =>
-        setIsTooltipActive(false)
-      );
-    return () =>
-      scrollElem[scrollElem.length - 1].removeEventListener("scroll", () =>
-        setIsTooltipActive(false)
-      );
+    if (document.getElementsByClassName("d-block") && isMobile) {
+      const scrollElem = document.getElementsByClassName("d-block");
+      if (scrollElem)
+        scrollElem[scrollElem.length - 1].addEventListener("scroll", () =>
+          setIsTooltipActive(false)
+        );
+      return () =>
+        scrollElem[scrollElem.length - 1].removeEventListener("scroll", () =>
+          setIsTooltipActive(false)
+        );
+    }
   });
-
+  console.log(isTooltipActive);
   return (
     <div className="disciplineModalContainer">
       <div className="ContainerNameButton">

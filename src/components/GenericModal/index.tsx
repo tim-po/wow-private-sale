@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import Close from "../../images/icons/close";
-import Portal from "../hints/Portal";
 import { isMobile } from "react-device-detect";
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
-type GenericModalPropType = {
+export type GenericModalPropType = {
   // You should declare props like this, delete this if you don't need props
   hideMobile: boolean;
   hideDesktop: boolean;

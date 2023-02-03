@@ -59,13 +59,14 @@ const Layout = (props: layoutPropType) => {
     updateStickyBlocks();
   }, []);
 
-  useEffect(() => {
-    if (shouldDisplayModal) {
-      window.document.body.classList.add("no-scroll");
-    } else {
-      window.document.body.classList.remove("no-scroll");
-    }
-  }, [shouldDisplayModal]);
+  // useEffect(() => {
+  //   if (shouldDisplayModal) {
+  //     window.document.body.classList.add("no-scroll");
+  //   } else {
+  //     window.document.body.classList.remove("no-scroll");
+  //   }
+  // }, [shouldDisplayModal]);
+
   useEffect(() => {
     if (modalComponent.length > 0) {
       document.body.style.overflow = "hidden";
@@ -73,6 +74,7 @@ const Layout = (props: layoutPropType) => {
       document.body.style.overflow = "unset";
     }
   }, [modalComponent]);
+
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
@@ -89,9 +91,9 @@ const Layout = (props: layoutPropType) => {
                     : undefined
                 }
                 modalCount={modalComponent.length}
-                currentLastModals={refLastModals.current}
+                currentLastModals={refLastModals}
                 modalNumber={index}
-                modal={shouldDisplayModal}
+                isModalActive={shouldDisplayModal}
                 colorCloseWhite={false}
                 hideMobile={false}
                 hideDesktop={false}

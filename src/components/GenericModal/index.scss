@@ -1,19 +1,7 @@
 .backgroundModal.ModalNone{
   display: none!important;
 }
-.deck{
-}
-.backgroundModal .tooltip-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3000;
-  background: rgba(45, 43, 68, 0.6);
-}
+
 .backgroundModal {
   position: fixed;
   top: 0;
@@ -37,7 +25,7 @@
   overflow: inherit;
   position: relative;
   background: white;
-  border-radius: 16px;
+  //border-radius: 16px;
 }
 
 .ModalTrack .ImgCloseBtn{
@@ -65,6 +53,7 @@
   .d-block{
     transform: scale(0);
     transition: all 0.5s;
+    border-radius: 16px;
     &.active{
       transform: scale(1);
     }
@@ -118,10 +107,18 @@
 
 @media screen and (max-width: 1000px) {
 
+  .activeFirstModal{
+    //transform: scaleX(0.98);
+    //transition: max-height 0.5s;
+  }
+
+  .notActiveFirstModal{
+    //transform: scaleX(1) ;
+    //transition: max-height 0.5s;
+  }
   .wrapHeaderModal{
     width: 100%;
-    //background: white;
-    height: 20px;
+    height: 100px;
     position: fixed;
     z-index: 10000;
     border-radius: 16px 16px 0 0;
@@ -136,14 +133,14 @@
     display: none;
   }
   .ModalContainerShad{
+    //background: rgba(45, 43, 68, 0.3);
     position: absolute;
-    width: 100%;
+    width: 100vw;
     z-index: 60;
-    height: 100%;
+    height: 100vh;
   }
   .ModalContainer.maxHeight.active .d-block .TextCenter{
     height: 100%;
-    background: white;
   }
 
   .hideDesktop{
@@ -160,25 +157,7 @@
     border-radius: 12px;
   }
 
-  .ModalContainer .ModalContainer{
-    max-height: 0!important;
-  }
-  .ModalContainer .ModalContainer .ModalTrack{
-    max-height: 0!important;
-  }
-  .ModalContainer .ModalContainer.active{
-    border-radius: 0px 0px 0px 0px;
-    background: #F3F3F8;
-    height: 100%;
-  }
-  .ModalContainer .ModalContainer.active .ModalTrack{
-    max-height: calc(100%)!important;
-  }
-  .ModalContainer .ModalContainer.active .d-block{
-    overflow-y: scroll;
-    height: 0;
-    max-height: calc(100% - 130px);
-  }
+
   .ModalContainer{
     z-index: 10000;
     position: absolute;
@@ -190,29 +169,31 @@
     justify-content: center;
     display: flex;
   }
-
   .d-block{
+    transition: max-height 0.4s linear;
+    animation-name: slidein;
     padding: inherit;
     opacity: 1;
-    transition: all 0.3s;
-    max-height: 0;
+    animation-delay: 0.4s;
     position: absolute!important;
     bottom: 0;
+    max-height: 0;
+    border-radius: 16px 16px 0 0;
     width: 100%;
   }
   .d-block.active{
-    z-index: 1000;
-    transition: all 0.5s;
-    max-height: calc(100% - 80px);
     position: absolute;
     bottom: 0;
-    border-radius: 16px 16px 0 0;
+    //transition: max-height 0.6s linear;
+    z-index: 1000;
+    //animation-delay: 0.4s;
+    max-height: calc(100% - 80px);
   }
+
 
   .ModalContainer.active .ModalTrack{
     height: calc(100%);
     display: block;
-    opacity: 1;
   }
 
 
@@ -224,7 +205,9 @@
     z-index: 20000;
     position: absolute;
   }
+
   .ModalTrack{
+    background: rgba(45, 43, 68, 0.3);
     z-index: 20!important;
     padding-top: 0;
     height: calc(0%);
@@ -232,14 +215,19 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(45, 43, 68, 0.3);
 
   }
-  .ModalContainer .ModalContainer.active .ModalTrack{
-    overflow: hidden;
-    opacity: 1;
-  }
   .modalContainer{
-    overflow-y:auto;
+    //overflow-y:auto;
   }
+  @keyframes slidein {
+    from {
+      height: 0;
+    }
+    to {
+      height: 100%;
+
+    }
+  }
+
 }

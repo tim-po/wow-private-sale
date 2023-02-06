@@ -8,7 +8,6 @@ import { makeKeywordsArray } from "utils/makeKeywordsArray";
 import { CountType, DiplomaDataType, KeywordType } from "types";
 import ModalsContext from "Context/Modal";
 import Card from "components/DiplomaGeneral/Card";
-import GenericModal from "components/GenericModal";
 import ShareModal from "components/Modals/ShareModal";
 import Button from "components/Button";
 import { useSearchParams } from "react-router-dom";
@@ -21,12 +20,8 @@ import FeedbackGroupIdContext from "../../Context/IdGroup";
 import { refactorName } from "../../components/refactorName";
 import { changeBg } from "../../utils/background";
 
-type DiplomaPropType = {}
-
-const DiplomaDefaultProps = {};
-
-const Diploma = (props: DiplomaPropType) => {
-  const {displayModal} = useContext(ModalsContext)
+const Diploma = () => {
+  const { displayModal } = useContext(ModalsContext);
 
   const cardRef = useRef();
 
@@ -34,7 +29,6 @@ const Diploma = (props: DiplomaPropType) => {
     undefined
   );
   const [keywords, setKeywords] = useState<KeywordType[]>([]);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [linkAbit, setLinkAbit] = useState(
     "https://abit.itmo.ru/programs/bachelor"
   );
@@ -57,7 +51,7 @@ const Diploma = (props: DiplomaPropType) => {
   };
 
   useEffect(() => {
-    changeBg('#F1F2F8')
+    changeBg("#F1F2F8");
 
     getDiplomaData();
   }, []);
@@ -144,7 +138,8 @@ const Diploma = (props: DiplomaPropType) => {
                           discipline={discipline.disciplines}
                           headerBg={colors[discipline.name]}
                           name={discipline.name}
-                        />
+                        />,
+                        { colorCloseWhite: true }
                       )
                     }
                     name={discipline.name}
@@ -164,7 +159,8 @@ const Diploma = (props: DiplomaPropType) => {
                     <Card
                       onClick={() =>
                         displayModal(
-                          <ControlTypeModal controlType={controlType} />
+                          <ControlTypeModal controlType={controlType} />,
+                          { colorCloseWhite: true }
                         )
                       }
                       name={controlType.name}
@@ -189,7 +185,5 @@ const Diploma = (props: DiplomaPropType) => {
     </>
   );
 };
-
-Diploma.defaultProps = DiplomaDefaultProps;
 
 export default Diploma;

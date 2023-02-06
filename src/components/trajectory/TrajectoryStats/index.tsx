@@ -156,7 +156,9 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         course.necessity_count.filter(
           (discipline) => discipline.name === "necessary"
         )[0];
-      displayModal(<ControlTypeModal controlType={necessaryDiscipline} />);
+      displayModal(<ControlTypeModal controlType={necessaryDiscipline} />, {
+        colorCloseWhite: true,
+      });
     }
   };
 
@@ -166,7 +168,9 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         course.necessity_count.filter(
           (discipline) => discipline.name === "chosen"
         )[0];
-      displayModal(<ControlTypeModal controlType={chosenDiscipline} />);
+      displayModal(<ControlTypeModal controlType={chosenDiscipline} />, {
+        colorCloseWhite: true,
+      });
     }
   };
 
@@ -257,18 +261,16 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="DisciplinesNecessityCol TrajectoryCard mt-1 marginMobil">
         <button
-          className={'DisciplinesNecessityFlex hoverTech'}
+          className={"DisciplinesNecessityFlex hoverTech"}
           disabled={!getNecessityCount().necessary}
           onClick={openNecessaryDisciplinesModal}
         >
-          <span>
-            Обязательные
-          </span>
+          <span>Обязательные</span>
           <span>{getNecessityCount().necessary}</span>
         </button>
 
         <button
-          className={'DisciplinesNecessityFlex hoverTech'}
+          className={"DisciplinesNecessityFlex hoverTech"}
           disabled={!getNecessityCount().chosen}
           onClick={openChosenDisciplinesModal}
         >

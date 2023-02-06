@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { BASE_URL, colors } from "../../constants";
 import "./index.scss";
-import { KeywordType } from "types";
+import { DiplomaShareDataType, KeywordType } from "types";
 import ModalsContext from "Context/Modal";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Link from "components/Link";
@@ -12,7 +12,6 @@ import { makeKeywordsArray } from "utils/makeKeywordsArray";
 import Card from "components/DiplomaGeneral/Card";
 import Button from "components/Button";
 import SwapModal from "components/Modals/SwapModal";
-import { DiplomaShareDataType } from "types";
 import Like from "images/icons/Static/like";
 import DisciplinesModal from "components/Modals/DisciplinesModal";
 import { changeBg } from "../../utils/background";
@@ -159,7 +158,8 @@ const DiplomaShare = () => {
                               course={course.course}
                               headerBg={colors[item.name]}
                               name={item.name}
-                            />
+                            />,
+                            { colorCloseWhite: true }
                           )
                         }
                         isDiplomaCard={false}

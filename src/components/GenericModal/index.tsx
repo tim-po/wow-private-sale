@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import Close from "../../images/icons/close";
 import { isMobile } from "react-device-detect";
@@ -7,25 +7,26 @@ import { isMobile } from "react-device-detect";
 
 // DEFAULT FUNCTIONS
 
-// TODO: copy this components directory and add your content to make your page
-
-type GenericModalPropType = {
-  // You should declare props like this, delete this if you don't need props
+export type GenericModalOwnProps = {
   hideMobile: boolean;
   hideDesktop: boolean;
   maxHeight?: boolean;
   onModalClose: () => void;
   colorCloseWhite: boolean;
   children: React.ReactNode | React.ReactNode[];
+};
+
+export interface GenericModalFullProps extends GenericModalOwnProps {
   isModalActive: boolean;
   modalCount: number;
   modalNumber: number;
   refLastModals?: React.RefObject<HTMLDivElement> | undefined;
-  lengthListModalComponent?: number;
   currentLastModals?: React.RefObject<HTMLDivElement> | undefined;
-};
+}
 
-const GenericModal = (props: GenericModalPropType) => {
+export type OptionalGenericModalProps = Partial<GenericModalOwnProps>;
+
+const GenericModal = (props: GenericModalFullProps) => {
   const {
     hideMobile,
     hideDesktop,
@@ -41,7 +42,6 @@ const GenericModal = (props: GenericModalPropType) => {
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [doubleModal, setDoubleModal] = useState(false);
   const [blockContent, setBlockContent] = useState(false);
   const [height, setHeight] = useState<number>();
   const swapElement = useRef<HTMLDivElement>(null);

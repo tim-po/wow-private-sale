@@ -6,7 +6,9 @@ import React, {
   useState,
 } from "react";
 import "./index.scss";
-import GenericModal from "components/GenericModal";
+import GenericModal, {
+  OptionalGenericModalProps,
+} from "components/GenericModal";
 import Header from "components/Header";
 import BackButtonContext from "Context/BackButton";
 import ModalsContext from "Context/Modal";
@@ -29,9 +31,11 @@ const Layout = (props: layoutPropType) => {
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false);
   const [modalComponent, setModalComponent] = useState<
-    Array<ReactNode | undefined>
+    Array<{
+      component: ReactNode | undefined;
+      props?: OptionalGenericModalProps;
+    }>
   >([]);
-  const [backgroundColor, setBackgroundColor] = useState("white");
 
   const { backButtonHref } = useContext(BackButtonContext);
   const [cookie] = useCookies(["_ym_uid"]);
@@ -39,8 +43,17 @@ const Layout = (props: layoutPropType) => {
   const [groupId, setGroupId] = useState<number>(0);
   const refLastModals = useRef<HTMLDivElement>(null);
 
-  const displayModal = (component: React.ReactNode) => {
-    setModalComponent((prevState) => [...prevState, component]);
+  const displayModal = (
+    component: React.ReactNode,
+    genericProps?: OptionalGenericModalProps
+  ) => {
+    setModalComponent((prevState) => [
+      ...prevState,
+      {
+        component: component,
+        props: genericProps,
+      },
+    ]);
     setShouldDisplayModal(true);
   };
 
@@ -83,7 +96,7 @@ const Layout = (props: layoutPropType) => {
           <Header left={backButtonHref === "/"} />
           <div className="Content">
             {children}
-            {modalComponent.map((component, index) => (
+            {modalComponent.map((item, index) => (
               <GenericModal
                 refLastModals={
                   modalComponent.length - 1 === index
@@ -92,14 +105,15 @@ const Layout = (props: layoutPropType) => {
                 }
                 modalCount={modalComponent.length}
                 currentLastModals={refLastModals}
-                modalNumber={index}
                 isModalActive={shouldDisplayModal}
+                modalNumber={index}
                 colorCloseWhite={false}
                 hideMobile={false}
                 hideDesktop={false}
                 onModalClose={closeModal}
+                {...item.props}
               >
-                {component}
+                {item.component}
               </GenericModal>
             ))}
           </div>

@@ -13,6 +13,7 @@ import {
 import FeedbackGroupIdContext from "../../../../Context/IdGroup";
 import { isMobile } from "react-device-detect";
 import * as events from "events";
+import RandomFeedbackContext from "../../../../Context/RandomFeedback";
 
 const feedbackDataByGroup: {
   [key: number]: { title: string; mapButton: string[] };
@@ -73,6 +74,7 @@ const feedbackDataByGroup: {
 };
 
 const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
+  const { isOpenRandomFeedback } = useContext(RandomFeedbackContext);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedButton, setSelectedButton] = useState<number>(-1);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -88,13 +90,21 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   );
 
   useEffect(() => {
-    if (isMobile) {
-      window.onscroll = function (e) {
+    document.body.addEventListener("wheel", checkScrollDirection);
+    function checkScrollDirection(event: WheelEvent) {
+      if (checkScrollDirectionIsUp(event)) {
         setIsSeeIcon(false);
-      };
-      setTimeout(() => {
-        if (!isSeeIcon) setIsSeeIcon(true);
-      }, 300);
+        setShowFeedback(false);
+      } else {
+        setIsSeeIcon(true);
+      }
+    }
+
+    function checkScrollDirectionIsUp(event: WheelEvent) {
+      if (event.deltaY) {
+        return event.deltaY > 0;
+      }
+      return event.deltaY < 0;
     }
   });
 
@@ -133,7 +143,6 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   function openFeedback() {
     setShowFeedback(true);
   }
-
   useEffect(() => {
     setTimeout(() => {
       openFeedback();
@@ -145,86 +154,98 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   }
 
   return (
-    <div
-      onClick={openFeedback}
-      className={`container-form-random-feedback ${
-        !showFeedback ? "feedbackSmall" : ""
-      } ${isSeeIcon ? "" : "hideIcon"}`}
-    >
-      <RandomFeedbackOpen />
-      {!isSubmitted && (
-        <div className="form">
-          <div className="wrapTitle">
-            <span className="title">
-              {feedbackDataByGroup[displayForGroup]["title"]}
-            </span>
-            <button onClick={() => closeFeedback()}>
-              <Close />
-            </button>
-          </div>
-          <div className="bottomFeedback">
-            {feedbackDataByGroup[displayForGroup]["mapButton"].map(
-              (controlTypeName: string, index: any) => {
-                return (
-                  <button
-                    onClick={() => setSelectedButton(index)}
-                    className={`selectButton ${
-                      selectedButton === index ? "active" : ""
-                    }`}
-                  >
-                    {controlTypeName}
-                  </button>
-                );
-              }
-            )}
-          </div>
+    <>
+      {!isOpenRandomFeedback ? (
+        <div
+          onClick={openFeedback}
+          className={`container-form-random-feedback ${
+            !showFeedback ? "feedbackSmall" : ""
+          } ${isSeeIcon ? "" : "hideIcon"}`}
+        >
+          <RandomFeedbackOpen />
+          {!isSubmitted && (
+            <div className="form">
+              <div className="wrapTitle">
+                <span className="title">
+                  {feedbackDataByGroup[displayForGroup]["title"]}
+                </span>
+                <button onClick={() => closeFeedback()}>
+                  <Close />
+                </button>
+              </div>
+              <div className="bottomFeedback">
+                {feedbackDataByGroup[displayForGroup]["mapButton"].map(
+                  (controlTypeName: string, index: any) => {
+                    return (
+                      <button
+                        onClick={() => setSelectedButton(index)}
+                        className={`selectButton ${
+                          selectedButton === index ? "active" : ""
+                        }`}
+                      >
+                        {controlTypeName}
+                      </button>
+                    );
+                  }
+                )}
+              </div>
 
-          <div className="containerText">
-            <span className="descriptionСontainerText">
-              Или расскажи подробнее
-            </span>
-            <textarea
-              value={textDetailed}
-              onChange={(e) => setTextDetailed(e.target.value)}
-              placeholder="Комментарий"
-              className="first-form"
-            />
-          </div>
-          <div className="possibleNumberFormSubmissions">
-            Ты можешь отправить форму еще {20 - alreadySentFeedbackCount} раз.
-          </div>
-          <div className="containerButton">
-            <button onClick={() => closeFeedback()} className="cancellation ">
-              Отмена
-            </button>
-            <button
-              className={`submit ${
-                selectedButton !== -1 || textDetailed !== "" ? "" : "notValid"
-              }`}
-              onClick={sendFeedback}
-            >
-              Отправить
-            </button>
-          </div>
+              <div className="containerText">
+                <span className="descriptionСontainerText">
+                  Или расскажи подробнее
+                </span>
+                <textarea
+                  value={textDetailed}
+                  onChange={(e) => setTextDetailed(e.target.value)}
+                  placeholder="Комментарий"
+                  className="first-form"
+                />
+              </div>
+              <div className="possibleNumberFormSubmissions">
+                Ты можешь отправить форму еще {20 - alreadySentFeedbackCount}{" "}
+                раз.
+              </div>
+              <div className="containerButton">
+                <button
+                  onClick={() => closeFeedback()}
+                  className="cancellation "
+                >
+                  Отмена
+                </button>
+                <button
+                  className={`submit ${
+                    selectedButton !== -1 || textDetailed !== ""
+                      ? ""
+                      : "notValid"
+                  }`}
+                  onClick={sendFeedback}
+                >
+                  Отправить
+                </button>
+              </div>
+            </div>
+          )}
+          {isSubmitted && (
+            <div className="RequestSent">
+              <div className="heartImg">
+                <Heart />
+              </div>
+              <div className="title">Ответ отправлен!</div>
+              <div className="gratitude">
+                Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо!
+              </div>
+              <div className="containerButton">
+                <button className="closeModal" onClick={() => closeFeedback()}>
+                  Круто
+                </button>
+              </div>
+            </div>
+          )}
         </div>
+      ) : (
+        <div></div>
       )}
-      {isSubmitted && (
-        <div className="RequestSent">
-          <div className="heartImg">
-            <Heart />
-          </div>
-          <div className="title">Ответ отправлен!</div>
-          <div className="gratitude">
-            Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо!
-          </div>
-          <div className="containerButton">
-            <button className="closeModal" onClick={() => closeFeedback()}>
-              Круто
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

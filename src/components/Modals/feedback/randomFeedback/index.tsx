@@ -92,9 +92,9 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
       window.onscroll = function (e) {
         setIsSeeIcon(false);
       };
-      if (!isSeeIcon) {
-        setIsSeeIcon(true);
-      }
+      setTimeout(() => {
+        if (!isSeeIcon) setIsSeeIcon(true);
+      }, 300);
     }
   });
 

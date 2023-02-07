@@ -1,34 +1,34 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import axios from "axios";
 import Heart from "../../../../images/icons/Static/heart";
 import RandomFeedbackOpen from "../../../../images/icons/Static/randomFeedbackOpen";
 import Close from "../../../../images/icons/close";
-import {BASE_URL} from "../../../../constants";
-import {useCookies} from "react-cookie";
-import {LocalStorageInteraction, withLocalStorage} from "../../../../utils/general";
+import { BASE_URL } from "../../../../constants";
+import { useCookies } from "react-cookie";
+import { LocalStorageInteraction, withLocalStorage } from "../../../../utils/general";
 import FeedbackGroupIdContext from "../../../../Context/IdGroup";
 
 const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[] } } = {
   1: {
     title: "Что-то на этой странице вызвало трудности?",
-    mapButton: ["Поиск ключевых слов 🔎️", "Добавление/ удаление слов 🗑", "Все сложно  🤯", "Все понятно 👌"],
+    mapButton: ["Поиск ключевых слов 🔎️", "Добавление/ удаление слов 🗑", "Все сложно  🤯", "Все понятно 👌"]
   },
   2: {
     title: "Как тебе предложенные программы?",
-    mapButton: ["Ничего не подошло ☹️", "Странные теги 🤔", "Мало информации  🤨", "Отлично 👌"]
+    mapButton: ["Сложные названия 🙁", "Странные теги 🤔", "Мало информации  🤨", "Отлично 👌"]
   },
   3: {
     title: "Что-то на этой странице вызвало трудности? ",
-    mapButton: ["Выбор траектории ☹️", "Как перейти дальше 🤔", "Слишком много информации  🤯", "Все понятно 👌"]
+    mapButton: ["Выбор траектории 🙁", "Как перейти дальше 🤔", "Слишком много информации  🤯", "Все понятно 👌"]
   },
   4: {
     title: "Удобно ли тебе знакомиться с образовательной программой ?",
-    mapButton: ["Сложно разобраться  🤯", "Понятно 👌", "Удобнее в таблице ☹️"]
+    mapButton: ["Сложно разобраться  🤯", "Понятно 👌", "Удобнее в таблице 🙁"]
   },
   5: {
     title: "Что-то на этой странице вызвало трудности? ",
-    mapButton: ["Как перейти дальше  🤔", "Сложные названия ☹️", "Все понятно 👌", "Слишком много информации  🤯", "Связь между предметами 🔗"]
+    mapButton: ["Как перейти дальше  🤔", "Сложные названия 🙁", "Все понятно 👌", "Слишком много информации  🤯", "Связь между предметами 🔗"]
   },
   6: {
     title: "Ты хотел бы сохранить результат?",
@@ -40,34 +40,39 @@ const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[]
   }
 };
 
+interface RandomFeedbackProps {
+  displayForGroup:number
+}
 
-const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
+
+const RandomFeedback = ({ displayForGroup = 0 }:RandomFeedbackProps) => {
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedButton, setSelectedButton] = useState<number>(-1);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [textDetailed, setTextDetailed] = useState("")
-  const {groupId} = useContext(FeedbackGroupIdContext)
-  const [cookie] = useCookies(['_ym_uid']);
+  const [textDetailed, setTextDetailed] = useState("");
+  const { groupId } = useContext(FeedbackGroupIdContext);
+  const [cookie] = useCookies(["_ym_uid"]);
 
   const [alreadySentFeedbackCount, setAlreadySentFeedbackCount] =
     useState(withLocalStorage(
-      {alreadySentFeedbackCount: 0}, LocalStorageInteraction.load).alreadySentFeedbackCount
+      { alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load).alreadySentFeedbackCount
     );
 
   function sendFeedback() {
     const user = {
-      email: '',
+      email: "",
       score: selectedButton,
       text: `${feedbackDataByGroup[displayForGroup]["mapButton"][selectedButton]} ${textDetailed}`,
       user_id: cookie._ym_uid,
       feedback_type: displayForGroup
     };
-    axios.post(`${BASE_URL}feedback/`, user, {}).then(res => {
-      setIsSubmitted(true)
-      setSelectedButton(-1)
-      setTextDetailed("")
-      setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1)
-      withLocalStorage({alreadySentFeedbackCount: alreadySentFeedbackCount + 1}, LocalStorageInteraction.save)
+    axios.post(`${BASE_URL}feedback/`, user, {}).then(() => {
+      setIsSubmitted(true);
+      setSelectedButton(-1);
+      setTextDetailed("");
+      setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1);
+      withLocalStorage({ alreadySentFeedbackCount: alreadySentFeedbackCount + 1 }, LocalStorageInteraction.save);
     }).catch(err => {
       console.log(err.response);
     });
@@ -87,12 +92,12 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
 
   useEffect(() => {
     setTimeout(() => {
-      openFeedback()
-    }, 2000)
-  }, [])
+      openFeedback();
+    }, 2000);
+  }, []);
 
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
-    return null
+    return null;
   }
 
   return (
@@ -100,17 +105,17 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
       onClick={openFeedback}
       className={`container-form-random-feedback ${!showFeedback ? "feedbackSmall" : ""}`}
     >
-      <RandomFeedbackOpen/>
+      <RandomFeedbackOpen />
       {!isSubmitted &&
         <div className="form">
           <div className="wrapTitle">
             <span className="title">{feedbackDataByGroup[displayForGroup]["title"]}</span>
             <button onClick={() => closeFeedback()}>
-              <Close/>
+              <Close />
             </button>
           </div>
           <div className="bottomFeedback">
-            {feedbackDataByGroup[displayForGroup]["mapButton"].map((controlTypeName: string, index: any) => {
+            {feedbackDataByGroup[displayForGroup].mapButton.map((controlTypeName, index) => {
               return (
                 <button
                   onClick={() => setSelectedButton(index)}
@@ -127,8 +132,9 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
                   Или расскажи подробнее
                 </span>
             <textarea
+              className="first-form"
               value={textDetailed} onChange={(e) => setTextDetailed(e.target.value)} placeholder="Комментарий"
-              className="first-form"/>
+            />
           </div>
           <div className="possibleNumberFormSubmissions">
             Ты можешь отправить форму еще {20 - alreadySentFeedbackCount} раз.
@@ -136,7 +142,7 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
           <div className="containerButton">
             <button onClick={() => closeFeedback()} className="cancellation ">Отмена</button>
             <button
-              className={`submit ${(selectedButton !== -1 || textDetailed !== '') ? "" : "notValid"}`}
+              className={`submit ${(selectedButton !== -1 || textDetailed !== "") ? "" : "notValid"}`}
               onClick={sendFeedback}
             >
               Отправить
@@ -147,7 +153,7 @@ const RandomFeedback = ({displayForGroup = 0, feedbackType = ''}) => {
       {isSubmitted &&
         <div className="RequestSent">
           <div className="heartImg">
-            <Heart/>
+            <Heart />
           </div>
           <div className="title">Ответ отправлен!</div>
           <div className="gratitude">Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо!</div>

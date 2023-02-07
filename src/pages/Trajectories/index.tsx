@@ -16,21 +16,6 @@ import TrajectoryPreview from "../../components/TrajectoryPreview";
 
 // CONSTANTS
 
-const randomFeedback = {
-  firstOptionSelectButton: [
-    "Ничего не подошло 🥲️",
-    "Странные теги 🤔",
-    "Мало информации  🤨",
-    "Отлично 👌"
-  ],
-  secondOptionSelectButton: [
-    "Выбор траектории 🥲️",
-    "Как перейти дальше 🤔",
-    "Слишком много информации  🤯",
-    "Все понятно 👌"
-  ]
-};
-
 // DEFAULT FUNCTIONS
 
 const Trajectories = () => {

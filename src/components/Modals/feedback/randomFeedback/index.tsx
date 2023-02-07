@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Touch, useContext, useEffect, useState } from "react";
 import "./index.scss";
 import axios from "axios";
 import Heart from "../../../../images/icons/Static/heart";
@@ -82,6 +82,7 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   const { groupId } = useContext(FeedbackGroupIdContext);
   const [cookie] = useCookies(["_ym_uid"]);
   const [isSeeIcon, setIsSeeIcon] = useState(true);
+  const [prevMovementY, setPrevMovementY] = useState(0);
   const [alreadySentFeedbackCount, setAlreadySentFeedbackCount] = useState(
     withLocalStorage(
       { alreadySentFeedbackCount: 0 },
@@ -90,21 +91,21 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   );
 
   useEffect(() => {
-    document.body.addEventListener("wheel", checkScrollDirection);
-    function checkScrollDirection(event: WheelEvent) {
-      if (checkScrollDirectionIsUp(event)) {
+    document.body.addEventListener("touchstart", ScrollStart, false);
+    document.body.addEventListener("touchmove", Scroll, false);
+
+    function ScrollStart(event: TouchEvent) {
+      setPrevMovementY(event.touches[0].clientY);
+    }
+
+    function Scroll(event: TouchEvent) {
+      const deltaY = prevMovementY - event.touches[0].clientY;
+      if (deltaY > 0) {
         setIsSeeIcon(false);
         setShowFeedback(false);
       } else {
         setIsSeeIcon(true);
       }
-    }
-
-    function checkScrollDirectionIsUp(event: WheelEvent) {
-      if (event.deltaY) {
-        return event.deltaY > 0;
-      }
-      return event.deltaY < 0;
     }
   });
 

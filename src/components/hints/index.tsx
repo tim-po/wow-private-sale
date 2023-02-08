@@ -1,60 +1,64 @@
-import React, { useEffect, useState } from "react";
-import "./index.scss"
-import Arrow from "../../images/icons/Arrow";
-import { isBoolean } from "lodash";
-import getPosition from "./HintGeneric";
-import HintGeneric from "./HintGeneric";
-import { isMobile } from "react-device-detect";
-import { ReactPortal } from "react";
-import Portal from "./Portal";
-
+import React, { useEffect, useState } from 'react'
+import './index.scss'
+import HintGeneric from './HintGeneric'
+import Portal from './Portal'
+import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 type PropsType = {
-  boxRef: any,
-  pageTitle:string,
-  nameRef:string[],
-  title:string[],
-  description:string[],
+  boxRef: any
+  pageTitle: string
+  nameRef: string[]
+  title: string[]
+  description: string[]
 }
-const Hints = (props:PropsType) => {
-  const {boxRef,  nameRef, title, description, pageTitle} = props
-  const [isLocalStorage, setIsLocalStorage] = useState<string>();
+const Hints = (props: PropsType) => {
+  const { boxRef, nameRef, title, description, pageTitle } = props
+  const [isLocalStorage, setIsLocalStorage] = useState<boolean>()
   const [numberOpenPage, setNumberOpenPage] = useState<number>(0)
-  const [stateLocal, setStateLocal] = useState<string>('true')
+
+  const valueLocal = withLocalStorage(
+    { [`${nameRef[numberOpenPage]}`]: [null] },
+    LocalStorageInteraction.load,
+  )
+  useEffect(() => {
+    if (Object.values(valueLocal).pop()[0] === null ) {
+      setIsLocalStorage(true)
+    }
+    setTimeout(() => {
+      withLocalStorage(
+        { [`${nameRef[numberOpenPage]}`]: isLocalStorage },
+        LocalStorageInteraction.save,
+      )
+    }, 500)
+
+  }, [isLocalStorage, numberOpenPage])
 
   useEffect(() => {
-    if (localStorage.getItem(nameRef[numberOpenPage]) === null) {
-      setTimeout(()=>setIsLocalStorage("true"), 500)
-    }
-    if (typeof isLocalStorage === "string") {
-      localStorage.setItem(nameRef[numberOpenPage], isLocalStorage);
-    }
 
-  }, [isLocalStorage, numberOpenPage]);
-
-  useEffect(() => {
-    if (localStorage.getItem(nameRef[numberOpenPage]) === "true") {
-      setIsLocalStorage("true")
-    }else if (localStorage.getItem(nameRef[numberOpenPage]) === 'false') {
-      setIsLocalStorage("false")
+    if (Object.values(valueLocal).pop() === true) {
+      setIsLocalStorage(true)
+    } else if (
+      Object.values(valueLocal).pop() === false
+    ) {
+      setIsLocalStorage(false)
     }
-
-  }, []);
+  }, [])
 
   return (
     <Portal>
-        <HintGeneric
-          status={isLocalStorage === 'true' ? '' : 'closeHint'}
-          boxRef={boxRef[numberOpenPage]}
-          nameRef={nameRef[numberOpenPage]}
-          listRef={boxRef}
-          setIsLocalStorage={setIsLocalStorage}
-          isLocalStorage={isLocalStorage}
-          title={title[numberOpenPage]}
-          setNumberOpenPage={setNumberOpenPage}
-          numberOpenPage={numberOpenPage}
-          description={description[numberOpenPage]} />
+      <HintGeneric
+        status={isLocalStorage === true ? '' : 'closeHint'}
+        boxRef={boxRef[numberOpenPage]}
+        nameRef={nameRef[numberOpenPage]}
+        listRef={boxRef}
+        setIsLocalStorage={setIsLocalStorage}
+        isLocalStorage={isLocalStorage}
+        title={title[numberOpenPage]}
+        setNumberOpenPage={setNumberOpenPage}
+        numberOpenPage={numberOpenPage}
+        description={description[numberOpenPage]}
+      />
     </Portal>
-  );
-};
+  )
+}
 
-export default Hints;
+export default Hints

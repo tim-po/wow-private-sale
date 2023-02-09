@@ -22,11 +22,11 @@ const Layout = (props: layoutPropType) => {
   const { children } = props
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
-  const [modalComponent, setModalComponent] = useState<
-    Array<{
+  const [modalComponents, setModalComponents] = useState<
+    {
       component: ReactNode | undefined
       props?: OptionalGenericModalProps
-    }>
+    }[]
   >([])
 
   const { backButtonHref } = useContext(BackButtonContext)
@@ -39,7 +39,7 @@ const Layout = (props: layoutPropType) => {
     component: React.ReactNode,
     genericProps?: OptionalGenericModalProps,
   ) => {
-    setModalComponent(prevState => [
+    setModalComponents(prevState => [
       ...prevState,
       {
         component: component,
@@ -50,8 +50,7 @@ const Layout = (props: layoutPropType) => {
   }
 
   const closeModal = () => {
-    setModalComponent(modalComponent.slice(0, -1))
-    // setShouldDisplayModal(false);
+    setModalComponents(modalComponents.slice(0, -1))
   }
 
   useEffect(() => {
@@ -71,12 +70,12 @@ const Layout = (props: layoutPropType) => {
   // }, [shouldDisplayModal]);
 
   useEffect(() => {
-    if (modalComponent.length > 0) {
+    if (modalComponents.length > 0) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [modalComponent])
+  }, [modalComponents])
 
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
@@ -86,15 +85,11 @@ const Layout = (props: layoutPropType) => {
           <Header left={backButtonHref === '/'} />
           <div className="Content">
             {children}
-            {modalComponent.map((item, index) => (
+            {modalComponents.map((item, index) => (
               <GenericModal
-                parentModalRef={
-                  modalComponent.length - 1 === index ? refLastModals : undefined
-                }
-                modalCount={modalComponent.length}
-                currentLastModals={refLastModals}
-                isModalActive={shouldDisplayModal}
-                modalNumber={index}
+                key={index}
+                modalCount={modalComponents.length}
+                modalIndex={index}
                 colorCloseWhite={false}
                 hideMobile={false}
                 hideDesktop={false}

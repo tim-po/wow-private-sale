@@ -14,19 +14,14 @@ export type GenericModalOwnProps = {
   onModalClose: () => void
   colorCloseWhite: boolean
   children: React.ReactNode | React.ReactNode[]
-}
 
-export interface GenericModalFullProps extends GenericModalOwnProps {
-  isModalActive: boolean
+  modalIndex: number
   modalCount: number
-  modalNumber: number
-  parentModalRef?: React.RefObject<HTMLDivElement> | undefined
-  currentLastModals?: React.RefObject<HTMLDivElement> | undefined
 }
 
 export type OptionalGenericModalProps = Partial<GenericModalOwnProps>
 
-const GenericModal = (props: GenericModalFullProps) => {
+const GenericModal = (props: GenericModalOwnProps) => {
   const {
     hideMobile,
     hideDesktop,
@@ -34,14 +29,10 @@ const GenericModal = (props: GenericModalFullProps) => {
     onModalClose,
     colorCloseWhite,
     children,
-    isModalActive,
-    modalNumber,
     modalCount,
-    parentModalRef,
-    currentLastModals,
+    modalIndex,
   } = props
 
-  const [isOpen, setIsOpen] = useState(false)
   const [blockContent, setBlockContent] = useState(false)
   const [height, setHeight] = useState<number>()
   const swapElement = useRef<HTMLDivElement>(null)
@@ -57,6 +48,16 @@ const GenericModal = (props: GenericModalFullProps) => {
       setIsTouched(true)
       setPrevMovementY(e.touches[0].clientY)
     }
+  }
+
+  const modalClose = () => {
+    setBlockContent(false)
+    setTimeout(() => {
+      // setIsOpen(false)
+    }, 400)
+    setTimeout(() => {
+      onModalClose()
+    }, 500)
   }
 
   const touchMove = (e: any) => {
@@ -97,67 +98,37 @@ const GenericModal = (props: GenericModalFullProps) => {
     }
   }
 
-  const modalClose = () => {
-    setBlockContent(false)
-    setTimeout(() => {
-      setIsOpen(false)
-    }, 400)
-    setTimeout(() => {
-      onModalClose()
-    }, 500)
-  }
-
   useEffect(() => {
-    setIsOpen(isModalActive)
-    setBlockContent(isModalActive)
-  }, [isModalActive])
+    setBlockContent(true)
+    const allModals = Array.from(
+      document.querySelectorAll(`[data-modal]`) as NodeListOf<HTMLElement>,
+    )
+    const topModal = allModals[allModals.length - 1]
+    const modal = allModals[modalIndex]
 
-  useEffect(() => {
-    const setHeightFunc = () => {
-      setHeight(currentLastModals?.current?.getBoundingClientRect().top)
+    if (modalIndex === modalCount - 1) {
+      modal.style.minHeight = ``
+      modal.style.maxHeight = ``
+    } else {
+      if (topModal.children[1].clientHeight > -80)
+        modal.style.minHeight = `${topModal.children[1].clientHeight + 20}px`
+      modal.style.maxHeight = `${topModal.children[1].clientHeight + 20}px`
     }
+  }, [modalCount])
 
-    if (currentLastModals?.current) {
-      currentLastModals.current.addEventListener('animationstart', setHeightFunc)
-    }
-    return () => {
-      if (currentLastModals?.current) {
-        currentLastModals.current.removeEventListener('animationstart', setHeightFunc)
-      }
-    }
-  }, [currentLastModals?.current])
-
-  const isAnimationModal = () => {
-    if (isMobile && blockContent) {
-      if (modalNumber === 0) {
-        return modalCount > 1
-          ? {
-              maxHeight: `calc(100% - ${height}px + 30px)`,
-              minHeight: `calc(100% - ${height}px + 30px)`,
-            }
-          : {
-              minHeight: `${cardHeight}px`,
-            }
-      }
-      return {
-        minHeight: `${cardHeight}px`,
-      }
-    }
-    return {}
-  }
   return (
     <div
       className={`ModalContainer ${hideMobile ? 'hideMobile' : ''} ${
         hideDesktop ? 'hideDesktop' : ''
-      } ${isOpen ? 'active' : ''} ${maxHeight ? 'maxHeight' : ''}`}
+      } active`}
     >
-      {isOpen && <div className="ModalContainerShad deck" onClick={modalClose} />}
+      <div className="ModalContainerShad deck" onClick={modalClose} />
       <div className="ModalTrack">
-        {isOpen && <div className="ModalContainerShad mobil" onClick={modalClose} />}
+        <div className="ModalContainerShad mobil" onClick={modalClose} />
         <div
-          ref={modalCount > 1 ? parentModalRef : null}
           className={`d-block TextCenter ${blockContent ? 'active' : ''}`}
-          style={isAnimationModal()}
+          data-modal={`index-${modalIndex}`}
+          // style={isAnimationModal()}
         >
           <div
             className={'wrapHeaderModal'}

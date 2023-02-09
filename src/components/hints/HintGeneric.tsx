@@ -10,9 +10,9 @@ type GetPositionType = {
   title: string
   description: string
   isLocalStorage: boolean | undefined
-  setIsLocalStorage: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setIsLocalStorage: (isLocalStorage: boolean | undefined) => void
   status: string
-  setNumberOpenPage: React.Dispatch<React.SetStateAction<number>>
+  setNumberOpenPage:(numberOpenPage: number) => void
   numberOpenPage: number
   nameRef: string
   boxRef: React.RefObject<HTMLButtonElement>

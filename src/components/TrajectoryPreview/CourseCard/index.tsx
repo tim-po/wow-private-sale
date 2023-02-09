@@ -4,7 +4,7 @@ import { allControllTypes } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
 import { CourseType } from "../../../types";
 
-//TYPES
+
 interface CourseCardProps {
   course?: CourseType;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -46,6 +46,7 @@ const CourseCard = (props: CourseCardProps) => {
               {allControllTypes.map((controlTypeName) => {
                 return (
                   <ControlTypeTile
+                    key={controlTypeName}
                     controlType={
                       course.control_types_count.find(
                         (controlType) =>

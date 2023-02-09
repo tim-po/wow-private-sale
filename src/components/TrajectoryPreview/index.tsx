@@ -39,12 +39,12 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
     element.classList.remove("HiddenLeft");
     element.classList.remove("Hidden");
   };
-  const trajectoryChosen = (trajectory: TrajectoryType, course = 1) => {
+  const trajectoryChosen = (selectedTrajectory: TrajectoryType, course = 1) => {
     withLocalStorage(
       { chosenTrajectoriesIds: searchParams.get("ids") },
       LocalStorageInteraction.save
     );
-    navigate(`/trajectory?id=${trajectory.id}&course=${course}`);
+    navigate(`/trajectory?id=${selectedTrajectory.id}&course=${course}`);
   };
 
   const scrollToRight = (event: any) => {
@@ -103,7 +103,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
       <div style={{ position: "relative" }}>
         <div
           className="pt-3 trajectoryCardWrapper HiddenLeft"
-          onLoad={shouldDrawScrollButton}
+          // onLoad={shouldDrawScrollButton}
           onScroll={shouldDrawScrollButton}
         >
           {!isSkeleton &&
@@ -120,8 +120,8 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
 
           {!isSkeleton ?
             trajectory.courses.map((course) => (
-            <CourseCard course={course} onClick={() => trajectoryChosen(trajectory, course.course)} />
-          )) : makeEmptyList(4).map(() => <CourseCard/>)}
+            <CourseCard course={course} key={course.course} onClick={() => trajectoryChosen(trajectory, course.course)} />
+          )) : makeEmptyList(4).map((_i, index) => <CourseCard key={index}/>)}
         </div>
       </div>
 
@@ -138,6 +138,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
               "",
               "+"
             )}`}
+            rel="noreferrer"
             target="_blank"
             className={`ButtonAbit ${isSkeleton ? "MainSkeleton" : ''}`}
           >

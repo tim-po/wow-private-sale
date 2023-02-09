@@ -118,6 +118,7 @@ const RandomFeedback = ({ displayForGroup = 0 }:RandomFeedbackProps) => {
             {feedbackDataByGroup[displayForGroup].mapButton.map((controlTypeName, index) => {
               return (
                 <button
+                  key={controlTypeName}
                   onClick={() => setSelectedButton(index)}
                   className={`selectButton ${selectedButton === index ? "active" : ""}`}
                 >

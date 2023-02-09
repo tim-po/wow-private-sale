@@ -43,7 +43,7 @@ const Trajectories = () => {
       }
 
     }
-    let scroll = Scroll.animateScroll;
+    const scroll = Scroll.animateScroll;
     scroll.scrollToTop();
 
     updateStickyBlocks();
@@ -77,11 +77,11 @@ const Trajectories = () => {
         </div>
       </div>
       {trajectories.length ?
-        trajectories.map((trajectory) =>
-          <TrajectoryPreview trajectory={trajectory}/>
+        trajectories.map((trajectory, index) =>
+          <TrajectoryPreview key={trajectory + index} trajectory={trajectory}/>
         ) :
-        makeEmptyList(5).map(()=>
-          <TrajectoryPreview/>
+        makeEmptyList(5).map((_i, index)=>
+          <TrajectoryPreview key={index}/>
         )}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />

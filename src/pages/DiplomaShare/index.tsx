@@ -152,6 +152,7 @@ const DiplomaShare = () => {
                   <div className="d-flexMobil">
                     {course.classes.map((item: any) => (
                       <Card
+                        key={item.name}
                         onClick={() =>
                           displayModal(
                             <DisciplinesModal

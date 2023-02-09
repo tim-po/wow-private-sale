@@ -88,6 +88,7 @@ const Layout = (props: layoutPropType) => {
                     ? refLastModals
                     : undefined
                 }
+                key={index}
                 modalCount={modalComponent.length}
                 currentLastModals={refLastModals.current}
                 modalNumber={index}

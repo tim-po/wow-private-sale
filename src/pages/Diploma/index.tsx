@@ -21,11 +21,10 @@ import FeedbackGroupIdContext from "../../Context/IdGroup";
 import { refactorName } from "../../components/refactorName";
 import { changeBg } from "../../utils/background";
 
-type DiplomaPropType = {}
 
 const DiplomaDefaultProps = {};
 
-const Diploma = (props: DiplomaPropType) => {
+const Diploma = () => {
   const {displayModal} = useContext(ModalsContext)
 
   const cardRef = useRef();
@@ -53,7 +52,9 @@ const Diploma = (props: DiplomaPropType) => {
         `${BASE_URL}trajectories/${searchParams.get("id")}/diploma/`
       );
       setDiplomaData(response.data);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   };
 
   useEffect(() => {
@@ -147,6 +148,7 @@ const Diploma = (props: DiplomaPropType) => {
                         />
                       )
                     }
+                    key={discipline.name}
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}
@@ -167,6 +169,7 @@ const Diploma = (props: DiplomaPropType) => {
                           <ControlTypeModal controlType={controlType} />
                         )
                       }
+                      key={controlType.name}
                       name={controlType.name}
                       title={controlType.count}
                       subtitle={refactorName(

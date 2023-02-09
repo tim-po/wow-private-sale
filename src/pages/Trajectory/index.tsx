@@ -49,6 +49,19 @@ const Trajectory = () => {
     } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`);
   }, [isMobile, searchParams.get("course")]);
 
+  const getTrajectory = () => {
+    axios
+      .get(`${BASE_URL}trajectories/${searchParams.get("id")}/`)
+      .then((response) => {
+        if (response.status === 200) {
+          setTrajectory(response.data);
+        }
+      })
+      .catch((e) => {
+        setResponseError(e.response.status);
+      });
+  };
+
   useEffect(() => {
     setNewBackButtonProps(
       "Все траектории",
@@ -62,22 +75,11 @@ const Trajectory = () => {
     getTrajectory();
     changeBg("white");
 
-    let scroll = Scroll.animateScroll;
+    const scroll = Scroll.animateScroll;
     scroll.scrollToTop();
   }, []);
 
-  const getTrajectory = () => {
-    axios
-      .get(`${BASE_URL}trajectories/${searchParams.get("id")}/`)
-      .then((response) => {
-        if (response.status === 200) {
-          setTrajectory(response.data);
-        }
-      })
-      .catch((e) => {
-        setResponseError(e.response.status);
-      });
-  };
+
 
   if (
     courseQuery > 5 ||
@@ -149,7 +151,7 @@ const Trajectory = () => {
                   className={`CourseButton ${
                     course.course === courseQuery ? "CourseButtonActive" : ""
                   }`}
-                  key="number"
+                  key={course.course}
                   onClick={() => navigateToCourse(course.course)}
                 >
                   <div

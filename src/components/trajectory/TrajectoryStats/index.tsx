@@ -229,12 +229,13 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="scroll">
         <div className="rowContent">
-          {allControllTypes.map((controlTypeName) => {
+          {allControllTypes.map((controlTypeName,index) => {
             if (!course) {
               return null;
             }
             return (
               <ControlTypeTile
+                key={index}
                 controlType={
                   course.control_type_count.find(
                     (controlType) => controlType.name === controlTypeName

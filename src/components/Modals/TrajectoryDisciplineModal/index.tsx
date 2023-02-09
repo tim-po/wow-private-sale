@@ -50,6 +50,7 @@ const TrajectoryDisciplineModal = (
       setTrajectoryDisciplineData(response.data);
       setMovement(DisciplineMovement.none);
     } catch (e) {
+      //
     }
   };
 
@@ -202,6 +203,7 @@ const TrajectoryDisciplineModal = (
                   >
                     {filteredReplacementOptions.map((replacementOption) => (
                       <button
+                        key={replacementOption.id}
                         className={`discipline`}
                         onClick={() => {
                           toggleReplacementOptions();
@@ -251,7 +253,6 @@ const TrajectoryDisciplineModal = (
                   // className="disc ? furtherUse= true  ''"
                   // className="disciplineCardModal mb-2 mx-auto"
                 >
-                  {/*{{disc}}*/}
                 </div>
               </div>
             </div>
@@ -295,6 +296,7 @@ const TrajectoryDisciplineModal = (
               {trajectoryDisciplineData.keywords_aligned_with_user.map(
                 (keyword) => (
                   <div
+                    key={keyword}
                     className="modalKeyword mr-2 mb-2"
                     style={{
                       background: `${colors[trajectoryDisciplineData.class]}60`
@@ -313,6 +315,7 @@ const TrajectoryDisciplineModal = (
                 )
                 .map((keyword) => (
                   <div
+                    key={keyword}
                     style={{
                       background: `${colors[trajectoryDisciplineData.class]}20`
                     }}

@@ -40,8 +40,11 @@ const Trajectory = () => {
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
 
-  const [responseError, setResponseError] = useState<number>()
+  const stileTextRef = useRef<HTMLDivElement>(null)
+  const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
+  const [responseError, setResponseError] = useState<number>()
+  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
   const courseQuery = +(searchParams.get('course') || '1')
 
   const getTrajectory = () => {
@@ -57,7 +60,24 @@ const Trajectory = () => {
         // setResponseError(e.response.status);
       })
   }
+  useEffect(()=>{
+    function adaptiveCourse(){
+      const widthTitle = stileTextRef.current?.offsetWidth
+      const widthContainer = titleNameDiscipline.current?.offsetWidth
+      if (widthContainer && widthTitle) {
+        if (widthContainer < widthTitle + 470) {
+          setTransferCoursesRow(true)
+        } else {
+          setTransferCoursesRow(false)
+        }
+      }
+    }
 
+    window.addEventListener("resize", adaptiveCourse);
+    return () => {
+      window.removeEventListener("resize", adaptiveCourse);
+    };
+  })
   useEffect(() => {
     const courseNumber = searchParams.get('course')
     let widthOfCourceLabel = 80
@@ -130,6 +150,7 @@ const Trajectory = () => {
   return (
     <div className="TrajectoryPage">
       <div
+        ref={titleNameDiscipline}
         className="titleNameDiscipline"
         style={
           courseQuery === 5
@@ -137,10 +158,10 @@ const Trajectory = () => {
             : { borderBottom: '2px solid var(--gray-100)' }
         }
       >
-        <h5 className="StileText" id="scrollToTop">
+        <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
-        <div className="CoursesRow">
+        <div style={transferCoursesRow? {width:'100%'}: {} } className="CoursesRow">
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}

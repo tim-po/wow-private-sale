@@ -15,7 +15,9 @@ import { isMobile } from "react-device-detect";
 import * as events from "events";
 import RandomFeedbackContext from "../../../../Context/RandomFeedback";
 
-const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[] } } = {
+const feedbackDataByGroup: {
+  [key: number]: { title: string; mapButton: string[] };
+} = {
   1: {
     title: "Что-то на этой странице вызвало трудности?",
     mapButton: [
@@ -23,12 +25,12 @@ const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[]
       "Добавление/ удаление слов 🗑",
       "Все сложно  🤯",
       "Все понятно 👌",
-    ]
+    ],
   },
   2: {
     title: "Как тебе предложенные программы?",
     mapButton: [
-      "Сложные названия 🙁",
+      "Ничего не подошло ☹️",
       "Странные теги 🤔",
       "Мало информации  🤨",
       "Отлично 👌",
@@ -37,7 +39,7 @@ const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[]
   3: {
     title: "Что-то на этой странице вызвало трудности? ",
     mapButton: [
-      "Выбор траектории 🙁",
+      "Выбор траектории ☹️",
       "Как перейти дальше 🤔",
       "Слишком много информации  🤯",
       "Все понятно 👌",
@@ -45,13 +47,13 @@ const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[]
   },
   4: {
     title: "Удобно ли тебе знакомиться с образовательной программой ?",
-    mapButton: ["Сложно разобраться  🤯", "Понятно 👌", "Удобнее в таблице 🙁"],
+    mapButton: ["Сложно разобраться  🤯", "Понятно 👌", "Удобнее в таблице ☹️"],
   },
   5: {
     title: "Что-то на этой странице вызвало трудности? ",
     mapButton: [
       "Как перейти дальше  🤔",
-      "Сложные названия 🙁",
+      "Сложные названия ☹️",
       "Все понятно 👌",
       "Слишком много информации  🤯",
       "Связь между предметами 🔗",
@@ -70,12 +72,6 @@ const feedbackDataByGroup: { [key: number]: { title: string, mapButton: string[]
     mapButton: ["Всего достаточно  👌", "Примеры вакансий 📄"],
   },
 };
-
-interface RandomFeedbackProps {
-  displayForGroup:number
-}
-
-
 
 const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
   const { isOpenRandomFeedback } = useContext(RandomFeedbackContext);
@@ -179,8 +175,8 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = "" }) => {
                 </button>
               </div>
               <div className="bottomFeedback">
-                {feedbackDataByGroup[displayForGroup].mapButton.map(
-                  (controlTypeName, index) => {
+                {feedbackDataByGroup[displayForGroup]["mapButton"].map(
+                  (controlTypeName: string, index: any) => {
                     return (
                       <button
                         onClick={() => setSelectedButton(index)}

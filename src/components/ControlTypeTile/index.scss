@@ -1,8 +1,9 @@
-.CourseCardControlCard.notActive{
+.CourseCardControlCard.notActive {
   background: #F3F3F8;
   color: #6E6D79;
   pointer-events: none;
 }
+
 .CourseCardControlCard {
   //transition: all 0.2s;
   text-align: left;
@@ -30,12 +31,12 @@
 }
 
 
-@media screen and (max-width: 1000px){
-  .CourseCardControlCard b{
+@media screen and (max-width: 1000px) {
+  .CourseCardControlCard b {
     font-size: 14px !important;
     line-height: 20px;
   }
-  .CourseCardControlCard span{
+  .CourseCardControlCard span {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -43,7 +44,7 @@
     line-height: 20px; /* identical to box height, or 143% */
     color: #1F1F22;
   }
-  .CourseCardControlCard{
+  .CourseCardControlCard {
     min-width: 100px;
     height: 66px;
     text-align: left;

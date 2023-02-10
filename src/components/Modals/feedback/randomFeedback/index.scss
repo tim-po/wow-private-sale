@@ -15,6 +15,9 @@
   align-items: center;
   min-width: 56px;
   min-height: 40px;
+  &.hideIcon{
+    transform: scale(0);
+  }
 
   &.feedbackSmall {
     cursor: pointer;

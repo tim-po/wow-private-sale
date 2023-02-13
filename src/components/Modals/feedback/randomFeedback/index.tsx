@@ -64,15 +64,18 @@ const feedbackDataByGroup: {
   },
 }
 
-const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
+const RandomFeedback = ({ displayForGroup = 0 }) => {
   const { isOpenRandomFeedback } = useContext(RandomFeedbackContext)
+
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [selectedButton, setSelectedButton] = useState<number>(-1)
   const [showFeedback, setShowFeedback] = useState(false)
   const [textDetailed, setTextDetailed] = useState('')
   const { groupId } = useContext(FeedbackGroupIdContext)
   const [cookie] = useCookies(['_ym_uid'])
+
   const [isSeeIcon, setIsSeeIcon] = useState(true)
+
   const [prevMovementY, setPrevMovementY] = useState(0)
   const [alreadySentFeedbackCount, setAlreadySentFeedbackCount] = useState(
     withLocalStorage({ alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load)
@@ -93,6 +96,7 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
         setIsSeeIcon(true)
       }
     }
+
     document.body.addEventListener('touchstart', ScrollStart, false)
     document.body.addEventListener('touchmove', Scroll, false)
   })
@@ -107,7 +111,7 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
     }
     axios
       .post(`${BASE_URL}feedback/`, user, {})
-      .then(res => {
+      .then(() => {
         setIsSubmitted(true)
         setSelectedButton(-1)
         setTextDetailed('')
@@ -121,7 +125,6 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
         console.log(err.response)
       })
   }
-
 
   function closeFeedback() {
     setTimeout(() => {
@@ -145,32 +148,42 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
   }
 
   return (
-    <div
-      onClick={openFeedback}
-      className={`container-form-random-feedback ${!showFeedback ? "feedbackSmall" : ""}`}
-    >
-      <RandomFeedbackOpen />
-      {!isSubmitted &&
-        <div className="form">
-          <div className="wrapTitle">
-            <span className="title">{feedbackDataByGroup[displayForGroup]["title"]}</span>
-            <button onClick={() => closeFeedback()}>
-              <Close />
-            </button>
-          </div>
-          <div className="bottomFeedback">
-            {feedbackDataByGroup[displayForGroup].mapButton.map((controlTypeName, index) => {
-              return (
-                <button
-                  key={controlTypeName}
-                  onClick={() => setSelectedButton(index)}
-                  className={`selectButton ${selectedButton === index ? "active" : ""}`}
-                >
-                  {controlTypeName}
+    <>
+      {!isOpenRandomFeedback ? (
+        <div
+          onClick={openFeedback}
+          className={`container-form-random-feedback ${
+            !showFeedback ? 'feedbackSmall' : ''
+          } ${isSeeIcon ? '' : 'hideIcon'}`}
+        >
+          <RandomFeedbackOpen />
+          {!isSubmitted && (
+            <div className="form">
+              <div className="wrapTitle">
+                <span className="title">
+                  {feedbackDataByGroup[displayForGroup]['title']}
+                </span>
+                <button onClick={() => closeFeedback()}>
+                  <Close />
                 </button>
-              );
-            })}
-          </div>
+              </div>
+              <div className="bottomFeedback">
+                {feedbackDataByGroup[displayForGroup]['mapButton'].map(
+                  (controlTypeName, index) => {
+                    return (
+                      <button
+                        key={controlTypeName}
+                        onClick={() => setSelectedButton(index)}
+                        className={`selectButton ${
+                          selectedButton === index ? 'active' : ''
+                        }`}
+                      >
+                        {controlTypeName}
+                      </button>
+                    )
+                  },
+                )}
+              </div>
 
               <div className="containerText">
                 <span className="descriptionСontainerText">Или расскажи подробнее</span>

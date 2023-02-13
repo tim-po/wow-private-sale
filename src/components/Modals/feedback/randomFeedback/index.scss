@@ -15,7 +15,10 @@
   align-items: center;
   min-width: 56px;
   min-height: 40px;
+
   &.hideIcon{
+    transition-delay: 0s;
+    transition-duration: 0.2s;
     transform: scale(0);
   }
 

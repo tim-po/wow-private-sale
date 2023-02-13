@@ -55,7 +55,7 @@ const TrajectoryOnboardingModal = () => {
       )}
       <div className={'DotsWrapper'}>
         {makeEmptyList(3).map((dot, index) => (
-          <div className={`Dot ${index <= activeStep ? 'Active' : ''}`} />
+          <div key={index} className={`Dot ${index <= activeStep ? 'Active' : ''}`} />
         ))}
       </div>
       <div className="ButtonsWrapper">

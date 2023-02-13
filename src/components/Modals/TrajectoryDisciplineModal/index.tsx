@@ -273,6 +273,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             <div className={'aligned-keywords-wrapper'}>
               {trajectoryDisciplineData.keywords_aligned_with_user.map(keyword => (
                 <div
+                  key={keyword}
                   className="modalKeyword mr-2 mb-2"
                   style={{
                     background: `${colors[trajectoryDisciplineData.class]}60`,

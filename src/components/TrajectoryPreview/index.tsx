@@ -1,64 +1,68 @@
-import React from "react";
-import "./index.scss";
-import { TrajectoryType } from "../../types";
-import PercentProgress from "../PercentProgress";
-import Chevron, { Turn } from "../../images/icons/chevron";
-import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import CourseCard from "./CourseCard";
+import React from 'react'
+import './index.scss'
+import { TrajectoryType } from '../../types'
+import PercentProgress from '../PercentProgress'
+import Chevron, { Turn } from '../../images/icons/chevron'
+import {
+  LocalStorageInteraction,
+  makeEmptyList,
+  withLocalStorage,
+} from '../../utils/general'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import CourseCard from './CourseCard'
 
 interface ITrajectoryPreview {
-  trajectory?: TrajectoryType;
+  trajectory?: TrajectoryType
 }
 
 const TrajectoryPreview = (props: ITrajectoryPreview) => {
-  const { trajectory } = props;
+  const { trajectory } = props
 
   const isSkeleton = !trajectory
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const shouldDrawScrollButton = (event: any) => {
-    const element = event.target;
+    const element = event.target
     if (!element) {
-      element.classList.remove("Hidden");
-      element.classList.remove("HiddenLeft");
-      return;
+      element.classList.remove('Hidden')
+      element.classList.remove('HiddenLeft')
+      return
     }
 
     if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
-      element.classList.add("Hidden");
-      return;
+      element.classList.add('Hidden')
+      return
     }
 
     if (element.scrollLeft <= 10) {
-      element.classList.add("HiddenLeft");
-      return;
+      element.classList.add('HiddenLeft')
+      return
     }
 
     element.classList.remove("HiddenLeft");
     element.classList.remove("Hidden");
   };
-  const trajectoryChosen = (trajectory: TrajectoryType, course = 1) => {
+  const trajectoryChosen = (selectedTrajectory: TrajectoryType, course = 1) => {
     withLocalStorage(
       { chosenTrajectoriesIds: searchParams.get("ids") },
       LocalStorageInteraction.save
     );
-    navigate(`/trajectory?id=${trajectory.id}&course=${course}`);
+    navigate(`/trajectory?id=${selectedTrajectory.id}&course=${course}`);
   };
 
   const scrollToRight = (event: any) => {
     event.target.parentNode.scrollLeft += Math.min(
       event.target.parentNode.clientWidth,
-      460
-    );
-  };
+      460,
+    )
+  }
   const scrollToLeft = (event: any) => {
     event.target.parentNode.scrollLeft -= Math.min(
       event.target.parentNode.clientWidth,
-      460
-    );
-  };
+      460,
+    )
+  }
 
   // const getControlTypesCount = (course: CourseType) => {
   //   const controlTypes: { [key: string]: number } = {
@@ -79,16 +83,15 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
   //   return controlTypes;
   // };
 
-
   return (
     <div className="TrajectoriesCard mb-3">
-      <div className={`TrajectoriesCardHeader ${isSkeleton ? "MainSkeleton" : ''}`}>
-        {!isSkeleton &&
+      <div className={`TrajectoriesCardHeader ${isSkeleton ? 'MainSkeleton' : ''}`}>
+        {!isSkeleton && (
           <>
             <h5 className="trajectoryHeader mb-0">
               {trajectory.educational_plan}
-              <span className={"eduDirectionCode"}>
-                {trajectory.code.replace(/\.$/, "")}
+              <span className={'eduDirectionCode'}>
+                {trajectory.code.replace(/\.$/, '')}
               </span>
             </h5>
             <div className="d-flex align-items-center TrajectoriesCardProgress">
@@ -97,16 +100,16 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
                 {Math.round(trajectory.coverage * 100)}% совпадений
               </span>
             </div>
-          </>}
+          </>
+        )}
       </div>
 
-      <div style={{ position: "relative" }}>
+      <div style={{ position: 'relative' }}>
         <div
           className="pt-3 trajectoryCardWrapper HiddenLeft"
-          onLoad={shouldDrawScrollButton}
           onScroll={shouldDrawScrollButton}
         >
-          {!isSkeleton &&
+          {!isSkeleton && (
             <>
               <button className="ScrollBtn Right" onClick={scrollToRight}>
                 <Chevron />
@@ -116,12 +119,12 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
                 <Chevron turn={Turn.left} />
               </button>
             </>
-          }
+          )}
 
           {!isSkeleton ?
             trajectory.courses.map((course) => (
-            <CourseCard course={course} onClick={() => trajectoryChosen(trajectory, course.course)} />
-          )) : makeEmptyList(4).map(() => <CourseCard/>)}
+            <CourseCard course={course} key={course.course} onClick={() => trajectoryChosen(trajectory, course.course)} />
+          )) : makeEmptyList(4).map((_i, index) => <CourseCard key={index}/>)}
         </div>
       </div>
 
@@ -129,24 +132,27 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
         <div className="TrajectoriesCardFooter">
           <button
             onClick={trajectory && (() => trajectoryChosen(trajectory))}
-            className={`ButtonTrajectory MainButton mr-2 ${isSkeleton ? "MainSkeleton" : ''}`}
+            className={`ButtonTrajectory MainButton mr-2 ${
+              isSkeleton ? 'MainSkeleton' : ''
+            }`}
           >
             Смотреть траекторию
           </button>
           <a
             href={`https://abit.itmo.ru/en/programs/bachelor?title=${trajectory?.educational_plan.replace(
-              "",
-              "+"
+              '',
+              '+',
             )}`}
             target="_blank"
-            className={`ButtonAbit ${isSkeleton ? "MainSkeleton" : ''}`}
+            rel="noreferrer"
+            className={`ButtonAbit ${isSkeleton ? 'MainSkeleton' : ''}`}
           >
             Читать больше на abit.itmo.ru
           </a>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TrajectoryPreview;
+export default TrajectoryPreview

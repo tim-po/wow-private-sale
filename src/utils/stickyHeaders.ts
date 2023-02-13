@@ -7,10 +7,13 @@ export const createStickyBlock = (order: number) => {
 }
 
 export const updateStickyBlocks = () => {
-  let customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
+  const customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
 
   const blocksWithProps: any[] = []
+
   customStickyBlocks.forEach(block => {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const attribute = block.attributes['data-custom-sticky'].nodeValue.split('-')
     if(attribute[1] === 'hidden'){
@@ -49,11 +52,13 @@ export const updateStickyBlocks = () => {
 }
 
 export const calculateTotalStickyHeight = (group?: number) => {
-  let customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
+  const customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
 
   let top = 0
   customStickyBlocks.forEach((element) => {
-    //@ts-ignore
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const attribute = element.attributes['data-custom-sticky'].nodeValue.split('-')
     if(attribute[1] !== 'hidden'){
       if(group){

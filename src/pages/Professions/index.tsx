@@ -14,7 +14,7 @@ import {
 import Close from '../../images/icons/close'
 import FeedbackStatic from '../../components/Modals/feedback/feedbackStatic'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
-import { changeBg } from '../../utils/background'
+import { changeBg } from '../../utils/background/background'
 import ModalContext from '../../Context/Modal'
 
 // CONSTANTS

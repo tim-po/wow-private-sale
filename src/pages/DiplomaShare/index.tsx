@@ -21,7 +21,7 @@ import NotFound from "../../components/NotFound";
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext);
 
-  const cardRef = useRef();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const [diplomaShareData, setDiplomaShareData] = useState<
     DiplomaShareDataType | undefined

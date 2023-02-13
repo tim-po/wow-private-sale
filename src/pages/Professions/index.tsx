@@ -31,7 +31,7 @@ const Professions = () => {
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false)
 
   const { displayModal } = useContext(ModalContext)
-  const professionChosen = (profession: any) => {
+  const professionChosen = (profession: Profession) => {
     setIsHeaderAnimated(true)
     withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.save)
     withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.save)
@@ -54,7 +54,6 @@ const Professions = () => {
     const response = await axios.get(`${BASE_URL}professions/`)
     const professions: Profession[] = response.data
 
-    // const newProfessionsWithCustomSvg: Profession[] = []
     setProfessionsWithCustomSvg(professions)
     const newProfessionsWithCustomSvg: Profession[] = []
     for (let i = 0; i < professions.length; i++) {
@@ -64,11 +63,6 @@ const Professions = () => {
         .then(res => {
           newProfessionsWithCustomSvg[i] = { ...profession, svg: res.svg }
         })
-      // .finally(() => {
-      //   setTimeout(() => {
-      //     setIsProfessionsLoading(false)
-      //   }, 1500)
-      // })
     }
     await setProfessionsWithCustomSvg(newProfessionsWithCustomSvg)
     setIsProfessionsLoading(false)

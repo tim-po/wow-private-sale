@@ -1,3 +1,5 @@
+export type KeywordType = { text: string; id: string }
+
 export type Profession = {
   svg: string
   description: string
@@ -8,8 +10,6 @@ export type Profession = {
   name: string
 }
 
-export type KeywordType = { text: string, id: string }
-
 export type PresetType = {
   id: string
   category: string
@@ -18,14 +18,24 @@ export type PresetType = {
   keywords: KeywordType[]
 }
 
-export type TrajectoryType = {
-  id: string
-  code: string
-  educational_plan: string
-  coverage: number
-  student: number
-  courses: CourseType[]
-  abit?: string
+export type CountType = {
+  count: number
+  name: string
+}
+
+export type DisciplineType = {
+  id: number
+  name: string
+  class: string
+  control_type: string
+  necessity: string
+  next_disciplines: number[]
+}
+
+export type ClassType = {
+  name: string
+  first_semesters_disciplines: DisciplineType[]
+  second_semesters_disciplines: DisciplineType[]
 }
 
 export type CourseType = {
@@ -39,24 +49,14 @@ export type CourseType = {
   classes: ClassType[]
 }
 
-export type ClassType = {
-  name: string
-  first_semesters_disciplines: DisciplineType[]
-  second_semesters_disciplines: DisciplineType[]
-}
-
-export type DisciplineType = {
-  id: number,
-  name: string,
-  class: string,
-  control_type: string,
-  necessity: string,
-  next_disciplines: number[]
-}
-
-export type CountType = {
-  count: number
-  name: string
+export type TrajectoryType = {
+  id: string
+  code: string
+  educational_plan: string
+  coverage: number
+  student: number
+  courses: CourseType[]
+  abit?: string
 }
 
 export type DiplomaDataType = {
@@ -71,7 +71,7 @@ export type DiplomaDataType = {
 type DisciplineClassItemType = {
   disciplines_count: number
   name: string
-  disciplines: {name: string, control_types: { [key: string]: CountType[] }}[]
+  disciplines: { name: string; control_types: { [key: string]: CountType[] } }[]
 }
 
 export type DiplomaShareCardType = {

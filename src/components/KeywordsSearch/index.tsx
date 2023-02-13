@@ -41,12 +41,12 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
     setIsSearching(false);
   }
 
-  const clicKOutside = () => {
+  const clickOutside = () => {
     addKeywords()
     notSearching()
   }
 
-  useOnClickOutside(searchRef, clicKOutside)
+  useOnClickOutside(searchRef, clickOutside)
 
   const addKeywords = () => {
     keywords.addBulk(keywordsToAdd)

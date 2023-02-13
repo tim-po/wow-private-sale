@@ -28,7 +28,7 @@ const DiplomaDefaultProps = {};
 const Diploma = (props: DiplomaPropType) => {
   const {displayModal} = useContext(ModalsContext)
 
-  const cardRef = useRef();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(
     undefined
@@ -38,7 +38,7 @@ const Diploma = (props: DiplomaPropType) => {
   const [linkAbit, setLinkAbit] = useState(
     "https://abit.itmo.ru/programs/bachelor"
   );
-  const { group_id } = useContext<any>(FeedbackGroupIdContext);
+  const { groupId } = useContext(FeedbackGroupIdContext);
 
   const [searchParams] = useSearchParams();
   const randomFeedbackSelectOptions = [

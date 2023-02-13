@@ -14,15 +14,8 @@ import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
 import TrajectoryPreview from "../../components/TrajectoryPreview";
 
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
-
 const Trajectories = () => {
-  // const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  // const [width, setWidth] = useState(0);>
   const [trajectories, setTrajectories] = useState([]);
-  // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams] = useSearchParams();
   const [responseError, setResponseError] = useState<unknown>()
@@ -34,7 +27,6 @@ const Trajectories = () => {
     if (trajectories.length === 0) {
       try{
         const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
-        // setTrajectoriesIds(trajectoryIds);
         axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
           setTrajectories(res.data);
         }).catch(e =>setResponseError(e))

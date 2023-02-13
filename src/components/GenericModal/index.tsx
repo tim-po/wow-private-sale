@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import Close from '../../images/icons/close'
 import { isMobile } from 'react-device-detect'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 // CONSTANTS
 
@@ -10,7 +11,6 @@ import { isMobile } from 'react-device-detect'
 export type GenericModalOwnProps = {
   hideMobile: boolean
   hideDesktop: boolean
-  maxHeight?: boolean
   onModalClose: () => void
   colorCloseWhite: boolean
   children: React.ReactNode | React.ReactNode[]
@@ -25,7 +25,6 @@ const GenericModal = (props: GenericModalOwnProps) => {
   const {
     hideMobile,
     hideDesktop,
-    maxHeight,
     onModalClose,
     colorCloseWhite,
     children,
@@ -34,12 +33,14 @@ const GenericModal = (props: GenericModalOwnProps) => {
   } = props
 
   const [blockContent, setBlockContent] = useState(false)
-  const [height, setHeight] = useState<number>()
   const swapElement = useRef<HTMLDivElement>(null)
   const [cardHeight, setCardHeight] = useState<number>(0)
   const [deltaY, setDeltaY] = useState(0)
   const [prevMovementY, setPrevMovementY] = useState(0)
   const [isTouched, setIsTouched] = useState(false)
+  const { height } = useWindowDimensions()
+
+  const [allModals, setAllModals] = useState<HTMLElement[]>([])
 
   const touchStart = (e: any) => {
     if (!isTouched) {
@@ -51,10 +52,15 @@ const GenericModal = (props: GenericModalOwnProps) => {
   }
 
   const modalClose = () => {
+    const topModal = allModals[allModals.length - 2]
+    if (topModal) {
+      topModal.style.minHeight = ``
+      topModal.style.maxHeight = ``
+      topModal.style.transform = `scale(1)`
+    }
+
     setBlockContent(false)
-    setTimeout(() => {
-      // setIsOpen(false)
-    }, 400)
+
     setTimeout(() => {
       onModalClose()
     }, 500)
@@ -103,18 +109,32 @@ const GenericModal = (props: GenericModalOwnProps) => {
     const allModals = Array.from(
       document.querySelectorAll(`[data-modal]`) as NodeListOf<HTMLElement>,
     )
+    setAllModals(allModals)
+  }, [modalCount])
+
+  useEffect(() => {
     const topModal = allModals[allModals.length - 1]
     const modal = allModals[modalIndex]
+
+    if (!topModal || !modal) {
+      return
+    }
 
     if (modalIndex === modalCount - 1) {
       modal.style.minHeight = ``
       modal.style.maxHeight = ``
+      modal.style.transform = `scale(1)`
     } else {
-      if (topModal.children[1].clientHeight > -80)
-        modal.style.minHeight = `${topModal.children[1].clientHeight + 20}px`
-      modal.style.maxHeight = `${topModal.children[1].clientHeight + 20}px`
+      if (topModal.children[1].clientHeight < height - 100) {
+        modal.style.minHeight = `${topModal.children[1].clientHeight + 40}px`
+        modal.style.maxHeight = `${topModal.children[1].clientHeight + 40}px`
+      } else {
+        modal.style.minHeight = `${height - 50}px`
+        modal.style.maxHeight = `${height - 50}px`
+      }
+      modal.style.transform = `scale(0.96)`
     }
-  }, [modalCount])
+  }, [allModals])
 
   return (
     <div
@@ -128,7 +148,6 @@ const GenericModal = (props: GenericModalOwnProps) => {
         <div
           className={`d-block TextCenter ${blockContent ? 'active' : ''}`}
           data-modal={`index-${modalIndex}`}
-          // style={isAnimationModal()}
         >
           <div
             className={'wrapHeaderModal'}

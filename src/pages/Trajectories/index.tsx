@@ -17,6 +17,7 @@ import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders
 import { changeBg } from '../../utils/background'
 import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
+import { TrajectoryType } from '../../types'
 
 // CONSTANTS
 
@@ -40,7 +41,7 @@ const randomFeedback = {
 const Trajectories = () => {
   // const { group_id } = useContext<any>(FeedbackGroupIdContext);
   // const [width, setWidth] = useState(0);>
-  const [trajectories, setTrajectories] = useState([])
+  const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
   // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext)
   const [searchParams] = useSearchParams()
@@ -104,8 +105,10 @@ const Trajectories = () => {
         </div>
       </div>
       {trajectories.length
-        ? trajectories.map(trajectory => <TrajectoryPreview trajectory={trajectory} />)
-        : makeEmptyList(5).map(() => <TrajectoryPreview />)}
+        ? trajectories.map(trajectory => (
+            <TrajectoryPreview key={trajectory.id} trajectory={trajectory} />
+          ))
+        : makeEmptyList(5).map((_, index) => <TrajectoryPreview key={index} />)}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />
     </div>

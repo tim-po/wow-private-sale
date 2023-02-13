@@ -9,8 +9,8 @@ import {
 type GetPositionType = {
   title: string
   description: string
-  isLocalStorage: boolean | undefined
-  setIsLocalStorage: (isLocalStorage: boolean | undefined) => void
+  isLocalDataHint: boolean | undefined
+  setIsLocalDataHint: (isLocalStorage: boolean | undefined) => void
   status: string
   setNumberOpenPage:(numberOpenPage: number) => void
   numberOpenPage: number
@@ -23,8 +23,8 @@ const HintGeneric = (props: GetPositionType) => {
   const {
     title,
     description,
-    setIsLocalStorage,
-    isLocalStorage,
+    setIsLocalDataHint,
+    isLocalDataHint,
     status,
     setNumberOpenPage,
     numberOpenPage,
@@ -62,7 +62,7 @@ const HintGeneric = (props: GetPositionType) => {
     function closeEnter(e: KeyboardEvent) {
       if (e.keyCode === 13) {
         e.preventDefault()
-        setIsLocalStorage(false)
+        setIsLocalDataHint(false)
       }
     }
 
@@ -78,10 +78,10 @@ const HintGeneric = (props: GetPositionType) => {
   ])
 
   useEffect(() => {
-    if (isLocalStorage === false && listRef[numberOpenPage + 1]) {
+    if (isLocalDataHint === false && listRef[numberOpenPage + 1]) {
       setNumberOpenPage(numberOpenPage + 1)
     }
-  }, [isLocalStorage])
+  }, [isLocalDataHint])
 
   return (
     <div
@@ -103,7 +103,7 @@ const HintGeneric = (props: GetPositionType) => {
         <button
           className="closeHints"
           onClick={() => {
-            setIsLocalStorage(false)
+            setIsLocalDataHint(false)
           }}
         >
           Круто

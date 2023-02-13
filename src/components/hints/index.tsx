@@ -12,7 +12,7 @@ type PropsType = {
 }
 const Hints = (props: PropsType) => {
   const { boxRef, nameRef, title, description, pageTitle } = props
-  const [isLocalStorage, setIsLocalStorage] = useState<boolean>()
+  const [isLocalDataHint, setIsLocalDataHint] = useState<boolean>()
   const [numberOpenPage, setNumberOpenPage] = useState<number>(0)
 
   const valueLocal = withLocalStorage(
@@ -21,37 +21,37 @@ const Hints = (props: PropsType) => {
   )
   useEffect(() => {
     if (Object.values(valueLocal).pop()[0] === null ) {
-      setIsLocalStorage(true)
+      setIsLocalDataHint(true)
     }
     setTimeout(() => {
       withLocalStorage(
-        { [`${nameRef[numberOpenPage]}`]: isLocalStorage },
+        { [`${nameRef[numberOpenPage]}`]: isLocalDataHint },
         LocalStorageInteraction.save,
       )
     }, 500)
 
-  }, [isLocalStorage, numberOpenPage])
+  }, [isLocalDataHint, numberOpenPage])
 
   useEffect(() => {
 
     if (Object.values(valueLocal).pop() === true) {
-      setIsLocalStorage(true)
+      setIsLocalDataHint(true)
     } else if (
       Object.values(valueLocal).pop() === false
     ) {
-      setIsLocalStorage(false)
+      setIsLocalDataHint(false)
     }
   }, [])
 
   return (
     <Portal>
       <HintGeneric
-        status={isLocalStorage === true ? '' : 'closeHint'}
+        status={isLocalDataHint === true ? '' : 'closeHint'}
         boxRef={boxRef[numberOpenPage]}
         nameRef={nameRef[numberOpenPage]}
         listRef={boxRef}
-        setIsLocalStorage={setIsLocalStorage}
-        isLocalStorage={isLocalStorage}
+        setIsLocalDataHint={setIsLocalDataHint}
+        isLocalDataHint={isLocalDataHint}
         title={title[numberOpenPage]}
         setNumberOpenPage={setNumberOpenPage}
         numberOpenPage={numberOpenPage}

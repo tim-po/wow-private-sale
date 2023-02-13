@@ -8,14 +8,15 @@ export enum Turn {
 }
 
 export default ({turn = Turn.right, width=Number(6), height=Number(12), color='#6E6D79'}) => {
-  const divStyle = {
+  const style: React.CSSProperties = {
     transform: `rotate(${turn}deg)`,
-    stroke: color
+    stroke: color,
+    pointerEvents: 'none'
   };
 
   let viewBox = (width > 6 && height > 12 ) ? () => (`0 0 ${width} ${height}`) : () => (`0 0 6 12`);
   return (
-    <svg width={width} height={height} style={divStyle} viewBox={viewBox()} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} style={style} viewBox={viewBox()} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M1 11L5 6L1 1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );

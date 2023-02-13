@@ -138,16 +138,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name;
   };
 
-  // const focusOnCircle = (klass: any) => {
-  //   if (focusedCircle === undefined) {
-  //     setFocusedCircle(klass);
-  //     setFocusedCircleLoading(true);
-  //     setTimeout(() => {
-  //       setFocusedCircleLoading(false);
-  //     }, 300);
-  //   }
-  // };
-
   const openNecessaryDisciplinesModal = () => {
     if (course) {
       const necessaryDiscipline: CountType & { disciplines?: string[] } =

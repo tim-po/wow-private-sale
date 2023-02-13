@@ -15,22 +15,11 @@ import Card from "../../components/trajectory/Card";
 import "./index.scss";
 import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
 import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
-import FeedbackGroupIdContext from "../../Context/IdGroup";
 import Hints from "../../components/hints";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
 
-const randomFeedbackSelectOptions = [
-  "Поиск ключевых слов 🔎️",
-  "Добавление/ удаление слов 🗑",
-  "Все сложно  🤯",
-  "Все понятно 👌",
-];
-
-type TrajectoryPropType = {};
-
 const Trajectory = () => {
-  const { groupId } = useContext(FeedbackGroupIdContext);
   const [searchParams] = useSearchParams();
   const { displayModal } = useContext(ModalContext);
   const navigate = useNavigate();

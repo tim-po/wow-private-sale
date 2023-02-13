@@ -1,27 +1,28 @@
-import React, { FC } from "react";
+import React from "react";
 import "./index.scss";
 import { TrajectoryType } from "../../types";
 import PercentProgress from "../PercentProgress";
 import Chevron, { Turn } from "../../images/icons/chevron";
-import { LocalStorageInteraction, withLocalStorage } from "../../utils/general";
+import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from "../../utils/general";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CourseCard from "./CourseCard";
 
 interface ITrajectoryPreview {
-  trajectory: TrajectoryType;
-  skeleton?: boolean;
+  trajectory?: TrajectoryType;
 }
 
-const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
+const TrajectoryPreview = (props: ITrajectoryPreview) => {
+  const { trajectory } = props;
 
+  const isSkeleton = !trajectory
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const shouldDrawScrollButton = (event: React.SyntheticEvent<HTMLDivElement> | React.UIEvent<HTMLDivElement>) => {
-    const element = event.target as HTMLDivElement;
+  const shouldDrawScrollButton = (event: any) => {
+    const element = event.target;
     if (!element) {
-      // element.classList.remove("Hidden");
-      // element.classList.remove("HiddenLeft");
+      element.classList.remove("Hidden");
+      element.classList.remove("HiddenLeft");
       return;
     }
 
@@ -45,65 +46,90 @@ const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
     );
     navigate(`/trajectory?id=${trajectory.id}&course=${course}`);
   };
-  const scrollToRight = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const target = event.target as HTMLButtonElement;
-    const parentNode = target.parentNode as HTMLElement;
-    parentNode.scrollLeft += Math.min(
-      parentNode.clientWidth,
+
+  const scrollToRight = (event: any) => {
+    event.target.parentNode.scrollLeft += Math.min(
+      event.target.parentNode.clientWidth,
       460
     );
   };
-  const scrollToLeft = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const target = event.target as HTMLButtonElement;
-    const parentNode = target.parentNode as HTMLElement;
-    parentNode.scrollLeft -= Math.min(
-      parentNode.clientWidth,
+  const scrollToLeft = (event: any) => {
+    event.target.parentNode.scrollLeft -= Math.min(
+      event.target.parentNode.clientWidth,
       460
     );
   };
 
+  // const getControlTypesCount = (course: CourseType) => {
+  //   const controlTypes: { [key: string]: number } = {
+  //     exam: 0,
+  //     credit: 0,
+  //     diffCredit: 0,
+  //     coursework: 0
+  //   };
+  //   const nameToKey: { [key: string]: string } = {
+  //     "Экзамен": "exam",
+  //     "Зачет": "credit",
+  //     "Дифференцированный зачет": "diffCredit",
+  //     "Курсовая работа": "coursework"
+  //   };
+  //   course.control_types_count.forEach((type) => {
+  //     controlTypes[nameToKey[type.name]] = type.count;
+  //   });
+  //   return controlTypes;
+  // };
+
+
   return (
-    <div className="TrajectoriesCard mb-3" key={trajectory.id}>
-      <div className="TrajectoriesCardHeader">
-        <h5 className="trajectoryHeader mb-0">
-          {trajectory.educational_plan}
-          <span className={"eduDirectionCode"}>
-            {trajectory.code.replace(/\.$/, "")}
-          </span>
-        </h5>
-        <div className="d-flex align-items-center TrajectoriesCardProgress">
-          <PercentProgress percent={trajectory.coverage} />
-          <span className="ml-2">
-            {Math.round(trajectory.coverage * 100)}% совпадений
-          </span>
-        </div>
+    <div className="TrajectoriesCard mb-3">
+      <div className={`TrajectoriesCardHeader ${isSkeleton ? "MainSkeleton" : ''}`}>
+        {!isSkeleton &&
+          <>
+            <h5 className="trajectoryHeader mb-0">
+              {trajectory.educational_plan}
+              <span className={"eduDirectionCode"}>
+                {trajectory.code.replace(/\.$/, "")}
+              </span>
+            </h5>
+            <div className="d-flex align-items-center TrajectoriesCardProgress">
+              <PercentProgress percent={trajectory.coverage} />
+              <span className="ml-2">
+                {Math.round(trajectory.coverage * 100)}% совпадений
+              </span>
+            </div>
+          </>}
       </div>
+
       <div style={{ position: "relative" }}>
         <div
           className="pt-3 trajectoryCardWrapper HiddenLeft"
           onLoad={shouldDrawScrollButton}
           onScroll={shouldDrawScrollButton}
         >
-          <button className="ScrollBtn Right" onClick={scrollToRight}>
-            <Chevron />
-          </button>
-          <button className="ScrollBtn Left" onClick={scrollToLeft}>
-            <Chevron turn={Turn.left} />
-          </button>
-          {trajectory.courses.map((course) => {
-            return (
-              <CourseCard course={course} onClick={() => trajectoryChosen(trajectory, course.course)}/>
-            );
-          })}
+          {!isSkeleton &&
+            <>
+              <button className="ScrollBtn Right" onClick={scrollToRight}>
+                <Chevron />
+              </button>
+
+              <button className="ScrollBtn Left" onClick={scrollToLeft}>
+                <Chevron turn={Turn.left} />
+              </button>
+            </>
+          }
+
+          {!isSkeleton ?
+            trajectory.courses.map((course) => (
+            <CourseCard course={course} onClick={() => trajectoryChosen(trajectory, course.course)} />
+          )) : makeEmptyList(4).map(() => <CourseCard/>)}
         </div>
       </div>
+
       <div className="mt-3 justify-content-between">
         <div className="TrajectoriesCardFooter">
           <button
-            onClick={() => trajectoryChosen(trajectory)}
-            className="ButtonTrajectory MainButton mr-2"
+            onClick={trajectory && (() => trajectoryChosen(trajectory))}
+            className={`ButtonTrajectory MainButton mr-2 ${isSkeleton ? "MainSkeleton" : ''}`}
           >
             Смотреть траекторию
           </button>
@@ -113,7 +139,7 @@ const TrajectoryPreview: FC<ITrajectoryPreview> = ({ trajectory }) => {
               "+"
             )}`}
             target="_blank"
-            className="ButtonAbit"
+            className={`ButtonAbit ${isSkeleton ? "MainSkeleton" : ''}`}
           >
             Читать больше на abit.itmo.ru
           </a>

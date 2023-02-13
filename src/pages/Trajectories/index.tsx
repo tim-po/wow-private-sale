@@ -12,33 +12,10 @@ import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
 import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
-import TrajectorySkeleton from "../../components/TrajectoryPreview/TrajectoryPreviewSkeleton";
 import TrajectoryPreview from "../../components/TrajectoryPreview";
 
-// CONSTANTS
-
-const randomFeedback = {
-  firstOptionSelectButton: [
-    "Ничего не подошло 🥲️",
-    "Странные теги 🤔",
-    "Мало информации  🤨",
-    "Отлично 👌"
-  ],
-  secondOptionSelectButton: [
-    "Выбор траектории 🥲️",
-    "Как перейти дальше 🤔",
-    "Слишком много информации  🤯",
-    "Все понятно 👌"
-  ]
-};
-
-// DEFAULT FUNCTIONS
-
 const Trajectories = () => {
-  // const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  // const [width, setWidth] = useState(0);
   const [trajectories, setTrajectories] = useState([]);
-  // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext);
   const [searchParams] = useSearchParams();
   const [responseError, setResponseError] = useState<unknown>()
@@ -50,7 +27,6 @@ const Trajectories = () => {
     if (trajectories.length === 0) {
       try{
         const trajectoryIds = JSON.parse(searchParams.get("ids") || "[]");
-        // setTrajectoriesIds(trajectoryIds);
         axios.get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`).then(res => {
           setTrajectories(res.data);
         }).catch(e =>setResponseError(e))
@@ -75,7 +51,7 @@ const Trajectories = () => {
         Готовые траектории
       </h1>
 
-      <div className={"animationWrap"}>
+      <div className={"animationWrap Hidden"}>
         <div className="TrajectoriesInfoCard align-items-center">
           <PercentProgress percent={0.8} />
           Мы собрали подходящие для тебя образовательные программы в ИТМО.
@@ -84,7 +60,7 @@ const Trajectories = () => {
           <button
             className="border-0 pr-0 py-0 hideButton"
             onClick={() => {
-              const card = document.querySelector(".Не");
+              const card = document.querySelector(".animationWrap");
               if (card) card.classList.toggle("Hidden");
             }}
           >
@@ -97,7 +73,7 @@ const Trajectories = () => {
           <TrajectoryPreview trajectory={trajectory}/>
         ) :
         makeEmptyList(5).map(()=>
-          <TrajectorySkeleton/>
+          <TrajectoryPreview/>
         )}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />

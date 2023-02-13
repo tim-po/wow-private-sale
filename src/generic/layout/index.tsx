@@ -15,6 +15,8 @@ import axios from "axios";
 import { BASE_URL } from "../../constants";
 import FeedbackGroupIdContext from "../../Context/IdGroup";
 import { updateStickyBlocks } from "../../utils/stickyHeaders";
+import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
+import RandomFeedbackContext from "../../Context/RandomFeedback";
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -35,7 +37,7 @@ const Layout = (props: layoutPropType) => {
 
   const { backButtonHref } = useContext(BackButtonContext);
   const [cookie] = useCookies(["_ym_uid"]);
-
+  const [isOpenRandomFeedback, setIsOpenRandomFeedback] = useState(false);
   const [groupId, setGroupId] = useState<number>(0);
   const refLastModals = useRef<HTMLDivElement>(null);
 
@@ -43,7 +45,9 @@ const Layout = (props: layoutPropType) => {
     setModalComponent((prevState) => [...prevState, component]);
     setShouldDisplayModal(true);
   };
-
+  const closeRandomFeedback = (value: boolean) => {
+    setIsOpenRandomFeedback(value);
+  };
   const closeModal = () => {
     setModalComponent(modalComponent.slice(0, -1));
     // setShouldDisplayModal(false);
@@ -77,32 +81,36 @@ const Layout = (props: layoutPropType) => {
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
         {/*<BgContext.Provider value={{setBg: setBackgroundColor}}>*/}
-        <div className="DefaultLayoutContainer" id="scroll-container">
-          <Header left={backButtonHref === "/"} />
-          <div className="Content">
-            {children}
-            {modalComponent.map((component, index) => (
-              <GenericModal
-                refLastModals={
-                  modalComponent.length - 1 === index
-                    ? refLastModals
-                    : undefined
-                }
-                modalCount={modalComponent.length}
-                currentLastModals={refLastModals.current}
-                modalNumber={index}
-                modal={shouldDisplayModal}
-                colorCloseWhite={false}
-                hideMobile={false}
-                hideDesktop={false}
-                onModalClose={closeModal}
-              >
-                {component}
-              </GenericModal>
-            ))}
+        <RandomFeedbackContext.Provider
+          value={{ isOpenRandomFeedback, closeRandomFeedback }}
+        >
+          <div className="DefaultLayoutContainer" id="scroll-container">
+            <Header left={backButtonHref === "/"} />
+            <div className="Content">
+              {children}
+              {modalComponent.map((component, index) => (
+                <GenericModal
+                  refLastModals={
+                    modalComponent.length - 1 === index
+                      ? refLastModals
+                      : undefined
+                  }
+                  modalCount={modalComponent.length}
+                  currentLastModals={refLastModals.current}
+                  modalNumber={index}
+                  modal={shouldDisplayModal}
+                  colorCloseWhite={false}
+                  hideMobile={false}
+                  hideDesktop={false}
+                  onModalClose={closeModal}
+                >
+                  {component}
+                </GenericModal>
+              ))}
+            </div>
           </div>
-        </div>
-        {/*</BgContext.Provider>*/}
+          {/*</BgContext.Provider>*/}
+        </RandomFeedbackContext.Provider>
       </FeedbackGroupIdContext.Provider>
     </ModalsContext.Provider>
   );

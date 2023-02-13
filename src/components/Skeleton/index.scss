@@ -1,0 +1,14 @@
+.skeleton-v2 {
+  opacity: .7;
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 16px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: rgba(235, 235, 235, 1);
+  }
+  100% {
+    background-color: rgba(184, 184, 184, .7);
+  }
+}

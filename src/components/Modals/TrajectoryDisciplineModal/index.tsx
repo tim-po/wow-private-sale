@@ -186,6 +186,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                   >
                     {filteredReplacementOptions.map(replacementOption => (
                       <button
+                        key={replacementOption.id}
                         className={`discipline`}
                         onClick={() => {
                           toggleReplacementOptions()
@@ -236,7 +237,6 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 // className="disc ? furtherUse= true  ''"
                 // className="disciplineCardModal mb-2 mx-auto"
                 >
-                  {/* {{disc}} */}
                 </div>
               </div>
             </div>
@@ -289,6 +289,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 )
                 .map(keyword => (
                   <div
+                    key={keyword}
                     style={{
                       background: `${colors[trajectoryDisciplineData.class]}20`,
                     }}

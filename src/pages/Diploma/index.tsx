@@ -137,6 +137,7 @@ const Diploma = () => {
                         />,
                       )
                     }
+                    key={discipline.name}
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}
@@ -155,6 +156,7 @@ const Diploma = () => {
                       onClick={() =>
                         displayModal(<ControlTypeModal controlType={controlType} />)
                       }
+                      key={controlType.name}
                       name={controlType.name}
                       title={controlType.count}
                       subtitle={refactorName(controlType.count, controlType.name)}

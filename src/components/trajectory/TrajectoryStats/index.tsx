@@ -17,8 +17,6 @@ type TrajectoryStatsPropType = {
   setIsModalTrajectory?: (value: boolean) => void
 }
 
-const TrajectoryStatsDefaultProps = {}
-
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   const { course, className = 'Mobile', setSelectedSphere, setIsModalTrajectory } = props
   const [focusedCircleLoading] = useState(false)
@@ -210,13 +208,13 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="scroll">
         <div className="rowContent">
-          {allControllTypes.map(controlTypeName => {
+          {allControllTypes.map((controlTypeName,index) => {
             if (!course) {
               return null
             }
             return (
               <ControlTypeTile
-                key={controlTypeName}
+                key={index}
                 controlType={
                   course.control_type_count.find(
                     controlType => controlType.name === controlTypeName,
@@ -259,7 +257,5 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     </div>
   )
 }
-
-TrajectoryStats.defaultProps = TrajectoryStatsDefaultProps
 
 export default TrajectoryStats

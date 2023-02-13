@@ -80,9 +80,13 @@ const Trajectories = () => {
           </button>
         </div>
       </div>
-      {trajectories.length
-        ? trajectories.map(trajectory => <TrajectoryPreview trajectory={trajectory} />)
-        : makeEmptyList(5).map((_v, index) => <TrajectoryPreview key={index} />)}
+      {trajectories.length ?
+        trajectories.map((trajectory, index) =>
+          <TrajectoryPreview key={trajectory + index} trajectory={trajectory}/>
+        ) :
+        makeEmptyList(5).map((_i, index)=>
+          <TrajectoryPreview key={index}/>
+        )}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />
     </div>

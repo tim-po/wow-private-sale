@@ -141,7 +141,7 @@ const Trajectory = () => {
                   className={`CourseButton ${
                     course.course === courseQuery ? 'CourseButtonActive' : ''
                   }`}
-                  key="number"
+                  key={course.course}
                   onClick={() => navigateToCourse(course.course)}
                 >
                   <div

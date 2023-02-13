@@ -51,19 +51,19 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
   }
   const promptRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (document.getElementsByClassName('d-block') && isMobile) {
-      const scrollElem = document.getElementsByClassName('d-block')
-      if (scrollElem)
-        scrollElem[scrollElem.length - 1].addEventListener('scroll', () =>
-          setIsTooltipActive(false),
-        )
-      return () =>
-        scrollElem[scrollElem.length - 1].removeEventListener('scroll', () =>
-          setIsTooltipActive(false),
-        )
+    if (document.getElementsByClassName("d-block") && isMobile) {
+      const scrollElem = document.getElementsByClassName("d-block");
+
+      const isSetIsTooltipActive = () => {
+        setIsTooltipActive(false)
+      }
+      // if (scrollElem && scrollElem.length) {
+        scrollElem[scrollElem.length - 1].addEventListener("scroll", isSetIsTooltipActive)
+      // }
+        return () =>
+          scrollElem[scrollElem.length - 1]?.removeEventListener("scroll", isSetIsTooltipActive)
     }
   })
-  console.log(isTooltipActive)
   return (
     <div className="disciplineModalContainer">
       <div className="ContainerNameButton">
@@ -77,16 +77,15 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
           {isTooltipActive && (
             <div className="Prompt">{getTooltipMessage(controlType.name)}</div>
           )}
-          {/* </PromptImg> */}
         </div>
       </div>
       <div className="ExamModalContainer" ref={promptRef}>
         <div className="KeywordsModalContent">
           {controlType.disciplines &&
-            controlType.disciplines.map(discipline => (
-              <div className="ListExamModal">
-                {(typeof discipline !== 'string' && discipline.name) ||
-                  (discipline as unknown as string)}
+            controlType.disciplines.map((discipline, index) => (
+              <div className="ListExamModal" key={index}>
+                {(typeof discipline !== "string" && discipline.name) ||
+                  (discipline as string)}
                 <hr />
               </div>
             ))}

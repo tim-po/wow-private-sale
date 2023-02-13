@@ -122,6 +122,7 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
       })
   }
 
+
   function closeFeedback() {
     setTimeout(() => {
       setShowFeedback(false)
@@ -144,41 +145,32 @@ const RandomFeedback = ({ displayForGroup = 0, feedbackType = '' }) => {
   }
 
   return (
-    <>
-      {!isOpenRandomFeedback ? (
-        <div
-          onClick={openFeedback}
-          className={`container-form-random-feedback ${
-            !showFeedback ? 'feedbackSmall' : ''
-          } ${isSeeIcon ? '' : 'hideIcon'}`}
-        >
-          <RandomFeedbackOpen />
-          {!isSubmitted && (
-            <div className="form">
-              <div className="wrapTitle">
-                <span className="title">
-                  {feedbackDataByGroup[displayForGroup]['title']}
-                </span>
-                <button onClick={() => closeFeedback()}>
-                  <Close />
+    <div
+      onClick={openFeedback}
+      className={`container-form-random-feedback ${!showFeedback ? "feedbackSmall" : ""}`}
+    >
+      <RandomFeedbackOpen />
+      {!isSubmitted &&
+        <div className="form">
+          <div className="wrapTitle">
+            <span className="title">{feedbackDataByGroup[displayForGroup]["title"]}</span>
+            <button onClick={() => closeFeedback()}>
+              <Close />
+            </button>
+          </div>
+          <div className="bottomFeedback">
+            {feedbackDataByGroup[displayForGroup].mapButton.map((controlTypeName, index) => {
+              return (
+                <button
+                  key={controlTypeName}
+                  onClick={() => setSelectedButton(index)}
+                  className={`selectButton ${selectedButton === index ? "active" : ""}`}
+                >
+                  {controlTypeName}
                 </button>
-              </div>
-              <div className="bottomFeedback">
-                {feedbackDataByGroup[displayForGroup]['mapButton'].map(
-                  (controlTypeName: string, index: any) => {
-                    return (
-                      <button
-                        onClick={() => setSelectedButton(index)}
-                        className={`selectButton ${
-                          selectedButton === index ? 'active' : ''
-                        }`}
-                      >
-                        {controlTypeName}
-                      </button>
-                    )
-                  },
-                )}
-              </div>
+              );
+            })}
+          </div>
 
               <div className="containerText">
                 <span className="descriptionСontainerText">Или расскажи подробнее</span>

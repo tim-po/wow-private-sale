@@ -29,11 +29,7 @@ import {
 import Hints from "../../components/hints";
 import { changeBg } from "../../utils/background";
 import NotFound from "../../components/NotFound";
-// import { findDOMNode } from "react-dom";
-// @ts-ignore
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import { TrajectoryType } from 'types'
 
 const ProfessionDetails = () => {
   const navigate = useNavigate();
@@ -88,7 +84,7 @@ const ProfessionDetails = () => {
     });
 
     let ids: string[] = [];
-    response.data.forEach((el: any) => ids.push(el.id));
+    response.data.forEach((el: TrajectoryType) => ids.push(el.id));
     navigate(`/trajectories?ids=${JSON.stringify(ids)}`);
   };
 

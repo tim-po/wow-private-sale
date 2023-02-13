@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {RefObject, useEffect, useState} from "react";
 import './index.scss';
 import { isMobile } from "react-device-detect";
 import Chevron, { Turn } from "../../../images/icons/chevron";

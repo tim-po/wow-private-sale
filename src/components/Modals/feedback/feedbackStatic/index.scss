@@ -1,102 +1,127 @@
-.container-form{
-  padding: 28px 36px 36px 40px;
-  z-index: 1000;
-  //min-width:448px;
+.wrap {
+  padding: 18px 36px 36px 40px;
+  text-align: left;
+  width: 520px;
 
-  .form{
-    padding-top: 20px;
-    min-width: 448px;
+  .title {
+    max-width: calc(100% - 10px);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1F1F22;
+  }
+
+  textarea, input {
+    outline: none;
+    border-radius: 8px;
+    padding-left: 16px;
+    width: 100%;
+    min-width: 142px;
+    border-color: #E7E8EE;
+    border-width: 1px;
+    border-style: solid;
+
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #AE78FE;
+    }
+
+  }
+
+  .containerText {
     text-align: left;
-    textarea, input{
-      border: 1px solid #E7E8EE;
-      border-radius: 8px;
-      padding-left: 16px;
-      width: 100%;
-    }
-    .containerText{
-      text-align: left;
-      margin-top: 22px;
-      .prompt{
-        color: red;
-      }
-    }
-    .containerEmail{
-      input{
-        min-height: 40px;
-      }
-      margin-top: 16px;
-    }
-    .titleWrap {
-      position: absolute;
-      top: 18px;
-      .title {
+    margin-top: 22px;
 
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 22px;
-        color: #1F1F22;
-      }
-    }
-    .first-form{
-      &.validation{
-        border-color: red;
-      }
+    textarea {
       padding-top: 10px;
       resize: none;
       height: 120px;
     }
-    .containerButton{
-      margin-top: 24px;
-      gap: 10px;
-      display: flex;
-      .submit{
-        min-width: 142px;
-        background: #8533FF;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 20px;
-        padding: 10px 12px;
-        color: #FFFFFF;
-      }
-      .cancellation{
-        min-width: 142px;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 20px;
-        padding: 10px 12px;
-        border: 1px solid #8533FF;
-        border-radius: 8px;
-        color: #8533FF;
+  }
 
+  .containerEmail {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    input {
+      min-height: 40px;
+    }
+  }
+
+  .caption {
+    color: var(--color-12);
+    white-space: break-spaces;
+  }
+
+
+  .containerButton {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    .btn {
+      min-width: 142px;
+      color: #8533FF;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 10px 12px;
+      border-radius: 8px;
+
+      &.cancellation {
+        border: 1px solid #8533FF;
+      }
+
+      &.submit {
+        background: #8533FF;
+        color: #FFFFFF;
       }
     }
   }
-  .RequestSent{
-    min-width: 448px;
+}
 
-    .heartImg{
-      margin-bottom: 40px;
+
+.wrap {
+  padding: 18px 36px 36px 40px;
+
+  .RequestSent {
+    display: grid;
+
+    .rotateWrap{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 27px;
+
+      .heartImg {
+        margin: 24px auto;
+      }
+
+      .title {
+        width: max-content;
+        text-align: left;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #1F1F22;
+        margin-bottom: 20px;
+      }
     }
-    .title{
-      text-align: left;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 22px;
-      color: #1F1F22;
-      margin-bottom: 20px;
-    }
-    .gratitude{
+
+
+    .gratitude {
       text-align: left;
       font-weight: 400;
       font-size: 14px;
-      margin-bottom: 24px;
       line-height: 20px;
       color: #1F1F22;
     }
-    .containerButton{
+
+    .containerButton {
       display: flex;
-      .closeModal{
+      justify-content: center;
+
+      .closeModal {
         font-weight: 700;
         font-size: 14px;
         line-height: 20px;
@@ -106,26 +131,47 @@
         border-radius: 8px;
         min-width: 142px;
       }
-
     }
   }
 }
-@media screen and (max-width: 1000px){
-  .container-form{
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+  .wrap {
+    width: unset;
+    max-width: none;
     min-width: inherit;
-    .form {
-      min-width: 100%;
-      .titleWrap{
-        width: 70vw;
-      }
-      .containerButton{
-        display: flex;
-        flex-direction: column;
+    min-height: max-content;
+
+    @media screen and (max-width: 450px) {
+      .containerButton {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr;
       }
     }
-    .RequestSent{
+
+
+
+    .RequestSent {
       min-width: revert;
-      .containerButton{
+
+
+      .rotateWrap{
+        flex-direction: column-reverse;
+        margin-bottom: 0;
+
+        .title{
+          margin-bottom: 20px;
+        }
+      }
+
+      .containerButton {
+        display: grid;
+       grid-template-columns: 1fr;
+
         .closeModal {
           width: 100%;
         }

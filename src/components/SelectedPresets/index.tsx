@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useEffect, useRef,useState } from "react";
 import "./index.scss";
 import { PresetType } from "../../types";
 import * as Scroll from "react-scroll";
@@ -8,22 +8,15 @@ import Illustration from "images/icons/illustration";
 import Chevron, { Turn } from "../../images/icons/chevron";
 import Magnifier from "../../images/icons/magnifier";
 
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
-
 type SelectedPresetsPropType = {
-  // You should declare props like this, delete this if you don't need props
   selectedPresets: PresetType[];
   deletePreset?: (presetId: string) => void;
   isHidden: boolean;
   hintEditPresets?: React.RefObject<HTMLButtonElement>;
 };
 
-const SelectedPresetsDefaultProps = {
-  // You should declare default props like this, delete this if you don't need props
-  somePropWithDefaultOption: "default value",
-};
+
+const SelectedPresetsDefaultProps = {};
 
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams] = useSearchParams();
@@ -33,16 +26,16 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false);
   const presetWindowSize = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const carousel = document.querySelector(".leftSlide");
+    const carousel: Element | null = document.querySelector(".leftSlide");
     if (carousel) {
-      const container = document.querySelector(".selectedPresetsContainer");
+      const container: Element | null = document.querySelector(".selectedPresetsContainer");
       let sumOfCarouselCards = 0;
       setTimeout(() => {
         carousel.querySelectorAll(".leftSlide > .preset").forEach((elem) => {
-          // @ts-ignore
           sumOfCarouselCards = sumOfCarouselCards + elem.clientWidth;
-          // @ts-ignore
-          setIsRightArrowHidden(sumOfCarouselCards > container.clientWidth);
+          if (container) {
+            setIsRightArrowHidden(sumOfCarouselCards > container.clientWidth);
+          }
         });
       }, 200);
     }
@@ -53,12 +46,13 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     scroll.scrollToTop();
   }, []);
 
-  const shouldDrawScrollButton = (event: any) => {
-    const element = event.target;
+  const shouldDrawScrollButton = (event: React.SyntheticEvent<HTMLDivElement> | React.UIEvent<HTMLDivElement>) => {
+    const element = event.target as HTMLDivElement;
     setLeftScrollPosition(element.scrollLeft);
+
     if (!element) {
-      element.classList.remove("hidden-right");
-      element.classList.remove("hidden-left");
+      // element.classList.remove("hidden-right");
+      // element.classList.remove("hidden-left");
       return;
     }
 
@@ -75,19 +69,23 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     element.classList.remove("hidden-left");
     element.classList.remove("hidden-right");
   };
-  const scrollToRight = (event: any) => {
+  const scrollToRight = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    const target = event.target as HTMLButtonElement;
+    const parentNode = target.parentNode as HTMLElement;
     if (presetWindowSize.current)
-      event.target.parentNode.scrollLeft += Math.min(
-        event.target.parentNode.clientWidth,
+      parentNode.scrollLeft += Math.min(
+        parentNode.clientWidth,
         presetWindowSize?.current?.getBoundingClientRect().width
       );
   };
-  const scrollToLeft = (event: any) => {
+  const scrollToLeft = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    const target = event.target as HTMLButtonElement;
+    const parentNode = target.parentNode as HTMLElement;
     if (presetWindowSize.current)
-      event.target.parentNode.scrollLeft -= Math.min(
-        event.target.parentNode.clientWidth,
+      parentNode.scrollLeft -= Math.min(
+        parentNode.clientWidth,
         presetWindowSize?.current?.getBoundingClientRect().width
       );
   };

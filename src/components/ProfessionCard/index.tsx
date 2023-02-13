@@ -15,7 +15,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
   const {profession} = props;
 
   const animateSvg = (svg: Element) => {
-    let style = document.getElementById('svgAnimeStyles')
+    let style: HTMLElement | null = document.getElementById('svgAnimeStyles')
     if (!style) {
       style = document.createElement('style');
       style.setAttribute('type', 'text/css')
@@ -34,8 +34,9 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
 
       const css = `.ProfessionCardButton:hover .icon-wrapper-${profession.id} .n${index}{${cssTransform}}`
 
-      // @ts-ignore
-      style.appendChild(document.createTextNode(css));
+      if (style) {
+        style.appendChild(document.createTextNode(css));
+      }
     })
     document.getElementsByTagName('head')[0].appendChild(style);
   }

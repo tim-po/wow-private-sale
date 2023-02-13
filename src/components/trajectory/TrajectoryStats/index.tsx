@@ -4,20 +4,18 @@ import { CountType, CourseType } from "../../../types";
 import { hierarchy, pack } from "d3-hierarchy";
 import { allControllTypes, colors } from "../../../constants";
 import ControlTypeTile from "../../ControlTypeTile";
+import titleModal from "../../../Context/Modal";
 import ModalContext from "../../../Context/Modal";
 import ControlTypeModal from "../../Modals/ControlTypeModal";
-import { scrollToElement } from "../../../utils/scrollToElement";
+import {scrollToElement} from "../../../utils/scrollToElement";
 
-// CONSTANTS
 const focusedCircleRadius = 90;
-
-// DEFAULT FUNCTIONS
 
 type TrajectoryStatsPropType = {
   course?: CourseType;
   className: string;
-  setSelectedSphere?: React.SetStateAction<any>;
-  setIsModalTrajectory?: React.SetStateAction<any>;
+  setSelectedSphere?: (value: string) => void;
+  setIsModalTrajectory?: (value: boolean) => void;
 };
 
 const TrajectoryStatsDefaultProps = {};
@@ -32,7 +30,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   const [focusedCircleLoading] = useState(false);
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
-  const { displayModal, closeModal } = useContext(ModalContext);
+  const {displayModal, closeModal} = useContext(ModalContext);
 
   const transformedClassData = () => {
     return {
@@ -46,10 +44,9 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   };
 
   const getNecessityCount = () => {
-    const necessityCount = { necessary: 0, chosen: 0 };
+    const necessityCount: { [key: string]: number } = {necessary: 0, chosen: 0};
     if (course) {
       course.necessity_count.forEach((type) => {
-        // @ts-ignore
         necessityCount[type.name] = type.count;
       });
     }
@@ -60,17 +57,18 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   const layoutData = () => {
     // Generate a D3 hierarchy
     const rootHierarchy = hierarchy(transformedClassData())
-      // @ts-ignore
-      .sum((d) => d.size)
-      .sort((a, b) => {
+      .sum((d) => {
         // @ts-ignore
-        return b.value - a.value;
+        return d.size
+      })
+      .sort((a, b) => {
+        return (b.value as number) - (a.value as number);
       });
     return pack().size([400, 400]).padding(8)(rootHierarchy);
   };
 
   const amount = () => {
-    let amountReturn: { name: any; amount: any }[] = [];
+    let amountReturn: { name: string; amount: number }[] = [];
 
     if (course !== undefined) {
       course.classes_count.forEach((klass) => {
@@ -100,7 +98,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     let yTrans = klass.y - klass.r;
 
     if (focusedCircle === undefined || focusedCircle.r > focusedCircleRadius) {
-      return { x: xTrans, y: yTrans };
+      return {x: xTrans, y: yTrans};
     }
 
     let focusCircleXtrans = focusedCircle.x - focusedCircleRadius;
@@ -121,7 +119,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     }
 
     if (isFocusedOnCircleOf(klass)) {
-      return { x: focusCircleXtrans, y: focusCircleYtrans };
+      return {x: focusCircleXtrans, y: focusCircleYtrans};
     }
 
     let rDiff = focusedCircleRadius - focusedCircle.r;
@@ -133,22 +131,12 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     yTrans +=
       ((yDiff / 2) * (rDiff / Math.abs(yDiff)) * Math.sqrt(400 - yDiff)) / 20;
 
-    return { x: xTrans, y: yTrans };
+    return {x: xTrans, y: yTrans};
   };
 
   const isFocusedOnCircleOf = (klass: any) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name;
   };
-
-  // const focusOnCircle = (klass: any) => {
-  //   if (focusedCircle === undefined) {
-  //     setFocusedCircle(klass);
-  //     setFocusedCircleLoading(true);
-  //     setTimeout(() => {
-  //       setFocusedCircleLoading(false);
-  //     }, 300);
-  //   }
-  // };
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
@@ -172,7 +160,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
   const onCircleClick = (name: string) => {
     scrollToElement(name);
-    if (setSelectedSphere) {
+    if (setSelectedSphere && setIsModalTrajectory) {
       setIsModalTrajectory(false);
       setSelectedSphere(name);
       setTimeout(() => {

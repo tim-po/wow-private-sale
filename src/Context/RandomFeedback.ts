@@ -1,8 +1,16 @@
-import React, { ReactNode } from "react";
+import { createContext } from 'react'
 
-const RandomFeedbackContext = React.createContext({
+type RandomFeedbackContextType = {
+
+  isOpenRandomFeedback: boolean,
+    closeRandomFeedback: (newValue: boolean) => void,
+
+}
+
+
+const RandomFeedbackContext = createContext<RandomFeedbackContextType>({
   isOpenRandomFeedback: true,
-  closeRandomFeedback: (newValue: boolean) => {},
+  closeRandomFeedback: () => null
 });
 
 export default RandomFeedbackContext;

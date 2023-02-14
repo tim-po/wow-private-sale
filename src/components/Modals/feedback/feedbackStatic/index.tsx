@@ -1,78 +1,152 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler, useContext, useState } from 'react'
 import './index.scss'
-import axios from "axios";
-import Heart from "../../../../images/icons/Static/heart";
-import { BASE_URL } from "../../../../constants";
-import {useCookies} from "react-cookie";
+import Heart from '../../../../images/icons/Static/heart'
+import ModalContext from '../../../../Context/Modal'
+import { BASE_URL } from '../../../../constants'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
-const FeedbackStatic = (props:any) => {
-  const [checkSubmit, setCheckSubmit] = useState(false)
-  const [email, setEmail] = useState("")
-  const [text, setText] = useState("")
-  const [values, setValues] = useState("");
-  const [validationForm, setValidationForm] = useState<Boolean>(true)
-  const [cookie] = useCookies(['_ym_uid']);
+type ErrorType = string | null | undefined
+type FeedbackStaticProps = {
+  onFeedbackSend: () => void
+}
 
-  if(!props.isModal){
-    setTimeout(()=>{
-      setCheckSubmit(false)
-    },1000);
+const EMAIL_REGEXP =
+  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
+
+const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
+  const [cookie] = useCookies(['_ym_uid'])
+  const { closeModal } = useContext(ModalContext)
+  const [email, setEmail] = useState<string>('')
+  const [text, setText] = useState<string>('')
+
+  const [isFeedbackLeft, setIsFeedbackLeft] = useState<boolean>(false)
+
+  const [validationErrors, setValidationErrors] = useState<{
+    text: ErrorType
+    email: ErrorType
+  }>({
+    text: null,
+    email: null,
+  })
+
+  const validateValue = (value: string, field: 'text' | 'email', message: string) => {
+    if (!value) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [field]: message,
+      }))
+    } else {
+      setValidationErrors(prev => ({ ...prev, [field]: null }))
+    }
   }
 
-  function handleClick() {
-    if (text === '') {
-      setValues('Это поле должно быть заполнено');
-      setValidationForm(false)
+  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if (email && !EMAIL_REGEXP.test(email)) {
+      setValidationErrors(prevState => ({ ...prevState, email: 'email некорректный' }))
       return
     }
-    axios.post(`${BASE_URL}feedback/`, {email: email, text: text, feedback_type: 3, user_id: cookie._ym_uid}, {
-    }).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err.response);
-    })
-    setValidationForm(true)
-    setCheckSubmit(true)
-    setValues('')
+
+    if (!text) {
+      setValidationErrors(prevState => ({ ...prevState, text: 'Введите комментарий' }))
+      return
+    }
+
+    if (!Object.values(validationErrors).filter(item => !!item).length) {
+      console.log('Все ок')
+      axios
+        .post(
+          `${BASE_URL}feedback/`,
+          {
+            email: email,
+            text: text,
+            feedback_type: 3,
+            user_id: cookie._ym_uid,
+          },
+          {},
+        )
+        .then(() => {
+          onFeedbackSend()
+          setIsFeedbackLeft(true)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   }
-  // console.log(user.text)
+
   return (
-    <div className="container-form">
-      { !checkSubmit ?
-      <div className="form">
-        <div className="titleWrap">
-        <span className="title">Расскажи, какой профессии тебе не хватает?</span>
-        </div>
-        <div className="containerText">
-          <textarea  value={text} onChange={(e) => setText(e.target.value)} placeholder="Комментарий"
-                    className={`${validationForm? '':'validation'} first-form`} />
-          <span className="prompt">{values ? values : ''}</span>
-        </div>
-        <div className="containerEmail">
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email"
-                 className="secondary-form" />
-          <span></span>
-        </div>
-        <div className="containerButton">
-          <button className="cancellation" onClick={props.onModalClose}>Отмена</button>
-          <button className="submit" onClick={handleClick}>Отправить</button>
-        </div>
-      </div>
-      :
-        <div className="RequestSent">
-          <div className="heartImg">
-            <Heart/>
+    <div className="wrap">
+      {!isFeedbackLeft ? (
+        <>
+          <div className="title">Расскажи, какой профессии тебе не хватает?</div>
+
+          <div className="containerText">
+            <textarea
+              className={`${validationErrors.text ? '' : 'validation'}`}
+              value={text}
+              onChange={e => {
+                const value = e.target.value
+                validateValue(
+                  value,
+                  'text',
+                  'Тут можно написать комментарий, без него отзыв не отправить 🙃',
+                )
+                setText(value)
+              }}
+              placeholder="Комментарий"
+            />
+            <span className="caption">{validationErrors.text}</span>
           </div>
-          <div className="title">Ответ отправлен!</div>
-          <div className="gratitude">Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо! </div>
+
+          <div className="containerEmail">
+            <input
+              className={`${validationErrors.email ? '' : 'validation'}`}
+              value={email}
+              type={'email'}
+              onChange={e => {
+                const value = e.target.value
+                setValidationErrors(prevState => ({ ...prevState, email: null }))
+                setEmail(value)
+              }}
+              placeholder="Email"
+            />
+            <span className="caption">{validationErrors.email}</span>
+          </div>
+
           <div className="containerButton">
-            <button className="closeModal" onClick={props.onModalClose}>Круто</button>
+            <button className="cancellation btn" onClick={closeModal}>
+              Отмена
+            </button>
+            <button className="submit btn" onClick={handleClick}>
+              Отправить
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="RequestSent">
+          <div className={'rotateWrap'}>
+            <div className="heartImg">
+              <Heart />
+            </div>
+
+            <div>
+              <div className="title">Ответ отправлен!</div>
+              <div className="gratitude">
+                Каждый ответ помогает сделать наш сервис еще удобнее. Спасибо!
+              </div>
+            </div>
+          </div>
+
+          <div className="containerButton">
+            <button className="submit btn" onClick={closeModal}>
+              Круто
+            </button>
           </div>
         </div>
-      }
+      )}
     </div>
+  )
+}
 
-  );
-};
-
-export default FeedbackStatic;
+export default FeedbackStatic

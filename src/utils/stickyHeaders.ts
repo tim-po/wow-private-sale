@@ -1,5 +1,3 @@
-import React, {useEffect, useState} from "react";
-
 export const createStickyBlock = (order: number) => {
   const id = Math.round(Math.random()*1000)
   if(order === -1){
@@ -9,16 +7,17 @@ export const createStickyBlock = (order: number) => {
 }
 
 export const updateStickyBlocks = () => {
-  let customStickyBlocks = window.document.querySelectorAll('[data-custom-sticky]')
+  const customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
 
   const blocksWithProps: any[] = []
+
   customStickyBlocks.forEach(block => {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const attribute = block.attributes['data-custom-sticky'].nodeValue.split('-')
     if(attribute[1] === 'hidden'){
-      // @ts-ignore
       block.style.position = 'sticky'
-      // @ts-ignore
       block.style.top = `${-420}px`
     }else{
       const props = {id: +attribute[0], order: attribute[1]}
@@ -27,6 +26,7 @@ export const updateStickyBlocks = () => {
   })
 
   const blocksGroupedByOrder: {[key: number]: any[] } = {}
+
   blocksWithProps.forEach(block => {
     blocksGroupedByOrder[block.order] = [...(blocksGroupedByOrder[block.order] || []), block]
   })
@@ -52,20 +52,20 @@ export const updateStickyBlocks = () => {
 }
 
 export const calculateTotalStickyHeight = (group?: number) => {
-  let customStickyBlocks = window.document.querySelectorAll('[data-custom-sticky]')
+  const customStickyBlocks: NodeListOf<HTMLDivElement> = window.document.querySelectorAll('[data-custom-sticky]')
 
   let top = 0
-  customStickyBlocks.forEach((element, index) => {
+  customStickyBlocks.forEach((element) => {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const attribute = element.attributes['data-custom-sticky'].nodeValue.split('-')
     if(attribute[1] !== 'hidden'){
       if(group){
         if(group <= attribute[0]){
-          // @ts-ignore
           top += element.offsetHeight
         }
       }else{
-        // @ts-ignore
         top += element.offsetHeight
       }
     }

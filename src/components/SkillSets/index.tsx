@@ -1,126 +1,137 @@
-import React, { useEffect, useState } from "react";
-import "./index.scss";
-import SelectedPresets from "../SelectedPresets";
-import Preset from "components/Preset";
-import { PresetType } from "../../types";
-import * as Scroll from "react-scroll";
-import Chevron, { Turn } from "../../images/icons/chevron";
-import { createStickyBlock, updateStickyBlocks } from "../../utils/stickyHeaders";
-import { scrollToElement } from "../../utils/scrollToElement";
-import Close from "../../images/icons/close";
-import InfoIcon from "../../images/icons/Static/InfoIcon";
-import { useInView } from "react-intersection-observer";
+import React, { useEffect, useState } from 'react'
+import './index.scss'
+import SelectedPresets from '../SelectedPresets'
+import Preset from 'components/Preset'
+import { PresetType } from '../../types'
+import * as Scroll from 'react-scroll'
+import Chevron, { Turn } from '../../images/icons/chevron'
+import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
+import { scrollToElement } from '../../utils/scrollToElement'
+import Close from '../../images/icons/close'
+import InfoIcon from '../../images/icons/Static/InfoIcon'
+import { useInView } from 'react-intersection-observer'
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
 type SkillSetsPropType = {
-  // You should declare props like this, delete this if you don't need props
   presets: {
-    all: PresetType[],
-    selected: PresetType[],
-    display: PresetType[],
-    select: (presetId: string) => void,
-    deSelect: (presetId: string) => void,
+    all: PresetType[]
+    selected: PresetType[]
+    display: PresetType[]
+    select: (presetId: string) => void
+    deSelect: (presetId: string) => void
   }
 }
 
 const SkillSets = (props: SkillSetsPropType) => {
-  const { presets } = props;
-  const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false);
+  const { presets } = props
+  const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
-  const  { ref, inView }  =  useInView ( {threshold:1, initialInView:true}) ;
-
-  useEffect(() => {
-    let scroll = Scroll.animateScroll;
-    scroll.scrollToTop();
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { ref, inView } = useInView({ threshold: 1, initialInView: true })
 
   const handleScroll = () => {
-    if(window.scrollY < 200) {
+    if (window.scrollY < 200) {
       setSelectedPresetsHidden(true)
     }
-  };
+  }
 
   useEffect(() => {
-    if(selectedPresetsHidden){
-      setTimeout(()=>{
+    const scroll = Scroll.animateScroll
+    scroll.scrollToTop()
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (selectedPresetsHidden) {
+      setTimeout(() => {
         updateStickyBlocks()
       }, 200)
-    }else{
+    } else {
       updateStickyBlocks()
     }
-  }, [selectedPresetsHidden, presets.display]);
+  }, [selectedPresetsHidden, presets.display])
 
   return (
     <div className="skillSets">
       <div className="professionsContainer">
         <div className="flex-block">
-          <div className={`minTitle top ${inView ? '': 'hideBorder'}`} {...createStickyBlock(2)}>
+          <div
+            className={`minTitle top ${inView ? '' : 'hideBorder'}`}
+            {...createStickyBlock(2)}
+          >
             <div id="blob-1-top-left" className="subheader">
               <span className="subheader-title">Уже в наборе</span>
-              {presets.selected.length > 0 &&
+              {presets.selected.length > 0 && (
                 <div className="subheader-counter">
-                  +<span key={presets.selected.length} className="rollNumber">
+                  +
+                  <span key={presets.selected.length} className="rollNumber">
                     {presets.selected.length}
                   </span>
                 </div>
-              }
+              )}
             </div>
-            <button className="buttonArrow" onClick={() => {
-              if(selectedPresetsHidden){
-                if(window.scrollY < 200) {
-                  return scrollToElement('hidePresetsBottomTarget')
+            <button
+              className="buttonArrow"
+              onClick={() => {
+                if (selectedPresetsHidden) {
+                  if (window.scrollY < 200) {
+                    return scrollToElement('hidePresetsBottomTarget')
+                  }
+                  setSelectedPresetsHidden(false)
+                } else {
+                  setSelectedPresetsHidden(!selectedPresetsHidden)
                 }
-                setSelectedPresetsHidden(false)
-              }else{
-                setSelectedPresetsHidden(!selectedPresetsHidden)
-              }
-            }}>
-
+              }}
+            >
               <div className={`mobil ${!inView ? 'arrowUp' : 'arrowDown'}`}>
-                <Chevron color="#1F1F22" turn={Turn.down}/>
+                <Chevron color="#1F1F22" turn={Turn.down} />
               </div>
-              <span className="deck">{!inView? 'Показать' : 'Скрыть'}</span>
+              <span className="deck">{!inView ? 'Показать' : 'Скрыть'}</span>
             </button>
           </div>
 
-          <div className={`${((presets.selected.length >= 5) && isNoteOpen) ? "showNote" : "hideNote"}`}>
-
-            {/*TODO вынести карточку в отдельный компонент*/}
+          <div
+            className={`${
+              presets.selected.length >= 5 && isNoteOpen ? 'showNote' : 'hideNote'
+            }`}
+          >
+            {/* TODO вынести карточку в отдельный компонент */}
             <div className="PresetsInfoCard align-items-center">
-              <InfoIcon/>
+              <InfoIcon />
               <div>
                 <span>
                   Ты не можешь добавить больше <b>5 наборов навыков</b>,
                 </span>
-                 <br />
-                 так как траектория может построиться неточно.
+                <br />
+                так как траектория может построиться неточно.
               </div>
 
               <button
                 className="border-0 pr-0 py-0 hideButton"
                 onClick={() => {
-                  setIsNoteOpen(false);
+                  setIsNoteOpen(false)
                 }}
               >
                 <Close width={10} height={10} />
               </button>
             </div>
-
           </div>
           <div
             ref={ref}
             className={`selectedSkillsBlock`}
             {...createStickyBlock(selectedPresetsHidden ? -1 : 5)}
           >
-            <div/>
-            <SelectedPresets isHidden={false} deletePreset={(presetId: string) => presets.deSelect(presetId)} selectedPresets={presets.selected}/>
+            <div />
+            <SelectedPresets
+              isHidden={false}
+              deletePreset={(presetId: string) => presets.deSelect(presetId)}
+              selectedPresets={presets.selected}
+            />
           </div>
 
           <p
@@ -128,9 +139,11 @@ const SkillSets = (props: SkillSetsPropType) => {
             id="hidePresetsBottomTarget"
             {...createStickyBlock(selectedPresetsHidden ? 5 : 6)}
           >
-            {presets.selected.length < 5 ? "Добавь то, что хочешь изучить" : "Максимальное количсетво пресетов – 5"}
+            {presets.selected.length < 5
+              ? 'Добавь то, что хочешь изучить'
+              : 'Максимальное количсетво пресетов – 5'}
           </p>
-          {/*<div className="shadowBottom fullWidth"/>*/}
+          {/* <div className="shadowBottom fullWidth"/> */}
           <div className="rightBlock">
             <div className="blockPreset">
               {presets.display.map(preset => {
@@ -141,18 +154,18 @@ const SkillSets = (props: SkillSetsPropType) => {
                     disabled={presets.selected.length >= 5}
                     displayAdd={presets.selected.length < 5}
                     onClick={() => {
-                      setIsNoteOpen(true);
-                      presets.select(preset.id);
+                      setIsNoteOpen(true)
+                      presets.select(preset.id)
                     }}
                   />
-                );
+                )
               })}
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SkillSets;
+export default SkillSets

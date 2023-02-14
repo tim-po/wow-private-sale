@@ -1,190 +1,184 @@
-import { useEffect, useState } from "react";
-import { KeywordType, PresetType, Profession } from "../types";
-import axios from "axios";
-import { BASE_URL } from "../constants";
-import { LocalStorageInteraction, withLocalStorage } from "../utils/general";
+import { useEffect, useState } from 'react'
+import { KeywordType, PresetType, Profession } from '../types'
+import axios from 'axios'
+import { BASE_URL } from '../constants'
+import { LocalStorageInteraction, withLocalStorage } from '../utils/general'
 
-export const useProfession = (id: string) => {
-  const [profession, setProfession] = useState<Profession | null>(null);
-  const [addedKeywords, setAddedKeywords] = useState<KeywordType[]>([]);
-  const [removedKeywords, setRemovedKeywords] = useState<KeywordType[]>([]);
-  const [presets, setPresets] = useState<PresetType[]>([]);
-  const [selectedPresetIds, setSelectedPresetIds] = useState<string[]>([]);
-  const [isFirstRender, setIsFirstRender] = useState(true);
+export const useProfession = (professionId: string) => {
+  const [profession, setProfession] = useState<Profession | null>(null)
+  const [addedKeywords, setAddedKeywords] = useState<KeywordType[]>([])
+  const [removedKeywords, setRemovedKeywords] = useState<KeywordType[]>([])
+  const [presets, setPresets] = useState<PresetType[]>([])
+  const [selectedPresetIds, setSelectedPresetIds] = useState<string[]>([])
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
-  const [displayPresets, setDisplayPresets] = useState<PresetType[]>([]);
-  const [selectedPresets, setSelectedPresets] = useState<PresetType[]>([]);
-  const [displayKeywords, setDisplayKeywords] = useState<KeywordType[]>([]);
-  const [allSelectedKeywordIds, setAllSelectedKeywordIds] = useState<string[]>(
-    []
-  );
+  const [displayPresets, setDisplayPresets] = useState<PresetType[]>([])
+  const [selectedPresets, setSelectedPresets] = useState<PresetType[]>([])
+  const [displayKeywords, setDisplayKeywords] = useState<KeywordType[]>([])
+  const [allSelectedKeywordIds, setAllSelectedKeywordIds] = useState<string[]>([])
 
   const [error, setError] = useState<unknown>(null)
 
   useEffect(() => {
-    setIsFirstRender(false);
-  }, []);
+    setIsFirstRender(false)
+  }, [])
 
-  //<editor-fold desc="Getters">
   const getProfession = async (id: string) => {
-    await axios.get(`${BASE_URL}professions/${id}/`).then(({data})=>setProfession(data)).catch(setError)
+    await axios
+      .get(`${BASE_URL}professions/${id}/`)
+      .then(({ data }) => setProfession(data))
+      .catch(setError)
 
-    const {addedKeywords} = withLocalStorage({addedKeywords: []}, LocalStorageInteraction.load)
-    setAddedKeywords(addedKeywords)
-    const {removedKeywords} = withLocalStorage({removedKeywords: []}, LocalStorageInteraction.load)
-    setRemovedKeywords(removedKeywords)
+    setAddedKeywords(
+      withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.load).addedKeywords,
+    )
+
+    setRemovedKeywords(
+      withLocalStorage({ removedKeywords: [] }, LocalStorageInteraction.load)
+        .removedKeywords,
+    )
   }
 
   const getPresets = async () => {
-    await axios.get(`${BASE_URL}presets/`).then(({data})=>setPresets(data)).catch(setError)
+    await axios
+      .get(`${BASE_URL}presets/`)
+      .then(({ data }) => setPresets(data))
+      .catch(setError)
 
-    const selectedPresetIds = withLocalStorage(
+    setSelectedPresetIds(withLocalStorage(
       { selectedPresetIds: [] },
-      LocalStorageInteraction.load
-    ).selectedPresetIds;
-    setSelectedPresetIds(selectedPresetIds);
-  };
+      LocalStorageInteraction.load,
+    ).selectedPresetIds)
+  }
 
   useEffect(() => {
-      getProfession(id)
-      getPresets()
+    getProfession(professionId)
+    getPresets()
   }, [])
-  //</editor-fold>
 
   const updateSelectedPresets = () => {
-    setSelectedPresets(
-      presets.filter((preset) => selectedPresetIds.includes(preset.id))
-    );
-  };
+    setSelectedPresets(presets.filter(preset => selectedPresetIds.includes(preset.id)))
+  }
 
   const updateDisplayPresets = () => {
-    setDisplayPresets(
-      presets.filter((preset) => !selectedPresetIds.includes(preset.id))
-    );
-  };
+    setDisplayPresets(presets.filter(preset => !selectedPresetIds.includes(preset.id)))
+  }
 
   const updateAllSelectedKeywordIds = () => {
     if (!profession) {
-      return [];
+      return []
     }
-    let allIds = profession.related_keywords.map((keyword) => keyword.id);
-    allIds = [...allIds, ...addedKeywords.map((keyword) => keyword.id)];
-    selectedPresets.forEach((preset) => {
-      allIds = allIds.concat(preset.keywords.map((keyword) => keyword.id));
-    });
-    allIds = allIds.filter(
-      (id) => !removedKeywords.map((keyword) => keyword.id).includes(id)
-    );
+    let allIds = profession.related_keywords.map(keyword => keyword.id)
+    allIds = [...allIds, ...addedKeywords.map(keyword => keyword.id)]
+    selectedPresets.forEach(preset => {
+      allIds = allIds.concat(preset.keywords.map(keyword => keyword.id))
+    })
+    allIds = allIds.filter(id => !removedKeywords.map(keyword => keyword.id).includes(id))
 
-    setAllSelectedKeywordIds(allIds);
-  };
+    setAllSelectedKeywordIds(allIds)
+  }
 
   const updateDisplayKeywords = () => {
     if (!profession) {
-      return [];
+      return []
     }
     setDisplayKeywords(
       profession.related_keywords.filter(
-        (keyword) =>
-          !removedKeywords.map((keyword) => keyword.id).includes(keyword.id)
-      )
-    );
-  };
+        keyword => !removedKeywords.map(word => word.id).includes(keyword.id),
+      ),
+    )
+  }
 
   useEffect(() => {
     if (!isFirstRender) {
-      withLocalStorage({ selectedPresetIds }, LocalStorageInteraction.save);
-      updateDisplayPresets();
-      updateSelectedPresets();
+      withLocalStorage({ selectedPresetIds }, LocalStorageInteraction.save)
+      updateDisplayPresets()
+      updateSelectedPresets()
     }
-  }, [selectedPresetIds]);
+  }, [selectedPresetIds])
 
   useEffect(() => {
-    updateAllSelectedKeywordIds();
-  }, [selectedPresets]);
+    updateAllSelectedKeywordIds()
+  }, [selectedPresets])
 
   useEffect(() => {
     if (!isFirstRender) {
-      withLocalStorage({ addedKeywords }, LocalStorageInteraction.save);
-      updateDisplayKeywords();
-      updateAllSelectedKeywordIds();
+      withLocalStorage({ addedKeywords }, LocalStorageInteraction.save)
+      updateDisplayKeywords()
+      updateAllSelectedKeywordIds()
     }
-  }, [addedKeywords]);
+  }, [addedKeywords])
   useEffect(() => {
     if (!isFirstRender) {
-      withLocalStorage({ removedKeywords }, LocalStorageInteraction.save);
-      updateDisplayKeywords();
-      updateAllSelectedKeywordIds();
+      withLocalStorage({ removedKeywords }, LocalStorageInteraction.save)
+      updateDisplayKeywords()
+      updateAllSelectedKeywordIds()
     }
-  }, [removedKeywords]);
+  }, [removedKeywords])
 
-  //<editor-fold desc="Actions">
+  // <editor-fold desc="Actions">
   const selectPreset = (presetId: string) => {
     if (!selectedPresetIds.includes(presetId)) {
-      setSelectedPresetIds([...selectedPresetIds, presetId]);
+      setSelectedPresetIds([...selectedPresetIds, presetId])
     }
-  };
+  }
 
   const deSelectPreset = (presetId: string) => {
-    setSelectedPresetIds(selectedPresetIds.filter((id) => id !== presetId));
-  };
+    setSelectedPresetIds(selectedPresetIds.filter(id => id !== presetId))
+  }
 
   const addKeyword = (keyword: KeywordType) => {
     if (!allSelectedKeywordIds.includes(keyword.id)) {
-      setAddedKeywords([...addedKeywords, keyword]);
+      setAddedKeywords([...addedKeywords, keyword])
     }
-  };
+  }
 
   const addKeywordsBulk = (keywords: KeywordType[]) => {
     setAddedKeywords([
       ...addedKeywords,
-      ...keywords.filter(
-        (keyword) => !allSelectedKeywordIds.includes(keyword.id)
-      ),
-    ]);
-  };
+      ...keywords.filter(keyword => !allSelectedKeywordIds.includes(keyword.id)),
+    ])
+  }
 
   const removeKeyword = (keyword: KeywordType) => {
     if (addedKeywords.includes(keyword)) {
       setAddedKeywords(
-        addedKeywords.filter((addedKeyword) => addedKeyword.id !== keyword.id)
-      );
+        addedKeywords.filter(addedKeyword => addedKeyword.id !== keyword.id),
+      )
     } else {
-      setRemovedKeywords([...removedKeywords, keyword]);
+      setRemovedKeywords([...removedKeywords, keyword])
     }
-  };
+  }
 
   const clearKeywords = () => {
-    setAddedKeywords([]);
-    setRemovedKeywords([]);
-  };
+    setAddedKeywords([])
+    setRemovedKeywords([])
+  }
 
   const clearPresets = () => {
-    setSelectedPresetIds([]);
-  };
-  //</editor-fold>
+    setSelectedPresetIds([])
+  }
+  // </editor-fold>
 
   return {
     profession,
-    presets:
-      {
-        all: presets,
-        selected: selectedPresets,
-        display: displayPresets,
-        select: selectPreset,
-        deSelect: deSelectPreset,
-        clear: clearPresets
-      },
-    keywords:
-      {
-        added: addedKeywords,
-        display: displayKeywords,
-        allIds: allSelectedKeywordIds,
-        add: addKeyword,
-        addBulk: addKeywordsBulk,
-        remove: removeKeyword,
-        clear: clearKeywords
-      },
-    error: error
+    presets: {
+      all: presets,
+      selected: selectedPresets,
+      display: displayPresets,
+      select: selectPreset,
+      deSelect: deSelectPreset,
+      clear: clearPresets,
+    },
+    keywords: {
+      added: addedKeywords,
+      display: displayKeywords,
+      allIds: allSelectedKeywordIds,
+      add: addKeyword,
+      addBulk: addKeywordsBulk,
+      remove: removeKeyword,
+      clear: clearKeywords,
+    },
+    error: error,
   }
 }

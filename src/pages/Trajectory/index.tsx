@@ -15,20 +15,11 @@ import Card from '../../components/trajectory/Card'
 import './index.scss'
 import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
-import FeedbackGroupIdContext from '../../Context/IdGroup'
 import Hints from '../../components/hints'
-import { changeBg } from '../../utils/background'
+import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 
-const randomFeedbackSelectOptions = [
-  'Поиск ключевых слов 🔎️',
-  'Добавление/ удаление слов 🗑',
-  'Все сложно  🤯',
-  'Все понятно 👌',
-]
-
 const Trajectory = () => {
-  const { group_id } = useContext<any>(FeedbackGroupIdContext)
   const [searchParams] = useSearchParams()
   const { displayModal } = useContext(ModalContext)
   const navigate = useNavigate()
@@ -42,20 +33,6 @@ const Trajectory = () => {
 
   const [responseError, setResponseError] = useState<number>()
 
-  const getTrajectory = () => {
-    axios
-      .get(`${BASE_URL}trajectories/${searchParams.get('id')}/`)
-      .then(response => {
-        if (response.status === 200) {
-          setTrajectory(response.data)
-        }
-      })
-      .catch(e => {
-        throw new Error()
-        // setResponseError(e.response.status);
-      })
-  }
-
   const courseQuery = +(searchParams.get('course') || '1')
   useEffect(() => {
     const courseNumber = searchParams.get('course')
@@ -67,6 +44,19 @@ const Trajectory = () => {
       setSelectorLeftOffset('calc(100% - 80px)')
     } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
   }, [isMobile, searchParams.get('course')])
+
+  const getTrajectory = () => {
+    axios
+      .get(`${BASE_URL}trajectories/${searchParams.get('id')}/`)
+      .then(response => {
+        if (response.status === 200) {
+          setTrajectory(response.data)
+        }
+      })
+      .catch(e => {
+        setResponseError(e.response.status)
+      })
+  }
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -151,7 +141,7 @@ const Trajectory = () => {
                   className={`CourseButton ${
                     course.course === courseQuery ? 'CourseButtonActive' : ''
                   }`}
-                  key="number"
+                  key={course.course}
                   onClick={() => navigateToCourse(course.course)}
                 >
                   <div
@@ -170,7 +160,6 @@ const Trajectory = () => {
           </button>
         </div>
       </div>
-
       {courseQuery !== 5 && (
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 import Arrow from '../../images/icons/Arrow'
 import { isMobile } from 'react-device-detect'
 import {
@@ -15,8 +15,8 @@ type GetPositionType = {
   setNumberOpenPage:(numberOpenPage: number) => void
   numberOpenPage: number
   nameRef: string
-  boxRef: React.RefObject<HTMLButtonElement>
-  listRef: React.RefObject<HTMLButtonElement>[]
+  boxRef: RefObject<HTMLElement>
+  listRef: RefObject<HTMLElement>[]
 }
 
 const HintGeneric = (props: GetPositionType) => {

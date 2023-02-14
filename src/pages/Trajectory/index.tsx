@@ -15,17 +15,9 @@ import Card from '../../components/trajectory/Card'
 import './index.scss'
 import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
-import FeedbackGroupIdContext from '../../Context/IdGroup'
 import Hints from '../../components/hints'
-import { changeBg } from '../../utils/background'
+import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
-
-const randomFeedbackSelectOptions = [
-  'Поиск ключевых слов 🔎️',
-  'Добавление/ удаление слов 🗑',
-  'Все сложно  🤯',
-  'Все понятно 👌',
-]
 
 const Trajectory = () => {
   const { group_id } = useContext<any>(FeedbackGroupIdContext)
@@ -40,12 +32,12 @@ const Trajectory = () => {
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
 
+  const [responseError, setResponseError] = useState<number>()
   const stileTextRef = useRef<HTMLDivElement>(null)
   const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
-  const [responseError, setResponseError] = useState<number>()
-  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
   const courseQuery = +(searchParams.get('course') || '1')
+  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
 
   const getTrajectory = () => {
     axios
@@ -56,8 +48,7 @@ const Trajectory = () => {
         }
       })
       .catch(e => {
-        throw new Error()
-        // setResponseError(e.response.status);
+        setResponseError(e.response.status)
       })
   }
   useEffect(()=>{
@@ -88,6 +79,8 @@ const Trajectory = () => {
       setSelectorLeftOffset('calc(100% - 80px)')
     } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
   }, [isMobile, searchParams.get('course')])
+
+
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -173,7 +166,7 @@ const Trajectory = () => {
                   className={`CourseButton ${
                     course.course === courseQuery ? 'CourseButtonActive' : ''
                   }`}
-                  key="number"
+                  key={course.course}
                   onClick={() => navigateToCourse(course.course)}
                 >
                   <div

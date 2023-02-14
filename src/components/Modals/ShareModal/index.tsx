@@ -1,14 +1,10 @@
-import React, {useContext, useState} from "react";
-import './index.scss';
-import copy from "copy-to-clipboard";
-import {useSearchParams} from "react-router-dom";
-import Button from "components/Button";
-import PicShareDeck from "../../../images/icons/Static/picShareDeck";
+import React, { useState } from 'react'
+import './index.scss'
+import copy from 'copy-to-clipboard'
+import { useSearchParams } from 'react-router-dom'
+import Button from 'components/Button'
 
-type ShareModalPropType = {}
-
-const ShareModal = (props: ShareModalPropType) => {
-
+const ShareModal = () => {
   const [searchParams] = useSearchParams()
 
   const [isLinkWithNameCopied, setIsLinkWithNameCopied] = useState(false)
@@ -19,7 +15,10 @@ const ShareModal = (props: ShareModalPropType) => {
     setIsLinkWithoutNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
     setTimeout(() => {
-      window.open(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`, '_blank');
+      window.open(
+        `${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`,
+        '_blank',
+      )
     }, 1500)
   }
 
@@ -27,14 +26,19 @@ const ShareModal = (props: ShareModalPropType) => {
     setIsLinkWithNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
     setTimeout(() => {
-      window.open(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}&name=${name}`, '_blank');
+      window.open(
+        `${window.location.origin}/diplomaShare?id=${searchParams.get(
+          'id',
+        )}&name=${name}`,
+        '_blank',
+      )
     }, 1500)
   }
 
   return (
     <div className="shareModalContainer">
       <div className="shareModalHeaderContainer">
-        <img style={{width: '100%'}} src={'/static/shareBg.svg'}/>
+        <img alt='img' style={{ width: '100%' }} src={'/static/shareBg.svg'} />
       </div>
       <div className="shareContent">
         <div className="shareContentHeader">Поделиться</div>
@@ -44,7 +48,7 @@ const ShareModal = (props: ShareModalPropType) => {
             <input
               className="shareInput"
               placeholder="Введи ключевое слово"
-              onChange={(event) => setName(event.target.value)}
+              onChange={event => setName(event.target.value)}
             />
           </div>
           <div className="shareBtnContainer">
@@ -69,6 +73,6 @@ const ShareModal = (props: ShareModalPropType) => {
       </div>
     </div>
   )
-};
+}
 
 export default ShareModal

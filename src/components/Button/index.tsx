@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 type ButtonPropType = {
   buttonStyle: 'secondary' | 'main'
-  onClick: () => void
+  onClick?: () => void
   children: React.ReactNode
   isDisabled?: boolean
   classNames?: string[]

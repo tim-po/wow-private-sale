@@ -1,5 +1,5 @@
 import { MouseEvent, RefObject, useEffect } from 'react'
-import { Colors } from '../utils/background'
+import { Colors } from '../utils/background/ColorTypes'
 
 export default (
   ref: RefObject<HTMLElement>,
@@ -64,44 +64,33 @@ export default (
   }
 
   useEffect(() => {
-    // isMount.current = setInterval(renderFlashLight, 3)
-
     mainRender = setInterval(renderFlashLight, 3)
-    console.log('enter')
-
     return () => {
-      // isMount.current = false
       clearInterval(mainRender)
-      // state = 'rerender'
-      console.log('unmount')
     }
   })
 
   return isMobile
-    ? { animation: {} }
+    ? {}
     : {
-        animation: {
-          onMouseEnter: (event: MouseEvent<HTMLElement>) => {
-            clearInterval(mainRender)
-            mainRender = setInterval(renderFlashLight, 3)
-            console.log('enter')
-            state = 'enter'
-            clearInterval(leaveTimer)
-            clearInterval(enterTimer)
-            enterTimer = setInterval(flashlightAppear, 1)
+        onMouseEnter: (event: MouseEvent<HTMLElement>) => {
+          clearInterval(mainRender)
+          mainRender = setInterval(renderFlashLight, 3)
+          state = 'enter'
+          clearInterval(leaveTimer)
+          clearInterval(enterTimer)
+          enterTimer = setInterval(flashlightAppear, 1)
 
-            setPosition(event)
-          },
-          onMouseMove: (event: MouseEvent<HTMLElement>) => {
-            setPosition(event)
-          },
-          onMouseLeave: (event: MouseEvent<HTMLElement>) => {
-            console.log('leave')
-            clearInterval(leaveTimer)
-            clearInterval(enterTimer)
-            leaveTimer = setInterval(flashlightDisappear, 1)
-            setPosition(event)
-          },
+          setPosition(event)
+        },
+        onMouseMove: (event: MouseEvent<HTMLElement>) => {
+          setPosition(event)
+        },
+        onMouseLeave: (event: MouseEvent<HTMLElement>) => {
+          clearInterval(leaveTimer)
+          clearInterval(enterTimer)
+          leaveTimer = setInterval(flashlightDisappear, 1)
+          setPosition(event)
         },
       }
 }

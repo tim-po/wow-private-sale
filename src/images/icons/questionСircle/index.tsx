@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-export default ({ color = "#B7B6BC" }) => {
+const QuestionCircle = ({ color = '#B7B6BC' }) => {
   return (
     <svg
       width="16"
@@ -24,5 +24,7 @@ export default ({ color = "#B7B6BC" }) => {
         fill={color}
       />
     </svg>
-  );
-};
+  )
+}
+
+export default QuestionCircle

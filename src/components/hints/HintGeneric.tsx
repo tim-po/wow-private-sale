@@ -109,6 +109,7 @@ const HintGeneric = (props: GetPositionType) => {
           Круто
         </button>
       </div>
+
     </div>
   )
 }

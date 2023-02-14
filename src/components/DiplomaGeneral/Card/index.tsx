@@ -111,7 +111,6 @@ const Card = (props: CardPropType) => {
   const {name, subtitle, title, isDiplomaCard, classNames, isControlTypeCard, onClick} = props;
   const card = useRef<HTMLDivElement>(null)
 
-  console.log(isMobile)
   return (
     <StyledCard
       ref={card}

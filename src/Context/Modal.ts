@@ -1,8 +1,14 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react'
 
-const ModalContext = React.createContext({
-  displayModal: (component: React.ReactNode) => {},
-  closeModal: () => {},
-});
+type ModalContextType = {
+  displayModal: (component: ReactNode) => void,
+  closeModal: () => void,
+}
+
+
+const ModalContext = React.createContext<ModalContextType>({
+  displayModal: () => null,
+  closeModal: () => null,
+})
 
 export default ModalContext;

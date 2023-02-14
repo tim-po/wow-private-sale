@@ -6,6 +6,7 @@ import KeywordsModal from "components/Modals/KeywordsModal";
 import {DiplomaTileWrapper, DiplomaTitle} from "../DiplomaGeneralStyles";
 import {KeywordType} from "types";
 import ModalContext from "Context/Modal";
+import { makeEmptyList } from '../../../utils/general'
 
 type KeywordsPropType = {
   keywords: KeywordType[];
@@ -48,6 +49,21 @@ const Keywords = (props: KeywordsPropType) => {
     <DiplomaTileWrapper>
       <DiplomaTitle>Освою ключевые навыки</DiplomaTitle>
       <KeywordsWrapper>
+        {keywords.length < 1&& (
+          <>
+            {makeEmptyList(7).map((a, index) => {
+              return (
+                <div
+                  key={index}
+                  className="skeletonKeywords MainSkeleton"
+                  style={{
+                    'width': Math.floor(Math.random() * (390 - 41 + 1)) + 20 + 'px',
+                  }}
+                />
+              )
+            })}
+          </>
+        )}
         {keywords.map((keyword: KeywordType) => (
           <Keyword
             key={keyword.id}

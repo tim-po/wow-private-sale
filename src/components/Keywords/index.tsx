@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
+
 import { KeywordType } from '../../types'
 import Keyword from '../Keyword'
 import { makeEmptyList } from '../../utils/general'
@@ -9,7 +10,6 @@ import Magnifier from 'images/icons/magnifier'
 import RandomFeedback from '../Modals/feedback/randomFeedback'
 import { createStickyBlock } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
-import Skeleton from '../Skeleton/index'
 
 // CONSTANTS
 // const randomFeedbackSelectOptions = [
@@ -115,26 +115,23 @@ const Keywords = (props: KeywordsPropType) => {
               Уже в наборе
             </p>
             <div className="keywordsPresets">
-              {keywords.display.length < 1 &&
-                makeEmptyList(100).map((number, index) =>  {
-                  return <Skeleton key={index} height={35} width={ Math.floor(Math.random() * (390 - 41 + 1)) + 41}/>
-                })}
 
-              {/* {keywords.display.length < 10000 && ( */}
-              {/*   <> */}
-              {/*     {makeEmptyList(100).map((a, index) => { */}
-              {/*       return ( */}
-              {/*         <div */}
-              {/*           key={index} */}
-              {/*           className="skeleton" */}
-              {/*           style={{ */}
-              {/*             'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px', */}
-              {/*           }} */}
-              {/*         /> */}
-              {/*       ) */}
-              {/*     })} */}
-              {/*   </> */}
-              {/* )} */}
+
+              {keywords.display.length < 1 && (
+                <>
+                  {makeEmptyList(100).map((a, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="skeletonKeywords MainSkeleton"
+                        style={{
+                          'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px',
+                        }}
+                      />
+                    )
+                  })}
+                </>
+              )}
               {keywords.display.map(keyword => {
                 return (
                   <Keyword

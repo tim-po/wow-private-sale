@@ -115,10 +115,7 @@ body {
     transition: var(--bg-transition);
 }
 
-.skeleton-v2 {
-    opacity: .7;
-    animation: skeleton-loading 1s linear infinite alternate;
-}
+
 
 
 @keyframes skeleton-loading {

@@ -19,6 +19,7 @@ import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../components/refactorName'
 import { changeBg } from '../../utils/background/background'
+import { makeEmptyList } from '../../utils/general'
 
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -122,10 +123,28 @@ const Diploma = () => {
           </div>
           <div className="right-tiles">
             <div className="white-tile-wrapper disciplines-tile">
-              <h6 className="tileHeader">
-                Изучу {diplomaData?.total_disciplines} дисциплины
-              </h6>
+              {diplomaData?.total_disciplines ?
+                <h6 className="tileHeader">
+                  Изучу {diplomaData?.total_disciplines} дисциплины
+                </h6>
+              :
+                <div
+                  style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
+                  className="MainSkeleton"
+                />}
               <div className="disciplines-wrapper">
+                {!diplomaData?.classes_count  && (
+                  <>
+                    {makeEmptyList(9).map((a, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="skeletonCard MainSkeleton"
+                        />
+                      )
+                    })}
+                  </>
+                )}
                 {diplomaData?.classes_count.map(discipline => (
                   <Card
                     onClick={() =>
@@ -148,8 +167,27 @@ const Diploma = () => {
               </div>
             </div>
             <div className="white-tile-wrapper control-types-tile">
-              <h6 className="tileHeader">Сдам</h6>
+
+              {diplomaData?.control_types_count ?
+                <h6 className="tileHeader">Сдам</h6>
+                :
+                <div
+                  style={{width:50, height:20, borderRadius: 8, marginBottom:12}}
+                  className="MainSkeleton"
+                />}
               <div className="control-types-wrapper">
+                {!diplomaData?.control_types_count  && (
+                  <>
+                    {makeEmptyList(4).map((a, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="skeletonCard MainSkeleton"
+                        />
+                      )
+                    })}
+                  </>
+                )}
                 {diplomaData?.control_types_count.map(
                   (controlType: CountType & { disciplines: CountType[] }) => (
                     <Card

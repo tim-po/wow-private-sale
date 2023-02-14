@@ -85,7 +85,7 @@ const Professions = () => {
         <div className="ProfessionContainer">
           {isProfessionsLoading &&
             makeEmptyList(12).map((number, index) => {
-              return <div className="skeleton-v2" key={index} />
+              return <div className="professionCarSkeleton MainSkeleton" key={index} />
             })}
           {professionsWithCustomSvg.map(profession => {
             return (

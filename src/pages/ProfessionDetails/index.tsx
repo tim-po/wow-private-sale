@@ -191,7 +191,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonText MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px',
                             height: '12px',

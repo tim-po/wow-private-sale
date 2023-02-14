@@ -1,18 +1,18 @@
 
 .MainSkeleton {
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.1) !important;
+  //border-radius: 4px;
+  color: rgba(255, 255, 255, 0.1) ;
   background-image: linear-gradient(-45deg, var(--skeleton-base-color) 0, var(--skeleton-base-color) 45%, var(--skeleton-shine-color) 50%, var(--skeleton-base-color) 55%, var(--skeleton-base-color) 100%) !important;
-  content: "" !important;
+  content: "";
   animation: shine-lines 2s infinite;
-  background-size: 400% 400% !important;
+  //background-size: 400% 400%;
   backdrop-filter: blur(30px);
-  border: none !important;
+  border: none;
   z-index: 1000;
   pointer-events: none;
 
   &::placeholder {
-    opacity: 0 !important;
+    opacity: 0;
   }
 
   &::before {
@@ -24,7 +24,7 @@
   }
 
   div, span, img, video, p, source {
-    opacity: 0 !important;
+    opacity:0;
   }
 }
 

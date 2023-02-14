@@ -30,7 +30,7 @@ All contributions to standard library and this snippet should go as follows
 
 ----
 <h3>Branches</h3>
-You can make your own branches of standard library and snippet repo. There you can make all changes you want as long as you dont push them to main or dev
+You can make your own branches of standard library and snippet repo. There you can make all changes you want as long as you don't push them to main or dev
 
 ----
 <h3>Testing branch</h3>

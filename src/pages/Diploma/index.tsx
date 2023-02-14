@@ -1,89 +1,79 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "./index.scss";
-import Description from "components/DiplomaGeneral/Description";
-import Keywords from "components/DiplomaGeneral/Keywords";
-import axios from "axios";
-import { BASE_URL, colors } from "../../constants";
-import { makeKeywordsArray } from "utils/makeKeywordsArray";
-import { CountType, DiplomaDataType, KeywordType } from "types";
-import ModalsContext from "Context/Modal";
-import Card from "components/DiplomaGeneral/Card";
-import GenericModal from "components/GenericModal";
-import ShareModal from "components/Modals/ShareModal";
-import Button from "components/Button";
-import { useSearchParams } from "react-router-dom";
-import SwapModal from "components/Modals/SwapModal";
-import ControlTypeModal from "../../components/Modals/ControlTypeModal";
-import DisciplinesModal from "../../components/Modals/DisciplinesModal";
-import Share from "../../images/icons/share";
-import RandomFeedback from "../../components/Modals/feedback/randomFeedback";
-import FeedbackGroupIdContext from "../../Context/IdGroup";
-import { refactorName } from "../../components/refactorName";
-import { changeBg } from "../../utils/background";
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import './index.scss'
+import Description from 'components/DiplomaGeneral/Description'
+import Keywords from 'components/DiplomaGeneral/Keywords'
+import axios from 'axios'
+import { BASE_URL, colors } from '../../constants'
+import { makeKeywordsArray } from 'utils/makeKeywordsArray'
+import { CountType, DiplomaDataType, KeywordType } from 'types'
+import ModalsContext from 'Context/Modal'
+import Card from 'components/DiplomaGeneral/Card'
+import ShareModal from 'components/Modals/ShareModal'
+import Button from 'components/Button'
+import { useSearchParams } from 'react-router-dom'
+import SwapModal from 'components/Modals/SwapModal'
+import ControlTypeModal from '../../components/Modals/ControlTypeModal'
+import DisciplinesModal from '../../components/Modals/DisciplinesModal'
+import Share from '../../images/icons/share'
+import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
+import FeedbackGroupIdContext from '../../Context/IdGroup'
+import { refactorName } from '../../components/refactorName'
+import { changeBg } from '../../utils/background/background'
 
-type DiplomaPropType = {}
+const Diploma = () => {
+  const { displayModal } = useContext(ModalsContext)
 
-const DiplomaDefaultProps = {};
+  const cardRef = useRef<HTMLDivElement>(null)
 
-const Diploma = (props: DiplomaPropType) => {
-  const {displayModal} = useContext(ModalsContext)
+  const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined)
+  const [keywords, setKeywords] = useState<KeywordType[]>([])
+  // const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [linkAbit, setLinkAbit] = useState('https://abit.itmo.ru/programs/bachelor')
+  const { groupId } = useContext(FeedbackGroupIdContext)
 
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(
-    undefined
-  );
-  const [keywords, setKeywords] = useState<KeywordType[]>([]);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [linkAbit, setLinkAbit] = useState(
-    "https://abit.itmo.ru/programs/bachelor"
-  );
-  const { groupId } = useContext(FeedbackGroupIdContext);
-
-  const [searchParams] = useSearchParams();
-  const randomFeedbackSelectOptions = [
-    "Поиск ключевых слов 🔎️",
-    "Добавление/ удаление слов 🗑",
-    "Все сложно  🤯",
-    "Все понятно 👌",
-  ];
+  const [searchParams] = useSearchParams()
+  // const randomFeedbackSelectOptions = [
+  //   'Поиск ключевых слов 🔎️',
+  //   'Добавление/ удаление слов 🗑',
+  //   'Все сложно  🤯',
+  //   'Все понятно 👌',
+  // ]
   const getDiplomaData = async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}trajectories/${searchParams.get("id")}/diploma/`
-      );
-      setDiplomaData(response.data);
-    } catch (e) {}
-  };
+        `${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`,
+      )
+      setDiplomaData(response.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
     changeBg('#F1F2F8')
 
-    getDiplomaData();
-  }, []);
+    getDiplomaData()
+  }, [])
 
   useEffect(() => {
     if (diplomaData && diplomaData.main_keywords.length) {
-      const keywordsArray = makeKeywordsArray(diplomaData.main_keywords);
-      setKeywords(keywordsArray);
+      const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
+      setKeywords(keywordsArray)
       setLinkAbit(
         `https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace(
-          "",
-          "+"
-        )}`
-      );
+          '',
+          '+',
+        )}`,
+      )
     }
-  }, [diplomaData]);
+  }, [diplomaData])
 
   return (
     <>
       <div className="diploma-container">
         <div className="tiles-wrapper">
           <div className="left-tiles">
-            <Description
-              iconUrl={"/static/star.svg"}
-              title={"Высшее образование"}
-            />
+            <Description iconUrl={'/static/star.svg'} title={'Высшее образование'} />
             <Keywords
               keywords={keywords}
               keywordsCount={keywords?.length}
@@ -92,7 +82,7 @@ const Diploma = (props: DiplomaPropType) => {
             <SwapModal
               modalHeight={250}
               elementRef={cardRef}
-              classes={["white-tile-wrapper"]}
+              classes={['white-tile-wrapper']}
             >
               <span className="marginText">
                 Это твоя траектория в университете ИТМО!
@@ -101,28 +91,28 @@ const Diploma = (props: DiplomaPropType) => {
               </span>
               <div className="buttons-wrapper">
                 <Button
-                  buttonStyle={"main"}
+                  buttonStyle={'main'}
                   isDisabled={false}
                   // onClick={window.open(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`, '_blank')}
                   onClick={() =>
                     setTimeout(() => {
-                      window.open(linkAbit, "_blank");
+                      window.open(linkAbit, '_blank')
                     })
                   }
-                  classNames={["mobile-button"]}
+                  classNames={['mobile-button']}
                 >
-                  <span className={"button-text"}>Поступить в ИТМО</span>
+                  <span className={'button-text'}>Поступить в ИТМО</span>
                 </Button>
                 <Button
-                  buttonStyle={"secondary"}
+                  buttonStyle={'secondary'}
                   onClick={() => displayModal(<ShareModal />)}
                   isDisabled={false}
-                  classNames={["mobile-button"]}
+                  classNames={['mobile-button']}
                 >
                   <div className="share-button-content">
-                    <span className={"button-text"}>Поделиться</span>
-                    <div className={"share-icon"}>
-                      {" "}
+                    <span className={'button-text'}>Поделиться</span>
+                    <div className={'share-icon'}>
+                      {' '}
                       <Share />
                     </div>
                   </div>
@@ -136,7 +126,7 @@ const Diploma = (props: DiplomaPropType) => {
                 Изучу {diplomaData?.total_disciplines} дисциплины
               </h6>
               <div className="disciplines-wrapper">
-                {diplomaData?.classes_count.map((discipline) => (
+                {diplomaData?.classes_count.map(discipline => (
                   <Card
                     onClick={() =>
                       displayModal(
@@ -144,14 +134,15 @@ const Diploma = (props: DiplomaPropType) => {
                           discipline={discipline.disciplines}
                           headerBg={colors[discipline.name]}
                           name={discipline.name}
-                        />
+                        />,
                       )
                     }
+                    key={discipline.name}
                     name={discipline.name}
                     title={discipline.count}
                     subtitle={discipline.name}
                     isDiplomaCard
-                    classNames={["mobile-card"]}
+                    classNames={['mobile-card']}
                   />
                 ))}
               </div>
@@ -163,21 +154,17 @@ const Diploma = (props: DiplomaPropType) => {
                   (controlType: CountType & { disciplines: CountType[] }) => (
                     <Card
                       onClick={() =>
-                        displayModal(
-                          <ControlTypeModal controlType={controlType} />
-                        )
+                        displayModal(<ControlTypeModal controlType={controlType} />)
                       }
+                      key={controlType.name}
                       name={controlType.name}
                       title={controlType.count}
-                      subtitle={refactorName(
-                        controlType.count,
-                        controlType.name
-                      )}
+                      subtitle={refactorName(controlType.count, controlType.name)}
                       isDiplomaCard
                       isControlTypeCard
-                      classNames={["mobile-card", "control-type-card-mobile"]}
+                      classNames={['mobile-card', 'control-type-card-mobile']}
                     />
-                  )
+                  ),
                 )}
               </div>
             </div>
@@ -187,9 +174,7 @@ const Diploma = (props: DiplomaPropType) => {
         <RandomFeedback displayForGroup={7} />
       </div>
     </>
-  );
-};
+  )
+}
 
-Diploma.defaultProps = DiplomaDefaultProps;
-
-export default Diploma;
+export default Diploma

@@ -77,7 +77,7 @@ type DisciplineClassItemType = {
 export type DiplomaShareCardType = {
   course: number
   disciplines_count: number
-  classes: DisciplineClassItemType
+  classes: DisciplineClassItemType[]
 }
 
 export type DiplomaShareDataType = {

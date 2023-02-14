@@ -22,7 +22,7 @@ export const withLocalStorage = (objectToInteractWith: {[key: string]: any}, act
     case LocalStorageInteraction.load:
       Object.keys(objectToInteractWith).forEach(key => {
         const item = localStorage.getItem(key)
-        if(item){
+        if(item && item !== 'undefined'){
           returnObject[key] = JSON.parse(item)
         }else{
           returnObject[key] = objectToInteractWith[key]

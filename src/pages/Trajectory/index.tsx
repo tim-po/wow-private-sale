@@ -32,18 +32,11 @@ const Trajectory = () => {
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
 
   const [responseError, setResponseError] = useState<number>()
+  const stileTextRef = useRef<HTMLDivElement>(null)
+  const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
   const courseQuery = +(searchParams.get('course') || '1')
-  useEffect(() => {
-    const courseNumber = searchParams.get('course')
-    let widthOfCourceLabel = 80
-    if (isMobile) {
-      widthOfCourceLabel = 44
-    }
-    if (courseNumber === '5') {
-      setSelectorLeftOffset('calc(100% - 80px)')
-    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
-  }, [isMobile, searchParams.get('course')])
+  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
 
   const getTrajectory = () => {
     axios
@@ -57,6 +50,36 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
+  useEffect(()=>{
+    function adaptiveCourse(){
+      const widthTitle = stileTextRef.current?.offsetWidth
+      const widthContainer = titleNameDiscipline.current?.offsetWidth
+      if (widthContainer && widthTitle) {
+        if (widthContainer < widthTitle + 470) {
+          setTransferCoursesRow(true)
+        } else {
+          setTransferCoursesRow(false)
+        }
+      }
+    }
+
+    window.addEventListener("resize", adaptiveCourse);
+    return () => {
+      window.removeEventListener("resize", adaptiveCourse);
+    };
+  })
+  useEffect(() => {
+    const courseNumber = searchParams.get('course')
+    let widthOfCourceLabel = 80
+    if (isMobile) {
+      widthOfCourceLabel = 44
+    }
+    if (courseNumber === '5') {
+      setSelectorLeftOffset('calc(100% - 80px)')
+    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
+  }, [isMobile, searchParams.get('course')])
+
+
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -118,18 +141,19 @@ const Trajectory = () => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline">
-        <h5 className="mb-0 StileText" id="scrollToTop">
+      <div
+        ref={titleNameDiscipline}
+        className="titleNameDiscipline"
+        style={
+          courseQuery === 5
+            ? { borderBottom: '2px solid white' }
+            : { borderBottom: '2px solid var(--gray-100)' }
+        }
+      >
+        <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
-        <div
-          className="CoursesRow"
-          style={
-            courseQuery === 5
-              ? { borderBottom: '2px solid white' }
-              : { borderBottom: '2px solid var(--gray-100)' }
-          }
-        >
+        <div style={transferCoursesRow? {width:'100%'}: {} } className="CoursesRow">
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}

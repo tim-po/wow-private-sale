@@ -20,7 +20,6 @@ import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 
 const Trajectory = () => {
-  const { group_id } = useContext<any>(FeedbackGroupIdContext)
   const [searchParams] = useSearchParams()
   const { displayModal } = useContext(ModalContext)
   const navigate = useNavigate()

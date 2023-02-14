@@ -74,8 +74,9 @@ export default (
     ? {}
     : {
         onMouseEnter: (event: MouseEvent<HTMLElement>) => {
-          clearInterval(mainRender)
-          mainRender = setInterval(renderFlashLight, 3)
+          // clearInterval(mainRender)
+          // mainRender = setInterval(renderFlashLight, 3)
+
           state = 'enter'
           clearInterval(leaveTimer)
           clearInterval(enterTimer)

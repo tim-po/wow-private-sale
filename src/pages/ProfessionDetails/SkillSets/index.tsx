@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
-import SelectedPresets from '../SelectedPresets'
+import SelectedPresets from '../../../components/SelectedPresets'
 import Preset from 'components/Preset'
-import { PresetType } from '../../types'
 import * as Scroll from 'react-scroll'
-import Chevron, { Turn } from '../../images/icons/chevron'
-import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
-import { scrollToElement } from '../../utils/scrollToElement'
-import Close from '../../images/icons/close'
-import InfoIcon from '../../images/icons/Static/InfoIcon'
+import Chevron, { Turn } from '../../../images/icons/chevron'
+import { createStickyBlock, updateStickyBlocks } from '../../../utils/stickyHeaders'
+import { scrollToElement } from '../../../utils/scrollToElement'
+import Close from '../../../images/icons/close'
+import InfoIcon from '../../../images/icons/Static/InfoIcon'
 import { useInView } from 'react-intersection-observer'
+import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
+import { useProfession } from '../../../Models/useProfession'
+import BackButtonContext from '../../../Context/BackButton'
+import { changeBg } from '../../../utils/background/background'
+import axios from 'axios'
+import { BASE_URL } from '../../../constants'
+import { TrajectoryType } from '../../../types'
+import { useNavigate } from 'react-router-dom'
+import Button from '../../../components/Button'
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
 
-type SkillSetsPropType = {
-  presets: {
-    all: PresetType[]
-    selected: PresetType[]
-    display: PresetType[]
-    select: (presetId: string) => void
-    deSelect: (presetId: string) => void
-  }
-}
+const SkillSets = () => {
+  const professionId = withLocalStorage(
+    { professionId: null },
+    LocalStorageInteraction.load,
+  ).professionId
 
-const SkillSets = (props: SkillSetsPropType) => {
-  const { presets } = props
+  const { setNewBackButtonProps } = useContext(BackButtonContext)
+  const navigate = useNavigate()
+  const { presets, profession, keywords } = useProfession(professionId)
+
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
   const { ref, inView } = useInView({ threshold: 1, initialInView: true })
@@ -38,6 +44,9 @@ const SkillSets = (props: SkillSetsPropType) => {
   }
 
   useEffect(() => {
+    changeBg('white')
+    setNewBackButtonProps('Моя профессия', `/profession/${professionId}`)
+
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
     window.addEventListener('scroll', handleScroll)
@@ -56,8 +65,45 @@ const SkillSets = (props: SkillSetsPropType) => {
     }
   }, [selectedPresetsHidden, presets.display])
 
+  const openTrajectoryChoice = () => {
+    if (!profession) {
+      return
+    }
+
+    axios
+      .post(`${BASE_URL}trajectories/?top_n=10`, {
+        keywords: keywords.allIds,
+      })
+      .then(r => {
+        setNewBackButtonProps('Наборы навыков', `/skills`)
+        navigate(
+          `/trajectories?ids=${JSON.stringify(
+            r.data.map((el: TrajectoryType) => el.id),
+          )}`,
+        )
+      })
+  }
+
   return (
     <div className="skillSets">
+      <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
+        <h4 className="currentHeader fontWeightBold" id="scrollToTop">
+          Наборы навыков
+        </h4>
+
+        <div className="bottomLeftContainer">
+          <button
+            className={`clear ${presets.selected.length < 1 ? 'disabled' : ''}`}
+            onClick={() => presets.clear()}
+          >
+            Очистить выбор
+          </button>
+          <button className="save" onClick={openTrajectoryChoice}>
+            Построить траекторию
+          </button>
+        </div>
+      </div>
+
       <div className="professionsContainer">
         <div className="flex-block">
           <div
@@ -160,6 +206,21 @@ const SkillSets = (props: SkillSetsPropType) => {
                   />
                 )
               })}
+
+              <div className="preset keywordHint">
+                <span className={'keywordHintTitle'}>Мне ничего не подошло :(</span>
+                <span className={'keywordHintText'}>
+                  Не беда, ты можешь редактировать профессию с помощью ключевых слов — это
+                  теги из которых состоят навыки траектории
+                </span>
+                <Button
+                  buttonStyle={'secondary'}
+                  classNames={['keywordHintBtn']}
+                  onClick={() => navigate('/keywords')}
+                >
+                  Редактировать
+                </Button>
+              </div>
             </div>
           </div>
         </div>

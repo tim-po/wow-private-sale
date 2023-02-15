@@ -125,6 +125,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         )}
+
         {selectedPresets.length === 0 && searchParams.get('view') === 'main' && (
           <div className="blockMyPreset main">
             <div className="imgPresets">
@@ -149,6 +150,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             </div>
           </div>
         )}
+
         {selectedPresets.map((preset, index) => (
           <Preset
             presetWindowSize={index === 0 ? presetWindowSize : undefined}

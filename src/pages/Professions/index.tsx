@@ -36,7 +36,10 @@ const Professions = () => {
     withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.save)
     withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.save)
 
-    navigate(`/professionDetails?id=${profession.id}&view=main`)
+    // TODO почистить эту навигацию на удаленный маршрут после окончания навигации
+    // navigate(`/professionDetails?id=${profession.id}&view=main`)
+
+    navigate(`/profession/${profession.id}`)
   }
 
   const openFeedbackStatic = () => {

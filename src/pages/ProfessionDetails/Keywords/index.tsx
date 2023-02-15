@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './index.scss'
-import { KeywordType } from '../../types'
-import Keyword from '../Keyword'
-import { makeEmptyList } from '../../utils/general'
+import { TrajectoryType } from '../../../types'
+import Keyword from '../../../components/Keyword'
+import {
+  LocalStorageInteraction,
+  makeEmptyList,
+  withLocalStorage,
+} from '../../../utils/general'
 import * as Scroll from 'react-scroll'
-import KeywordsSearch from '../KeywordsSearch'
+import KeywordsSearch from '../../../components/KeywordsSearch'
 import Magnifier from 'images/icons/magnifier'
-import RandomFeedback from '../Modals/feedback/randomFeedback'
-import { createStickyBlock } from '../../utils/stickyHeaders'
-import { changeBg } from '../../utils/background/background'
+import RandomFeedback from '../../../components/Modals/feedback/randomFeedback'
+import { createStickyBlock } from '../../../utils/stickyHeaders'
+import { changeBg } from '../../../utils/background/background'
+import BackButtonContext from '../../../Context/BackButton'
+import { useNavigate } from 'react-router-dom'
+import { useProfession } from '../../../Models/useProfession'
+import { BASE_URL } from '../../../constants'
+import axios from 'axios'
 
 // CONSTANTS
 // const randomFeedbackSelectOptions = [
@@ -18,46 +27,66 @@ import { changeBg } from '../../utils/background/background'
 //   'Все понятно 👌',
 // ]
 
+const Keywords = () => {
+  const professionId = withLocalStorage(
+    { professionId: null },
+    LocalStorageInteraction.load,
+  ).professionId
 
-type KeywordsPropType = {
-  keywords: {
-    added: KeywordType[]
-    display: KeywordType[]
-    add: (keyword: KeywordType) => void
-    addBulk: (keywords: KeywordType[]) => void
-    remove: (keyword: KeywordType) => void
-    allIds: string[]
-  }
-}
-
-const Keywords = (props: KeywordsPropType) => {
-  const { keywords } = props
-
-  // const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
+  const { setNewBackButtonProps } = useContext(BackButtonContext)
+  const navigate = useNavigate()
+  const { presets, profession, keywords } = useProfession(professionId)
 
   useEffect(() => {
     changeBg('white')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
 
+    setNewBackButtonProps('Наборы наввыков', '/skills')
+
     if (localStorage.getItem('Modal1') !== 'active') {
       localStorage.setItem('Modal1', 'active')
-      setTimeout(() => {
-        // this.isStatsTooltipVisible = true
-      }, 1000)
     }
   }, [])
 
-  // const calculateRequiredLimit = () => {
-  //   setRequiredWordsLimit(Math.ceil(keywords.display.length * 0.8))
-  // }
+  const openTrajectoryChoice = () => {
+    if (!profession) {
+      return
+    }
 
-  // useEffect(() => {
-  //   calculateRequiredLimit()
-  // }, [keywords.display])
+    axios
+      .post(`${BASE_URL}trajectories/?top_n=10`, {
+        keywords: keywords.allIds,
+      })
+      .then(r => {
+        setNewBackButtonProps('', 'keywords')
+        navigate(
+          `/trajectories?ids=${JSON.stringify(
+            r.data.map((el: TrajectoryType) => el.id),
+          )}`,
+        )
+      })
+  }
 
   return (
     <div className="keywords" id="box">
+      <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
+        <h4 className="currentHeader fontWeightBold" id="scrollToTop">
+          Ключевые слова
+        </h4>
+
+        <div className="bottomLeftContainer">
+          <button
+            className={`clear ${keywords.added.length < 1 ? 'disabled' : ''}`}
+            onClick={() => keywords.clear()}
+          >
+            Очистить выбор
+          </button>
+          <button className="save" onClick={openTrajectoryChoice}>
+            Построить траекторию
+          </button>
+        </div>
+      </div>
       <div>
         <div className="keywordsCustomisationFlex">
           <div className="leftBlock">

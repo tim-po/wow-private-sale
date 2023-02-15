@@ -4,16 +4,12 @@ import { BASE_URL } from '../../constants'
 import axios from 'axios'
 import BackButtonContext from '../../Context/BackButton'
 import Keyword from '../../components/Keyword'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
+import { makeEmptyList } from '../../utils/general'
 import './index.scss'
 import SelectedPresets from '../../components/SelectedPresets'
 import { useProfession } from '../../Models/useProfession'
-import Keywords from '../../components/Keywords'
-import SkillSets from '../../components/SkillSets'
+import Keywords from './Keywords'
+import SkillSets from './SkillSets'
 import LoadingScreen from '../../components/LoadingScreen'
 import MagicWand from '../../images/icons/MagicWand'
 import FingerLike from 'images/icons/Static/fingerLike'
@@ -76,7 +72,6 @@ const ProfessionDetails = () => {
     if (!profession) {
       return
     }
-    withLocalStorage({ professionId: profession.id }, LocalStorageInteraction.save)
     setIsLoading(true)
 
     const response = await axios.post(`${BASE_URL}trajectories/?top_n=10`, {
@@ -154,6 +149,7 @@ const ProfessionDetails = () => {
   ) {
     return <NotFound />
   }
+
   return (
     <div className="professionDetails">
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
@@ -161,6 +157,7 @@ const ProfessionDetails = () => {
           {' '}
           {currentHeader()}
         </h4>
+
         {searchParams.get('view') !== 'main' && (
           <div className="bottomLeftContainer">
             <button
@@ -175,6 +172,7 @@ const ProfessionDetails = () => {
           </div>
         )}
       </div>
+
       {searchParams.get('view') === 'main' && (
         <div className="keywordsCustomisationFlex">
           <div className="professionContainer">
@@ -354,15 +352,16 @@ const ProfessionDetails = () => {
           </div>
         </div>
       )}
+
       <div className="blockDescriptionMobil bottom">
         <button className="button-primary" onClick={openTrajectoryChoice}>
           {presets.selected.length ? 'Мне все нравится' : 'Построить'}
         </button>
       </div>
-      {profession && searchParams.get('view') === 'keywords' && (
-        <Keywords keywords={keywords} />
-      )}
-      {searchParams.get('view') === 'skills' && <SkillSets presets={presets} />}
+
+      {profession && searchParams.get('view') === 'keywords' && <Keywords />}
+
+      {searchParams.get('view') === 'skills' && <SkillSets />}
       <Hints
         boxRef={[hintEditKeywords, hintEditPresets]}
         pageTitle="ProfessionDetails"

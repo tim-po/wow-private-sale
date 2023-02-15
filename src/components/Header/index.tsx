@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Logo from 'images/icons/Static/logo'
@@ -9,11 +9,7 @@ import { navigationsItems } from './NavigationConfig'
 
 // DEFAULT FUNCTIONS
 
-type HeaderPropType = {
-  left: boolean
-}
-
-const Header = (props: HeaderPropType) => {
+const Header = () => {
   const leftBlocks = ['/', '/diplomaShare']
 
   const [isHeaderPreAnimated, setIsHeaderPreAnimated] = useState(
@@ -35,12 +31,35 @@ const Header = (props: HeaderPropType) => {
     navigate(backButtonHref)
   }
 
+  const activeLocation = useMemo(() => {
+    const navItem = navigationsItems.find(item =>
+      location.pathname
+        .slice(0, location.pathname.indexOf('?') + 1 || location.pathname.length)
+        .split('/')
+        .includes(item.path),
+    )
+    if (navItem) {
+      navigationsItems[navigationsItems.indexOf(navItem)].passed = true
+    }
+
+    return navItem
+      ? {
+          item: navItem,
+          index: navigationsItems
+            .filter(item => !item.isOptional || item.passed)
+            .indexOf(navItem),
+        }
+      : null
+  }, [location.pathname])
+
   return (
     <div className="Content">
       <div className="Header">
         <div
           className={`TrajectoriesLinkBack ${isHeaderPreAnimated ? 'preAnimated' : ''}`}
         >
+          {/* TODO вырезать этот блок, после завершения навигшации */}
+          {/*  */}
           {/* <svg */}
           {/*   className="BackArrow" */}
           {/*   width="24" */}
@@ -59,21 +78,46 @@ const Header = (props: HeaderPropType) => {
           {/*   /> */}
           {/* </svg> */}
           {/* <div className="BackText">{backButtonText}</div> */}
+
           <div className={'Navigation'}>
-            {navigationsItems.map((item, index, array) => (
-              <div
-                key={item.path}
-                className={`NavItem ${
-                  location.pathname.includes(item.path) ? 'ActiveItem' : ''
-                }`}
-                onClick={
-                  location.pathname.includes(array[index + 1]?.path) ? goBack : undefined
-                }
-              >
-                <div className={'Icon'}></div>
-                {item.title}
-              </div>
-            ))}
+            {navigationsItems
+              .filter(item => !item.isOptional || item.passed)
+              .map(
+                (item, index, array) =>
+                  ((activeLocation && item.passed) ||
+                    (activeLocation && !item.isOptional)) && (
+                    <button
+                      key={item.path}
+                      disabled={
+                        index > activeLocation.index || index < activeLocation.index - 1
+                      }
+                      className={`NavItem ${
+                        location.pathname.split('/').includes(item.path)
+                          ? 'ActiveItem'
+                          : ''
+                      } ${index < activeLocation.index ? 'prev' : ''} ${
+                        index > activeLocation.index ? 'next' : ''
+                      }`}
+                      onClick={
+                        location.pathname.includes(array[index + 1]?.path)
+                          ? goBack
+                          : undefined
+                      }
+                    >
+                      <div
+                        className={`Icon ${
+                          activeLocation.index - 1 <= index &&
+                          index <= activeLocation.index + 1
+                            ? 'withIcon'
+                            : ''
+                        }`}
+                      >
+                        {<item.icon />}
+                      </div>
+                      <span className={'StepTitle'}>{item.title}</span>
+                    </button>
+                  ),
+              )}
           </div>
         </div>
 

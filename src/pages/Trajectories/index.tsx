@@ -7,11 +7,7 @@ import PercentProgress from '../../components/PercentProgress'
 import './index.scss'
 import { BASE_URL } from '../../constants'
 import Close from '../../images/icons/close'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
+import { makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
@@ -20,23 +16,23 @@ import TrajectoryPreview from '../../components/TrajectoryPreview'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState([])
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
+  const { setNewBackButtonProps, backButtonHref } = useContext(BackButtonContext)
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
 
   useEffect(() => {
     changeBg('#F1F2F8')
-    const professionId = withLocalStorage(
-      { professionId: null },
-      LocalStorageInteraction.load,
-    ).professionId
-    setNewBackButtonProps(
-      'Выбор ключевых слов и пресетов',
-      `/professionDetails?view=main&id=${professionId}`,
-    )
+
+    // TODO придумать как однозначно проверять, что backButton ведет лиьбо на пресеты либона кейворды
+
+    if (backButtonHref !== '/skills' && '/keywords' !== backButtonHref) {
+      setNewBackButtonProps('Выбор ключевых слов и пресетов', `/skills`)
+    }
+
     if (trajectories.length === 0) {
       try {
         const trajectoryIds = JSON.parse(searchParams.get('ids') || '[]')
+
         axios
           .get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`)
           .then(res => {
@@ -44,6 +40,7 @@ const Trajectories = () => {
           })
           .catch(e => setResponseError(e))
       } catch (e) {
+        console.log(e)
         setResponseError(e)
       }
     }
@@ -80,13 +77,11 @@ const Trajectories = () => {
           </button>
         </div>
       </div>
-      {trajectories.length ?
-        trajectories.map((trajectory, index) =>
-          <TrajectoryPreview key={trajectory + index} trajectory={trajectory}/>
-        ) :
-        makeEmptyList(5).map((_i, index)=>
-          <TrajectoryPreview key={index}/>
-        )}
+      {trajectories.length
+        ? trajectories.map((trajectory, index) => (
+            <TrajectoryPreview key={trajectory + index} trajectory={trajectory} />
+          ))
+        : makeEmptyList(5).map((_i, index) => <TrajectoryPreview key={index} />)}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />
     </div>

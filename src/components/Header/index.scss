@@ -40,7 +40,7 @@
     }
   }
 
-  .TrajectoriesLinkBack{
+  .TrajectoriesLinkBack {
     transition: all 2s;
     position: absolute;
     left: 0;
@@ -50,42 +50,85 @@
       left: -100%;
     }
 
-    .Navigation{
+    .Navigation {
       display: flex;
       color: white;
 
-      .NavItem{
+      .NavItem {
         background-color: var(--color-brand);
+        max-width: 36px;
         white-space: nowrap;
-        width: 36px;
         height: 36px;
         border-radius: 18px;
         overflow: hidden;
-        padding: 5px;
+        padding: 4px;
         display: grid;
-        grid-template-columns: 22px auto;
+        grid-template-columns: 24px auto;
         column-gap: 7px;
-        align-items: center;
         cursor: pointer;
-        border: 2px solid white;
+        border: 2px solid var(--bg-color);
+        transition-duration: 0.3s;
+        transition-property: max-width, transform;
 
-        .Icon{
-          border-radius: 50%;
-          background-color: #989cf8;
-          width: 22px;
-          height: 22px;
+        &:disabled{
+          cursor: unset;
         }
 
-        &.ActiveItem{
-          width: fit-content;
+        &:hover:not([disabled]){
+          transform: scale(1.015);
+        }
+
+        .StepTitle {
+          color: #F3F3F8;
+          margin-top: 1px;
+        }
+
+        .Icon {
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          display: grid;
+          align-items: center;
+          justify-content: center;
+
+        }
+
+        &.prev {
+          background-color: #DEC7FF;
+
+          .withIcon svg {
+            fill: var(--color-brand);
+          }
+        }
+
+        &.next {
+          background-color: #E7E8EE;
+
+          .withIcon svg {
+            fill: var(--text-secondary);
+          }
+        }
+
+        &.ActiveItem {
+          max-width: 300px;
+          padding-right: 8px;
+
+          .Icon {
+            background-color: white;
+            &.withIcon svg {
+              fill: var(--color-brand);
+            }
+          }
         }
       }
+
     }
 
 
     .BackArrow {
       //margin-right: 4px;
     }
+
     .BackText {
       font-family: 'Inter';
       font-style: normal;
@@ -101,13 +144,13 @@
 
 
 @media screen and (max-width: 765px) {
-  .sticky-header-0{
+  .sticky-header-0 {
     transition: all 0.2s;
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(115, 40, 226, 0);
 
   }
-  .sticky-header-0.isSticky{
+  .sticky-header-0.isSticky {
     padding-left: 30px;
     border-bottom: 1px solid rgba(115, 40, 226, 0.3);
   }
@@ -115,6 +158,7 @@
   .Header {
     width: inherit;
     padding: inherit;
+
     .Logo {
       transition: initial;
       top: inherit;
@@ -125,11 +169,13 @@
       width: 100%;
       display: flex;
       justify-content: center;
+
       &.preAnimated {
         right: inherit;
         width: 100%;
       }
     }
+
     .TrajectoriesLinkBack {
       transition: all 0s;
       position: fixed;

@@ -1,3 +1,5 @@
+export type KeywordType = { text: string; id: string }
+
 export type Profession = {
   svg: string
   description: string
@@ -8,14 +10,17 @@ export type Profession = {
   name: string
 }
 
-export type KeywordType = { text: string; id: string }
-
 export type PresetType = {
   id: string
   category: string
   tag: string
   title: string
   keywords: KeywordType[]
+}
+
+export type CountType = {
+  count: number
+  name: string
 }
 
 export type DisciplineType = {
@@ -25,11 +30,6 @@ export type DisciplineType = {
   control_type: string
   necessity: string
   next_disciplines: number[]
-}
-
-export type CountType = {
-  count: number
-  name: string
 }
 
 export type ClassType = {
@@ -77,7 +77,7 @@ type DisciplineClassItemType = {
 export type DiplomaShareCardType = {
   course: number
   disciplines_count: number
-  classes: DisciplineClassItemType
+  classes: DisciplineClassItemType[]
 }
 
 export type DiplomaShareDataType = {

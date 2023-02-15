@@ -1,28 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./index.scss";
-import { ClassType } from "../../../types";
-import { colors } from "../../../constants";
-import TrajectoryDisciplineModal from "../../Modals/TrajectoryDisciplineModal";
-import ModalContext from "../../../Context/Modal";
-import { isMobile } from "react-device-detect";
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import React, { useContext, useEffect, useState } from 'react'
+import './index.scss'
+import { ClassType } from '../../../types'
+import { colors } from '../../../constants'
+import TrajectoryDisciplineModal from '../../Modals/TrajectoryDisciplineModal'
+import ModalContext from '../../../Context/Modal'
+import { isMobile } from 'react-device-detect'
 
 type CardPropType = {
-  selectedSphere: string | undefined;
-  sphere: ClassType;
-  hintSemester?: React.RefObject<HTMLDivElement> | undefined;
-  selectSelf: () => void;
-  hintDiscipline?: React.RefObject<HTMLDivElement>;
-  setSelectedSphere: React.Dispatch<React.SetStateAction<string | undefined>>;
-};
+  selectedSphere: string | undefined
+  sphere: ClassType
+  hintSemester?: React.RefObject<HTMLDivElement> | undefined
+  selectSelf: () => void
+  hintDiscipline?: React.RefObject<HTMLDivElement>
+  setSelectedSphere: React.Dispatch<React.SetStateAction<string | undefined>>
+}
 
-const CardDefaultProps = {};
+const CardDefaultProps = {}
+
+const semesterDiscipline: (
+  | 'first_semesters_disciplines'
+  | 'second_semesters_disciplines'
+)[] = ['first_semesters_disciplines', 'second_semesters_disciplines']
 
 const Card = (props: CardPropType) => {
-  const { displayModal } = useContext(ModalContext);
+  const { displayModal } = useContext(ModalContext)
   const {
     selectSelf,
     selectedSphere,
@@ -30,51 +31,55 @@ const Card = (props: CardPropType) => {
     hintDiscipline,
     hintSemester,
     setSelectedSphere,
-  } = props;
-  const getArrowDisciplineNames = (sphere: ClassType) => {
-    const disciplinesWithArrows: string[] = [];
-    sphere["first_semesters_disciplines"].forEach((discipline) => {
+  } = props
+
+  const getArrowDisciplineNames = (disciplineSphere: ClassType) => {
+    const disciplinesWithArrows: string[] = []
+    disciplineSphere['first_semesters_disciplines'].forEach(discipline => {
       if (discipline.next_disciplines.length > 0) {
-        disciplinesWithArrows.push(discipline.name);
+        disciplinesWithArrows.push(discipline.name)
       }
-    });
-    return disciplinesWithArrows;
-  };
+    })
+    return disciplinesWithArrows
+  }
+
   const [activeSemesterIndex, setActiveSemesterIndex] = useState(
-    "first_semesters_disciplines"
-  );
+    'first_semesters_disciplines',
+  )
   const getDisciplines = (
-    sphere: ClassType,
-    index: "first_semesters_disciplines" | "second_semesters_disciplines"
+    disciplineSphere: ClassType,
+    index: 'first_semesters_disciplines' | 'second_semesters_disciplines',
   ) => {
-    return [...sphere[index]].sort((dis1, dis2) => {
-      const discsWithArrows = getArrowDisciplineNames(sphere);
-      const dis1InclusionNumber = discsWithArrows.includes(dis1.name) ? 1 : -1;
-      const dis2InclusionNumber = discsWithArrows.includes(dis2.name) ? 1 : -1;
+    const disciplines = [...disciplineSphere[index]].sort((dis1, dis2) => {
+      const discsWithArrows = getArrowDisciplineNames(disciplineSphere)
+      const dis1InclusionNumber = discsWithArrows.includes(dis1.name) ? 1 : -1
+      const dis2InclusionNumber = discsWithArrows.includes(dis2.name) ? 1 : -1
       return (
         (dis2InclusionNumber - dis1InclusionNumber) * 10 +
         (dis2.name > dis1.name ? 1 : -1)
-      );
-    });
-  };
+      )
+    })
+    return disciplines
+  }
 
   const switchSemesters = () => {
-    if (activeSemesterIndex === "second_semesters_disciplines") {
-      setActiveSemesterIndex("first_semesters_disciplines");
-    } else if (activeSemesterIndex === "first_semesters_disciplines") {
-      setActiveSemesterIndex("second_semesters_disciplines");
+    if (activeSemesterIndex === 'second_semesters_disciplines') {
+      setActiveSemesterIndex('first_semesters_disciplines')
+    } else if (activeSemesterIndex === 'first_semesters_disciplines') {
+      setActiveSemesterIndex('second_semesters_disciplines')
     }
-  };
+  }
 
   useEffect(() => {
     if (isMobile && hintDiscipline) {
-      setSelectedSphere(sphere.name);
-      switchSemesters();
+      setSelectedSphere(sphere.name)
+      switchSemesters()
     }
-  }, [isMobile]);
+  }, [isMobile])
+
   return (
     <div
-      className={`ClassCard ${selectedSphere === sphere.name ? "open" : ""}`}
+      className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
       key={sphere.name}
       id={sphere.name}
       style={{ background: colors[sphere.name] }}
@@ -83,9 +88,9 @@ const Card = (props: CardPropType) => {
         <div className="ClassHeaderText">{sphere.name}</div>
         <button className="ClassOpenButton">
           <img
-            alt={"Стрелка"}
+            alt={'Стрелка'}
             src="/static/arrowDown.svg"
-            className={`Arrow ${selectedSphere === sphere.name ? "open" : ""}`}
+            className={`Arrow ${selectedSphere === sphere.name ? 'open' : ''}`}
           />
         </button>
       </div>
@@ -95,104 +100,87 @@ const Card = (props: CardPropType) => {
           <p className="TrajectorySmallHeader">Весна</p>
         </div>
         <div className="SemestersRow">
-          {["first_semesters_disciplines", "second_semesters_disciplines"].map(
-            (index) => {
-              return (
-                <div
-                  className={`SemesterCol ${
-                    index === activeSemesterIndex ? "On" : "Off"
-                  }  ${index}`}
-                  key={index}
-                  // id="getTooltipId(sphere, index)"
+          {semesterDiscipline.map(index => {
+            return (
+              <div
+                className={`SemesterCol ${
+                  index === activeSemesterIndex ? 'On' : 'Off'
+                }  ${index}`}
+                key={index}
+              >
+                <div className="SemesterSeparator" />
+                <button
+                  className={`BottomDisclosure ${
+                    index === activeSemesterIndex ? 'On' : 'Off'
+                  }`}
+                  onClick={index === activeSemesterIndex ? undefined : switchSemesters}
                 >
-                  <div className="SemesterSeparator" />
-                  <button
-                    className={`BottomDisclosure ${
-                      index === activeSemesterIndex ? "On" : "Off"
-                    }`}
-                    onClick={
-                      index === activeSemesterIndex ? () => {} : switchSemesters
-                    }
-                  >
-                    {/*@ts-ignore*/}
-                    {getDisciplines(sphere, index).map((discipline) => {
-                      return (
-                        <div className="ModalCardButton" key={discipline.id}>
-                          <div
-                            className="DisciplineCardWrapper"
-                            ref={hintDiscipline}
-                            onClick={
-                              index === activeSemesterIndex || !isMobile
-                                ? () =>
-                                    displayModal(
-                                      <TrajectoryDisciplineModal
-                                        id={discipline.id}
-                                      />,
-                                      { colorCloseWhite: true }
-                                    )
-                                : undefined
-                            }
-                          >
-                            <div className="DisciplineCard">
-                              <div className="flex-row flex-block justify-content-between">
-                                <div
-                                  className={`DisciplineCardType ${
-                                    discipline.necessity === "chosen"
-                                      ? "optional"
-                                      : ""
-                                  }`}
-                                >
-                                  <span>
-                                    {" "}
-                                    {discipline.necessity === "necessary"
-                                      ? "Обязательная"
-                                      : "По выбору"}
-                                  </span>
-                                </div>
-                                <div className="ChangeType">
-                                  {discipline.control_type ===
-                                  "Дифференцированный зачет"
-                                    ? "Диф. зачет"
-                                    : discipline.control_type}
-                                </div>
-                              </div>
+                  {getDisciplines(sphere, index).map(discipline => {
+                    return (
+                      <div className="ModalCardButton" key={discipline.id}>
+                        <div
+                          className="DisciplineCardWrapper"
+                          ref={hintDiscipline}
+                          onClick={
+                            index === activeSemesterIndex || !isMobile
+                              ? () =>
+                                  displayModal(
+                                    <TrajectoryDisciplineModal id={discipline.id} />,
+                                  )
+                              : undefined
+                          }
+                        >
+                          <div className="DisciplineCard">
+                            <div className="flex-row flex-block justify-content-between">
                               <div
-                                className={`discipline-card-name ${
-                                  discipline.necessity === "chosen"
-                                    ? "optional"
-                                    : ""
+                                className={`DisciplineCardType ${
+                                  discipline.necessity === 'chosen' ? 'optional' : ''
                                 }`}
                               >
-                                <span>{discipline.name}</span>
+                                <span>
+                                  {' '}
+                                  {discipline.necessity === 'necessary'
+                                    ? 'Обязательная'
+                                    : 'По выбору'}
+                                </span>
+                              </div>
+                              <div className="ChangeType">
+                                {discipline.control_type === 'Дифференцированный зачет'
+                                  ? 'Диф. зачет'
+                                  : discipline.control_type}
                               </div>
                             </div>
+                            <div
+                              className={`discipline-card-name ${
+                                discipline.necessity === 'chosen' ? 'optional' : ''
+                              }`}
+                            >
+                              <span>{discipline.name}</span>
+                            </div>
                           </div>
-                          {getArrowDisciplineNames(sphere).includes(
-                            discipline.name
-                          ) &&
-                            index === "first_semesters_disciplines" && (
-                              <div className="discipline-arrow">
-                                <img
-                                  alt={"Стрелочка"}
-                                  className="DisciplineArrowPointer"
-                                  src="/static/discArrow.svg"
-                                />
-                              </div>
-                            )}
                         </div>
-                      );
-                    })}
-                  </button>
-                </div>
-              );
-            }
-          )}
+                        {getArrowDisciplineNames(sphere).includes(discipline.name) &&
+                          index === 'first_semesters_disciplines' && (
+                            <div className="discipline-arrow">
+                              <img
+                                className="DisciplineArrowPointer"
+                                src="/static/discArrow.svg"
+                              />
+                            </div>
+                          )}
+                      </div>
+                    )
+                  })}
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-Card.defaultProps = CardDefaultProps;
+Card.defaultProps = CardDefaultProps
 
-export default Card;
+export default Card

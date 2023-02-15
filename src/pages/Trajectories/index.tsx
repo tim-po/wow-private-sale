@@ -14,35 +14,13 @@ import {
 } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
-import { changeBg } from '../../utils/background'
+import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
 
-// CONSTANTS
-
-const randomFeedback = {
-  firstOptionSelectButton: [
-    'Ничего не подошло 🥲️',
-    'Странные теги 🤔',
-    'Мало информации  🤨',
-    'Отлично 👌',
-  ],
-  secondOptionSelectButton: [
-    'Выбор траектории 🥲️',
-    'Как перейти дальше 🤔',
-    'Слишком много информации  🤯',
-    'Все понятно 👌',
-  ],
-}
-
-// DEFAULT FUNCTIONS
-
 const Trajectories = () => {
-  // const { group_id } = useContext<any>(FeedbackGroupIdContext);
-  // const [width, setWidth] = useState(0);>
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
-  // const [trajectoriesIds, setTrajectoriesIds] = useState([]);
   const { setNewBackButtonProps } = useContext(BackButtonContext)
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
@@ -60,7 +38,6 @@ const Trajectories = () => {
     if (trajectories.length === 0) {
       try {
         const trajectoryIds = JSON.parse(searchParams.get('ids') || '[]')
-        // setTrajectoriesIds(trajectoryIds);
         axios
           .get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`)
           .then(res => {
@@ -105,10 +82,10 @@ const Trajectories = () => {
         </div>
       </div>
       {trajectories.length
-        ? trajectories.map(trajectory => (
-            <TrajectoryPreview key={trajectory.id} trajectory={trajectory} />
+        ? trajectories.map((trajectory, index) => (
+            <TrajectoryPreview key={trajectory.id + index} trajectory={trajectory} />
           ))
-        : makeEmptyList(5).map((_, index) => <TrajectoryPreview key={index} />)}
+        : makeEmptyList(5).map((_i, index) => <TrajectoryPreview key={index} />)}
       <RandomFeedback displayForGroup={2} />
       <RandomFeedback displayForGroup={3} />
     </div>

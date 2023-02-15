@@ -3,18 +3,16 @@ import './index.scss'
 import styled from 'styled-components';
 import {CountType} from "../../../types";
 
-type DisciplinesModalPropType = {
+interface DisciplinesModalPropType  {
   discipline: any
   course?: number
   headerBg?: string
   name?: string
 }
 
-const DisciplinesModalDefaultProps = {}
-
 const DisciplinesModal = (props: DisciplinesModalPropType) => {
   const {discipline, course, headerBg, name} = props
-
+  console.log(discipline)
   return (
     <div className="disciplineModalContainer">
       <div className="disciplineHeaderContainer" style={{background: `${headerBg}`}}>
@@ -53,7 +51,5 @@ const DisciplinesModal = (props: DisciplinesModalPropType) => {
     </div>
   )
 };
-
-DisciplinesModal.defaultProps = DisciplinesModalDefaultProps
 
 export default DisciplinesModal

@@ -9,6 +9,7 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
+import RandomFeedbackContext from '../../Context/RandomFeedback'
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
@@ -33,7 +34,6 @@ const Layout = (props: layoutPropType) => {
   const [cookie] = useCookies(['_ym_uid'])
 
   const [groupId, setGroupId] = useState<number>(0)
-  const refLastModals = useRef<HTMLDivElement>(null)
 
   const displayModal = (
     component: React.ReactNode,
@@ -101,7 +101,6 @@ const Layout = (props: layoutPropType) => {
             ))}
           </div>
         </div>
-        {/* </BgContext.Provider>*/}
       </FeedbackGroupIdContext.Provider>
     </ModalsContext.Provider>
   )

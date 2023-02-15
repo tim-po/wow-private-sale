@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import Close from '../../images/icons/close'
-import { isMobile } from 'react-device-detect'
 import useWindowDimensions from '../../utils/useWindowDimensions'
+import { transform } from 'lodash'
 
 // CONSTANTS
 
@@ -34,22 +34,11 @@ const GenericModal = (props: GenericModalOwnProps) => {
 
   const [blockContent, setBlockContent] = useState(false)
   const swapElement = useRef<HTMLDivElement>(null)
-  const [cardHeight, setCardHeight] = useState<number>(0)
-  const [deltaY, setDeltaY] = useState(0)
-  const [prevMovementY, setPrevMovementY] = useState(0)
-  const [isTouched, setIsTouched] = useState(false)
+  const [cardTranslate, setCardTranslate] = useState<number>(0)
+  const [touchStartLocation, setTouchStartLocation] = useState(0)
   const { height } = useWindowDimensions()
 
   const [allModals, setAllModals] = useState<HTMLElement[]>([])
-
-  const touchStart = (e: any) => {
-    if (!isTouched) {
-      // @ts-ignore
-      setCardHeight(swapElement?.current?.offsetHeight)
-      setIsTouched(true)
-      setPrevMovementY(e.touches[0].clientY)
-    }
-  }
 
   const modalClose = () => {
     const topModal = allModals[allModals.length - 2]
@@ -66,41 +55,22 @@ const GenericModal = (props: GenericModalOwnProps) => {
     }, 500)
   }
 
-  const touchMove = (e: any) => {
-    if (isTouched) {
-      const deltaY = prevMovementY - e.touches[0].clientY
-      setDeltaY(deltaY)
-
-      setCardHeight(cardHeight + deltaY)
-
-      if (deltaY >= 150) {
-        setCardHeight(window.screen.height - 80)
-        setIsTouched(false)
-      }
-
-      if (deltaY <= -150) {
-        setCardHeight(0)
-        setIsTouched(false)
-        modalClose()
-      }
-
-      setPrevMovementY(e.touches[0].clientY)
+  const touchMove = (e: React.TouchEvent) => {
+    e.preventDefault()
+    if (touchStartLocation === 0) {
+      setTouchStartLocation(e.touches[0].clientY)
+    } else {
+      const deltaY = touchStartLocation - e.touches[0].clientY
+      setCardTranslate(Math.min(deltaY, 0))
     }
   }
 
   const touchEnd = () => {
-    if (isTouched) {
-      setIsTouched(false)
-      setPrevMovementY(0)
-
-      if (deltaY > 0) {
-        setCardHeight(250)
-      }
-
-      if (deltaY < 0) {
-        setCardHeight(0)
-        modalClose()
-      }
+    setTouchStartLocation(0)
+    if (cardTranslate <= -200) {
+      modalClose()
+    } else {
+      setCardTranslate(0)
     }
   }
 
@@ -146,12 +116,14 @@ const GenericModal = (props: GenericModalOwnProps) => {
       <div className="ModalTrack">
         <div className="ModalContainerShad mobil" onClick={modalClose} />
         <div
-          className={`d-block TextCenter ${blockContent ? 'active' : ''}`}
+          className={`d-block TextCenter ${blockContent ? 'active' : ''} ${
+            touchStartLocation != 0 ? 'touched' : ''
+          }`}
           data-modal={`index-${modalIndex}`}
+          style={{ transform: `translateY(${-cardTranslate * 0.9}px)` }}
         >
           <div
             className={'wrapHeaderModal'}
-            onTouchStart={touchStart}
             onTouchMove={touchMove}
             onTouchEnd={touchEnd}
           >
@@ -163,7 +135,6 @@ const GenericModal = (props: GenericModalOwnProps) => {
               />
             </button>
           </div>
-
           <div ref={swapElement} className={`modalContainer`}>
             {children}
           </div>

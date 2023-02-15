@@ -1,20 +1,13 @@
-import React from "react";
-import { OptionalGenericModalProps } from "../components/GenericModal";
+import React, { ReactNode } from 'react'
 
-export type ModalContext = {
-  displayModal: (
-    component: React.ReactNode,
-    genericProps?: OptionalGenericModalProps
-  ) => void;
-  closeModal: () => void;
-};
+type ModalContextType = {
+  displayModal: (component: ReactNode) => void
+  closeModal: () => void
+}
 
-const ModalContext = React.createContext<ModalContext>({
-  displayModal: (
-    component: React.ReactNode,
-    genericProps?: OptionalGenericModalProps
-  ) => null,
+const ModalContext = React.createContext<ModalContextType>({
+  displayModal: () => null,
   closeModal: () => null,
-});
+})
 
-export default ModalContext;
+export default ModalContext

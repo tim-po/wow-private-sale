@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import useWindowDimensions from '../../../utils/useWindowDimensions'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
-import { ClassType, CourseType, DisciplineType } from '../../../types'
+import { ClassType } from '../../../types'
 import { colors } from '../../../constants'
 import TrajectoryDisciplineModal from '../../Modals/TrajectoryDisciplineModal'
 import ModalContext from '../../../Context/Modal'
-import useWindowDimensions from '../../../utils/useWindowDimensions'
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import { isMobile } from 'react-device-detect'
 
 type CardPropType = {
   selectedSphere: string | undefined
@@ -21,9 +18,15 @@ type CardPropType = {
 
 const CardDefaultProps = {}
 
+const semesterDiscipline: (
+  | 'first_semesters_disciplines'
+  | 'second_semesters_disciplines'
+)[] = ['first_semesters_disciplines', 'second_semesters_disciplines']
+
 const Card = (props: CardPropType) => {
   const { displayModal } = useContext(ModalContext)
   const { width } = useWindowDimensions()
+
   const {
     selectSelf,
     selectedSphere,
@@ -32,9 +35,10 @@ const Card = (props: CardPropType) => {
     hintSemester,
     setSelectedSphere,
   } = props
-  const getArrowDisciplineNames = (sphere: ClassType) => {
+
+  const getArrowDisciplineNames = (disciplineSphere: ClassType) => {
     const disciplinesWithArrows: string[] = []
-    sphere['first_semesters_disciplines'].forEach(discipline => {
+    disciplineSphere['first_semesters_disciplines'].forEach(discipline => {
       if (discipline.next_disciplines.length > 0) {
         disciplinesWithArrows.push(discipline.name)
       }
@@ -45,11 +49,11 @@ const Card = (props: CardPropType) => {
     'first_semesters_disciplines',
   )
   const getDisciplines = (
-    sphere: ClassType,
+    disciplineSphere: ClassType,
     index: 'first_semesters_disciplines' | 'second_semesters_disciplines',
   ) => {
-    const disciplines = [...sphere[index]].sort((dis1, dis2) => {
-      const discsWithArrows = getArrowDisciplineNames(sphere)
+    const disciplines = [...disciplineSphere[index]].sort((dis1, dis2) => {
+      const discsWithArrows = getArrowDisciplineNames(disciplineSphere)
       const dis1InclusionNumber = discsWithArrows.includes(dis1.name) ? 1 : -1
       const dis2InclusionNumber = discsWithArrows.includes(dis2.name) ? 1 : -1
       return (
@@ -74,6 +78,7 @@ const Card = (props: CardPropType) => {
       switchSemesters()
     }
   }, [width])
+
   return (
     <div
       className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
@@ -96,23 +101,21 @@ const Card = (props: CardPropType) => {
           <p className="TrajectorySmallHeader">Весна</p>
         </div>
         <div className="SemestersRow">
-          {['first_semesters_disciplines', 'second_semesters_disciplines'].map(index => {
+          {semesterDiscipline.map(index => {
             return (
               <div
                 className={`SemesterCol ${
                   index === activeSemesterIndex ? 'On' : 'Off'
                 }  ${index}`}
                 key={index}
-                // id="getTooltipId(sphere, index)"
               >
                 <div className="SemesterSeparator" />
                 <button
                   className={`BottomDisclosure ${
                     index === activeSemesterIndex ? 'On' : 'Off'
                   }`}
-                  onClick={index === activeSemesterIndex ? () => {} : switchSemesters}
+                  onClick={index === activeSemesterIndex ? undefined : switchSemesters}
                 >
-                  {/* @ts-ignore*/}
                   {getDisciplines(sphere, index).map(discipline => {
                     return (
                       <div className="ModalCardButton" key={discipline.id}>
@@ -125,7 +128,7 @@ const Card = (props: CardPropType) => {
                                   displayModal(
                                     <TrajectoryDisciplineModal id={discipline.id} />,
                                   )
-                              : () => {}
+                              : undefined
                           }
                         >
                           <div className="DisciplineCard">

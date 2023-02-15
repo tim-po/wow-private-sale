@@ -12,7 +12,7 @@ export enum LocalStorageInteraction {
 }
 
 export const withLocalStorage = (objectToInteractWith: {[key: string]: any}, actionToDo: LocalStorageInteraction) => {
-  let returnObject: {[key: string]: any} = {}
+  const returnObject: {[key: string]: any} = {}
   switch (actionToDo) {
     case LocalStorageInteraction.save:
       Object.keys(objectToInteractWith).forEach(key => {
@@ -22,7 +22,7 @@ export const withLocalStorage = (objectToInteractWith: {[key: string]: any}, act
     case LocalStorageInteraction.load:
       Object.keys(objectToInteractWith).forEach(key => {
         const item = localStorage.getItem(key)
-        if(item){
+        if(item && item !== 'undefined'){
           returnObject[key] = JSON.parse(item)
         }else{
           returnObject[key] = objectToInteractWith[key]

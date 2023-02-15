@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 import Arrow from '../../images/icons/Arrow'
 import useWindowDimensions from '../../utils/useWindowDimensions'
-
 type GetPositionType = {
   title: string
   description: string
-  isLocalStorage: string | undefined
-  setIsLocalStorage: React.Dispatch<React.SetStateAction<string | undefined>>
+  isLocalDataHint: boolean | undefined
+  setIsLocalDataHint: (isLocalStorage: boolean | undefined) => void
   status: string
-  setNumberOpenPage: React.Dispatch<React.SetStateAction<number>>
+  setNumberOpenPage: (numberOpenPage: number) => void
   numberOpenPage: number
   nameRef: string
-  boxRef: React.RefObject<HTMLDivElement>
-  listRef: React.RefObject<HTMLDivElement>[]
+  boxRef: RefObject<HTMLElement>
+  listRef: RefObject<HTMLElement>[]
 }
 
 const HintGeneric = (props: GetPositionType) => {
   const {
     title,
     description,
-    setIsLocalStorage,
-    isLocalStorage,
+    setIsLocalDataHint,
+    isLocalDataHint,
     status,
     setNumberOpenPage,
     numberOpenPage,
@@ -39,7 +38,6 @@ const HintGeneric = (props: GetPositionType) => {
       const offsetLeft = boxRef.current.getBoundingClientRect().left
       const offsetTop = boxRef.current.getBoundingClientRect().top
       const elementHeight = boxRef.current.getBoundingClientRect().height
-      const elementWidth = boxRef.current.getBoundingClientRect().width
       setPositionTop(offsetTop + window.scrollY + elementHeight + 10)
       const left = Math.max(offsetLeft - 240, 0)
       setPositionLeft(left)
@@ -53,18 +51,25 @@ const HintGeneric = (props: GetPositionType) => {
   })
 
   useEffect(() => {
+    function closeEnter(e: KeyboardEvent) {
+      if (e.key === 'enter') {
+        e.preventDefault()
+        setIsLocalDataHint(false)
+      }
+    }
+
+    window.addEventListener('keypress', closeEnter)
+    return () => window.removeEventListener('keypress', closeEnter)
+  })
+  useEffect(() => {
     getPosition()
-  }, [
-    numberOpenPage,
-    boxRef.current?.getBoundingClientRect().top,
-    boxRef.current?.getBoundingClientRect().top,
-  ])
+  }, [numberOpenPage, boxRef.current?.getBoundingClientRect().top])
 
   useEffect(() => {
-    if (isLocalStorage === 'false' && listRef[numberOpenPage + 1]) {
+    if (isLocalDataHint === false && listRef[numberOpenPage + 1]) {
       setNumberOpenPage(numberOpenPage + 1)
     }
-  }, [isLocalStorage])
+  }, [isLocalDataHint])
 
   return (
     <div
@@ -86,7 +91,7 @@ const HintGeneric = (props: GetPositionType) => {
         <button
           className="closeHints"
           onClick={() => {
-            setIsLocalStorage('false')
+            setIsLocalDataHint(false)
           }}
         >
           Круто

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 import './index.scss'
 import HintGeneric from './HintGeneric'
 import Portal from './Portal'
-
+import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 type PropsType = {
-  boxRef: any
+  boxRef: RefObject<HTMLElement>[]
   pageTitle: string
   nameRef: string[]
   title: string[]
@@ -12,36 +12,43 @@ type PropsType = {
 }
 const Hints = (props: PropsType) => {
   const { boxRef, nameRef, title, description, pageTitle } = props
-  const [isLocalStorage, setIsLocalStorage] = useState<string>()
+  const [isLocalDataHint, setIsLocalDataHint] = useState<boolean>()
   const [numberOpenPage, setNumberOpenPage] = useState<number>(0)
   const [stateLocal, setStateLocal] = useState<string>('true')
 
+  const valueLocal = withLocalStorage(
+    { [`${nameRef[numberOpenPage]}`]: [null] },
+    LocalStorageInteraction.load,
+  )
   useEffect(() => {
-    if (localStorage.getItem(nameRef[numberOpenPage]) === null) {
-      setTimeout(() => setIsLocalStorage('true'), 500)
+    if (Object.values(valueLocal).pop()[0] === null) {
+      setIsLocalDataHint(true)
     }
-    if (typeof isLocalStorage === 'string') {
-      localStorage.setItem(nameRef[numberOpenPage], isLocalStorage)
-    }
-  }, [isLocalStorage, numberOpenPage])
+    setTimeout(() => {
+      withLocalStorage(
+        { [`${nameRef[numberOpenPage]}`]: isLocalDataHint },
+        LocalStorageInteraction.save,
+      )
+    }, 500)
+  }, [isLocalDataHint, numberOpenPage])
 
   useEffect(() => {
-    if (localStorage.getItem(nameRef[numberOpenPage]) === 'true') {
-      setIsLocalStorage('true')
-    } else if (localStorage.getItem(nameRef[numberOpenPage]) === 'false') {
-      setIsLocalStorage('false')
+    if (Object.values(valueLocal).pop() === true) {
+      setIsLocalDataHint(true)
+    } else if (Object.values(valueLocal).pop() === false) {
+      setIsLocalDataHint(false)
     }
   }, [])
 
   return (
     <Portal>
       <HintGeneric
-        status={isLocalStorage === 'true' ? '' : 'closeHint'}
+        status={isLocalDataHint === true ? '' : 'closeHint'}
         boxRef={boxRef[numberOpenPage]}
         nameRef={nameRef[numberOpenPage]}
         listRef={boxRef}
-        setIsLocalStorage={setIsLocalStorage}
-        isLocalStorage={isLocalStorage}
+        setIsLocalDataHint={setIsLocalDataHint}
+        isLocalDataHint={isLocalDataHint}
         title={title[numberOpenPage]}
         setNumberOpenPage={setNumberOpenPage}
         numberOpenPage={numberOpenPage}

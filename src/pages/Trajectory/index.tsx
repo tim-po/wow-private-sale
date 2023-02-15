@@ -14,21 +14,12 @@ import Card from '../../components/trajectory/Card'
 import './index.scss'
 import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
-import FeedbackGroupIdContext from '../../Context/IdGroup'
 import Hints from '../../components/hints'
-import { changeBg } from '../../utils/background'
+import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import useWindowDimensions from '../../utils/useWindowDimensions'
 
-const randomFeedbackSelectOptions = [
-  'Поиск ключевых слов 🔎️',
-  'Добавление/ удаление слов 🗑',
-  'Все сложно  🤯',
-  'Все понятно 👌',
-]
-
 const Trajectory = () => {
-  const { group_id } = useContext<any>(FeedbackGroupIdContext)
   const [searchParams] = useSearchParams()
   const { displayModal } = useContext(ModalContext)
   const navigate = useNavigate()
@@ -40,20 +31,13 @@ const Trajectory = () => {
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
   const { width } = useWindowDimensions()
-
   const [responseError, setResponseError] = useState<number>()
 
+  const stileTextRef = useRef<HTMLDivElement>(null)
+  const titleNameDiscipline = useRef<HTMLDivElement>(null)
+
   const courseQuery = +(searchParams.get('course') || '1')
-  useEffect(() => {
-    const courseNumber = searchParams.get('course')
-    let widthOfCourceLabel = 80
-    if (width < 1000) {
-      widthOfCourceLabel = 44
-    }
-    if (courseNumber === '5') {
-      setSelectorLeftOffset('calc(100% - 80px)')
-    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
-  }, [width, searchParams.get('course')])
+  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
 
   const getTrajectory = () => {
     axios
@@ -64,10 +48,37 @@ const Trajectory = () => {
         }
       })
       .catch(e => {
-        throw new Error()
-        // setResponseError(e.response.status);
+        setResponseError(e.response.status)
       })
   }
+  useEffect(() => {
+    function adaptiveCourse() {
+      const widthTitle = stileTextRef.current?.offsetWidth
+      const widthContainer = titleNameDiscipline.current?.offsetWidth
+      if (widthContainer && widthTitle) {
+        if (widthContainer < widthTitle + 470) {
+          setTransferCoursesRow(true)
+        } else {
+          setTransferCoursesRow(false)
+        }
+      }
+    }
+
+    window.addEventListener('resize', adaptiveCourse)
+    return () => {
+      window.removeEventListener('resize', adaptiveCourse)
+    }
+  })
+  useEffect(() => {
+    const courseNumber = searchParams.get('course')
+    let widthOfCourceLabel = 80
+    if (width < 1000) {
+      widthOfCourceLabel = 44
+    }
+    if (courseNumber === '5') {
+      setSelectorLeftOffset('calc(100% - 80px)')
+    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
+  }, [width, searchParams.get('course')])
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -129,18 +140,19 @@ const Trajectory = () => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline">
-        <h5 className="mb-0 StileText" id="scrollToTop">
+      <div
+        ref={titleNameDiscipline}
+        className="titleNameDiscipline"
+        style={
+          courseQuery === 5
+            ? { borderBottom: '2px solid white' }
+            : { borderBottom: '2px solid var(--gray-100)' }
+        }
+      >
+        <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
-        <div
-          className="CoursesRow"
-          style={
-            courseQuery === 5
-              ? { borderBottom: '2px solid white' }
-              : { borderBottom: '2px solid var(--gray-100)' }
-          }
-        >
+        <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}
@@ -152,7 +164,7 @@ const Trajectory = () => {
                   className={`CourseButton ${
                     course.course === courseQuery ? 'CourseButtonActive' : ''
                   }`}
-                  key="number"
+                  key={course.course}
                   onClick={() => navigateToCourse(course.course)}
                 >
                   <div

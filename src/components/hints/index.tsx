@@ -21,7 +21,7 @@ const Hints = (props: PropsType) => {
     LocalStorageInteraction.load,
   )
   useEffect(() => {
-    if (Object.values(valueLocal).pop()[0] === null ) {
+    if (Object.values(valueLocal).pop()[0] === null) {
       setIsLocalDataHint(true)
     }
     setTimeout(() => {
@@ -30,16 +30,12 @@ const Hints = (props: PropsType) => {
         LocalStorageInteraction.save,
       )
     }, 500)
-
   }, [isLocalDataHint, numberOpenPage])
 
   useEffect(() => {
-
     if (Object.values(valueLocal).pop() === true) {
       setIsLocalDataHint(true)
-    } else if (
-      Object.values(valueLocal).pop() === false
-    ) {
+    } else if (Object.values(valueLocal).pop() === false) {
       setIsLocalDataHint(false)
     }
   }, [])

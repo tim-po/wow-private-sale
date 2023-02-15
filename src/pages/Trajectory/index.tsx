@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { isMobile } from 'react-device-detect'
 import CourseSelector from '../../components/trajectory/CourseSelector'
 import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
@@ -18,6 +17,7 @@ import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()
@@ -30,8 +30,9 @@ const Trajectory = () => {
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
-
+  const { width } = useWindowDimensions()
   const [responseError, setResponseError] = useState<number>()
+
   const stileTextRef = useRef<HTMLDivElement>(null)
   const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
@@ -50,8 +51,8 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
-  useEffect(()=>{
-    function adaptiveCourse(){
+  useEffect(() => {
+    function adaptiveCourse() {
       const widthTitle = stileTextRef.current?.offsetWidth
       const widthContainer = titleNameDiscipline.current?.offsetWidth
       if (widthContainer && widthTitle) {
@@ -63,23 +64,21 @@ const Trajectory = () => {
       }
     }
 
-    window.addEventListener("resize", adaptiveCourse);
+    window.addEventListener('resize', adaptiveCourse)
     return () => {
-      window.removeEventListener("resize", adaptiveCourse);
-    };
+      window.removeEventListener('resize', adaptiveCourse)
+    }
   })
   useEffect(() => {
     const courseNumber = searchParams.get('course')
     let widthOfCourceLabel = 80
-    if (isMobile) {
+    if (width < 1000) {
       widthOfCourceLabel = 44
     }
     if (courseNumber === '5') {
       setSelectorLeftOffset('calc(100% - 80px)')
     } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
-  }, [isMobile, searchParams.get('course')])
-
-
+  }, [width, searchParams.get('course')])
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -153,7 +152,7 @@ const Trajectory = () => {
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
-        <div style={transferCoursesRow? {width:'100%'}: {} } className="CoursesRow">
+        <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}
@@ -200,7 +199,7 @@ const Trajectory = () => {
             </div>
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
-                ref={isMobile ? undefined : hintSemester}
+                ref={width < 1000 ? undefined : hintSemester}
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-0-top-left"
                 style={{ flexGrow: 2 }}

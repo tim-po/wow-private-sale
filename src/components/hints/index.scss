@@ -48,6 +48,6 @@
 }
 @media screen and (max-width: 500px) {
   .wrapHints{
-    max-width: inherit;
+    max-width: calc(100% - 32px);
   }
 }

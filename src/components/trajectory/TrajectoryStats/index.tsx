@@ -24,8 +24,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
   const [isTooltipActive, setIsTooltipActive] = useState(false)
   const { displayModal, closeModal } = useContext(ModalContext)
 
-
-
   const isFocusedOnCircleOf = (klass: any) => {
     return focusedCircle && focusedCircle.data.name === klass.data.name
   }
@@ -44,7 +42,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
     return amountReturn
   }
-
 
   const transformedClassData = () => {
     return {
@@ -72,7 +69,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
     // Generate a D3 hierarchy
     const rootHierarchy = hierarchy(transformedClassData())
       .sum(d => {
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return d.size
@@ -82,7 +78,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       })
     return pack().size([400, 400]).padding(8)(rootHierarchy)
   }
-
 
   const getCircleTextOf = (klass: any) => {
     if (
@@ -133,7 +128,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
     return { x: xTrans, y: yTrans }
   }
-
 
   const openNecessaryDisciplinesModal = () => {
     if (course) {
@@ -208,7 +202,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="scroll">
         <div className="rowContent">
-          {allControllTypes.map((controlTypeName,index) => {
+          {allControllTypes.map((controlTypeName, index) => {
             if (!course) {
               return null
             }

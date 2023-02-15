@@ -138,14 +138,14 @@ const DiplomaShare = () => {
           <div className="DiplomaCard mb-4">
             <div className="d-flex flexColumn DiplomaDisciplinesCard">
               <div className="LineImg" />
-              {diplomaShareData?.courses.map((course) => (
+              {diplomaShareData?.courses.map(course => (
                 <div className="flex-grow-1 mr-3 blockShare" key={course.course}>
                   <p className="TextCenter mobilNone diplomaDisciplinesCount">
                     {course.disciplines_count} {getDeclension(course.disciplines_count)}
                   </p>
                   <p className="CourseLabel">{course.course} курс</p>
                   <div className="d-flexMobil">
-                    {course.classes.map((item) => (
+                    {course.classes.map(item => (
                       <Card
                         key={item.name}
                         onClick={() =>

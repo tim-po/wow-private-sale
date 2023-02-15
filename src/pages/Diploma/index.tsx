@@ -27,17 +27,11 @@ const Diploma = () => {
 
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined)
   const [keywords, setKeywords] = useState<KeywordType[]>([])
-  // const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [linkAbit, setLinkAbit] = useState('https://abit.itmo.ru/programs/bachelor')
   const { groupId } = useContext(FeedbackGroupIdContext)
 
   const [searchParams] = useSearchParams()
-  // const randomFeedbackSelectOptions = [
-  //   'Поиск ключевых слов 🔎️',
-  //   'Добавление/ удаление слов 🗑',
-  //   'Все сложно  🤯',
-  //   'Все понятно 👌',
-  // ]
+
   const getDiplomaData = async () => {
     try {
       const response = await axios.get(

@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import './index.scss'
-import GenericModal from 'components/GenericModal'
+import GenericModal, { OptionalGenericModalProps } from 'components/GenericModal'
 import Header from 'components/Header'
 import BackButtonContext from 'Context/BackButton'
 import ModalsContext from 'Context/Modal'
@@ -23,25 +23,34 @@ const Layout = (props: layoutPropType) => {
   const { children } = props
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
-  const [modalComponent, setModalComponent] = useState<Array<ReactNode | undefined>>([])
-  const [backgroundColor, setBackgroundColor] = useState('white')
+  const [modalComponents, setModalComponents] = useState<
+    {
+      component: ReactNode | undefined
+      props?: OptionalGenericModalProps
+    }[]
+  >([])
 
   const { backButtonHref } = useContext(BackButtonContext)
   const [cookie] = useCookies(['_ym_uid'])
-  const [isOpenRandomFeedback, setIsOpenRandomFeedback] = useState(false)
-  const [groupId, setGroupId] = useState<number>(0)
-  const refLastModals = useRef<HTMLDivElement>(null)
 
-  const displayModal = (component: React.ReactNode) => {
-    setModalComponent(prevState => [...prevState, component])
+  const [groupId, setGroupId] = useState<number>(0)
+
+  const displayModal = (
+    component: React.ReactNode,
+    genericProps?: OptionalGenericModalProps,
+  ) => {
+    setModalComponents(prevState => [
+      ...prevState,
+      {
+        component: component,
+        props: genericProps,
+      },
+    ])
     setShouldDisplayModal(true)
   }
-  const closeRandomFeedback = (value: boolean) => {
-    setIsOpenRandomFeedback(value)
-  }
+
   const closeModal = () => {
-    setModalComponent(modalComponent.slice(0, -1))
-    // setShouldDisplayModal(false);
+    setModalComponents(modalComponents.slice(0, -1))
   }
 
   useEffect(() => {
@@ -52,51 +61,46 @@ const Layout = (props: layoutPropType) => {
     updateStickyBlocks()
   }, [])
 
+  // useEffect(() => {
+  //   if (shouldDisplayModal) {
+  //     window.document.body.classList.add("no-scroll");
+  //   } else {
+  //     window.document.body.classList.remove("no-scroll");
+  //   }
+  // }, [shouldDisplayModal]);
+
   useEffect(() => {
-    if (shouldDisplayModal) {
-      window.document.body.classList.add('no-scroll')
-    } else {
-      window.document.body.classList.remove('no-scroll')
-    }
-  }, [shouldDisplayModal])
-  useEffect(() => {
-    if (modalComponent.length > 0) {
+    if (modalComponents.length > 0) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [modalComponent])
+  }, [modalComponents])
+
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
-        <RandomFeedbackContext.Provider
-          value={{ isOpenRandomFeedback, closeRandomFeedback }}
-        >
-          <div className="DefaultLayoutContainer" id="scroll-container">
-            <Header left={backButtonHref === '/'} />
-            <div className="Content">
-              {children}
-              {modalComponent.map((component, index) => (
-                <GenericModal
-                  refLastModals={
-                    modalComponent.length - 1 === index ? refLastModals : undefined
-                  }
-                  key={index}
-                  modalCount={modalComponent.length}
-                  currentLastModals={refLastModals.current}
-                  modalNumber={index}
-                  modal={shouldDisplayModal}
-                  colorCloseWhite={false}
-                  hideMobile={false}
-                  hideDesktop={false}
-                  onModalClose={closeModal}
-                >
-                  {component}
-                </GenericModal>
-              ))}
-            </div>
+        {/* <BgContext.Provider value={{setBg: setBackgroundColor}}>*/}
+        <div className="DefaultLayoutContainer" id="scroll-container">
+          <Header left={backButtonHref === '/'} />
+          <div className="Content">
+            {children}
+            {modalComponents.map((item, index) => (
+              <GenericModal
+                key={index}
+                modalCount={modalComponents.length}
+                modalIndex={index}
+                colorCloseWhite={false}
+                hideMobile={false}
+                hideDesktop={false}
+                onModalClose={closeModal}
+                {...item.props}
+              >
+                {item.component}
+              </GenericModal>
+            ))}
           </div>
-        </RandomFeedbackContext.Provider>
+        </div>
       </FeedbackGroupIdContext.Provider>
     </ModalsContext.Provider>
   )

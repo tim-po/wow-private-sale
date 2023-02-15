@@ -90,6 +90,7 @@ const Card = (props: CardPropType) => {
         <div className="ClassHeaderText">{sphere.name}</div>
         <button className="ClassOpenButton">
           <img
+            alt={'Стрелка'}
             src="/static/arrowDown.svg"
             className={`Arrow ${selectedSphere === sphere.name ? 'open' : ''}`}
           />

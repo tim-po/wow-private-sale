@@ -4,8 +4,8 @@
   line-height: 20px;
 }
 .skeletonCard{
-  width: 180px;
-  height: 135px;
+  min-width: 180px;
+  min-height: 135px;
   border-radius: 20px;
 }
 .RandomFeedback.NotVisible {
@@ -211,6 +211,11 @@
 // --end--
 
 @media screen and (max-width: 1300px) {
+  .skeletonCard{
+    min-width: 256px;
+    width: 100%;
+    min-height: 70px;
+  }
   .diploma-container {
     padding-bottom: 64px;
   }

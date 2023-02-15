@@ -16,6 +16,7 @@ import Like from 'images/icons/Static/like'
 import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
+import { makeEmptyList } from '../../utils/general'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -76,10 +77,22 @@ const DiplomaShare = () => {
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
         <h5 className="mb-0 titleShare">
-          Траектория построена для{' '}
-          {searchParams.get('name')
-            ? searchParams.get('name')
-            : 'анонимного будущего студента'}
+          {diplomaShareData?
+            <>
+              Траектория построена для{' '}
+            {searchParams.get('name')
+              ?
+              searchParams.get('name')
+            :
+              'анонимного будущего студента'}
+            </>
+            :
+            <div
+              style={{width:600, height:20, borderRadius: 8, marginBottom:12}}
+              className="MainSkeleton"
+            />
+          }
+
         </h5>
         <div></div>
       </div>
@@ -168,6 +181,30 @@ const DiplomaShare = () => {
                   </div>
                 </div>
               ))}
+              {!diplomaShareData && (
+                makeEmptyList(4).map((i, number) => (
+                  <div key={number} className="flex-grow-1 mr-3 blockShare blockShareSkeleton" >
+                      <div
+                        className="MainSkeleton titleShareSkeleton "
+                      />
+                      <div
+                        className="MainSkeleton courseShareSkeleton"
+                      />
+                    <div className="d-flexMobil" style={{width:'100%'}}>
+                      <>
+                        {makeEmptyList(6).map((a, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="skeletonCardShare MainSkeleton"
+                            />
+                          )
+                        })}
+                      </>
+                    </div>
+                  </div>
+                ))
+                )}
             </div>
           </div>
         </div>

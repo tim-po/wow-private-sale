@@ -118,14 +118,7 @@ body {
 
 
 
-@keyframes skeleton-loading {
-    0% {
-        background-color: rgba(235, 235, 235, 1);
-    }
-    100% {
-        background-color: rgba(184, 184, 184, .7);
-    }
-}
+
 
 .fullWidth {
     width: 100vw !important;

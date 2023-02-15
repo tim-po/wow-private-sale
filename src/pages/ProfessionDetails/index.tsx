@@ -280,6 +280,7 @@ const ProfessionDetails = () => {
                   {keywords.added.length > 0 && (
                     <div className="subheader-counter">+{keywords.added.length}</div>
                   )}
+
                 </div>
                 <button
                   onClick={editKeywords}
@@ -299,7 +300,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonKeywords MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + 'px',
                           }}

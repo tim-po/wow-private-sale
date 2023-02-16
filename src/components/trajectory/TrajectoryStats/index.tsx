@@ -14,11 +14,10 @@ type TrajectoryStatsPropType = {
   course?: CourseType
   className: string
   setSelectedSphere?: (value: string) => void
-  setIsModalTrajectory?: (value: boolean) => void
 }
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const { course, className = 'Mobile', setSelectedSphere, setIsModalTrajectory } = props
+  const { course, className = 'Mobile', setSelectedSphere } = props
   const [focusedCircleLoading] = useState(false)
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined)
   const [isTooltipActive, setIsTooltipActive] = useState(false)
@@ -147,8 +146,8 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
   const onCircleClick = (name: string) => {
     scrollToElement(name)
-    if (setSelectedSphere && setIsModalTrajectory) {
-      setIsModalTrajectory(false)
+    if (setSelectedSphere) {
+      // setIsModalTrajectory(false)
       setSelectedSphere(name)
       setTimeout(() => {
         closeModal()

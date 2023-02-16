@@ -1,5 +1,5 @@
 import { MouseEvent, RefObject, useEffect } from 'react'
-import { Colors } from '../utils/background/ColorTypes'
+import { Colors } from '../utils/background/background'
 
 export default (
   ref: RefObject<HTMLElement>,

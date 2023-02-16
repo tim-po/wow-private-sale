@@ -26,7 +26,7 @@ const Trajectories = () => {
   const [responseError, setResponseError] = useState<unknown>()
 
   useEffect(() => {
-    changeBg('#F1F2F8')
+    changeBg('var(--bg-color-invert)')
     const professionId = withLocalStorage(
       { professionId: null },
       LocalStorageInteraction.load,

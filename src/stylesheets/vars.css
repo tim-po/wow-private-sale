@@ -31,6 +31,11 @@
     --bg-transition-duration: 0.3s;
     --bg-transition: background-color var(--bg-transition-duration) ease;
 
+    /*BackgroundColors*/
+    --bg-color-base: #FFFFFF;
+    --bg-color-invert: #F3F3F8;
+
+
     /*Shadow*/
     --default-shadow: 0px 0px 1px rgba(31, 31, 34, 0.1), 0px 4px 10px rgba(31, 31, 34, 0.06);
 

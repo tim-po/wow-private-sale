@@ -112,7 +112,7 @@ const Trajectory = () => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
       if (course === 5) {
-        changeBg('#F1F2F8')
+        changeBg('var(--bg-color-invert)')
       } else {
         changeBg('white')
       }

@@ -1,6 +1,19 @@
-import { Colors } from './ColorTypes'
+import {
+  ClassicHEXColor,
+  CssColorNamesType,
+  RGBAColor,
+  RGBColor,
+  ShortHEXColor,
+} from './ColorTypes'
 
-export const changeBg = (bgColor: Colors) => {
+export type Colors =
+  | ClassicHEXColor
+  | ShortHEXColor
+  | RGBColor
+  | RGBAColor
+  | CssColorNamesType
+
+export const changeBg = (bgColor: Colors | string) => {
   const regexp = /#[a-f0-9]{6}/gi
 
   if (bgColor.startsWith('#') && bgColor.length !== 4 && !bgColor.match(regexp)) {

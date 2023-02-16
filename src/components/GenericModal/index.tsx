@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import Close from '../../images/icons/close'
 import useWindowDimensions from '../../utils/useWindowDimensions'
-import { transform } from 'lodash'
 
 // CONSTANTS
 
@@ -76,10 +75,9 @@ const GenericModal = (props: GenericModalOwnProps) => {
 
   useEffect(() => {
     setBlockContent(true)
-    const allModals = Array.from(
-      document.querySelectorAll(`[data-modal]`) as NodeListOf<HTMLElement>,
+    setAllModals(
+      Array.from(document.querySelectorAll(`[data-modal]`) as NodeListOf<HTMLElement>),
     )
-    setAllModals(allModals)
   }, [modalCount])
 
   useEffect(() => {

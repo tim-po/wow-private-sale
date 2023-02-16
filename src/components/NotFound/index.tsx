@@ -12,7 +12,7 @@ const NotFound = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    changeBg('#F1F2F8')
+    changeBg('var(--bg-color-invert)')
   })
 
   return (

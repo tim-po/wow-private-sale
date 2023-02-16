@@ -17,6 +17,7 @@ import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import { makeEmptyList } from '../../utils/general'
+import { randomNumberBetween } from '../../utils/mathUtils'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -77,22 +78,19 @@ const DiplomaShare = () => {
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
         <h5 className="mb-0 titleShare">
-          {diplomaShareData?
+          {diplomaShareData ? (
             <>
               Траектория построена для{' '}
-            {searchParams.get('name')
-              ?
-              searchParams.get('name')
-            :
-              'анонимного будущего студента'}
+              {searchParams.get('name')
+                ? searchParams.get('name')
+                : 'анонимного будущего студента'}
             </>
-            :
+          ) : (
             <div
-              style={{width:600, height:20, borderRadius: 8, marginBottom:12}}
+              style={{ width: 600, height: 20, borderRadius: 8, marginBottom: 12 }}
               className="MainSkeleton"
             />
-          }
-
+          )}
         </h5>
         <div></div>
       </div>
@@ -106,6 +104,7 @@ const DiplomaShare = () => {
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
             isKeywordsButtonHidden={false}
+            keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
           />
           <SwapModal
             modalHeight={250}
@@ -151,14 +150,14 @@ const DiplomaShare = () => {
           <div className="DiplomaCard mb-4">
             <div className="d-flex flexColumn DiplomaDisciplinesCard">
               <div className="LineImg" />
-              {diplomaShareData?.courses.map((course) => (
+              {diplomaShareData?.courses.map(course => (
                 <div className="flex-grow-1 mr-3 blockShare" key={course.course}>
                   <p className="TextCenter mobilNone diplomaDisciplinesCount">
                     {course.disciplines_count} {getDeclension(course.disciplines_count)}
                   </p>
                   <p className="CourseLabel">{course.course} курс</p>
                   <div className="d-flexMobil">
-                    {course.classes.map((item) => (
+                    {course.classes.map(item => (
                       <Card
                         key={item.name}
                         onClick={() =>
@@ -181,30 +180,25 @@ const DiplomaShare = () => {
                   </div>
                 </div>
               ))}
-              {!diplomaShareData && (
+              {!diplomaShareData &&
                 makeEmptyList(4).map((i, number) => (
-                  <div key={number} className="flex-grow-1 mr-3 blockShare blockShareSkeleton" >
-                      <div
-                        className="MainSkeleton titleShareSkeleton "
-                      />
-                      <div
-                        className="MainSkeleton courseShareSkeleton"
-                      />
-                    <div className="d-flexMobil" style={{width:'100%'}}>
+                  <div
+                    key={number}
+                    className="flex-grow-1 mr-3 blockShare blockShareSkeleton"
+                  >
+                    <div className="MainSkeleton titleShareSkeleton " />
+                    <div className="MainSkeleton courseShareSkeleton" />
+                    <div className="d-flexMobil" style={{ width: '100%' }}>
                       <>
                         {makeEmptyList(6).map((a, index) => {
                           return (
-                            <div
-                              key={index}
-                              className="skeletonCardShare MainSkeleton"
-                            />
+                            <div key={index} className="skeletonCardShare MainSkeleton" />
                           )
                         })}
                       </>
                     </div>
                   </div>
-                ))
-                )}
+                ))}
             </div>
           </div>
         </div>

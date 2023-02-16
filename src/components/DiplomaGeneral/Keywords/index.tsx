@@ -1,17 +1,19 @@
-import React, {useContext} from "react";
+import React, { useContext } from 'react'
 import './index.scss'
-import styled from "styled-components";
-import Keyword from "components/Keyword";
-import KeywordsModal from "components/Modals/KeywordsModal";
-import {DiplomaTileWrapper, DiplomaTitle} from "../DiplomaGeneralStyles";
-import {KeywordType} from "types";
-import ModalContext from "Context/Modal";
+import styled from 'styled-components'
+import Keyword from 'components/Keyword'
+import KeywordsModal from 'components/Modals/KeywordsModal'
+import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
+import { KeywordType } from 'types'
+import ModalContext from 'Context/Modal'
 import { makeEmptyList } from '../../../utils/general'
+import { randomNumberBetween } from '../../../utils/mathUtils'
 
 type KeywordsPropType = {
-  keywords: KeywordType[];
-  keywordsCount: number;
-  isKeywordsButtonHidden: boolean;
+  keywords: KeywordType[]
+  keywordsCount: number
+  isKeywordsButtonHidden: boolean
+  keywordSkeletonWidthFunc?: () => string | number
 }
 
 const KeywordsWrapper = styled.div`
@@ -41,42 +43,49 @@ const ShowMoreKeywordsButton = styled.button`
 `
 
 const Keywords = (props: KeywordsPropType) => {
-  const {keywords, keywordsCount, isKeywordsButtonHidden} = props
+  const { keywords, keywordsCount, isKeywordsButtonHidden, keywordSkeletonWidthFunc } =
+    props
 
-  const {displayModal} = useContext(ModalContext)
+  const { displayModal } = useContext(ModalContext)
 
   return (
     <DiplomaTileWrapper>
       <DiplomaTitle>Освою ключевые навыки</DiplomaTitle>
       <KeywordsWrapper>
-        {keywords.length < 1&& (
+        {keywords.length < 1 ? (
           <>
-            {makeEmptyList(7).map((a, index) => {
+            {makeEmptyList(9).map((a, index) => {
               return (
                 <div
                   key={index}
                   className="skeletonKeywords MainSkeleton"
                   style={{
-                    'width': Math.floor(Math.random() * (390 - 41 + 1)) + 20 + 'px',
+                    'width':
+                      (keywordSkeletonWidthFunc
+                        ? keywordSkeletonWidthFunc()
+                        : randomNumberBetween(390, 41, true)) + 'px',
                   }}
                 />
               )
             })}
           </>
+        ) : (
+          keywords.map((keyword: KeywordType) => (
+            <Keyword
+              key={keyword.id}
+              deletable={false}
+              keyword={keyword}
+              bg-color="#EBEBFF"
+            />
+          ))
         )}
-        {keywords.map((keyword: KeywordType) => (
-          <Keyword
-            key={keyword.id}
-            deletable={false}
-            keyword={keyword}
-            bg-color="#EBEBFF"
-          />
-        ))}
-        {!isKeywordsButtonHidden &&
-          <ShowMoreKeywordsButton onClick={() => displayModal(<KeywordsModal keywords={keywords} />)}>
+        {!isKeywordsButtonHidden && keywords.length >= 1 && (
+          <ShowMoreKeywordsButton
+            onClick={() => displayModal(<KeywordsModal keywords={keywords} />)}
+          >
             {`+${keywordsCount - 10}`}
           </ShowMoreKeywordsButton>
-        }
+        )}
       </KeywordsWrapper>
     </DiplomaTileWrapper>
   )

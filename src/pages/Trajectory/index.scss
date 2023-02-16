@@ -62,11 +62,8 @@
     .CoursesRow {
       position: relative;
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       z-index: 2;
-      //width: 100%;
-      flex-shrink: 0;
       min-width: 470px;
 
       .CoursesRowFirstFlex {
@@ -90,7 +87,7 @@
           height: 42px;
           display: flex;
           flex-direction: row;
-          padding: 10px 0px;
+          padding: 10px 0;
           margin-right: 15px;
           margin-left: 15px;
           overflow: hidden;

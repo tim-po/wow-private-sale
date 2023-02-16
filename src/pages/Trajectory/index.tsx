@@ -29,7 +29,6 @@ const Trajectory = () => {
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px')
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
-  const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
   const { width } = useWindowDimensions()
   const [responseError, setResponseError] = useState<number>()
 
@@ -37,6 +36,7 @@ const Trajectory = () => {
   const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
   const courseQuery = +(searchParams.get('course') || '1')
+
   const [transferCoursesRow, setTransferCoursesRow] = useState(false)
 
   const getTrajectory = () => {
@@ -51,10 +51,12 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
+
   useEffect(() => {
     function adaptiveCourse() {
       const widthTitle = stileTextRef.current?.offsetWidth
       const widthContainer = titleNameDiscipline.current?.offsetWidth
+
       if (widthContainer && widthTitle) {
         if (widthContainer < widthTitle + 470) {
           setTransferCoursesRow(true)
@@ -65,10 +67,12 @@ const Trajectory = () => {
     }
 
     window.addEventListener('resize', adaptiveCourse)
+
     return () => {
       window.removeEventListener('resize', adaptiveCourse)
     }
-  })
+  }, [])
+
   useEffect(() => {
     const courseNumber = searchParams.get('course')
     let widthOfCourceLabel = 80
@@ -130,7 +134,6 @@ const Trajectory = () => {
   const openStatsModal = () => {
     displayModal(
       <TrajectoryStats
-        setIsModalTrajectory={setIsModalTrajectory}
         setSelectedSphere={setSelectedSphere}
         className="Desktop"
         course={trajectory.courses.find(course => course.course === courseQuery)}

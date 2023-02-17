@@ -7,18 +7,20 @@ import ControlTypeTile from '../../ControlTypeTile'
 import ModalContext from '../../../Context/Modal'
 import ControlTypeModal from '../../Modals/ControlTypeModal'
 import { scrollToElement } from '../../../utils/scrollToElement'
+import { makeEmptyList } from '../../../utils/general'
 
 const focusedCircleRadius = 90
 
 type TrajectoryStatsPropType = {
   course?: CourseType
   className: string
+  loading?:boolean
   setSelectedSphere?: (value: string) => void
   setIsModalTrajectory?: (value: boolean) => void
 }
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const { course, className = 'Mobile', setSelectedSphere, setIsModalTrajectory } = props
+  const { course, className = 'Mobile', setSelectedSphere, setIsModalTrajectory, loading } = props
   const [focusedCircleLoading] = useState(false)
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined)
   const [isTooltipActive, setIsTooltipActive] = useState(false)
@@ -164,7 +166,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
 
   return (
     <div className={`StatsContainer ${className}`}>
-      <div className="MainHeader">Статистика</div>
+      <div className="MainHeader">   {loading ? <div style={{width: 131, height: 24, borderRadius: 4}} className="MainSkeleton" /> : 'Статистика'}</div>
       <div className="TrajectoryCard" style={{ padding: 0 }}>
         <div className="StatsCircles">
           {layoutData().children?.map((klass: any) => {
@@ -204,10 +206,25 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
               </div>
             )
           })}
+          {loading &&
+            <div>
+            <div style={{position: 'absolute', width: 120,top: 32, left:26, height: 120, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 120,top: 12, left:187, height: 120, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 100,top: 159, left:12, height: 100, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 140,top: 122, left:117, height: 140, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 120,top: 165, left:262, height: 120, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 100,top: 262, left:68, height: 100, borderRadius: 500}} className="MainSkeleton" />
+            <div style={{position: 'absolute', width: 100,top: 272, left:178, height: 100, borderRadius: 500}} className="MainSkeleton" />
+            </div>
+          }
         </div>
       </div>
       <div className="scroll">
         <div className="rowContent">
+          {loading &&
+            makeEmptyList(4).map((a, index) => {
+            return  <div key={index} style={{minWidth: 94, height: 71, borderRadius: 12}} className="MainSkeleton" />
+          })}
           {allControllTypes.map((controlTypeName,index) => {
             if (!course) {
               return null
@@ -226,7 +243,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
         </div>
       </div>
       <div className="descriptionTypeDisciplines">
-        <h6 className="disciplines">Дисциплины</h6>
+        <h6 className="disciplines"> {loading ? <div style={{minWidth: 131, height: 24, borderRadius: 4}} className="MainSkeleton" /> : 'Дисциплины'}</h6>
         <button
           className="questionСircle"
           onMouseEnter={() => setIsTooltipActive(true)}
@@ -241,8 +258,8 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           disabled={!getNecessityCount().necessary}
           onClick={openNecessaryDisciplinesModal}
         >
-          <span>Обязательные</span>
-          <span>{getNecessityCount().necessary}</span>
+          <span> {loading ? <div style={{minWidth: 131, height: 24, borderRadius: 4}} className="MainSkeleton" /> : 'Обязательные'}</span>
+          <span>{!loading && getNecessityCount().necessary}</span>
         </button>
 
         <button
@@ -250,8 +267,8 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           disabled={!getNecessityCount().chosen}
           onClick={openChosenDisciplinesModal}
         >
-          <span>По выбору</span>
-          <span>{getNecessityCount().chosen}</span>
+          <span>{loading ? <div style={{minWidth: 131, height: 24, borderRadius: 4}} className="MainSkeleton" /> : 'По выбору'}</span>
+          <span>{!loading && getNecessityCount().chosen}</span>
         </button>
       </div>
     </div>

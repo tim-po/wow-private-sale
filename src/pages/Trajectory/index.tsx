@@ -13,7 +13,7 @@ import ModalContext from '../../Context/Modal'
 import TrajectoryStats from '../../components/trajectory/TrajectoryStats'
 import Card from '../../components/trajectory/Card'
 import './index.scss'
-import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
+import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
@@ -30,7 +30,7 @@ const Trajectory = () => {
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
-
+  const [loading, setLoading] = useState(true)
   const [responseError, setResponseError] = useState<number>()
 
   const courseQuery = +(searchParams.get('course') || '1')
@@ -57,7 +57,10 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
-
+  useEffect(()=>{
+    if (trajectory)
+    setLoading(false)
+  })
   useEffect(() => {
     setNewBackButtonProps(
       'Все траектории',
@@ -82,13 +85,10 @@ const Trajectory = () => {
     return <NotFound />
   }
 
-  if (!trajectory) {
-    return <LoadingScreen isLoading={true} header={'Траектория загружается'} />
-  }
 
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
+      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
       if (course === 5) {
         changeBg('#F1F2F8')
       } else {
@@ -111,7 +111,7 @@ const Trajectory = () => {
         setIsModalTrajectory={setIsModalTrajectory}
         setSelectedSphere={setSelectedSphere}
         className="Desktop"
-        course={trajectory.courses.find(course => course.course === courseQuery)}
+        course={trajectory?.courses.find(course => course.course === courseQuery)}
       />,
     )
   }
@@ -120,7 +120,8 @@ const Trajectory = () => {
     <div className="TrajectoryPage">
       <div className="titleNameDiscipline">
         <h5 className="mb-0 StileText" id="scrollToTop">
-          {trajectory.educational_plan}
+          {/* {trajectory?.educational_plan} */}
+          {loading?  <div style={{minWidth: 300, height: 20, borderRadius:4}} className=" MainSkeleton" />: trajectory?.educational_plan }
         </h5>
         <div
           className="CoursesRow"
@@ -135,7 +136,7 @@ const Trajectory = () => {
             leftOffset={selectorLeftOffset}
           />
           <div className="CoursesRowFirstFlex">
-            {trajectory.courses.map(course => {
+            {trajectory?.courses.map(course => {
               return (
                 <button
                   className={`CourseButton ${
@@ -164,7 +165,8 @@ const Trajectory = () => {
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
             className="Mobile"
-            course={trajectory.courses.find(course => course.course === courseQuery)}
+            loading={loading}
+            course={trajectory?.courses.find(course => course.course === courseQuery)}
           />
           <div className="MobileBlock">
             <div className={`mobileBottomWrapper`}>
@@ -181,18 +183,25 @@ const Trajectory = () => {
                 id="blob-0-top-left"
                 style={{ flexGrow: 2 }}
               >
-                Осенний семестр
+
+                {loading  ? <div style={{maxWidth: 106, borderRadius:4, height: 20}} className=" MainSkeleton" /> : <span> Осенний семестр</span>}
               </p>
               <p
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-1-top-left"
                 style={{ flexGrow: 2 }}
               >
-                Весенний семестр
+                {loading ? <div style={{maxWidth: 106, height: 20, borderRadius:4}} className=" MainSkeleton" />: <span> Осенний семестр</span>}
               </p>
             </div>
-
-            {trajectory.courses
+            {loading  && (
+              <>
+                {makeEmptyList(4).map((a, index) => {
+                  return <div key={index} className="TrajectoryCardSkeleton MainSkeleton" />
+                })}
+              </>
+            )}
+            {trajectory?.courses
               .find(course => course.course === courseQuery)
               ?.classes.map((sphere, index) => {
                 return (

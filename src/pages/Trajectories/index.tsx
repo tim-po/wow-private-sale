@@ -3,10 +3,8 @@ import BackButtonContext from '../../Context/BackButton'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import * as Scroll from 'react-scroll'
-import PercentProgress from '../../components/PercentProgress'
 import './index.scss'
 import { BASE_URL } from '../../constants'
-import Close from '../../images/icons/close'
 import {
   LocalStorageInteraction,
   makeEmptyList,
@@ -18,6 +16,8 @@ import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
+import WarningCard from '../../components/WarningCard'
+import PercentProgress from '../../components/PercentProgress'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
@@ -26,7 +26,7 @@ const Trajectories = () => {
   const [responseError, setResponseError] = useState<unknown>()
 
   useEffect(() => {
-    changeBg('#F1F2F8')
+    changeBg('var(--bg-color-invert)')
     const professionId = withLocalStorage(
       { professionId: null },
       LocalStorageInteraction.load,
@@ -64,23 +64,31 @@ const Trajectories = () => {
         Готовые траектории
       </h1>
 
-      <div className={'animationWrap Hidden'}>
-        <div className="TrajectoriesInfoCard align-items-center">
-          <PercentProgress percent={0.8} />
-          Мы собрали подходящие для тебя образовательные программы в ИТМО.
-          <br />
-          Индикатор показывает совпадение с ключевыми словами.
-          <button
-            className="border-0 pr-0 py-0 hideButton"
-            onClick={() => {
-              const card = document.querySelector('.animationWrap')
-              if (card) card.classList.toggle('Hidden')
-            }}
-          >
-            <Close width={10} height={10} />
-          </button>
-        </div>
-      </div>
+      <WarningCard
+        wrapClassName={'animationWrap'}
+        contentClassName={'TrajectoriesInfoCard'}
+        onCrossClick={() => {
+          const card = document.querySelector('.animationWrap')
+          if (card) card.classList.toggle('Hidden')
+        }}
+      >
+        <PercentProgress percent={0.8} />
+        Мы собрали подходящие для тебя образовательные программы в ИТМО.
+        <br />
+        Индикатор показывает совпадение с ключевыми словами.
+      </WarningCard>
+
+      {/* <div className={'animationWrap'}> */}
+      {/*   <div className="TrajectoriesInfoCard align-items-center"> */}
+      {/*     <PercentProgress percent={0.8} /> */}
+      {/*     Мы собрали подходящие для тебя образовательные программы в ИТМО. */}
+      {/*     <br /> */}
+      {/*     Индикатор показывает совпадение с ключевыми словами. */}
+      {/*     <button className="border-0 pr-0 py-0 hideButton" onClick={() => {}}> */}
+      {/*       <Close width={10} height={10} /> */}
+      {/*     </button> */}
+      {/*   </div> */}
+      {/* </div> */}
       {trajectories.length
         ? trajectories.map((trajectory, index) => (
             <TrajectoryPreview key={trajectory.id + index} trajectory={trajectory} />

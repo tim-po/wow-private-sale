@@ -12,7 +12,7 @@ import { changeBg } from '../../utils/background/background'
 
 const Start = () => {
   useEffect(() => {
-    changeBg('#F1F2F8')
+    changeBg('var(--bg-color-invert)')
   }, [])
 
   return (

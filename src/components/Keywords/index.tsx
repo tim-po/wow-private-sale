@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './index.scss'
 import { KeywordType } from '../../types'
 import Keyword from '../Keyword'
@@ -18,7 +18,6 @@ import { changeBg } from '../../utils/background/background'
 //   'Все понятно 👌',
 // ]
 
-
 type KeywordsPropType = {
   keywords: {
     added: KeywordType[]
@@ -36,7 +35,7 @@ const Keywords = (props: KeywordsPropType) => {
   // const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
 

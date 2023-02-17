@@ -93,7 +93,7 @@ const Trajectory = () => {
       }`,
     )
     getTrajectory()
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
 
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
@@ -116,9 +116,9 @@ const Trajectory = () => {
     if (courseQuery !== course) {
       navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
       if (course === 5) {
-        changeBg('#F1F2F8')
+        changeBg('var(--bg-color-invert)')
       } else {
-        changeBg('white')
+        changeBg('var(--bg-color-base)')
       }
     }
   }
@@ -157,7 +157,11 @@ const Trajectory = () => {
         </h5>
         <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
-            bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
+            bgColor={
+              searchParams.get('course') === '5'
+                ? 'var(--bg-color-base)'
+                : 'var(--bg-color-invert)'
+            }
             leftOffset={selectorLeftOffset}
           />
           <div className="CoursesRowFirstFlex">

@@ -43,7 +43,7 @@ const ProfessionDetails = () => {
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
 
     if (searchParams.get('view') === 'main') {
       setNewBackButtonProps('Все профессии', '/professions')

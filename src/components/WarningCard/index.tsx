@@ -24,7 +24,6 @@ const WarningCard = ({
   useEffect(() => {
     if (card.current) {
       const bodyBgColor = getBg()
-      console.log(bodyBgColor)
 
       if (bodyBgColor === 'var(--bg-color-base)')
         card.current.style.setProperty('--bg-warning-card', 'var(--bg-color-invert)')

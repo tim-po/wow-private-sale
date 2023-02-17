@@ -155,6 +155,7 @@ const Trajectory = () => {
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
+
         <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
             bgColor={

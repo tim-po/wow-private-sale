@@ -1,8 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const DiplomaTileWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  //flex-direction: column;
   border-radius: 16px;
   padding: 20px 25px;
   background: #fff;

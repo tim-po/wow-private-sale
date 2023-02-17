@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from 'react'
 import './index.scss'
-import styled from "styled-components";
-import {DiplomaTileWrapper, DiplomaTitle} from "../DiplomaGeneralStyles";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import styled from 'styled-components'
+import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
+import { isMobile } from 'react-device-detect'
+import ModalContext from '../../../Context/Modal'
 
 type GenericModalPropType = {
-  iconUrl: string;
-  title: string;
+  iconUrl: string
+  title: string
 }
 
 const TextSmall = styled.span`
@@ -26,16 +29,57 @@ const StyledIcon = styled.img`
   height: 16px;
 `
 
+const videoId = 'ao7aX7nkCHg'
+const youTubeSrc = `https://www.youtube.com/embed/${videoId}`
+const previewSrc = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+
 const Description = (props: GenericModalPropType) => {
-  const {iconUrl, title} = props
+  const { iconUrl, title } = props
+  const { displayModal } = useContext(ModalContext)
+
   return (
     <DiplomaTileWrapper>
-      <DiplomaTitle>{title}</DiplomaTitle>
-      <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
-      <BachelorTitleWrapper>
-        <StyledIcon src={iconUrl} alt="icon"/>
-        <TextSmall>Бакалавриат</TextSmall>
-      </BachelorTitleWrapper>
+      {isMobile ? (
+        <div className="player ratio ratio-16x9">
+          <iframe
+            className="you"
+            src={youTubeSrc}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ) : (
+        <div
+          className="preview"
+          onClick={() =>
+            displayModal(
+              <div className={'modalPlayer'}>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/ao7aX7nkCHg"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>,
+            )
+          }
+        >
+          <img src={previewSrc} alt="preview" />
+        </div>
+      )}
+
+      <div>
+        <DiplomaTitle>{title}</DiplomaTitle>
+        <br />
+        <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
+        <BachelorTitleWrapper>
+          <StyledIcon src={iconUrl} alt="icon" />
+          <TextSmall>Бакалавриат</TextSmall>
+        </BachelorTitleWrapper>
+      </div>
     </DiplomaTileWrapper>
   )
 }

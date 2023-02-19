@@ -7,13 +7,16 @@ import CourseSelector from '../../components/trajectory/CourseSelector'
 import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
-import LoadingScreen from '../../components/LoadingScreen'
 import * as Scroll from 'react-scroll'
 import ModalContext from '../../Context/Modal'
 import TrajectoryStats from '../../components/trajectory/TrajectoryStats'
 import Card from '../../components/trajectory/Card'
 import './index.scss'
-import { LocalStorageInteraction, makeEmptyList, withLocalStorage } from '../../utils/general'
+import {
+  LocalStorageInteraction,
+  makeEmptyList,
+  withLocalStorage,
+} from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
@@ -51,16 +54,14 @@ const Trajectory = () => {
       .then(response => {
         if (response.status === 200) {
           setTrajectory(response.data)
+          setLoading(false)
         }
       })
       .catch(e => {
         setResponseError(e.response.status)
       })
   }
-  useEffect(()=>{
-    if (trajectory)
-    setLoading(false)
-  })
+
   useEffect(() => {
     setNewBackButtonProps(
       'Все траектории',
@@ -84,7 +85,6 @@ const Trajectory = () => {
   ) {
     return <NotFound />
   }
-
 
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
@@ -121,7 +121,14 @@ const Trajectory = () => {
       <div className="titleNameDiscipline">
         <h5 className="mb-0 StileText" id="scrollToTop">
           {/* {trajectory?.educational_plan} */}
-          {loading?  <div style={{minWidth: 300, height: 20, borderRadius:4}} className=" MainSkeleton" />: trajectory?.educational_plan }
+          {loading ? (
+            <div
+              style={{ minWidth: 300, height: 20, borderRadius: 4 }}
+              className=" MainSkeleton"
+            />
+          ) : (
+            trajectory?.educational_plan
+          )}
         </h5>
         <div
           className="CoursesRow"
@@ -183,21 +190,36 @@ const Trajectory = () => {
                 id="blob-0-top-left"
                 style={{ flexGrow: 2 }}
               >
-
-                {loading  ? <div style={{maxWidth: 106, borderRadius:4, height: 20}} className=" MainSkeleton" /> : <span> Осенний семестр</span>}
+                {loading ? (
+                  <div
+                    style={{ maxWidth: 106, borderRadius: 4, height: 20 }}
+                    className=" MainSkeleton"
+                  />
+                ) : (
+                  <span> Осенний семестр</span>
+                )}
               </p>
               <p
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-1-top-left"
                 style={{ flexGrow: 2 }}
               >
-                {loading ? <div style={{maxWidth: 106, height: 20, borderRadius:4}} className=" MainSkeleton" />: <span> Осенний семестр</span>}
+                {loading ? (
+                  <div
+                    style={{ maxWidth: 106, height: 20, borderRadius: 4 }}
+                    className=" MainSkeleton"
+                  />
+                ) : (
+                  <span> Осенний семестр</span>
+                )}
               </p>
             </div>
-            {loading  && (
+            {loading && (
               <>
                 {makeEmptyList(4).map((a, index) => {
-                  return <div key={index} className="TrajectoryCardSkeleton MainSkeleton" />
+                  return (
+                    <div key={index} className="TrajectoryCardSkeleton MainSkeleton" />
+                  )
                 })}
               </>
             )}

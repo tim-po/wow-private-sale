@@ -225,7 +225,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
               </div>
             )
           })}
-          {!loading && (
+          {loading && (
             <div>
               {skeletonCircles.map((item, i) => (
                 <div
@@ -274,7 +274,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
       </div>
       <div className="descriptionTypeDisciplines">
         <h6 className="disciplines">
-          {' '}
           {loading ? (
             <div
               style={{ minWidth: 131, height: 24, borderRadius: 4 }}
@@ -299,7 +298,6 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           onClick={openNecessaryDisciplinesModal}
         >
           <span>
-            {' '}
             {loading ? (
               <div
                 style={{ minWidth: 131, height: 24, borderRadius: 4 }}

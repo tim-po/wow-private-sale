@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './index.scss'
 
 import { KeywordType } from '../../types'
@@ -18,7 +18,6 @@ import { changeBg } from '../../utils/background/background'
 //   'Все сложно  🤯',
 //   'Все понятно 👌',
 // ]
-
 
 type KeywordsPropType = {
   keywords: {
@@ -101,7 +100,7 @@ const Keywords = (props: KeywordsPropType) => {
                         key={keyword.id}
                         deletable={true}
                         keyword={keyword}
-                        bg-color="'var(--color-secondary)'"
+                        bg-color="var(--color-secondary)"
                         onDeleteSelf={() => keywords.remove(keyword)}
                       />
                     )
@@ -115,8 +114,6 @@ const Keywords = (props: KeywordsPropType) => {
               Уже в наборе
             </p>
             <div className="keywordsPresets">
-
-
               {keywords.display.length < 1 && (
                 <>
                   {makeEmptyList(100).map((a, index) => {
@@ -138,7 +135,7 @@ const Keywords = (props: KeywordsPropType) => {
                     key={keyword.id}
                     deletable={true}
                     keyword={keyword}
-                    bg-color="'var(--color-secondary)'"
+                    bg-color="var(--color-secondary)"
                     onDeleteSelf={() => keywords.remove(keyword)}
                   />
                 )

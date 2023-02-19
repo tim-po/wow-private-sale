@@ -221,6 +221,8 @@
         width: 100%;
         left: 0;
 
+        animation: staticBlock 0.3s;
+
         .BottomButtonsCurs {
           .buttonCourse {
             font-weight: 700;
@@ -245,4 +247,13 @@
     display: none !important;
   }
 
+}
+
+@keyframes staticBlock {
+  from{
+    bottom: -400px;
+  }
+  to{
+    bottom: 0;
+  }
 }

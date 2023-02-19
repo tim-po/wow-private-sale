@@ -280,7 +280,6 @@ const ProfessionDetails = () => {
                   {keywords.added.length > 0 && (
                     <div className="subheader-counter">+{keywords.added.length}</div>
                   )}
-
                 </div>
                 <button
                   onClick={editKeywords}
@@ -319,7 +318,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )
@@ -330,7 +329,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )

@@ -62,6 +62,12 @@ const Trajectory = () => {
       })
   }
 
+  const navigateToCourse = (course: number) => {
+    if (courseQuery !== course) {
+      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
+    }
+  }
+
   useEffect(() => {
     setNewBackButtonProps(
       'Все траектории',
@@ -71,11 +77,18 @@ const Trajectory = () => {
       }`,
     )
     getTrajectory()
-    changeBg('white')
 
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
   }, [])
+
+  useEffect(() => {
+    if (courseQuery === 5) {
+      changeBg('#F1F2F8')
+    } else {
+      changeBg('white')
+    }
+  }, [courseQuery])
 
   if (
     courseQuery > 5 ||
@@ -84,17 +97,6 @@ const Trajectory = () => {
     !+(searchParams.get('course') ?? '')
   ) {
     return <NotFound />
-  }
-
-  const navigateToCourse = (course: number) => {
-    if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
-      if (course === 5) {
-        changeBg('#F1F2F8')
-      } else {
-        changeBg('white')
-      }
-    }
   }
 
   const selectNewSphere = (newSphereName: string) => {
@@ -176,13 +178,16 @@ const Trajectory = () => {
             course={trajectory?.courses.find(course => course.course === courseQuery)}
           />
           <div className="MobileBlock">
-            <div className={`mobileBottomWrapper`}>
-              <div className="BottomButtonsCurs">
-                <button className="buttonCourse" onClick={openStatsModal}>
-                  Статистика по курсу
-                </button>
+            {!loading && (
+              <div className={`mobileBottomWrapper`}>
+                <div className="BottomButtonsCurs">
+                  <button className="buttonCourse" onClick={openStatsModal}>
+                    Статистика по курсу
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
+
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
                 ref={isMobile ? undefined : hintSemester}

@@ -1,5 +1,60 @@
-.professionDetails {
-  padding-bottom: 40px;
+.professionDetailsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 720px;
+  transition: all 0.5s;
+}
+
+.professionDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  border: 1px solid #E7E8EE;
+  border-radius: 16px;
+  margin-bottom: 24px;
+
+  &Title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1F1F22;
+    margin-bottom: 16px;
+  }
+
+  &Text {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &Skeletons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.actionBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F3F3F8;
+  padding: 24px;
+  border-radius: 12px;
+  gap: 16px;
+
+  &Text {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .buttonWrapper {
+    width: 100%;
+    max-width: 150px;
+  }
 }
 
 .modalKeywords {
@@ -13,7 +68,7 @@
   height: 31px;
 }
 
-.build-trajectory-text {
+.buildTrajectoryText {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -44,12 +99,12 @@
   margin-right: 4px;
 }
 
-.lamp-icon {
+.lampIcon {
   width: 80px;
   height: 155px;
 }
 
-.profession-data {
+.professionData {
   display: flex;
   flex-wrap: wrap;
 }
@@ -118,7 +173,6 @@
   flex-grow: 5;
 }
 
-
 .subheader {
   //position: sticky;
   display: flex;
@@ -176,7 +230,6 @@
     transform: rotateX(0deg) translateY(0) scaleX(1);
   }
 }
-
 
 .bottomLeftContainer {
   z-index: 2000;
@@ -236,7 +289,6 @@
 /*  border-radius: 8px;*/
 /*  padding: 8px 12px;*/
 /*}*/
-
 
 .slide {
   display: flex;
@@ -469,7 +521,6 @@
   overflow-y: auto;
 }
 
-
 .keywords__add {
   background: transparent;
   border-radius: 8px;
@@ -478,7 +529,7 @@
   padding: 8px 12px;
 }
 
-.keywords__card {
+.keywordsCard {
   transition: all 0.5s;
   border-radius: 16px;
   padding: 24px;
@@ -537,7 +588,7 @@
   right: 40px;
 }
 
-.button-primary {
+.buttonPrimary {
   max-width: 160px;
   margin-top: 24px;
   transition: all 0.5s, background 0.3s;
@@ -549,13 +600,13 @@
   font-weight: 700;
 }
 
-.button-primary:hover {
+.buttonPrimary:hover {
   background: #AE78FE;
   border-radius: 8px;
   color: white;
 }
 
-.button-primary:active {
+.buttonPrimary:active {
   background: #7328E2;
   color: #FFFFFF;
   border-radius: 8px;
@@ -622,21 +673,10 @@
 
 .professionContainer {
   transition: all 0.5s;
-  /*position: relative;*/
   width: 100%;
-  max-width: 490px;
-  margin-right: 68px;
-  /*min-width: 320px;*/
+  max-width: 720px;
   flex-shrink: 2;
 }
-
-.professionDescription {
-  position: sticky;
-  top: 72px;
-  display: flex;
-  flex-direction: column;
-}
-
 
 .buttonSecondary:active {
   background: var(--color-secondary);
@@ -728,7 +768,7 @@
     top: 65px;
   }
 
-  .subheader-mobile {
+  .subheaderMobile {
     background: #fff;
     padding-bottom: 8px;
   }
@@ -874,17 +914,17 @@
     /*order: 2;*/
   }
 
-  .keywords__card {
+  .keywordsCard {
     max-height: 488px;
   }
 
   .fontWeightBold.editing,
-  .keywords__card.editing {
+  .keywordsCard.editing {
     overflow: hidden;
     max-height: 0;
   }
 
-  .keywords__card.editing {
+  .keywordsCard.editing {
     padding-bottom: 0;
     padding-top: 0;
     border: 0px solid #e7e8ee;
@@ -911,7 +951,7 @@
     /*margin-bottom: inherit;*/
   }
 
-  .keywords__card {
+  .keywordsCard {
     padding: 16px;
     margin-bottom: inherit !important;
   }
@@ -964,13 +1004,13 @@
     flex-direction: column;
   }
 
-  .button-primary {
+  .buttonPrimary {
     padding: 10px 0 10px 0;
     margin: inherit;
     max-width: inherit;
   }
 
-  .keywords__card {
+  .keywordsCard {
     display: flex;
     flex-direction: column;
   }

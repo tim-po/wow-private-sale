@@ -108,3 +108,15 @@ export type TrajectoryDisciplineType = {
   prev_disciplines: NextOrPrevDisciplinesType[]
   replacement_options: NextOrPrevDisciplinesType[]
 }
+
+export enum RoutesName {
+  START = '/',
+  PROFESSIONS = '/professions/*',
+  PROFESSION = '/profession/:profId',
+  SKILLS = '/skills',
+  KEYWORDS = '/keywords',
+  DIPLOMA_SHARE = '/diplomaShare*',
+  TRAJECTORY = '/trajectory*',
+  TRAJECTORIES = '/trajectories*',
+  NOT_FOUND = '/*',
+}

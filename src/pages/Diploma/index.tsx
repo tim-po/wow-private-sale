@@ -106,7 +106,6 @@ const Diploma = () => {
                   <div className="share-button-content">
                     <span className={'button-text'}>Поделиться</span>
                     <div className={'share-icon'}>
-                      {' '}
                       <Share />
                     </div>
                   </div>

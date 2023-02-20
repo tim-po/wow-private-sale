@@ -110,7 +110,6 @@ const Profession = () => {
           </div>
         </div>
       </div>
-      )
     </div>
   )
 }

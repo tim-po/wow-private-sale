@@ -1,0 +1,86 @@
+
+.NavItem {
+  transition: all .3s .1s ease-in-out;
+
+  transform: translateX(0);
+  overflow: hidden;
+  cursor: default;
+  white-space: nowrap;
+
+  background-color: var(--color-brand);
+  border: 2px solid var(--bg-color);
+
+  max-width: 36px;
+  height: 36px;
+  border-radius: 18px;
+
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &.optional{
+    animation: optionalStepAppear 0.5s ease-in-out;
+  }
+
+  &.last {
+    cursor: pointer;
+
+    &:hover{
+      .Icon{
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &.prev, &.last {
+    background-color: #DEC7FF;
+
+    .Icon {
+      &.withIcon svg {
+        fill: var(--color-brand);
+      }
+    }
+  }
+
+  &.next, &.further {
+    background-color: #E7E8EE;
+
+    .Icon {
+      &.withIcon svg {
+        fill: var(--text-secondary);
+      }
+    }
+  }
+
+  &.current {
+    max-width: 170px;
+
+    .Icon {
+      background-color: white;
+
+      & svg {
+        fill: var(--color-brand);
+      }
+    }
+  }
+
+  .StepTitle {
+    color: #F3F3F8;
+    margin-right: 8px;
+  }
+
+  .Icon {
+    transition: all 0.2s;
+
+    transform: scale(1);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

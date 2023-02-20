@@ -73,7 +73,7 @@ const Layout = (props: layoutPropType) => {
           value={{ isOpenRandomFeedback, closeRandomFeedback }}
         >
           <div className="DefaultLayoutContainer" id="scroll-container">
-            <Header left={backButtonHref === '/'} />
+            <Header />
             <div className="Content">
               {children}
               {modalComponent.map((component, index) => (

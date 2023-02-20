@@ -120,3 +120,8 @@ export enum RoutesName {
   TRAJECTORIES = '/trajectories*',
   NOT_FOUND = '/*',
 }
+
+export interface LetterImageProps {
+  width: number
+  height: number
+}

@@ -2,12 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .contentWrapper {
   width: 100%;
   max-width: 720px;
   transition: all 0.5s;
+
+  @media screen and (max-width: 760px) {
+    max-width: 100%;
+  }
 }
 
 .professionDescription {
@@ -45,6 +50,7 @@
   padding: 24px;
   border-radius: 12px;
   gap: 16px;
+  margin-bottom: 24px;
 
   &Text {
     font-weight: 400;
@@ -54,6 +60,26 @@
   .buttonWrapper {
     width: 100%;
     max-width: 150px;
+
+    @media screen and (max-width: 760px) {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 16px;
+      background: #FFFFFF;
+      border-top: 1px solid #E7E8EE;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      max-width: none;
+    }
+
+    button {
+      @media screen and (max-width: 760px) {
+        width: 100%;
+      }
+    }
   }
 }
 

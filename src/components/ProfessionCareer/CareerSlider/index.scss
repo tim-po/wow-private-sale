@@ -1,0 +1,154 @@
+.sliderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 60px;
+
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 160px;
+    background: #F3F3F8;
+    border-radius: 12px;
+    margin-right: 40px;
+    position: relative;
+    overflow: hidden;
+
+    @media screen and (max-width: 760px) {
+      width: 310px;
+      margin-right: 0;
+    }
+  }
+
+  .sliderLineWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 430px;
+    margin-top: 50px;
+
+    @media screen and (max-width: 760px) {
+      margin-top: 80px;
+    }
+
+    .linePointsText {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 430px;
+
+      .pointTitle {
+        font-weight: 400;
+        font-size: 14px;
+        color: #1F1F22;
+      }
+
+      .pointText {
+        font-weight: 400;
+        font-size: 10px;
+        color: #B7B6BC;
+      }
+
+      .pointItemFirst {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pointItemSecond {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pointItemThird {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+    }
+
+    .sliderLine {
+      background: #E7E8EE;
+      border-radius: 19px;
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 100%;
+      max-width: 430px;
+      height: 6px;
+      position: relative;
+
+      &Fill {
+        border-radius: 19px;
+        height: 6px;
+        background: linear-gradient(90deg, #FE462D 0%, #E33091 105.51%, #8D34FF 202.59%);
+        background-size: 100%;
+        position: absolute;
+        left: 0;
+        right: 100%;
+      }
+
+      &Star {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 0;
+        left: 0;
+        bottom: -11px;
+        cursor: pointer;
+        position: absolute;
+
+        .tooltipWrapper {
+          position: relative;
+
+          .tooltipContent {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: absolute;
+            color: #fff;
+            bottom: 18.5px;
+            left: -12px;
+            padding: 8px 12px;
+            height: 36px;
+            min-width: 100px;
+            background: #323243;
+            border-radius: 12px;
+
+            &Text {
+              margin-right: 3px;
+            }
+
+            .drumWrapper {
+              height: 20px;
+              position: relative;
+              width: 52px;
+              overflow: hidden;
+            }
+
+            .drumItem {
+              position: absolute;
+
+              &Text {
+                color: #fff;
+                height: 21px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

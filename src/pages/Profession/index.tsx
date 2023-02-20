@@ -11,6 +11,8 @@ import {
 } from '../../utils/general'
 import Button from '../../components/Button'
 import { RoutesName } from '../../types'
+import ProfessionCareer from '../../components/ProfessionCareer'
+import { createStickyBlock } from '../../utils/stickyHeaders'
 
 type ProfessionContextType = ReturnType<typeof useProfession>
 
@@ -41,6 +43,11 @@ const Profession = () => {
   return (
     <div className="professionDetailsContainer">
       <div className="contentWrapper">
+        <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
+          <h4 className="currentHeader fontWeightBold" id="scrollToTop">
+            {profession && profession.name}
+          </h4>
+        </div>
         <div className="professionDescription">
           <span className="professionDescriptionTitle">О профессии</span>
           {profession && profession.description && (
@@ -67,12 +74,13 @@ const Profession = () => {
             Мы уже собрали необходимый набор навыков для твоей профессии, добавляй
             дополнительные знания в свою траекторию, используя карточки навыков!
           </span>
-          <div className="buttonWrapper">
+          <div className="buttonWrapper buttonWrapperMobile">
             <Button onClick={openSkillSets} buttonStyle={'main'}>
               Добавить навык
             </Button>
           </div>
         </div>
+        <ProfessionCareer />
       </div>
     </div>
   )

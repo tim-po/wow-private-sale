@@ -11,11 +11,11 @@ import {
   makeEmptyList,
   withLocalStorage,
 } from '../../utils/general'
-import Close from '../../images/icons/close'
 import FeedbackStatic from '../../components/Modals/feedback/feedbackStatic'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
 import ModalContext from '../../Context/Modal'
+import WarningCard from '../../components/WarningCard'
 
 // CONSTANTS
 
@@ -69,7 +69,7 @@ const Professions = () => {
   }
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
     getProfessions().then(() => {
       setTimeout(() => setIsFeedbackPopupVisible(true), 2000)
     })
@@ -100,26 +100,20 @@ const Professions = () => {
             )
           })}
         </div>
-        <div
-          className={`ProfessionModalBottom ${
-            isFeedbackPopupVisible
-              ? 'profession__modal__bottomOn'
-              : 'ProfessionModalBottomNon'
+
+        <WarningCard
+          wrapClassName={`ProfessionModalBottom ${
+            isFeedbackPopupVisible ? '' : 'ProfessionModalBottomNon'
           }`}
+          onCrossClick={() => setIsFeedbackPopupVisible(false)}
         >
-          <button
-            className="CloseFeedback"
-            onClick={() => setIsFeedbackPopupVisible(false)}
-          >
-            <Close width={10} height={10} />
-          </button>
           <span className="Text">
             Сервис работает в тестовом режиме, список профессий будет дополняться.&#160;
             <button className="LinkText" onClick={openFeedbackStatic}>
               Расскажи, какой профессии тебе не хватает?
             </button>
           </span>
-        </div>
+        </WarningCard>
       </div>
     </div>
   )

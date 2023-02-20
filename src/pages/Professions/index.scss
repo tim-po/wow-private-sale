@@ -59,15 +59,12 @@
     .ProfessionModalBottom {
       z-index: 2;
       max-height: 72px;
-      //position: absolute;
+      position: fixed;
       bottom: 32px;
       right: 32px;
-      position: fixed;
       max-width: 504px;
-      background: #F3F3F8;
-      padding: 16px;
       transition-duration: 0.4s;
-      border-radius: 12px;
+
       &.ProfessionModalBottomNon{
         right: -600px;
         overflow: hidden;
@@ -129,11 +126,7 @@
         //position: absolute;
         position: fixed;
         max-width: 420px;
-        background: #F3F3F8;
-        padding: 16px;
         transition-duration: 0.4s;
-        border-radius: 12px;
-        padding-right: 40px;
 
         &.ProfessionModalBottomNon{
           right: -100%;

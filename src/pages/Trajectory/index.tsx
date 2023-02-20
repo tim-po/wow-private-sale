@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { isMobile } from 'react-device-detect'
 import CourseSelector from '../../components/trajectory/CourseSelector'
 import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
@@ -21,6 +20,7 @@ import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()
@@ -32,21 +32,17 @@ const Trajectory = () => {
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px')
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
+  const { width } = useWindowDimensions()
   const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
   const [loading, setLoading] = useState(true)
   const [responseError, setResponseError] = useState<number>()
 
+  const stileTextRef = useRef<HTMLDivElement>(null)
+  const titleNameDiscipline = useRef<HTMLDivElement>(null)
+
   const courseQuery = +(searchParams.get('course') || '1')
-  useEffect(() => {
-    const courseNumber = searchParams.get('course')
-    let widthOfCourceLabel = 80
-    if (isMobile) {
-      widthOfCourceLabel = 44
-    }
-    if (courseNumber === '5') {
-      setSelectorLeftOffset('calc(100% - 80px)')
-    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
-  }, [isMobile, searchParams.get('course')])
+
+  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
 
   const getTrajectory = () => {
     axios
@@ -62,11 +58,39 @@ const Trajectory = () => {
       })
   }
 
-  const navigateToCourse = (course: number) => {
-    if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
+
+
+  useEffect(() => {
+    function adaptiveCourse() {
+      const widthTitle = stileTextRef.current?.offsetWidth
+      const widthContainer = titleNameDiscipline.current?.offsetWidth
+
+      if (widthContainer && widthTitle) {
+        if (widthContainer < widthTitle + 470) {
+          setTransferCoursesRow(true)
+        } else {
+          setTransferCoursesRow(false)
+        }
+      }
     }
-  }
+
+    window.addEventListener('resize', adaptiveCourse)
+
+    return () => {
+      window.removeEventListener('resize', adaptiveCourse)
+    }
+  }, [])
+
+  useEffect(() => {
+    const courseNumber = searchParams.get('course')
+    let widthOfCourceLabel = 80
+    if (width < 1000) {
+      widthOfCourceLabel = 44
+    }
+    if (courseNumber === '5') {
+      setSelectorLeftOffset('calc(100% - 80px)')
+    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
+  }, [width, searchParams.get('course')])
 
   useEffect(() => {
     setNewBackButtonProps(
@@ -77,6 +101,7 @@ const Trajectory = () => {
       }`,
     )
     getTrajectory()
+    changeBg('var(--bg-color-base)')
 
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
@@ -99,6 +124,21 @@ const Trajectory = () => {
     return <NotFound />
   }
 
+  if (!trajectory) {
+    return <LoadingScreen isLoading={true} header={'Траектория загружается'} />
+  }
+
+  const navigateToCourse = (course: number) => {
+    if (courseQuery !== course) {
+      navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
+      if (course === 5) {
+        changeBg('var(--bg-color-invert)')
+      } else {
+        changeBg('var(--bg-color-base)')
+      }
+    }
+  }
+
   const selectNewSphere = (newSphereName: string) => {
     if (selectedSphere === newSphereName) {
       setSelectedSphere(undefined)
@@ -110,7 +150,6 @@ const Trajectory = () => {
   const openStatsModal = () => {
     displayModal(
       <TrajectoryStats
-        setIsModalTrajectory={setIsModalTrajectory}
         setSelectedSphere={setSelectedSphere}
         className="Desktop"
         course={trajectory?.courses.find(course => course.course === courseQuery)}
@@ -120,8 +159,14 @@ const Trajectory = () => {
 
   return (
     <div className="TrajectoryPage">
-      <div className="titleNameDiscipline">
-        <h5 className="mb-0 StileText" id="scrollToTop">
+      <div   ref={titleNameDiscipline}
+             className="titleNameDiscipline"
+             style={
+               courseQuery === 5
+                 ? { borderBottom: '2px solid white' }
+                 : { borderBottom: '2px solid var(--gray-100)' }
+             }>
+        <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {/* {trajectory?.educational_plan} */}
           {loading ? (
             <div
@@ -132,16 +177,13 @@ const Trajectory = () => {
             trajectory?.educational_plan
           )}
         </h5>
-        <div
-          className="CoursesRow"
-          style={
-            courseQuery === 5
-              ? { borderBottom: '2px solid white' }
-              : { borderBottom: '2px solid var(--gray-100)' }
-          }
-        >
+        <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
-            bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
+            bgColor={
+              searchParams.get('course') === '5'
+                ? 'var(--bg-color-base)'
+                : 'var(--bg-color-invert)'
+            }
             leftOffset={selectorLeftOffset}
           />
           <div className="CoursesRowFirstFlex">
@@ -190,7 +232,7 @@ const Trajectory = () => {
 
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
-                ref={isMobile ? undefined : hintSemester}
+                ref={width < 1000 ? undefined : hintSemester}
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-0-top-left"
                 style={{ flexGrow: 2 }}

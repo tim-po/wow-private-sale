@@ -36,7 +36,7 @@ const Keywords = (props: KeywordsPropType) => {
   // const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
 

@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 import Arrow from '../../images/icons/Arrow'
-import { isMobile } from 'react-device-detect'
-
+import useWindowDimensions from '../../utils/useWindowDimensions'
 type GetPositionType = {
   title: string
   description: string
-  isLocalStorage: string | undefined
-  setIsLocalStorage: React.Dispatch<React.SetStateAction<string | undefined>>
+  isLocalDataHint: boolean | undefined
+  setIsLocalDataHint: (isLocalStorage: boolean | undefined) => void
   status: string
-  setNumberOpenPage: React.Dispatch<React.SetStateAction<number>>
+  setNumberOpenPage: (numberOpenPage: number) => void
   numberOpenPage: number
   nameRef: string
-  boxRef: React.RefObject<HTMLElement>
-  listRef: React.RefObject<HTMLElement>[]
+  boxRef: RefObject<HTMLElement>
+  listRef: RefObject<HTMLElement>[]
 }
 
 const HintGeneric = (props: GetPositionType) => {
   const {
     title,
     description,
-    setIsLocalStorage,
-    isLocalStorage,
+    setIsLocalDataHint,
+    isLocalDataHint,
     status,
     setNumberOpenPage,
     numberOpenPage,
@@ -32,21 +31,17 @@ const HintGeneric = (props: GetPositionType) => {
   const [positionTop, setPositionTop] = useState<number | undefined>()
   const [positionLeft, setPositionLeft] = useState<number | undefined>()
   const [arrowPosition, setArrowPosition] = useState<number | undefined>()
+  const { width } = useWindowDimensions()
 
   function getPosition() {
     if (boxRef.current) {
       const offsetLeft = boxRef.current.getBoundingClientRect().left
       const offsetTop = boxRef.current.getBoundingClientRect().top
       const elementHeight = boxRef.current.getBoundingClientRect().height
-      // const elementWidth = boxRef.current.getBoundingClientRect().width
-
       setPositionTop(offsetTop + window.scrollY + elementHeight + 10)
-      if (isMobile) {
-        setPositionLeft(0)
-        setArrowPosition(offsetLeft)
-      } else {
-        setPositionLeft(offsetLeft - 240)
-      }
+      const left = Math.max(offsetLeft - 240, 0)
+      setPositionLeft(left)
+      setArrowPosition(offsetLeft - left)
     }
   }
 
@@ -56,18 +51,25 @@ const HintGeneric = (props: GetPositionType) => {
   })
 
   useEffect(() => {
+    function closeEnter(e: KeyboardEvent) {
+      if (e.key === 'enter') {
+        e.preventDefault()
+        setIsLocalDataHint(false)
+      }
+    }
+
+    window.addEventListener('keypress', closeEnter)
+    return () => window.removeEventListener('keypress', closeEnter)
+  })
+  useEffect(() => {
     getPosition()
-  }, [
-    numberOpenPage,
-    boxRef.current?.getBoundingClientRect().top,
-    boxRef.current?.getBoundingClientRect().top,
-  ])
+  }, [numberOpenPage, boxRef.current?.getBoundingClientRect().top])
 
   useEffect(() => {
-    if (isLocalStorage === 'false' && listRef[numberOpenPage + 1]) {
+    if (isLocalDataHint === false && listRef[numberOpenPage + 1]) {
       setNumberOpenPage(numberOpenPage + 1)
     }
-  }, [isLocalStorage])
+  }, [isLocalDataHint])
 
   return (
     <div
@@ -75,11 +77,11 @@ const HintGeneric = (props: GetPositionType) => {
       style={{
         position: 'absolute',
         top: positionTop,
-        left: positionLeft,
+        left: (positionLeft || 0) + 16,
         zIndex: nameRef === 'hintSemesterChoice' ? '100000' : '',
       }}
     >
-      <div className="positionArrow" style={isMobile ? { left: arrowPosition } : {}}>
+      <div className="positionArrow" style={width < 1000 ? { left: arrowPosition } : {}}>
         <Arrow color={'#323243'} />
       </div>
       <span className="title">{title}</span>
@@ -89,7 +91,7 @@ const HintGeneric = (props: GetPositionType) => {
         <button
           className="closeHints"
           onClick={() => {
-            setIsLocalStorage('false')
+            setIsLocalDataHint(false)
           }}
         >
           Круто

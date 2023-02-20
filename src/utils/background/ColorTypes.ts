@@ -173,10 +173,3 @@ export type RGBColor =
 export type RGBAColor =
   | `rgba(${number}, ${number}, ${number}, ${number})`
   | `rgba(${number}%, ${number}%, ${number}%, ${number})`
-
-export type Colors =
-  | ClassicHEXColor
-  | ShortHEXColor
-  | RGBColor
-  | RGBAColor
-  | CssColorNamesType

@@ -1,3 +1,4 @@
+import useWindowDimensions from '../../../utils/useWindowDimensions'
 import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { ClassType } from '../../../types'
@@ -24,6 +25,8 @@ const semesterDiscipline: (
 
 const Card = (props: CardPropType) => {
   const { displayModal } = useContext(ModalContext)
+  const { width } = useWindowDimensions()
+
   const {
     selectSelf,
     selectedSphere,
@@ -42,7 +45,6 @@ const Card = (props: CardPropType) => {
     })
     return disciplinesWithArrows
   }
-
   const [activeSemesterIndex, setActiveSemesterIndex] = useState(
     'first_semesters_disciplines',
   )
@@ -71,11 +73,11 @@ const Card = (props: CardPropType) => {
   }
 
   useEffect(() => {
-    if (isMobile && hintDiscipline) {
+    if (width < 1000 && hintDiscipline) {
       setSelectedSphere(sphere.name)
       switchSemesters()
     }
-  }, [isMobile])
+  }, [width])
 
   return (
     <div
@@ -88,13 +90,14 @@ const Card = (props: CardPropType) => {
         <div className="ClassHeaderText">{sphere.name}</div>
         <button className="ClassOpenButton">
           <img
+            alt={'Стрелка'}
             src="/static/arrowDown.svg"
             className={`Arrow ${selectedSphere === sphere.name ? 'open' : ''}`}
           />
         </button>
       </div>
       <div className="bodyCard">
-        <div className="Semester" ref={isMobile ? hintSemester : undefined}>
+        <div className="Semester" ref={width < 1000 ? hintSemester : undefined}>
           <p className="TrajectorySmallHeader">Осень</p>
           <p className="TrajectorySmallHeader">Весна</p>
         </div>
@@ -121,7 +124,7 @@ const Card = (props: CardPropType) => {
                           className="DisciplineCardWrapper"
                           ref={hintDiscipline}
                           onClick={
-                            index === activeSemesterIndex || !isMobile
+                            index === activeSemesterIndex || !(width < 1000)
                               ? () =>
                                   displayModal(
                                     <TrajectoryDisciplineModal id={discipline.id} />,

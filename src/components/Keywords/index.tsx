@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import './index.scss'
+
 import { KeywordType } from '../../types'
 import Keyword from '../Keyword'
 import { makeEmptyList } from '../../utils/general'
@@ -99,7 +100,7 @@ const Keywords = (props: KeywordsPropType) => {
                         key={keyword.id}
                         deletable={true}
                         keyword={keyword}
-                        bg-color="'var(--color-secondary)'"
+                        bg-color="var(--color-secondary)"
                         onDeleteSelf={() => keywords.remove(keyword)}
                       />
                     )
@@ -119,7 +120,7 @@ const Keywords = (props: KeywordsPropType) => {
                     return (
                       <div
                         key={index}
-                        className="skeleton"
+                        className="skeletonKeywords MainSkeleton"
                         style={{
                           'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px',
                         }}
@@ -134,7 +135,7 @@ const Keywords = (props: KeywordsPropType) => {
                     key={keyword.id}
                     deletable={true}
                     keyword={keyword}
-                    bg-color="'var(--color-secondary)'"
+                    bg-color="var(--color-secondary)"
                     onDeleteSelf={() => keywords.remove(keyword)}
                   />
                 )

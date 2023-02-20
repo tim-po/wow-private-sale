@@ -191,7 +191,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonText MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px',
                             height: '12px',
@@ -299,7 +299,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonKeywords MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + 'px',
                           }}
@@ -318,7 +318,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )
@@ -329,7 +329,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )

@@ -3,7 +3,11 @@
   font-size: 14px;
   line-height: 20px;
 }
-
+.skeletonCard{
+  min-width: 180px;
+  min-height: 135px;
+  border-radius: 20px;
+}
 .RandomFeedback.NotVisible {
   transform: scale(0);
   transition-duration: 0.3s;
@@ -207,6 +211,11 @@
 // --end--
 
 @media screen and (max-width: 1300px) {
+  .skeletonCard{
+    min-width: 256px;
+    width: 100%;
+    min-height: 70px;
+  }
   .diploma-container {
     padding-bottom: 64px;
   }

@@ -17,7 +17,7 @@ const NavigationStep = (props: NavigationStepProps) => {
   const step = navigationItems[stepPath]
   const stepLayoutConfig = getStepStatusAndLayoutIndex(step)
 
-  const translate = stepsOverlapInPx * stepLayoutConfig.index
+  let translate = stepsOverlapInPx * stepLayoutConfig.index
   let zIndex = 100 - Math.abs(currentLocation.index - step.index)
   const hasIcon = ['last', 'current', 'next'].includes(stepLayoutConfig.status)
   const disabled = !hasIcon
@@ -33,6 +33,8 @@ const NavigationStep = (props: NavigationStepProps) => {
     }
     return
   }
+
+  translate = translate * 1.5
 
   return (
     <button

@@ -124,13 +124,10 @@ const Trajectory = () => {
     return <NotFound />
   }
 
-  if (!trajectory) {
-    return <LoadingScreen isLoading={true} header={'Траектория загружается'} />
-  }
 
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
+      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
       if (course === 5) {
         changeBg('var(--bg-color-invert)')
       } else {

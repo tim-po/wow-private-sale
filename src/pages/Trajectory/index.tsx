@@ -124,9 +124,6 @@ const Trajectory = () => {
     return <NotFound />
   }
 
-  // if (!trajectory) {
-  //   return <LoadingScreen isLoading={true} header={'Траектория загружается'} />
-  // }
 
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {

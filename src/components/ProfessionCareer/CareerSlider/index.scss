@@ -22,6 +22,20 @@
     position: relative;
     overflow: hidden;
 
+    &sWrapper{
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 0;
+
+      .IconWrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 19.5px 0;
+      }
+    }
+
     @media screen and (max-width: 760px) {
       width: 310px;
       margin-right: 0;

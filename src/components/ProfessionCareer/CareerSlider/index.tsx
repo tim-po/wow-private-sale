@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import SliderStar from 'images/icons/Static/sliderStar'
 import './index.scss'
 import Arrow from 'images/icons/Arrow'
@@ -6,7 +6,15 @@ import CareerJuniorIcon from 'images/icons/Static/careerJuniorIcon'
 import CareerMiddleIcon from 'images/icons/Static/careerMiddleIcon'
 import CareerSeniorIcon from 'images/icons/Static/careerSeniorIcon'
 import { isMobile } from 'react-device-detect'
-import logo from '../../../images/icons/Static/logo'
+
+// TODO не уверен, что так можно делать, но работает
+
+// Массив иконок по уровням
+const careerIcons: JSX.Element[] = [
+  CareerJuniorIcon(),
+  CareerMiddleIcon(),
+  CareerSeniorIcon(),
+]
 
 const professionSalary = {
   junior: 40000,
@@ -14,19 +22,28 @@ const professionSalary = {
   senior: 170000,
 }
 
+// Функция расчета промежутков по зп
 const salaryRange = (salary: typeof professionSalary) => {
-  const firstRangeSalary = professionSalary.middle - professionSalary.junior
-  const secondRangeSalary = professionSalary.senior - professionSalary.middle
+  const firstRangeSalary = salary.middle - salary.junior
+  const secondRangeSalary = salary.senior - salary.middle
 
   const firstRangeDelta = Array(15)
     .fill(Math.floor(firstRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + professionSalary.junior))
+    .map((delta, i) => Math.floor(i * delta + salary.junior))
 
   const secondRangeDelta = Array(15)
     .fill(Math.floor(secondRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + professionSalary.middle))
+    .map((delta, i) => Math.floor(i * delta + salary.middle))
 
-  return [...firstRangeDelta, ...secondRangeDelta, professionSalary.senior]
+  return [...firstRangeDelta, ...secondRangeDelta, salary.senior]
+}
+
+const detectCurrentEvent = (currentEvent: MouseEvent | TouchEvent) => {
+  if (currentEvent instanceof MouseEvent) {
+    return currentEvent
+  } else {
+    return currentEvent.changedTouches[0]
+  }
 }
 
 const CareerSlider = () => {
@@ -37,13 +54,6 @@ const CareerSlider = () => {
   const drum = useRef<HTMLDivElement | null>(null)
   const sliderIconWrapper = useRef<HTMLDivElement | null>(null)
 
-  const detectCurrentEvent = (currentEvent: MouseEvent | TouchEvent) => {
-    if (currentEvent instanceof MouseEvent) {
-      return currentEvent
-    } else {
-      return currentEvent.touches[0]
-    }
-  }
   const sliderAnimation = (event: MouseEvent | TouchEvent) => {
     const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
     const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
@@ -53,16 +63,18 @@ const CareerSlider = () => {
       const shiftX =
         detectCurrentEvent(event).clientX -
         sliderStarRef.current.getBoundingClientRect().left
-      const calcPosition = (moveEvent: TouchEvent | MouseEvent, newClientX: number) => {
+
+      // Рачет позиции для всех движущихся частей
+
+      const calcPosition = (moveEvent: TouchEvent | MouseEvent) => {
         if (
           sliderRef.current &&
           sliderStarRef.current &&
           tooltipContentRef.current &&
           drum.current
         ) {
-          const currentClientX = detectCurrentEvent(moveEvent)
-            ? detectCurrentEvent(moveEvent).clientX
-            : newClientX
+          const currentClientX = detectCurrentEvent(moveEvent).clientX
+
           let newLeft =
             currentClientX - shiftX - sliderRef.current.getBoundingClientRect().left
           if (newLeft < 0) {
@@ -97,12 +109,8 @@ const CareerSlider = () => {
       }
 
       const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
-        const newClientX = detectCurrentEvent(event).clientX
-        const { newLeft, newTooltipArrowPosition, newDrum } = calcPosition(
-          moveEvent,
-          newClientX,
-        )
-        console.log('move', newLeft)
+        const { newLeft, newTooltipArrowPosition, newDrum } = calcPosition(moveEvent)
+
         if (
           sliderStarRef.current &&
           tooltipContentRef.current &&
@@ -110,9 +118,14 @@ const CareerSlider = () => {
           sliderRef.current &&
           drum.current
         ) {
+          // Сброс анимаций для ползунка и  заполнения
           sliderStarRef.current.style.transition = ''
           filledLineRef.current.style.transition = ''
-          sliderStarRef.current.style.left = newLeft + 'px'
+
+          // Установка позиции для ползунка, заполнения, стрелочки тултипа и барабана счетчика
+          console.log(newLeft / sliderRef.current.offsetWidth)
+          sliderStarRef.current.style.left =
+            (100 * newLeft) / sliderRef.current.offsetWidth + '%'
           filledLineRef.current.style.right =
             sliderRef.current.offsetWidth - newLeft + 'px'
           tooltipContentRef.current.style.left = -newTooltipArrowPosition + 'px'
@@ -124,9 +137,6 @@ const CareerSlider = () => {
         document.removeEventListener(currentTypeEndAnimation, onMouseUp)
         document.removeEventListener(currentTypeStartAnimation, onMouseMove)
 
-        const newClientX = detectCurrentEvent(event).clientX
-
-        const { newLeft, tooltipActiveWidth } = calcPosition(moveEvent, newClientX)
         if (
           sliderStarRef.current &&
           tooltipContentRef.current &&
@@ -135,22 +145,31 @@ const CareerSlider = () => {
           drum.current &&
           sliderIconWrapper.current
         ) {
+          const { newLeft, tooltipActiveWidth } = calcPosition(moveEvent)
+
+          // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
           const startPosition = Math.round(
             Math.floor(newLeft / (sliderRef.current.offsetWidth / 4)) / 2,
           )
-          sliderStarRef.current.style.left =
-            startPosition * (sliderRef.current.offsetWidth / 2) + 'px'
+
+          // Стили для ползунка
+          sliderStarRef.current.style.left = startPosition * 50 + '%'
           sliderStarRef.current.style.transition = 'all .3s'
-          filledLineRef.current.style.right =
-            sliderRef.current.offsetWidth -
-            startPosition * (sliderRef.current.offsetWidth / 2) +
-            'px'
+
+          // Стиль для заполнения
+          filledLineRef.current.style.right = 100 - startPosition * 50 + '%'
           filledLineRef.current.style.transition = 'all .3s'
+
+          // Стиль для позиции стрелочки тултипа
           tooltipContentRef.current.style.left =
             (startPosition * -tooltipActiveWidth) / 2 - 12 + 'px'
+
+          // Стиль для позиции барабана счетчика
           drum.current.style.top = -startPosition * 15 * 21 + 'px'
-          sliderIconWrapper.current.style.left =
-            (-sliderIconWrapper.current.offsetWidth / 3) * startPosition + 'px'
+
+          // Стили для иконок
+          sliderIconWrapper.current.style.top =
+            (-sliderIconWrapper.current.offsetHeight / 3) * startPosition + 'px'
           sliderIconWrapper.current.style.transition = 'all .3s'
         }
       }
@@ -175,41 +194,16 @@ const CareerSlider = () => {
   return (
     <div className="sliderWrapper">
       <div className="sliderWrapperIcon">
-        <div
-          className="sliderWrapperIconItem"
-          style={{ position: 'absolute', display: 'flex', left: 0 }}
-          ref={sliderIconWrapper}
-        >
-          <div
-            style={{
-              width: `${isMobile ? 310 : 220}px`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <CareerJuniorIcon />
-          </div>
-          <div
-            style={{
-              width: `${isMobile ? 310 : 220}px`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <CareerMiddleIcon />
-          </div>
-          <div
-            style={{
-              width: `${isMobile ? 310 : 220}px`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <CareerSeniorIcon />
-          </div>
+        <div className="sliderWrapperIconsWrapper" ref={sliderIconWrapper}>
+          {careerIcons.map((icon, i) => (
+            <div
+              className={'IconWrapper'}
+              key={i}
+              style={{ width: `${isMobile ? 310 : 220}px` }}
+            >
+              {icon}
+            </div>
+          ))}
         </div>
       </div>
       <div className="sliderLineWrapper">

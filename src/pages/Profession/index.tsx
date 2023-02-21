@@ -13,6 +13,7 @@ import Button from '../../components/Button'
 import { RoutesName } from '../../types'
 import ProfessionCareer from '../../components/ProfessionCareer'
 import { createStickyBlock } from '../../utils/stickyHeaders'
+import { isMobile } from 'react-device-detect'
 
 type ProfessionContextType = ReturnType<typeof useProfession>
 
@@ -22,7 +23,7 @@ const Profession = () => {
 
   const { profId } = useParams()
 
-  const { profession, presets } = useProfession(profId || '')
+  const { profession } = useProfession(profId || '')
 
   // const [isLoading, setIsLoading] = useState(false)
 
@@ -74,7 +75,7 @@ const Profession = () => {
             Мы уже собрали необходимый набор навыков для твоей профессии, добавляй
             дополнительные знания в свою траекторию, используя карточки навыков!
           </span>
-          <div className="buttonWrapper buttonWrapperMobile">
+          <div className="buttonWrapper" style={isMobile ? { zIndex: 1 } : undefined}>
             <Button onClick={openSkillSets} buttonStyle={'main'}>
               Добавить навык
             </Button>

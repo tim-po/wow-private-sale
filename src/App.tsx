@@ -46,6 +46,7 @@ export const App = () => {
 
           <Route path="/diplomaShare*" element={<DiplomaShare />} />
           <Route path="/trajectory*" element={<Trajectory />} />
+          <Route path="/trajectoryDiploma" element={<Trajectory />} />
           <Route path="/trajectories*" element={<Trajectories />} />
           <Route path={'/*'} element={<NotFound />} />
         </Routes>

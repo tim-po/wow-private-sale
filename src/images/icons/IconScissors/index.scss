@@ -1,0 +1,23 @@
+@keyframes scissorsCut {
+  from {
+    transform: rotate(0deg) translateX(0px) translateY(0px);
+  }
+  25%{
+    transform: rotate(15deg) translateX(2.1px) translateY(-2.9px);
+  }
+  50%{
+    transform: rotate(0deg) translateX(0px) translateY(0px);
+  }
+  75%{
+    transform: rotate(15deg) translateX(2.1px) translateY(-2.9px);
+  }
+  to {
+    transform: rotate(0deg) translateX(0px) translateY(0px);
+  }
+}
+
+.current{
+  .scissorsBody{
+    animation: scissorsCut 0.8s 1s ;
+  }
+}

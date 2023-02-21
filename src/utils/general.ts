@@ -8,11 +8,14 @@ export const makeEmptyList = (length: number) => {
 
 export enum LocalStorageInteraction {
   save,
-  load
+  load,
 }
 
-export const withLocalStorage = (objectToInteractWith: {[key: string]: any}, actionToDo: LocalStorageInteraction) => {
-  const returnObject: {[key: string]: any} = {}
+export const withLocalStorage = (
+  objectToInteractWith: { [key: string]: any },
+  actionToDo: LocalStorageInteraction,
+) => {
+  const returnObject: { [key: string]: any } = {}
   switch (actionToDo) {
     case LocalStorageInteraction.save:
       Object.keys(objectToInteractWith).forEach(key => {
@@ -22,9 +25,9 @@ export const withLocalStorage = (objectToInteractWith: {[key: string]: any}, act
     case LocalStorageInteraction.load:
       Object.keys(objectToInteractWith).forEach(key => {
         const item = localStorage.getItem(key)
-        if(item && item !== 'undefined'){
+        if (item && item !== 'undefined') {
           returnObject[key] = JSON.parse(item)
-        }else{
+        } else {
           returnObject[key] = objectToInteractWith[key]
         }
       })

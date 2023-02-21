@@ -14,6 +14,10 @@
     src: url('../../public/fonts/Inter-Medium.ttf') format('truetype');
 }
 
+body {
+   /*overflow-y: hidden;*/
+}
+
 button{
     outline: none !important;
     cursor: pointer;
@@ -115,20 +119,10 @@ body {
     transition: var(--bg-transition);
 }
 
-.skeleton-v2 {
-    opacity: .7;
-    animation: skeleton-loading 1s linear infinite alternate;
-}
 
 
-@keyframes skeleton-loading {
-    0% {
-        background-color: rgba(235, 235, 235, 1);
-    }
-    100% {
-        background-color: rgba(184, 184, 184, .7);
-    }
-}
+
+
 
 .fullWidth {
     width: 100vw !important;

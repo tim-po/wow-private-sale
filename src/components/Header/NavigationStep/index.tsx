@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import './index.scss'
 import { navigationItems } from '../../../Models/navigation/NavigationConfig'
 import useNavigation from '../../../Models/navigation/useNavigation'
+import useWindowDimensions from '../../../utils/useWindowDimensions'
 
 interface NavigationStepProps {
   stepPath: string
@@ -9,7 +10,7 @@ interface NavigationStepProps {
 
 const NavigationStep = (props: NavigationStepProps) => {
   const { stepPath } = props
-
+  const { width } = useWindowDimensions()
   const { goBack, getStepStatusAndLayoutIndex, currentLocation } = useNavigation()
 
   const stepsOverlapInPx = -20
@@ -34,7 +35,9 @@ const NavigationStep = (props: NavigationStepProps) => {
     return
   }
 
-  translate = translate * 1.5
+  if (width < 400) {
+    translate = translate * 1.5
+  }
 
   return (
     <button

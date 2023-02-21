@@ -1,0 +1,18 @@
+.trackBottom, .trackMiddle, .trackTop{
+  transition: all 0.2s;
+  transform: scaleX(1);
+  transform-origin: 18%;
+  fill: inherit;
+}
+
+.current{
+  .trackBottom{
+    transform: scaleX(0.5);
+  }
+  .trackMiddle{
+    transform: scaleX(1.4);
+  }
+  .trackTop{
+    transform: scaleX(0.9);
+  }
+}

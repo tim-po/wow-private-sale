@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.scss'
 import SelectedPresets from '../../../components/SelectedPresets'
 import Preset from 'components/Preset'
@@ -6,7 +6,6 @@ import * as Scroll from 'react-scroll'
 import Chevron, { Turn } from '../../../images/icons/chevron'
 import { createStickyBlock, updateStickyBlocks } from '../../../utils/stickyHeaders'
 import { scrollToElement } from '../../../utils/scrollToElement'
-import Close from '../../../images/icons/close'
 import InfoIcon from '../../../images/icons/Static/InfoIcon'
 import { useInView } from 'react-intersection-observer'
 import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
@@ -17,6 +16,7 @@ import { BASE_URL } from '../../../constants'
 import { TrajectoryType } from '../../../types'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/Button'
+import WarningCard from '../../../components/WarningCard'
 
 // CONSTANTS
 
@@ -137,32 +137,22 @@ const SkillSets = () => {
             </button>
           </div>
 
-          <div
-            className={`${
+          <WarningCard
+            wrapClassName={`${
               presets.selected.length >= 5 && isNoteOpen ? 'showNote' : 'hideNote'
             }`}
+            contentClassName={'PresetsInfoCard'}
+            onCrossClick={() => setIsNoteOpen(false)}
           >
-            {/* TODO вынести карточку в отдельный компонент */}
-            <div className="PresetsInfoCard align-items-center">
-              <InfoIcon />
-              <div>
-                <span>
-                  Ты не можешь добавить больше <b>5 наборов навыков</b>,
-                </span>
-                <br />
-                так как траектория может построиться неточно.
-              </div>
-
-              <button
-                className="border-0 pr-0 py-0 hideButton"
-                onClick={() => {
-                  setIsNoteOpen(false)
-                }}
-              >
-                <Close width={10} height={10} />
-              </button>
+            <InfoIcon />
+            <div>
+              <span>
+                Ты не можешь добавить больше <b>5 наборов навыков</b>,
+              </span>
+              <br />
+              так как траектория может построиться неточно.
             </div>
-          </div>
+          </WarningCard>
           <div
             ref={ref}
             className={`selectedSkillsBlock`}

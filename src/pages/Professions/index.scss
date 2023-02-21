@@ -40,9 +40,7 @@
       padding-top: 11px;
       margin-bottom: 24px;
 
-      .skeleton-v2 {
-        opacity: .7;
-        animation: skeleton-loading 1s linear infinite alternate;
+      .professionCarSkeleton {
         width: 540px;
         height: 200px;
         border-radius: 16px;
@@ -61,15 +59,12 @@
     .ProfessionModalBottom {
       z-index: 2;
       max-height: 72px;
-      //position: absolute;
+      position: fixed;
       bottom: 32px;
       right: 32px;
-      position: fixed;
       max-width: 504px;
-      background: #F3F3F8;
-      padding: 16px;
       transition-duration: 0.4s;
-      border-radius: 12px;
+
       &.ProfessionModalBottomNon{
         right: -600px;
         overflow: hidden;
@@ -100,14 +95,7 @@
 }
 
 
-@keyframes skeleton-loading {
-  0% {
-    background-color: rgba(235, 235, 235, 1);
-  }
-  100% {
-    background-color: rgba(184, 184, 184, .7);
-  }
-}
+
 
 
 @media screen and (max-width: 570px) {
@@ -119,7 +107,7 @@
       }
       .ProfessionContainer {
         margin-bottom: 24px;
-        .skeleton-v2 {
+        .professionCarSkeleton {
           width: 325px;
           height: 365px;
         }
@@ -138,11 +126,7 @@
         //position: absolute;
         position: fixed;
         max-width: 420px;
-        background: #F3F3F8;
-        padding: 16px;
         transition-duration: 0.4s;
-        border-radius: 12px;
-        padding-right: 40px;
 
         &.ProfessionModalBottomNon{
           right: -100%;

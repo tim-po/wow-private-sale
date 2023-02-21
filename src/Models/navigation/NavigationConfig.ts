@@ -5,6 +5,7 @@ import IconPuzzle from '../../images/icons/IconPuzzle'
 import IconScissors from '../../images/icons/IconScissors'
 import IconTracks from '../../images/icons/IconTracks'
 import IconPath from '../../images/icons/IconPath'
+import IconResult from '../../images/icons/IconResult'
 
 export enum Path {
   'professions' = 'professions',
@@ -13,6 +14,7 @@ export enum Path {
   'keywords' = 'keywords',
   'trajectories' = 'trajectories',
   'trajectory' = 'trajectory',
+  'trajectoryDiploma' = 'trajectoryDiploma',
 }
 
 type NavigationItemConfig = {
@@ -53,6 +55,7 @@ const navigationItemsConfig: NavigationItemConfig[] = [
   },
   { path: Path.trajectories, title: 'Траектории', icon: IconTracks },
   { path: Path.trajectory, title: 'Моя траектория', icon: IconPath },
+  { path: Path.trajectoryDiploma, title: 'Итог', icon: IconResult },
 ]
 
 export const navigationItems: { [key in Path as string]: NavigationItem } =

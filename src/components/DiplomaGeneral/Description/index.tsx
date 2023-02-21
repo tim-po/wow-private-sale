@@ -30,7 +30,15 @@ const Description = (props: GenericModalPropType) => {
   const {iconUrl, title} = props
   return (
     <DiplomaTileWrapper>
-      <DiplomaTitle>{title}</DiplomaTitle>
+      <DiplomaTitle>
+        {title ?
+        title
+        :
+        <div
+        style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
+        className="MainSkeleton"
+      />}
+      </DiplomaTitle>
       <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
       <BachelorTitleWrapper>
         <StyledIcon src={iconUrl} alt="icon"/>

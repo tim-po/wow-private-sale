@@ -1,18 +1,7 @@
-.skeleton {
-  background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
-  background-size: 600px;
-  animation: shine-lines 1s infinite linear;
-  content: "" !important;
+.skeletonKeywords {
   pointer-events: none;
   height: 31px;
-  margin: 0 8px 8px 0;
   border-radius: 8px;
-}
-
-.skeleton:after,
-.skeleton:before,
-.skeleton div {
-  opacity: 0;
 }
 
 .keywordsAdded{
@@ -24,44 +13,6 @@
     background: #DDDDFD;
     cursor: pointer;
   }
-}
-
-@keyframes shine-lines {
-  0% {
-    background-position: -100px
-  }
-
-  40%, 100% {
-    background-position: 390px
-  }
-}
-
-.skeleton-v3 {
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  background-color: #ddd;
-
-  &::before{
-    content: '';
-    display: block;
-    position: absolute;
-    left: -150px;
-    top: 0;
-    height: 100%;
-    width: 200px;
-    background: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
-    animation: skeleton-animation 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
-  }
-
-}
-
-@keyframes skeleton-animation {
-  from {
-    left: -200px;
-  } to {
-      left: 100%;
-    }
 }
 
 

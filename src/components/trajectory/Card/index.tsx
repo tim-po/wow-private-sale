@@ -1,10 +1,10 @@
+import useWindowDimensions from '../../../utils/useWindowDimensions'
 import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { ClassType } from '../../../types'
 import { colors } from '../../../constants'
 import TrajectoryDisciplineModal from '../../Modals/TrajectoryDisciplineModal'
 import ModalContext from '../../../Context/Modal'
-import { isMobile } from 'react-device-detect'
 
 type CardPropType = {
   selectedSphere: string | undefined
@@ -24,6 +24,8 @@ const semesterDiscipline: (
 
 const Card = (props: CardPropType) => {
   const { displayModal } = useContext(ModalContext)
+  const { width } = useWindowDimensions()
+
   const {
     selectSelf,
     selectedSphere,
@@ -42,7 +44,6 @@ const Card = (props: CardPropType) => {
     })
     return disciplinesWithArrows
   }
-
   const [activeSemesterIndex, setActiveSemesterIndex] = useState(
     'first_semesters_disciplines',
   )
@@ -50,7 +51,7 @@ const Card = (props: CardPropType) => {
     disciplineSphere: ClassType,
     index: 'first_semesters_disciplines' | 'second_semesters_disciplines',
   ) => {
-    const disciplines = [...disciplineSphere[index]].sort((dis1, dis2) => {
+    return [...disciplineSphere[index]].sort((dis1, dis2) => {
       const discsWithArrows = getArrowDisciplineNames(disciplineSphere)
       const dis1InclusionNumber = discsWithArrows.includes(dis1.name) ? 1 : -1
       const dis2InclusionNumber = discsWithArrows.includes(dis2.name) ? 1 : -1
@@ -59,7 +60,6 @@ const Card = (props: CardPropType) => {
         (dis2.name > dis1.name ? 1 : -1)
       )
     })
-    return disciplines
   }
 
   const switchSemesters = () => {
@@ -71,11 +71,11 @@ const Card = (props: CardPropType) => {
   }
 
   useEffect(() => {
-    if (isMobile && hintDiscipline) {
+    if (width < 1000 && hintDiscipline) {
       setSelectedSphere(sphere.name)
       switchSemesters()
     }
-  }, [isMobile])
+  }, [width])
 
   return (
     <div
@@ -88,13 +88,14 @@ const Card = (props: CardPropType) => {
         <div className="ClassHeaderText">{sphere.name}</div>
         <button className="ClassOpenButton">
           <img
+            alt={'Стрелка'}
             src="/static/arrowDown.svg"
             className={`Arrow ${selectedSphere === sphere.name ? 'open' : ''}`}
           />
         </button>
       </div>
       <div className="bodyCard">
-        <div className="Semester" ref={isMobile ? hintSemester : undefined}>
+        <div className="Semester" ref={width < 1000 ? hintSemester : undefined}>
           <p className="TrajectorySmallHeader">Осень</p>
           <p className="TrajectorySmallHeader">Весна</p>
         </div>
@@ -121,10 +122,11 @@ const Card = (props: CardPropType) => {
                           className="DisciplineCardWrapper"
                           ref={hintDiscipline}
                           onClick={
-                            index === activeSemesterIndex || !isMobile
+                            index === activeSemesterIndex || !(width < 1000)
                               ? () =>
                                   displayModal(
                                     <TrajectoryDisciplineModal id={discipline.id} />,
+                                    { colorCloseWhite: true },
                                   )
                               : undefined
                           }
@@ -137,7 +139,6 @@ const Card = (props: CardPropType) => {
                                 }`}
                               >
                                 <span>
-                                  {' '}
                                   {discipline.necessity === 'necessary'
                                     ? 'Обязательная'
                                     : 'По выбору'}
@@ -164,6 +165,7 @@ const Card = (props: CardPropType) => {
                               <img
                                 className="DisciplineArrowPointer"
                                 src="/static/discArrow.svg"
+                                alt={'>'}
                               />
                             </div>
                           )}

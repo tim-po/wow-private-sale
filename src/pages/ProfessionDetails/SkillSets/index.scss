@@ -31,21 +31,12 @@
 }
 
 .PresetsInfoCard {
-  background: #F3F3F8;
-  border-radius: 12px;
-  max-width: fit-content;
-  padding: 16px 48px 16px 16px;
   margin-bottom: 24px;
-  position: relative;
-  box-sizing: content-box;
+  max-height: min-content;
   overflow: hidden;
   display: inline-flex;
+  align-items: center;
   column-gap: 12px;
-  //max-height: a;
-}
-
-.minTitle.bottom.stickyPopup {
-  //top: calc(122px + 320px);
 }
 
 .selectedSkillsBlock {
@@ -331,7 +322,7 @@
   }
 
   .rightBlock {
-    margin-bottom: 200px;
+    margin-bottom: 80px;
     order: 2;
 
   }

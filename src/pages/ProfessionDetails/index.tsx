@@ -37,7 +37,7 @@ const ProfessionDetails = () => {
   const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
   }, [])
 
   useEffect(() => {
@@ -167,7 +167,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonText MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px',
                             height: '12px',
@@ -194,11 +194,9 @@ const ProfessionDetails = () => {
                       Вау, ты добавил новые навыки! Теперь можно строить траекторию
                     </span>
                   )}
-                  <div className="blockDescriptionMobil">
-                    <button className="button-primary" onClick={openTrajectoryChoice}>
-                      {presets.selected.length ? 'Мне все нравится' : 'Построить'}
-                    </button>
-                  </div>
+                  <button className="button-primary" onClick={openTrajectoryChoice}>
+                    {presets.selected.length ? 'Мне все нравится' : 'Построить'}
+                  </button>
                 </div>
                 {presets.selected.length === 0 && (
                   <div className="lamp-icon">
@@ -211,15 +209,6 @@ const ProfessionDetails = () => {
                   </div>
                 )}
               </div>
-              {/* <div*/}
-              {/*  className="keywords__warning mb-2"*/}
-              {/*  v-if="(keywords && keywords.length > 0) ? (keywords.length <= requiredWordsLimit)  false"*/}
-              {/* > */}
-              {/*    <div className="d-flex">*/}
-              {/*        <img src="/images/exclamationMarkInOutline.svg" alt="" className="mr-2"/>*/}
-              {/*        Ты можешь удалить не более 30% набора ключевых слов своей профессии*/}
-              {/*    </div>*/}
-              {/* </div> */}
             </div>
           </div>
           <div className="right-flex">
@@ -275,7 +264,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonKeywords MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + 'px',
                           }}
@@ -294,7 +283,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )
@@ -305,7 +294,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )

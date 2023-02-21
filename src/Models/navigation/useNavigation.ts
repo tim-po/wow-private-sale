@@ -145,6 +145,9 @@ const useNavigation = () => {
         ).chosenTrajectoriesIds
         backHref += `?ids=${chosenTrajectoriesIds}`
         break
+      case Path.trajectoryDiploma:
+        backHref += window.location.search.replace('course=5', 'course=4')
+        break
     }
     navigate(backHref)
   }

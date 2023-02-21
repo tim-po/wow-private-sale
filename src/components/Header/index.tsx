@@ -5,6 +5,7 @@ import Logo from 'images/icons/Static/logo'
 import { navigationItemKeys } from '../../Models/navigation/NavigationConfig'
 import NavigationStep from './NavigationStep'
 import { createStickyBlock } from '../../utils/stickyHeaders'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 // CONSTANTS
 
@@ -12,6 +13,9 @@ import { createStickyBlock } from '../../utils/stickyHeaders'
 
 const Header = () => {
   const leftBlocks = ['/', '/diplomaShare']
+  const { width } = useWindowDimensions()
+  const isHeaderHiddenOnSmallMobile =
+    !['/', '/professions'].includes(window.location.pathname) && width < 350
 
   const [isHeaderPreAnimated, setIsHeaderPreAnimated] = useState(
     leftBlocks.includes(window.location.pathname),
@@ -38,7 +42,11 @@ const Header = () => {
           </div>
         </div>
 
-        <div className={`Logo ${isHeaderPreAnimated ? 'preAnimated' : ''}`}>
+        <div
+          className={`Logo ${isHeaderPreAnimated ? 'preAnimated' : ''} ${
+            isHeaderHiddenOnSmallMobile ? 'hiddenOnSmallMobile' : ''
+          }`}
+        >
           <div className="LogoImg" onClick={() => navigate('/')}>
             <Logo />
           </div>

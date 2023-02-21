@@ -1,7 +1,29 @@
 .closeBtn {
   display: none;
 }
-
+.skeletonCardShare{
+  min-width: 173px;
+  min-height: 122px;
+  margin-bottom: 8px;
+  border-radius: 16px;
+}
+.titleShareSkeleton{
+  min-width: 100px;
+  min-height: 20px;
+  border-radius: 8px;
+  margin-bottom: 45px
+}
+.courseShareSkeleton{
+  min-width: 100px;
+  min-height: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.blockShareSkeleton{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 .MargTopMobil {
   display: flex;
   flex-direction: column;
@@ -198,7 +220,16 @@ a.MainButton:hover {
 }
 
 @media screen and (max-width: 1280px) {
-
+  .titleShareSkeleton{
+    display: none;
+  }
+  .blockShareSkeleton{
+    align-items: flex-start;
+  }
+  .skeletonCardShare{
+    min-width: 256px;
+    min-height: 106px;
+  }
   .DiplomaCard {
     display: flex;
     flex-direction: column;

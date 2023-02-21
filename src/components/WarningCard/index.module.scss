@@ -1,0 +1,24 @@
+.WarningCard{
+  min-height: 72px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--bg-warning-card, #fff);
+  position: relative;
+
+  &.withCross{
+    padding-right: 42px;
+  }
+
+  .closeBtn{
+    padding: 0;
+
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+}

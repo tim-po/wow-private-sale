@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './index.scss'
 import { TrajectoryType } from '../../../types'
 import Keyword from '../../../components/Keyword'
@@ -18,14 +18,6 @@ import { useProfession } from '../../../Models/useProfession'
 import { BASE_URL } from '../../../constants'
 import axios from 'axios'
 
-// CONSTANTS
-// const randomFeedbackSelectOptions = [
-//   'Поиск ключевых слов 🔎️',
-//   'Добавление/ удаление слов 🗑',
-//   'Все сложно  🤯',
-//   'Все понятно 👌',
-// ]
-
 const Keywords = () => {
   const professionId = withLocalStorage(
     { professionId: null },
@@ -33,10 +25,10 @@ const Keywords = () => {
   ).professionId
 
   const navigate = useNavigate()
-  const { presets, profession, keywords } = useProfession(professionId)
+  const { profession, keywords } = useProfession(professionId)
 
   useEffect(() => {
-    changeBg('white')
+    changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
 
@@ -124,7 +116,7 @@ const Keywords = () => {
                         key={keyword.id}
                         deletable={true}
                         keyword={keyword}
-                        bg-color="'var(--color-secondary)'"
+                        bg-color="var(--color-secondary)"
                         onDeleteSelf={() => keywords.remove(keyword)}
                       />
                     )
@@ -144,7 +136,7 @@ const Keywords = () => {
                     return (
                       <div
                         key={index}
-                        className="skeleton"
+                        className="skeletonKeywords MainSkeleton"
                         style={{
                           'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px',
                         }}
@@ -159,7 +151,7 @@ const Keywords = () => {
                     key={keyword.id}
                     deletable={true}
                     keyword={keyword}
-                    bg-color="'var(--color-secondary)'"
+                    bg-color="var(--color-secondary)"
                     onDeleteSelf={() => keywords.remove(keyword)}
                   />
                 )

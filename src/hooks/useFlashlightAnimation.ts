@@ -1,5 +1,5 @@
-import { MouseEvent, RefObject } from 'react'
-import { Colors } from '../utils/background/ColorTypes'
+import { MouseEvent, RefObject, useEffect } from 'react'
+import { Colors } from '../utils/background/background'
 
 export default (
   ref: RefObject<HTMLElement>,
@@ -8,10 +8,9 @@ export default (
   isMobile: boolean,
 ) => {
   const maxSize = 100
-
   let size = 0,
     at = { x: 0, y: 0 },
-    state: 'enter' | 'leave' = 'leave',
+    state: 'enter' | 'leave' | 'rerender' = 'leave',
     enterTimer: NodeJS.Timer,
     leaveTimer: NodeJS.Timer,
     mainRender: NodeJS.Timer
@@ -57,28 +56,39 @@ export default (
     size -= 2.5
     if (size <= 0) {
       state = 'leave'
-      clearInterval(mainRender)
+      // clearInterval(mainRender)
       clearInterval(leaveTimer)
+      clearInterval(enterTimer)
       clearBg()
     }
   }
 
+  useEffect(() => {
+    mainRender = setInterval(renderFlashLight, 3)
+    return () => {
+      clearInterval(mainRender)
+    }
+  })
+
   return isMobile
-    ? undefined
+    ? {}
     : {
         onMouseEnter: (event: MouseEvent<HTMLElement>) => {
+          // clearInterval(mainRender)
+          // mainRender = setInterval(renderFlashLight, 3)
+
           state = 'enter'
           clearInterval(leaveTimer)
-          mainRender = setInterval(renderFlashLight, 3)
+          clearInterval(enterTimer)
           enterTimer = setInterval(flashlightAppear, 1)
+
           setPosition(event)
         },
-
         onMouseMove: (event: MouseEvent<HTMLElement>) => {
           setPosition(event)
         },
-
         onMouseLeave: (event: MouseEvent<HTMLElement>) => {
+          clearInterval(leaveTimer)
           clearInterval(enterTimer)
           leaveTimer = setInterval(flashlightDisappear, 1)
           setPosition(event)

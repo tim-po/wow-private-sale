@@ -1,0 +1,10 @@
+.tieBody{
+  transition: all 0.2s;
+  transform: rotate(0deg) scaleY(1);
+}
+
+.current{
+  .tieBody{
+    transform: rotate(-2deg) scaleY(1.1);
+  }
+}

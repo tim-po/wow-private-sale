@@ -21,14 +21,9 @@
   gap: 8px;
 
   &.notDisplayed {
-    //padding: 0;
-    max-width: 30px;
+    max-width: 20px;
     height: 20px;
     opacity: 0;
-  }
-
-  &.optional{
-    //animation: optionalStepAppear 0.5s ease-in-out;
   }
 
   &.last {
@@ -90,5 +85,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .NavItem {
+    &.notDisplayed {
+      max-width: 30px;
+    }
   }
 }

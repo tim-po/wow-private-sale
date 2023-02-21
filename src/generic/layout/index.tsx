@@ -2,7 +2,6 @@ import React, { ReactNode, useContext, useEffect, useRef, useState } from 'react
 import './index.scss'
 import GenericModal from 'components/GenericModal'
 import Header from 'components/Header'
-import BackButtonContext from 'Context/BackButton'
 import ModalsContext from 'Context/Modal'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -24,9 +23,7 @@ const Layout = (props: layoutPropType) => {
 
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
   const [modalComponent, setModalComponent] = useState<Array<ReactNode | undefined>>([])
-  const [backgroundColor, setBackgroundColor] = useState('white')
 
-  const { backButtonHref } = useContext(BackButtonContext)
   const [cookie] = useCookies(['_ym_uid'])
   const [isOpenRandomFeedback, setIsOpenRandomFeedback] = useState(false)
   const [groupId, setGroupId] = useState<number>(0)

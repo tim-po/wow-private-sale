@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { BASE_URL } from '../../constants'
 import axios from 'axios'
-import BackButtonContext from '../../Context/BackButton'
 import Keyword from '../../components/Keyword'
 import { makeEmptyList } from '../../utils/general'
 import './index.scss'
@@ -26,7 +25,6 @@ import { TrajectoryType } from 'types'
 
 const ProfessionDetails = () => {
   const navigate = useNavigate()
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const { displayModal } = useContext(ModalsContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams] = useSearchParams()
@@ -40,21 +38,9 @@ const ProfessionDetails = () => {
 
   useEffect(() => {
     changeBg('white')
-
-    if (searchParams.get('view') === 'main') {
-      setNewBackButtonProps('Все профессии', '/professions')
-    }
   }, [])
 
   useEffect(() => {
-    if (searchParams.get('view') !== 'main' && profession) {
-      setNewBackButtonProps(
-        `${profession?.name}: описание`,
-        `/professionDetails?view=main&id=${searchParams.get('id')}`,
-      )
-    } else {
-      setNewBackButtonProps('Все профессии', '/professions')
-    }
     updateStickyBlocks()
   }, [searchParams.get('view'), profession])
 
@@ -89,18 +75,10 @@ const ProfessionDetails = () => {
 
   const editKeywords = () => {
     navigate(`professionDetails?id=${profession?.id}&view=keywords`)
-    setNewBackButtonProps(
-      `${profession?.name}: описание`,
-      `/professionDetails?view=main&id=${searchParams.get('id')}`,
-    )
   }
 
   const editSkillSets = () => {
     navigate(`professionDetails?id=${profession?.id}&view=skills`)
-    setNewBackButtonProps(
-      `${profession?.name}: описание`,
-      `/professionDetails?view=main&id=${searchParams.get('id')}`,
-    )
   }
 
   const openKeywordsModal = () => {

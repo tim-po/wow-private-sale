@@ -13,7 +13,6 @@ import Magnifier from 'images/icons/magnifier'
 import RandomFeedback from '../../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock } from '../../../utils/stickyHeaders'
 import { changeBg } from '../../../utils/background/background'
-import BackButtonContext from '../../../Context/BackButton'
 import { useNavigate } from 'react-router-dom'
 import { useProfession } from '../../../Models/useProfession'
 import { BASE_URL } from '../../../constants'
@@ -33,7 +32,6 @@ const Keywords = () => {
     LocalStorageInteraction.load,
   ).professionId
 
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const navigate = useNavigate()
   const { presets, profession, keywords } = useProfession(professionId)
 
@@ -41,8 +39,6 @@ const Keywords = () => {
     changeBg('white')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
-
-    setNewBackButtonProps('Наборы наввыков', '/skills')
 
     if (localStorage.getItem('Modal1') !== 'active') {
       localStorage.setItem('Modal1', 'active')
@@ -59,7 +55,6 @@ const Keywords = () => {
         keywords: keywords.allIds,
       })
       .then(r => {
-        setNewBackButtonProps('', 'keywords')
         navigate(
           `/trajectories?ids=${JSON.stringify(
             r.data.map((el: TrajectoryType) => el.id),

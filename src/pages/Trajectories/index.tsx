@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import BackButtonContext from '../../Context/BackButton'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import * as Scroll from 'react-scroll'
@@ -16,18 +15,11 @@ import TrajectoryPreview from '../../components/TrajectoryPreview'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState([])
-  const { setNewBackButtonProps, backButtonHref } = useContext(BackButtonContext)
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
 
   useEffect(() => {
     changeBg('#F1F2F8')
-
-    // TODO придумать как однозначно проверять, что backButton ведет лиьбо на пресеты либона кейворды
-
-    if (backButtonHref !== '/skills' && '/keywords' !== backButtonHref) {
-      setNewBackButtonProps('Выбор ключевых слов и пресетов', `/skills`)
-    }
 
     if (trajectories.length === 0) {
       try {

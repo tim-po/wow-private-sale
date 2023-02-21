@@ -5,7 +5,6 @@ import './stylesheets/skeleton.scss'
 
 import Layout from 'generic/layout'
 import HeaderContext from 'Context/Header'
-import BackButtonContext from 'Context/BackButton'
 import { Route, Routes } from 'react-router-dom'
 import Start from 'pages/Start'
 import ProfessionDetails from 'pages/ProfessionDetails'
@@ -32,33 +31,25 @@ export const App = () => {
         setIsHeaderAnimated: setHeaderAnimated,
       }}
     >
-      <BackButtonContext.Provider
-        value={{
-          ...backButtonProps,
-          setNewBackButtonProps: (text: string, href: string) =>
-            setBackButtonProps({ backButtonText: text, backButtonHref: href }),
-        }}
-      >
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Start />} />
-            <Route path="/professions/*" element={<Professions />} />
-            {/*  TODO удалить роут professionDetails после окончания работы надо новой */}
-            {/* навигацией */}
-            <Route path="/professionDetails*" element={<ProfessionDetails />} />
-            {/*  */}
-            <Route path="profession/:profId" element={<Profession />} />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/professions/*" element={<Professions />} />
+          {/*  TODO удалить роут professionDetails после окончания работы надо новой */}
+          {/* навигацией */}
+          <Route path="/professionDetails*" element={<ProfessionDetails />} />
+          {/*  */}
+          <Route path="profession/:profId" element={<Profession />} />
 
-            <Route path="skills" element={<SkillSets />} />
-            <Route path="keywords" element={<Keywords />} />
+          <Route path="skills" element={<SkillSets />} />
+          <Route path="keywords" element={<Keywords />} />
 
-            <Route path="/diplomaShare*" element={<DiplomaShare />} />
-            <Route path="/trajectory*" element={<Trajectory />} />
-            <Route path="/trajectories*" element={<Trajectories />} />
-            <Route path={'/*'} element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </BackButtonContext.Provider>
+          <Route path="/diplomaShare*" element={<DiplomaShare />} />
+          <Route path="/trajectory*" element={<Trajectory />} />
+          <Route path="/trajectories*" element={<Trajectories />} />
+          <Route path={'/*'} element={<NotFound />} />
+        </Routes>
+      </Layout>
     </HeaderContext.Provider>
   )
 }

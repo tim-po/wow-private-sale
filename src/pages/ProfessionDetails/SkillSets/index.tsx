@@ -11,7 +11,6 @@ import InfoIcon from '../../../images/icons/Static/InfoIcon'
 import { useInView } from 'react-intersection-observer'
 import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
 import { useProfession } from '../../../Models/useProfession'
-import BackButtonContext from '../../../Context/BackButton'
 import { changeBg } from '../../../utils/background/background'
 import axios from 'axios'
 import { BASE_URL } from '../../../constants'
@@ -29,7 +28,6 @@ const SkillSets = () => {
     LocalStorageInteraction.load,
   ).professionId
 
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const navigate = useNavigate()
   const { presets, profession, keywords } = useProfession(professionId)
 
@@ -45,7 +43,6 @@ const SkillSets = () => {
 
   useEffect(() => {
     changeBg('white')
-    setNewBackButtonProps('Моя профессия', `/profession/${professionId}`)
 
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
@@ -75,7 +72,6 @@ const SkillSets = () => {
         keywords: keywords.allIds,
       })
       .then(r => {
-        setNewBackButtonProps('Наборы навыков', `/skills`)
         navigate(
           `/trajectories?ids=${JSON.stringify(
             r.data.map((el: TrajectoryType) => el.id),

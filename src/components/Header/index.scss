@@ -53,6 +53,7 @@
     .Navigation {
       display: flex;
       color: white;
+      align-items: center;
     }
 
 
@@ -87,33 +88,37 @@
   }
 
   .Header {
-    width: inherit;
+    width: 100%;
     padding: inherit;
 
     .Logo {
-      transition: initial;
       top: inherit;
-      transform: inherit;
-      right: inherit;
-      left: inherit;
-      position: inherit;
-      width: 100%;
+      transition: all 0.4s;
+      transform: scale(0.75);
+      right: -125px;
+      //left: inherit;
+      //position: inherit;
       display: flex;
       justify-content: center;
 
       &.preAnimated {
-        right: inherit;
-        width: 100%;
+        //right: inherit;
+        right: calc(50% - 209px / 2);
+        //width: 100%;
+        transform: scale(1);
       }
     }
 
     .TrajectoriesLinkBack {
-      transition: all 0s;
-      position: fixed;
-      top: 23px;
-      left: 16px;
+      //transition: all 0s;
+      //position: fixed;
+      //top: 23px;
+      left: 1px;
       z-index: 1600;
-      box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
+      &.preAnimated {
+        left: 1px;
+      }
+      //box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
     }
   }
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import './index.scss'
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
-import BackButtonContext from '../../../Context/BackButton'
 import { useProfession } from '../../../Models/useProfession'
 import { changeBg } from '../../../utils/background/background'
 import { createStickyBlock } from '../../../utils/stickyHeaders'
@@ -20,7 +19,6 @@ type ProfessionContextType = ReturnType<typeof useProfession>
 
 const Profession = () => {
   const navigate = useNavigate()
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
 
   const { profId } = useParams()
 
@@ -30,7 +28,6 @@ const Profession = () => {
 
   useEffect(() => {
     changeBg('white')
-    setNewBackButtonProps('Все профессии', '/professions')
   }, [])
 
   const openSkillSets = async () => {

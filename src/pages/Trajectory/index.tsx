@@ -4,7 +4,6 @@ import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import CourseSelector from '../../components/trajectory/CourseSelector'
-import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import LoadingScreen from '../../components/LoadingScreen'
@@ -25,7 +24,6 @@ const Trajectory = () => {
   const navigate = useNavigate()
   const hintSemester = useRef<HTMLDivElement>(null)
   const hintDiscipline = useRef<HTMLDivElement>(null)
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px')
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
@@ -50,8 +48,8 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
-  useEffect(()=>{
-    function adaptiveCourse(){
+  useEffect(() => {
+    function adaptiveCourse() {
       const widthTitle = stileTextRef.current?.offsetWidth
       const widthContainer = titleNameDiscipline.current?.offsetWidth
       if (widthContainer && widthTitle) {
@@ -63,10 +61,10 @@ const Trajectory = () => {
       }
     }
 
-    window.addEventListener("resize", adaptiveCourse);
+    window.addEventListener('resize', adaptiveCourse)
     return () => {
-      window.removeEventListener("resize", adaptiveCourse);
-    };
+      window.removeEventListener('resize', adaptiveCourse)
+    }
   })
   useEffect(() => {
     const courseNumber = searchParams.get('course')
@@ -79,16 +77,7 @@ const Trajectory = () => {
     } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
   }, [isMobile, searchParams.get('course')])
 
-
-
   useEffect(() => {
-    setNewBackButtonProps(
-      'Все траектории',
-      `trajectories?ids=${
-        withLocalStorage({ chosenTrajectoriesIds: [] }, LocalStorageInteraction.load)
-          .chosenTrajectoriesIds
-      }`,
-    )
     getTrajectory()
     changeBg('white')
 
@@ -153,7 +142,7 @@ const Trajectory = () => {
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {trajectory.educational_plan}
         </h5>
-        <div style={transferCoursesRow? {width:'100%'}: {} } className="CoursesRow">
+        <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
             bgColor={searchParams.get('course') === '5' ? '#FFFFFF' : '#F3F3F8'}
             leftOffset={selectorLeftOffset}

@@ -6,8 +6,17 @@ import IconScissors from '../../images/icons/IconScissors'
 import IconTracks from '../../images/icons/IconTracks'
 import IconPath from '../../images/icons/IconPath'
 
+export enum Path {
+  'professions' = 'professions',
+  'profession' = 'profession',
+  'skills' = 'skills',
+  'keywords' = 'keywords',
+  'trajectories' = 'trajectories',
+  'trajectory' = 'trajectory',
+}
+
 type NavigationItemConfig = {
-  path: string
+  path: Path
   title: string
   params?: string
   icon: FC
@@ -15,7 +24,7 @@ type NavigationItemConfig = {
 }
 
 export type NavigationItem = {
-  path: string
+  path: Path
   title: string
   params?: string
   icon: FC
@@ -33,23 +42,22 @@ export type NavigationItemStatus =
   | 'notDisplayed'
 
 const navigationItemsConfig: NavigationItemConfig[] = [
-  { path: 'professions', title: 'Профессии', icon: IconBag },
-  { path: 'profession', title: 'Моя профессия', icon: IconTie },
-  { path: 'skills', title: 'Наборы навыков', icon: IconPuzzle },
+  { path: Path.professions, title: 'Профессии', icon: IconBag },
+  { path: Path.profession, title: 'Моя профессия', icon: IconTie },
+  { path: Path.skills, title: 'Наборы навыков', icon: IconPuzzle },
   {
-    path: 'keywords',
+    path: Path.keywords,
     title: 'Ключевые сова',
     icon: IconScissors,
     isOptional: true,
   },
-  { path: 'trajectories', title: 'Траектории', icon: IconTracks },
-  { path: 'trajectory', title: 'Моя траектория', icon: IconPath },
+  { path: Path.trajectories, title: 'Траектории', icon: IconTracks },
+  { path: Path.trajectory, title: 'Моя траектория', icon: IconPath },
 ]
 
-export const navigationItems: { [key: string]: NavigationItem } = Object.fromEntries(
-  navigationItemsConfig.map((item, index) => [item.path, { ...item, index: index }]),
-)
-
-export const optionalSteps = navigationItemsConfig.filter(item => item.isOptional)
+export const navigationItems: { [key in Path as string]: NavigationItem } =
+  Object.fromEntries(
+    navigationItemsConfig.map((item, index) => [item.path, { ...item, index: index }]),
+  )
 
 export const navigationItemKeys: string[] = Object.keys(navigationItems)

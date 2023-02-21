@@ -12,19 +12,19 @@ const NavigationStep = (props: NavigationStepProps) => {
 
   const { goBack, getStepStatusAndLayoutIndex, currentLocation } = useNavigation()
 
-  const stepsOverlapInPx = -12
+  const stepsOverlapInPx = -20
 
   const step = navigationItems[stepPath]
   const stepLayoutConfig = getStepStatusAndLayoutIndex(step)
 
   const translate = stepsOverlapInPx * stepLayoutConfig.index
-  const zIndex = 100 - Math.abs(currentLocation.index - step.index)
+  let zIndex = 100 - Math.abs(currentLocation.index - step.index)
   const hasIcon = ['last', 'current', 'next'].includes(stepLayoutConfig.status)
   const disabled = !hasIcon
 
   if (stepLayoutConfig.status === 'notDisplayed') {
-    return null
-    // zIndex = currentLocation.index - 1
+    // return null
+    zIndex = currentLocation.index - 1
   }
 
   const onClick = () => {
@@ -42,7 +42,10 @@ const NavigationStep = (props: NavigationStepProps) => {
         step.isOptional ? 'optional' : ''
       }`}
       onClick={onClick}
-      style={{ transform: `translateX(${translate}px)`, zIndex: zIndex }}
+      style={{
+        transform: `translateX(${translate}px)`,
+        zIndex: zIndex,
+      }}
     >
       <div className={`Icon ${hasIcon ? 'withIcon' : ''}`}>{<step.icon />}</div>
       <span className={'StepTitle'}>{step.title}</span>

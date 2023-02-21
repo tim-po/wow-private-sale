@@ -1,13 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Logo from 'images/icons/Static/logo'
-import BackButtonContext from '../../Context/BackButton'
-import {
-  navigationItemKeys,
-  navigationItems,
-} from '../../Models/navigation/NavigationConfig'
-import useNavigation from '../../Models/navigation/useNavigation'
+import { navigationItemKeys } from '../../Models/navigation/NavigationConfig'
 import NavigationStep from './NavigationStep'
 import { createStickyBlock } from '../../utils/stickyHeaders'
 

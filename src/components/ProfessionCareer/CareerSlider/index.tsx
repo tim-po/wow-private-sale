@@ -37,115 +37,132 @@ const CareerSlider = () => {
   const sliderIconWrapper = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (sliderStarRef.current) {
-      sliderStarRef.current.ontouchstart = function (event) {
-        if (sliderStarRef.current) {
-          event.preventDefault()
-
-          const shiftX =
-            event.touches[0].clientX - sliderStarRef.current.getBoundingClientRect().left
-
-          const calcPosition = (moveEvent: TouchEvent) => {
-            if (
-              sliderRef.current &&
-              sliderStarRef.current &&
-              tooltipContentRef.current &&
-              drum.current
-            ) {
-              let newLeft =
-                moveEvent.touches[0].clientX -
-                shiftX -
-                sliderRef.current.getBoundingClientRect().left
-
-              if (newLeft < 0) {
-                newLeft = 0
-              }
-
-              if (newLeft > sliderRef.current.offsetWidth) {
-                newLeft = sliderRef.current.offsetWidth
-              }
-
-              const tooltipActiveWidth = tooltipContentRef.current.offsetWidth - 45
-              const newTooltipArrowPosition =
-                (newLeft / sliderRef.current.offsetWidth) * tooltipActiveWidth + 12
-
-              const newDrum =
-                (newLeft / sliderRef.current.offsetWidth) *
-                (drum.current.offsetHeight - 21)
-
-              return {
-                newLeft,
-                newTooltipArrowPosition,
-                tooltipActiveWidth,
-                newDrum,
-              }
-            } else {
-              return {
-                newLeft: 0,
-                newTooltipArrowPosition: 0,
-                tooltipActiveWidth: 0,
-                newDrum: 0,
-              }
-            }
-          }
-
-          const onMouseMove = (moveEvent: TouchEvent) => {
-            const { newLeft, newTooltipArrowPosition, newDrum } = calcPosition(moveEvent)
-
-            if (
-              sliderStarRef.current &&
-              tooltipContentRef.current &&
-              filledLineRef.current &&
-              sliderRef.current &&
-              drum.current
-            ) {
-              sliderStarRef.current.style.transition = ''
-              filledLineRef.current.style.transition = ''
-              sliderStarRef.current.style.left = newLeft + 'px'
-              filledLineRef.current.style.right =
-                sliderRef.current.offsetWidth - newLeft + 'px'
-              tooltipContentRef.current.style.left = -newTooltipArrowPosition + 'px'
-              drum.current.style.top = -newDrum + 'px'
-            }
-          }
-
-          const onMouseUp = (moveEvent: TouchEvent) => {
-            document.removeEventListener('touchend', onMouseUp)
-            document.removeEventListener('touchmove', onMouseMove)
-
-            const { newLeft, tooltipActiveWidth } = calcPosition(moveEvent)
-
-            if (
-              sliderStarRef.current &&
-              tooltipContentRef.current &&
-              sliderRef.current &&
-              filledLineRef.current &&
-              drum.current &&
-              sliderIconWrapper.current
-            ) {
-              const startPosition = Math.round(
-                Math.floor(newLeft / (sliderRef.current.offsetWidth / 4)) / 2,
-              )
-              sliderStarRef.current.style.left =
-                startPosition * (sliderRef.current.offsetWidth / 2) + 'px'
-              sliderStarRef.current.style.transition = 'all .3s'
-              filledLineRef.current.style.right =
-                sliderRef.current.offsetWidth -
-                startPosition * (sliderRef.current.offsetWidth / 2) +
-                'px'
-              filledLineRef.current.style.transition = 'all .3s'
-              tooltipContentRef.current.style.left =
-                (startPosition * -tooltipActiveWidth) / 2 - 12 + 'px'
-              drum.current.style.top = -startPosition * 15 * 21 + 'px'
-              sliderIconWrapper.current.style.left =
-                (-sliderIconWrapper.current.offsetWidth / 3) * startPosition + 'px'
-              sliderIconWrapper.current.style.transition = 'all .3s'
-            }
-          }
-
-          document.addEventListener('touchmove', onMouseMove)
-          document.addEventListener('touchend', onMouseUp)
+    const sliderAnimation = (event: MouseEvent | TouchEvent) => {
+      const detectCurrentEvent = (currentEvent: MouseEvent | TouchEvent) => {
+        if (currentEvent instanceof MouseEvent) {
+          return currentEvent
+        } else {
+          return currentEvent.touches[0]
         }
+      }
+
+      if (sliderStarRef.current) {
+        event.preventDefault()
+        const shiftX =
+          detectCurrentEvent(event).clientX -
+          sliderStarRef.current.getBoundingClientRect().left
+
+        const calcPosition = (moveEvent: TouchEvent | MouseEvent) => {
+          if (
+            sliderRef.current &&
+            sliderStarRef.current &&
+            tooltipContentRef.current &&
+            drum.current
+          ) {
+            let newLeft =
+              detectCurrentEvent(moveEvent).clientX -
+              shiftX -
+              sliderRef.current.getBoundingClientRect().left
+
+            if (newLeft < 0) {
+              newLeft = 0
+            }
+
+            if (newLeft > sliderRef.current.offsetWidth) {
+              newLeft = sliderRef.current.offsetWidth
+            }
+
+            const tooltipActiveWidth = tooltipContentRef.current.offsetWidth - 45
+            const newTooltipArrowPosition =
+              (newLeft / sliderRef.current.offsetWidth) * tooltipActiveWidth + 12
+
+            const newDrum =
+              (newLeft / sliderRef.current.offsetWidth) * (drum.current.offsetHeight - 21)
+
+            return {
+              newLeft,
+              newTooltipArrowPosition,
+              tooltipActiveWidth,
+              newDrum,
+            }
+          } else {
+            return {
+              newLeft: 0,
+              newTooltipArrowPosition: 0,
+              tooltipActiveWidth: 0,
+              newDrum: 0,
+            }
+          }
+        }
+
+        const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
+          const { newLeft, newTooltipArrowPosition, newDrum } = calcPosition(moveEvent)
+
+          if (
+            sliderStarRef.current &&
+            tooltipContentRef.current &&
+            filledLineRef.current &&
+            sliderRef.current &&
+            drum.current
+          ) {
+            sliderStarRef.current.style.transition = ''
+            filledLineRef.current.style.transition = ''
+            sliderStarRef.current.style.left = newLeft + 'px'
+            filledLineRef.current.style.right =
+              sliderRef.current.offsetWidth - newLeft + 'px'
+            tooltipContentRef.current.style.left = -newTooltipArrowPosition + 'px'
+            drum.current.style.top = -newDrum + 'px'
+          }
+        }
+
+        const onMouseUp = (moveEvent: TouchEvent | MouseEvent) => {
+          document.removeEventListener('touchend', onMouseUp)
+          document.removeEventListener('touchmove', onMouseMove)
+
+          const { newLeft, tooltipActiveWidth } = calcPosition(moveEvent)
+
+          if (
+            sliderStarRef.current &&
+            tooltipContentRef.current &&
+            sliderRef.current &&
+            filledLineRef.current &&
+            drum.current &&
+            sliderIconWrapper.current
+          ) {
+            const startPosition = Math.round(
+              Math.floor(newLeft / (sliderRef.current.offsetWidth / 4)) / 2,
+            )
+            sliderStarRef.current.style.left =
+              startPosition * (sliderRef.current.offsetWidth / 2) + 'px'
+            sliderStarRef.current.style.transition = 'all .3s'
+            filledLineRef.current.style.right =
+              sliderRef.current.offsetWidth -
+              startPosition * (sliderRef.current.offsetWidth / 2) +
+              'px'
+            filledLineRef.current.style.transition = 'all .3s'
+            tooltipContentRef.current.style.left =
+              (startPosition * -tooltipActiveWidth) / 2 - 12 + 'px'
+            drum.current.style.top = -startPosition * 15 * 21 + 'px'
+            sliderIconWrapper.current.style.left =
+              (-sliderIconWrapper.current.offsetWidth / 3) * startPosition + 'px'
+            sliderIconWrapper.current.style.transition = 'all .3s'
+          }
+        }
+
+        document.addEventListener('touchmove', onMouseMove)
+        document.addEventListener('touchend', onMouseUp)
+      }
+    }
+
+    if (sliderStarRef.current) {
+      if (isMobile) {
+        sliderStarRef.current.ontouchstart = event => sliderAnimation(event)
+        return
+      }
+
+      if (!isMobile) {
+        sliderStarRef.current.onmousedown = event => sliderAnimation(event)
+        return
       }
     }
   }, [])

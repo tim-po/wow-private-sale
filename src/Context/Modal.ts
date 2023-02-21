@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
+import { OptionalGenericModalProps } from '../components/GenericModal'
 
 type ModalContextType = {
-  displayModal: (component: ReactNode) => void
+  displayModal: (component: ReactNode, genericProps?: OptionalGenericModalProps) => void
   closeModal: () => void
 }
 

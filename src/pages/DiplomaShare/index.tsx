@@ -168,6 +168,7 @@ const DiplomaShare = () => {
                               headerBg={colors[item.name]}
                               name={item.name}
                             />,
+                            { colorCloseWhite: true },
                           )
                         }
                         isDiplomaCard={false}

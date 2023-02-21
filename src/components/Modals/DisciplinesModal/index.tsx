@@ -1,9 +1,7 @@
-import React, {useContext, useState} from "react";
+import React from 'react'
 import './index.scss'
-import styled from 'styled-components';
-import {CountType} from "../../../types";
 
-interface DisciplinesModalPropType  {
+interface DisciplinesModalPropType {
   discipline: any
   course?: number
   headerBg?: string
@@ -11,11 +9,10 @@ interface DisciplinesModalPropType  {
 }
 
 const DisciplinesModal = (props: DisciplinesModalPropType) => {
-  const {discipline, course, headerBg, name} = props
-  console.log(discipline)
+  const { discipline, course, headerBg, name } = props
   return (
     <div className="disciplineModalContainer">
-      <div className="disciplineHeaderContainer" style={{background: `${headerBg}`}}>
+      <div className="disciplineHeaderContainer" style={{ background: `${headerBg}` }}>
         {course && <div className="course-of-disc">{course} курс</div>}
         <div className="classesNameDisc">{name}</div>
       </div>
@@ -23,7 +20,7 @@ const DisciplinesModal = (props: DisciplinesModalPropType) => {
         <div className="disciplinesElementsContainer">
           {discipline.map((currentDiscipline: any, index: number) => (
             <div className="disciplinesElements" key={currentDiscipline.name}>
-              {currentDiscipline['control_types'] &&
+              {currentDiscipline['control_types'] && (
                 <>
                   {Object.values(currentDiscipline['control_types']).map((el: any) => (
                     <div className="disciplinesElement" key={el.name}>
@@ -35,21 +32,21 @@ const DisciplinesModal = (props: DisciplinesModalPropType) => {
                     </div>
                   ))}
                 </>
-              }
-              {!currentDiscipline['control_types'] &&
+              )}
+              {!currentDiscipline['control_types'] && (
                 <div className="disciplinesElement" key={currentDiscipline.name}>
                   <div className="d-flex flex-row">
                     <div className="disciplinesElementsCount">{index + 1}</div>
                     <div>{currentDiscipline.name}</div>
                   </div>
                 </div>
-              }
+              )}
             </div>
           ))}
         </div>
       </div>
     </div>
   )
-};
+}
 
 export default DisciplinesModal

@@ -5,7 +5,6 @@ import { ClassType } from '../../../types'
 import { colors } from '../../../constants'
 import TrajectoryDisciplineModal from '../../Modals/TrajectoryDisciplineModal'
 import ModalContext from '../../../Context/Modal'
-import { isMobile } from 'react-device-detect'
 
 type CardPropType = {
   selectedSphere: string | undefined
@@ -52,7 +51,7 @@ const Card = (props: CardPropType) => {
     disciplineSphere: ClassType,
     index: 'first_semesters_disciplines' | 'second_semesters_disciplines',
   ) => {
-    const disciplines = [...disciplineSphere[index]].sort((dis1, dis2) => {
+    return [...disciplineSphere[index]].sort((dis1, dis2) => {
       const discsWithArrows = getArrowDisciplineNames(disciplineSphere)
       const dis1InclusionNumber = discsWithArrows.includes(dis1.name) ? 1 : -1
       const dis2InclusionNumber = discsWithArrows.includes(dis2.name) ? 1 : -1
@@ -61,7 +60,6 @@ const Card = (props: CardPropType) => {
         (dis2.name > dis1.name ? 1 : -1)
       )
     })
-    return disciplines
   }
 
   const switchSemesters = () => {
@@ -128,6 +126,7 @@ const Card = (props: CardPropType) => {
                               ? () =>
                                   displayModal(
                                     <TrajectoryDisciplineModal id={discipline.id} />,
+                                    { colorCloseWhite: true },
                                   )
                               : undefined
                           }
@@ -140,7 +139,6 @@ const Card = (props: CardPropType) => {
                                 }`}
                               >
                                 <span>
-                                  {' '}
                                   {discipline.necessity === 'necessary'
                                     ? 'Обязательная'
                                     : 'По выбору'}
@@ -167,6 +165,7 @@ const Card = (props: CardPropType) => {
                               <img
                                 className="DisciplineArrowPointer"
                                 src="/static/discArrow.svg"
+                                alt={'>'}
                               />
                             </div>
                           )}

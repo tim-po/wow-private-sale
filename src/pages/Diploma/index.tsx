@@ -146,6 +146,7 @@ const Diploma = () => {
                           headerBg={colors[discipline.name]}
                           name={discipline.name}
                         />,
+                        { colorCloseWhite: true },
                       )
                     }
                     key={discipline.name}

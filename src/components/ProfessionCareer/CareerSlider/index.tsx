@@ -85,7 +85,7 @@ const CareerSlider = () => {
           const tooltipPosition =
             (starPosition / sliderLineRef.current.offsetWidth) * tooltipWidth + 12
 
-          const newDrum =
+          const newDrumOffset =
             (starPosition / sliderLineRef.current.offsetWidth) *
             (drum.current.offsetHeight - 21)
 
@@ -93,20 +93,20 @@ const CareerSlider = () => {
             starPosition,
             tooltipPosition,
             tooltipWidth,
-            newDrum,
+            newDrumOffset,
           }
         } else {
           return {
             starPosition: 0,
             tooltipPosition: 0,
             tooltipWidth: 0,
-            newDrum: 0,
+            newDrumOffset: 0,
           }
         }
       }
 
       const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
-        const { starPosition, tooltipPosition, newDrum } = calcPosition(moveEvent)
+        const { starPosition, tooltipPosition, newDrumOffset } = calcPosition(moveEvent)
 
         if (
           sliderStarRef.current &&
@@ -126,7 +126,7 @@ const CareerSlider = () => {
 
           tooltipRef.current.style.left = -tooltipPosition + 'px'
 
-          drum.current.style.top = -newDrum + 'px'
+          drum.current.style.top = -newDrumOffset + 'px'
         }
       }
 

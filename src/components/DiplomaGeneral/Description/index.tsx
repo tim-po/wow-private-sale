@@ -9,6 +9,7 @@ import ModalContext from '../../../Context/Modal'
 type GenericModalPropType = {
   iconUrl: string
   title: string
+  youTubeVideoId?: string
 }
 
 const TextSmall = styled.span`
@@ -39,46 +40,48 @@ const Description = (props: GenericModalPropType) => {
 
   return (
     <DiplomaTileWrapper>
-      {isMobile ? (
-        <div className="player ratio ratio-16x9">
-          <iframe
-            className="you"
-            src={youTubeSrc}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
-      ) : (
-        <div
-          className="preview"
-          onClick={() =>
-            displayModal(
-              <div className={'modalPlayer'}>
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/ao7aX7nkCHg"
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>,
-            )
-          }
-        >
-          <img src={previewSrc} alt="preview" />
-        </div>
-      )}
+      <div className={'innerWrapper'}>
+        {isMobile ? (
+          <div className="player ratio ratio-16x9">
+            <iframe
+              className="you"
+              src={youTubeSrc}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ) : (
+          <div
+            className="preview"
+            onClick={() =>
+              displayModal(
+                <div className={'modalPlayer'}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/ao7aX7nkCHg"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>,
+              )
+            }
+          >
+            <img src={previewSrc} alt="preview" />
+          </div>
+        )}
 
-      <div>
-        <DiplomaTitle>{title}</DiplomaTitle>
-        <br />
-        <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
-        <BachelorTitleWrapper>
-          <StyledIcon src={iconUrl} alt="icon" />
-          <TextSmall>Бакалавриат</TextSmall>
-        </BachelorTitleWrapper>
+        <div>
+          <DiplomaTitle>{title}</DiplomaTitle>
+          <br />
+          <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
+          <BachelorTitleWrapper>
+            <StyledIcon src={iconUrl} alt="icon" />
+            <TextSmall>Бакалавриат</TextSmall>
+          </BachelorTitleWrapper>
+        </div>
       </div>
     </DiplomaTileWrapper>
   )

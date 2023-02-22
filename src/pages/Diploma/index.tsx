@@ -38,6 +38,7 @@ const Diploma = () => {
         `${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`,
       )
       setDiplomaData(response.data)
+      console.log(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -66,7 +67,11 @@ const Diploma = () => {
       <div className="diploma-container">
         <div className="tiles-wrapper">
           <div className="left-tiles">
-            <Description iconUrl={'/static/star.svg'} title={'Высшее образование'} />
+            <Description
+              iconUrl={'/static/star.svg'}
+              title={'Высшее образование'}
+              youTubeVideoId={diplomaData?.video_id}
+            />
             <Keywords
               keywords={keywords}
               keywordsCount={keywords?.length}

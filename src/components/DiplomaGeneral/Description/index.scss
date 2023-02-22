@@ -1,10 +1,19 @@
 .innerWrapper{
   display: flex;
-  flex-wrap: nowrap;
   column-gap: 20px;
+
+  &.mobile{
+    flex-direction: column;
+  }
+
+  &.desktop{
+    flex-direction: row;
+  }
+
 
   .player{
     margin-bottom: 16px;
+    width: 100%;
 
     .you{
       width: 100%;
@@ -38,8 +47,8 @@
 
     &:hover:before{
       background-color: rgba(31, 31, 34, 0.45);
-      background-image: url("../yt_icon_mono_dark.png");
-      background-size: 42.5px 30px;
+      background-image: url("../play.svg");
+      background-size: 22.5px 26px;
       background-position: 50% 50%;
       background-repeat: no-repeat;
 

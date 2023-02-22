@@ -30,46 +30,51 @@ const StyledIcon = styled.img`
   height: 16px;
 `
 
-const videoId = 'ao7aX7nkCHg'
-const youTubeSrc = `https://www.youtube.com/embed/${videoId}`
-const previewSrc = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
-
 const Description = (props: GenericModalPropType) => {
-  const { iconUrl, title } = props
+  const { iconUrl, title, youTubeVideoId } = props
   const { displayModal } = useContext(ModalContext)
+  const youTubeSrc = `https://www.youtube.com/embed/${youTubeVideoId}`
+  const previewSrc = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`
 
+  console.log(youTubeSrc)
   return (
     <DiplomaTileWrapper>
-      <div className={'innerWrapper'}>
+      <div className={`innerWrapper ${isMobile ? 'mobile' : 'desktop'}`}>
         {isMobile ? (
-          <div className="player ratio ratio-16x9">
-            <iframe
-              className="you"
-              src={youTubeSrc}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
+          <div
+            className={`player ratio ratio-16x9 ${youTubeVideoId ? '' : 'MainSkeleton'}`}
+          >
+            {youTubeVideoId && (
+              <iframe
+                className="you"
+                src={youTubeSrc}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
         ) : (
           <div
-            className="preview"
+            className={`preview ${youTubeVideoId ? '' : 'MainSkeleton'}`}
             onClick={() =>
               displayModal(
                 <div className={'modalPlayer'}>
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/ao7aX7nkCHg"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe>
+                  {youTubeVideoId && (
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={youTubeSrc}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  )}
                 </div>,
               )
             }
           >
-            <img src={previewSrc} alt="preview" />
+            {youTubeVideoId && <img src={previewSrc} alt="preview" />}
           </div>
         )}
 

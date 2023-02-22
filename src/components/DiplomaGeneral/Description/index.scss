@@ -2,11 +2,11 @@
   display: flex;
   column-gap: 20px;
 
-  &.mobile{
+  &.mobilePlayerWrap{
     flex-direction: column;
   }
 
-  &.desktop{
+  &.desktopPlayerWrap{
     flex-direction: row;
   }
 

@@ -39,7 +39,9 @@ const Description = (props: GenericModalPropType) => {
   console.log(youTubeSrc)
   return (
     <DiplomaTileWrapper>
-      <div className={`innerWrapper ${isMobile ? 'mobile' : 'desktop'}`}>
+      <div
+        className={`innerWrapper ${isMobile ? 'mobilePlayerWrap' : 'desktopPlayerWrap'}`}
+      >
         {isMobile ? (
           <div
             className={`player ratio ratio-16x9 ${youTubeVideoId ? '' : 'MainSkeleton'}`}

@@ -85,7 +85,7 @@
 }
 
 .classesTypeCard:hover {
-  box-shadow: inset 0px 0px 0px 1px #ffffff;
+  box-shadow: inset 0 0 0 1px #ffffff;
   cursor: pointer;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .textSmall {
-  font-family: 'Inter';
+  font-family: 'Inter', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -250,12 +250,12 @@ a.MainButton:hover {
     display: block;
     background: #F3F3F8;
     box-shadow: 0px -15px 9px rgba(100, 53, 165, 0.03), 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 4px rgba(100, 53, 165, 0.06), 0px 0px 0px rgba(100, 53, 165, 0.06);
-    border-radius: 12px 12px 0px 0px;
+    border-radius: 12px 12px 0 0;
   }
 
   .ButtonAbit {
     opacity: 0.7;
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -267,7 +267,7 @@ a.MainButton:hover {
   }
 
   .DiplomaCard .disciplineName {
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -276,7 +276,7 @@ a.MainButton:hover {
   }
 
   .keywords {
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -285,7 +285,7 @@ a.MainButton:hover {
   }
 
   .titleShare {
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -294,7 +294,7 @@ a.MainButton:hover {
   }
 
   .CourseLabel {
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -308,6 +308,7 @@ a.MainButton:hover {
     gap: 30px;
     width: 100%;
     max-width: inherit;
+    min-width: 0;
   }
 
   .diplomaContainer {
@@ -351,7 +352,7 @@ a.MainButton:hover {
     background: none;
   }
   .MobilFix .DiplomaCard h6 {
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;

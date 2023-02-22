@@ -88,6 +88,7 @@ const DiplomaShare = () => {
           <Description
             iconUrl={'/static/school.svg'}
             title={diplomaShareData ? diplomaShareData.educational_plan : ''}
+            youTubeVideoId={diplomaShareData?.video_id}
           />
           <Keywords
             keywords={keywords?.slice(0, 10)}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './index.scss'
 import axios from 'axios'
 import Heart from '../../../../images/icons/Static/heart'
@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import { LocalStorageInteraction, withLocalStorage } from '../../../../utils/general'
 import FeedbackGroupIdContext from '../../../../Context/IdGroup'
 import RandomFeedbackContext from '../../../../Context/RandomFeedback'
+import useOnClickOutside from '../../../../utils/useClickOutside'
 
 const feedbackDataByGroup: {
   [key: number]: { title: string; mapButton: string[] }
@@ -65,6 +66,8 @@ const feedbackDataByGroup: {
 }
 
 const RandomFeedback = ({ displayForGroup = 0 }) => {
+  const feedbackRef = useRef<HTMLDivElement | null>(null)
+
   const { isOpenRandomFeedback } = useContext(RandomFeedbackContext)
 
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -75,13 +78,18 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   const [cookie] = useCookies(['_ym_uid'])
 
   const [isSeeIcon, setIsSeeIcon] = useState(true)
-
+  const [mobileButtonHeight, setMobileButtonHeight] = useState(0)
   const [prevMovementY, setPrevMovementY] = useState(0)
   const [alreadySentFeedbackCount, setAlreadySentFeedbackCount] = useState(
     withLocalStorage({ alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load)
       .alreadySentFeedbackCount,
   )
-
+  useEffect(()=>{
+    const bottomButton = document.getElementById('mobilBottomButton')
+    if (bottomButton &&  window.getComputedStyle(bottomButton).bottom === '0px'){
+      setMobileButtonHeight(bottomButton.offsetHeight)
+    } else (setMobileButtonHeight(0))
+  })
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
       setPrevMovementY(event.touches[0].clientY)
@@ -142,16 +150,17 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       openFeedback()
     }, 2000)
   }, [])
-
+  useOnClickOutside(feedbackRef, ()=> setShowFeedback(false))
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
     return null
   }
 
   return (
     <>
-      {!isOpenRandomFeedback ? (
-        <div
+      {isOpenRandomFeedback ? (
+        <div style={{bottom: mobileButtonHeight === 0? 8 : mobileButtonHeight + 8 }}
           onClick={openFeedback}
+             ref={feedbackRef}
           className={`container-form-random-feedback ${
             !showFeedback ? 'feedbackSmall' : ''
           } ${isSeeIcon ? '' : 'hideIcon'}`}

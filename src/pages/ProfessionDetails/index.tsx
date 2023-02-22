@@ -162,7 +162,7 @@ const ProfessionDetails = () => {
           {currentHeader()}
         </h4>
         {searchParams.get('view') !== 'main' && (
-          <div className="bottomLeftContainer">
+          <div id='mobilBottomButton' className="bottomLeftContainer">
             <button
               className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
               onClick={clearChoice}

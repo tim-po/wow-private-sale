@@ -218,7 +218,18 @@ a.MainButton:hover {
 .MobilFix {
   display: none;
 }
-
+.buttons-wrapper-share{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+.mobileBottomWrapperShare{
+  border-radius: 16px;
+  padding: 20px 25px;
+  background: #fff;
+  width: 100%;
+}
 @media screen and (max-width: 1280px) {
   .titleShareSkeleton{
     display: none;
@@ -230,6 +241,27 @@ a.MainButton:hover {
     min-width: 256px;
     min-height: 106px;
   }
+  .buttons-wrapper-share{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+  .mobileBottomWrapperShare{
+    background: #F3F3F8;
+    border-top: 1px solid #E7E8EE;
+    /* padding: 0 16px 34px 16px; */
+    transition-duration: 2s;
+    max-height: 400px;
+    z-index: 20;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+
   .DiplomaCard {
     display: flex;
     flex-direction: column;

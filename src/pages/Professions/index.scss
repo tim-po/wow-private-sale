@@ -164,3 +164,17 @@
     min-width: 320px;
   }
 }
+@media screen and (max-width: 320px) {
+  .ProfessionsPageContainer {
+    .ProfessionsContainer {
+
+      .ProfessionContainer {
+        margin-bottom: 24px;
+
+        .professionCarSkeleton {
+          width: 290px;
+        }
+      }
+    }
+  }
+}

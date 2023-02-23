@@ -1,0 +1,29 @@
+.pathIcon{
+  .pathBall{
+    transition: all 0.2s;
+    transform: scale(0.2);
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+
+}
+
+
+.current{
+  .pathIcon {
+    .pathBall:nth-child(2){
+      transition: all 0.2s 1.2s;
+    }
+    .pathBall:nth-child(3){
+      transition: all 0.2s 0.8s;
+    }
+    .pathBall:nth-child(4){
+      transition: all 0.2s 1s;
+      transform: scale(1.5);
+    }
+
+    .pathBall {
+      transform: scale(1.3);
+    }
+  }
+}

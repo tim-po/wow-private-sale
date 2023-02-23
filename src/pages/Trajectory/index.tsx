@@ -3,7 +3,6 @@ import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import CourseSelector from '../../components/trajectory/CourseSelector'
-import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import * as Scroll from 'react-scroll'
@@ -11,11 +10,7 @@ import ModalContext from '../../Context/Modal'
 import TrajectoryStats from '../../components/trajectory/TrajectoryStats'
 import Card from '../../components/trajectory/Card'
 import './index.scss'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
+import { makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
@@ -28,12 +23,10 @@ const Trajectory = () => {
   const navigate = useNavigate()
   const hintSemester = useRef<HTMLDivElement>(null)
   const hintDiscipline = useRef<HTMLDivElement>(null)
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px')
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const { width } = useWindowDimensions()
-  const [isModalTrajectory, setIsModalTrajectory] = useState<boolean>(true)
   const [loading, setLoading] = useState(true)
   const [responseError, setResponseError] = useState<number>()
 
@@ -57,8 +50,6 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
-
-
 
   useEffect(() => {
     function adaptiveCourse() {
@@ -93,13 +84,6 @@ const Trajectory = () => {
   }, [width, searchParams.get('course')])
 
   useEffect(() => {
-    setNewBackButtonProps(
-      'Все траектории',
-      `trajectories?ids=${
-        withLocalStorage({ chosenTrajectoriesIds: [] }, LocalStorageInteraction.load)
-          .chosenTrajectoriesIds
-      }`,
-    )
     getTrajectory()
     changeBg('var(--bg-color-base)')
 
@@ -124,13 +108,13 @@ const Trajectory = () => {
     return <NotFound />
   }
 
-
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
       if (course === 5) {
+        navigate(`/trajectoryDiploma?id=${trajectory?.id}&course=${course}`)
         changeBg('var(--bg-color-invert)')
       } else {
+        navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
         changeBg('var(--bg-color-base)')
       }
     }
@@ -156,13 +140,15 @@ const Trajectory = () => {
 
   return (
     <div className="TrajectoryPage">
-      <div   ref={titleNameDiscipline}
-             className="titleNameDiscipline"
-             style={
-               courseQuery === 5
-                 ? { borderBottom: '2px solid white' }
-                 : { borderBottom: '2px solid var(--gray-100)' }
-             }>
+      <div
+        ref={titleNameDiscipline}
+        className="titleNameDiscipline"
+        style={
+          courseQuery === 5
+            ? { borderBottom: '2px solid white' }
+            : { borderBottom: '2px solid var(--gray-100)' }
+        }
+      >
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {/* {trajectory?.educational_plan} */}
           {loading ? (
@@ -205,7 +191,7 @@ const Trajectory = () => {
             })}
           </div>
           <button className="CourseButtonDiploma" onClick={() => navigateToCourse(5)}>
-            Результат
+            Итог
           </button>
         </div>
       </div>

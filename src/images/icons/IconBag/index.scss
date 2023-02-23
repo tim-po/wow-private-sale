@@ -1,0 +1,10 @@
+.topOfTheBag{
+  transition: all 0.2s;
+  transform: translateY(0px) translateX(0px) rotate(0deg);
+}
+
+.current{
+  .topOfTheBag{
+    transform: translateY(-2px) translateX(1px) rotate(5deg);
+  }
+}

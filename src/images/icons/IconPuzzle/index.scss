@@ -1,0 +1,11 @@
+.puzzle{
+  transition: transform 0.3s 0.2s;
+  transform: rotate(0deg);
+  transform-origin: 58% 58%;
+}
+
+.current{
+  .puzzle{
+    transform: rotate(25deg);
+  }
+}

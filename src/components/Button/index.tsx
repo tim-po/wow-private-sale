@@ -25,7 +25,7 @@ const StyledButton = styled.button<{
   cursor: pointer;
   outline: none !important;
   border: none;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 20px;
@@ -39,7 +39,6 @@ const StyledButton = styled.button<{
         border: 1px solid ${props.isDisabled ? '#C198FF' : '#8533FF'};
         color: ${props.isDisabled ? '#C198FF' : '#8533FF'}
       `};
-  
   ${props => props.isDisabled && css`pointer-events: none;`};
 
   &:hover {

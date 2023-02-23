@@ -66,7 +66,7 @@ const Start = () => {
             </div>
             <div className="point-wrapper">
               <div className="letter-icon">
-                <ImgMainLetterA />
+                <ImgMainLetterA width={52} height={60} />
               </div>
               <p className="InfoText">
                 Выбрать уже готовый набор ключевых слов (список навыков и умений)
@@ -74,7 +74,7 @@ const Start = () => {
             </div>
             <div className="point-wrapper">
               <div className="letter-icon">
-                <ImgMainLetterB />
+                <ImgMainLetterB width={52} height={60} />
               </div>
               <p className="InfoText">
                 Изменить набор: убрать лишние или добавить важные навыки и знания
@@ -82,7 +82,7 @@ const Start = () => {
             </div>
             <div className="point-wrapper">
               <div className="letter-icon">
-                <ImgMainLetterC />
+                <ImgMainLetterC width={52} height={60} />
               </div>
               <p className="InfoText">
                 Пройти тест на определение близких тебе профессий и записаться на

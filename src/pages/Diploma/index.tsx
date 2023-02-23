@@ -11,7 +11,6 @@ import Card from 'components/DiplomaGeneral/Card'
 import ShareModal from 'components/Modals/ShareModal'
 import Button from 'components/Button'
 import { useSearchParams } from 'react-router-dom'
-import SwapModal from 'components/Modals/SwapModal'
 import ControlTypeModal from '../../components/Modals/ControlTypeModal'
 import DisciplinesModal from '../../components/Modals/DisciplinesModal'
 import Share from '../../images/icons/share'
@@ -19,6 +18,7 @@ import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../components/refactorName'
 import { changeBg } from '../../utils/background/background'
+import Close from '../../images/icons/close'
 import { makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 
@@ -31,9 +31,8 @@ const Diploma = () => {
   const [keywords, setKeywords] = useState<KeywordType[]>([])
   const [linkAbit, setLinkAbit] = useState('https://abit.itmo.ru/programs/bachelor')
   const { groupId } = useContext(FeedbackGroupIdContext)
-
+  const [desDiplomaClose, setDesDiplomaClose] = useState(false)
   const [searchParams] = useSearchParams()
-
   const getDiplomaData = async () => {
     try {
       const response = await axios.get(
@@ -67,6 +66,20 @@ const Diploma = () => {
   return (
     <>
       <div className="diploma-container">
+        <div
+          className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
+            `}
+        >
+          <div className={'descriptionDiploma'}>
+              <span>
+                Это твоя траектория в Университете ИТМО! Поступай к нам чтобы изучать то,
+                что нравится.
+              </span>
+            <button onClick={() => setDesDiplomaClose(true)}>
+              <Close width={8.5} height={8.5} />
+            </button>
+          </div>
+        </div>
         <div className="tiles-wrapper">
           <div className="left-tiles">
             <Description iconUrl={'/static/star.svg'} title={'Высшее образование'} />
@@ -76,12 +89,8 @@ const Diploma = () => {
               isKeywordsButtonHidden
               keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
             />
-            <SwapModal
-              modalHeight={250}
-              elementRef={cardRef}
-              classes={['white-tile-wrapper']}
-            >
-              <span className="marginText">
+            <div className={`mobileBottomWrapper`} id="mobilBottomButton">
+              <span className="marginText descriptionDiplomaMobile">
                 Это твоя траектория в университете ИТМО!
                 <br />
                 Поступай к нам чтобы изучать то, что нравится.
@@ -90,13 +99,12 @@ const Diploma = () => {
                 <Button
                   buttonStyle={'main'}
                   isDisabled={false}
-                  // onClick={window.open(`https://abit.itmo.ru/en/programs/bachelor?title=${diplomaData?.educational_plan.replace('', '+')}`, '_blank')}
                   onClick={() =>
                     setTimeout(() => {
                       window.open(linkAbit, '_blank')
                     })
                   }
-                  classNames={['mobile-button']}
+                  classNames={['mobile-button maxWidth']}
                 >
                   <span className={'button-text'}>Поступить в ИТМО</span>
                 </Button>
@@ -106,15 +114,16 @@ const Diploma = () => {
                   isDisabled={false}
                   classNames={['mobile-button']}
                 >
+                  <span className={'button-text share'}>Поделиться</span>
                   <div className="share-button-content">
-                    <span className={'button-text'}>Поделиться</span>
                     <div className={'share-icon'}>
+                      {' '}
                       <Share />
                     </div>
                   </div>
                 </Button>
               </div>
-            </SwapModal>
+            </div>
           </div>
 
           <div className="right-tiles">

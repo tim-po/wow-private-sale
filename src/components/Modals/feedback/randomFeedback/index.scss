@@ -13,8 +13,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 56px;
-  min-height: 40px;
+  min-width: 64px;
+  min-height: 64px;
 
   &.hideIcon{
     transition-delay: 0s;
@@ -24,11 +24,12 @@
 
   &.feedbackSmall {
     cursor: pointer;
+    border-radius: 100px;
     box-shadow: 0px -7px 7px rgba(100, 53, 165, 0.05), 0px 0px 0px rgba(100, 53, 165, 0.06);
-    border-radius: 16px 0 0 0;
     padding: 0;
     bottom: 0;
-    right: 0;
+    right: 20px;
+
 
     .randomFeedbackIcon {
       opacity: 1;
@@ -44,8 +45,8 @@
     }
 
     &:hover {
-      min-width: 84px;
-      min-height: 60px;
+      min-width: 64px;
+      min-height: 64px;
     }
   }
 
@@ -232,21 +233,20 @@
     overflow: hidden;
 
     &.feedbackSmall {
-      max-height: 30px;
-      max-width: 30px;
-      min-height: 30px;
-      min-width: 30px;
-      border-radius: 20px;
-      bottom: 80px;
+      max-height: 52px;
+      max-width: 52px;
+      min-height: 52px;
+      min-width: 52px;
+      border-radius: 100px;
       right: 4px;
 
 
       &:hover {
-        max-height: 30px;
-        max-width: 30px;
-        min-height: 30px;
-        min-width: 30px;
-        border-radius: 20px;
+        max-height: 52px;
+        max-width: 52px;
+        min-height: 52px;
+        min-width: 52px;
+        border-radius: 100px;
       }
     }
 

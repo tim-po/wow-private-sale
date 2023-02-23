@@ -35,11 +35,10 @@ const StyledButton = styled.button<{
   ${props =>
     props.buttonStyle === 'secondary' &&
     css`
-            background: #fff;
-            border: 1px solid ${props.isDisabled ? '#C198FF' : '#8533FF'};
-            color: ${props.isDisabled ? '#C198FF' : '#8533FF'}
-          `};
-
+        background: #fff;
+        border: 1px solid ${props.isDisabled ? '#C198FF' : '#8533FF'};
+        color: ${props.isDisabled ? '#C198FF' : '#8533FF'}
+      `};
   ${props => props.isDisabled && css`pointer-events: none;`};
 
   &:hover {

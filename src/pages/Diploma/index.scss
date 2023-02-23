@@ -8,6 +8,12 @@
   min-height: 135px;
   border-radius: 20px;
 }
+.maxWidth{
+  width: max-content!important; ;
+}
+.descriptionDiploma{
+  display: none;
+}
 .RandomFeedback.NotVisible {
   transform: scale(0);
   transition-duration: 0.3s;
@@ -166,6 +172,9 @@
   .button-text {
     font-weight: 500;
     font-size: 14px;
+    &.share{
+      margin-right: 8px;
+    }
   }
 
   .share-button-content {
@@ -207,7 +216,15 @@
 .modal-stick-wrapper {
   display: none;
 }
-
+.mobileBottomWrapper{
+  border-radius: 16px;
+  padding: 20px 25px;
+  background: #fff;
+  width: 100%;
+}
+.descriptionDiplomaMobile{
+  margin-right: 10px;
+}
 // --end--
 
 @media screen and (max-width: 1300px) {
@@ -216,8 +233,63 @@
     width: 100%;
     min-height: 70px;
   }
+  .descriptionDiplomaMobile{
+    display: none;
+  }
+  .wrapDescriptionDiploma{
+    margin-bottom: 25px;
+    max-height: 400px;
+    overflow: hidden;
+    &.close{
+      transition: all 0.3s;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
+  .descriptionDiploma{
+    justify-content: space-between;
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: flex-start;
+    span{
+      color: #1F1F22;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  .maxWidth{
+    width: 100%!important;
+  }
+  .button-text {
+    font-weight: 500;
+    font-size: 14px;
+    &.share{
+      display: none;
+    }
+  }
+
+  .mobileBottomWrapper{
+    background: #F3F3F8;
+    /* Elements/Stroke */
+    border-top: 1px solid #E7E8EE;
+    padding: 0 16px 34px 16px;
+    transition-duration: 2s;
+    max-height: 400px;
+    z-index: 20;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
   .diploma-container {
     padding-bottom: 64px;
+    align-items: center;
+    flex-direction: column
   }
 
   .tiles-wrapper {
@@ -266,8 +338,13 @@
   }
 
   .buttons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-direction: row;
     .mobile-button {
-      width: 100%;
+      //width: 100%;
     }
   }
 

@@ -204,7 +204,7 @@ const Trajectory = () => {
           />
           <div className="MobileBlock">
             {!loading && (
-              <div className={`mobileBottomWrapper`}>
+              <div className={`mobileBottomWrapper`} id="mobilBottomButton">
                 <div className="BottomButtonsCurs">
                   <button className="buttonCourse" onClick={openStatsModal}>
                     Статистика по курсу

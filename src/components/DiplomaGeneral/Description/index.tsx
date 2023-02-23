@@ -36,7 +36,6 @@ const Description = (props: GenericModalPropType) => {
   const youTubeSrc = `https://www.youtube.com/embed/${youTubeVideoId}`
   const previewSrc = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`
 
-  console.log(youTubeSrc)
   return (
     <DiplomaTileWrapper>
       <div

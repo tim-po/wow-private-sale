@@ -1,6 +1,7 @@
 .innerWrapper{
   display: flex;
-  column-gap: 20px;
+  gap: 16px 20px;
+  align-items: center;
 
   &.mobilePlayerWrap{
     flex-direction: column;
@@ -12,7 +13,6 @@
 
 
   .player{
-    margin-bottom: 16px;
     width: 100%;
 
     .you{
@@ -28,6 +28,7 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    flex-shrink: 0;
 
     &:before{
       position: absolute;

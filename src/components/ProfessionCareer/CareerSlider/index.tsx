@@ -53,6 +53,31 @@ const CareerSlider = () => {
   const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
   const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
 
+  let currentSalary = 0
+
+  let renderTimer: NodeJS.Timer
+
+  const setNewSalaryByPosition = (newPosition: number) => {
+    clearInterval(renderTimer)
+    const salaryInterval = professionSalary.senior - professionSalary.junior
+    const targetSalary = Math.round(
+      newPosition * salaryInterval + professionSalary.junior,
+    )
+
+    renderTimer = setInterval(() => {
+      currentSalary--
+      if (currentSalary <= targetSalary || currentSalary >= targetSalary) {
+        clearInterval(renderTimer)
+      }
+    }, 2)
+  }
+  // const smartCounter = (salary: typeof professionSalary) => {
+  //   const currentSalary = 0
+  //   return (newPosition: number) => {
+  //
+  //   }
+  // }
+
   const calcPosition = (moveEvent: TouchEvent | MouseEvent, shiftX: number) => {
     if (
       sliderLineRef.current &&

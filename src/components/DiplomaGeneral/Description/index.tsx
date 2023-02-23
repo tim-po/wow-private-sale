@@ -80,7 +80,15 @@ const Description = (props: GenericModalPropType) => {
         )}
 
         <div>
-          <DiplomaTitle>{title}</DiplomaTitle>
+          <DiplomaTitle>
+           {title ?
+            title
+            :
+            <div
+            style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
+            className="MainSkeleton"
+          />}
+          </DiplomaTitle>
           <br />
           <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
           <BachelorTitleWrapper>

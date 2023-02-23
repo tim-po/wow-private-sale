@@ -1,38 +1,31 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import { KeywordType } from '../../types'
-import Keyword from '../Keyword'
-import { makeEmptyList } from '../../utils/general'
+import { TrajectoryType } from '../../types'
+import Keyword from '../../components/Keyword'
+import {
+  LocalStorageInteraction,
+  makeEmptyList,
+  withLocalStorage,
+} from '../../utils/general'
 import * as Scroll from 'react-scroll'
-import KeywordsSearch from '../KeywordsSearch'
+import KeywordsSearch from '../../components/KeywordsSearch'
 import Magnifier from 'images/icons/magnifier'
-import RandomFeedback from '../Modals/feedback/randomFeedback'
+import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
+import { useNavigate } from 'react-router-dom'
+import { useProfession } from '../../Models/useProfession'
+import { BASE_URL } from '../../constants'
+import axios from 'axios'
 
-// CONSTANTS
-// const randomFeedbackSelectOptions = [
-//   'Поиск ключевых слов 🔎️',
-//   'Добавление/ удаление слов 🗑',
-//   'Все сложно  🤯',
-//   'Все понятно 👌',
-// ]
+const Keywords = () => {
+  const professionId = withLocalStorage(
+    { professionId: null },
+    LocalStorageInteraction.load,
+  ).professionId
 
-type KeywordsPropType = {
-  keywords: {
-    added: KeywordType[]
-    display: KeywordType[]
-    add: (keyword: KeywordType) => void
-    addBulk: (keywords: KeywordType[]) => void
-    remove: (keyword: KeywordType) => void
-    allIds: string[]
-  }
-}
-
-const Keywords = (props: KeywordsPropType) => {
-  const { keywords } = props
-
-  // const [requiredWordsLimit, setRequiredWordsLimit] = useState(0)
+  const navigate = useNavigate()
+  const { profession, keywords } = useProfession(professionId)
 
   useEffect(() => {
     changeBg('var(--bg-color-base)')
@@ -41,22 +34,36 @@ const Keywords = (props: KeywordsPropType) => {
 
     if (localStorage.getItem('Modal1') !== 'active') {
       localStorage.setItem('Modal1', 'active')
-      setTimeout(() => {
-        // this.isStatsTooltipVisible = true
-      }, 1000)
     }
   }, [])
 
-  // const calculateRequiredLimit = () => {
-  //   setRequiredWordsLimit(Math.ceil(keywords.display.length * 0.8))
-  // }
+  const openTrajectoryChoice = () => {
+    if (!profession) {
+      return
+    }
 
-  // useEffect(() => {
-  //   calculateRequiredLimit()
-  // }, [keywords.display])
+    navigate(`/trajectories`)
+  }
 
   return (
     <div className="keywords" id="box">
+      <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
+        <h4 className="currentHeader fontWeightBold" id="scrollToTop">
+          Ключевые слова
+        </h4>
+
+        <div className="bottomLeftContainer">
+          <button
+            className={`clear ${keywords.added.length < 1 ? 'disabled' : ''}`}
+            onClick={() => keywords.clear()}
+          >
+            Очистить выбор
+          </button>
+          <button className="save" onClick={openTrajectoryChoice}>
+            Построить траекторию
+          </button>
+        </div>
+      </div>
       <div>
         <div className="keywordsCustomisationFlex">
           <div className="leftBlock">
@@ -99,7 +106,7 @@ const Keywords = (props: KeywordsPropType) => {
                         key={keyword.id}
                         deletable={true}
                         keyword={keyword}
-                        bg-color="'var(--color-secondary)'"
+                        bg-color="var(--color-secondary)"
                         onDeleteSelf={() => keywords.remove(keyword)}
                       />
                     )
@@ -119,7 +126,7 @@ const Keywords = (props: KeywordsPropType) => {
                     return (
                       <div
                         key={index}
-                        className="skeleton"
+                        className="skeletonKeywords MainSkeleton"
                         style={{
                           'width': Math.floor(Math.random() * (390 - 41 + 1)) + 41 + 'px',
                         }}
@@ -134,7 +141,7 @@ const Keywords = (props: KeywordsPropType) => {
                     key={keyword.id}
                     deletable={true}
                     keyword={keyword}
-                    bg-color="'var(--color-secondary)'"
+                    bg-color="var(--color-secondary)"
                     onDeleteSelf={() => keywords.remove(keyword)}
                   />
                 )

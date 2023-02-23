@@ -3,16 +3,14 @@ import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import CourseSelector from '../../components/trajectory/CourseSelector'
-import BackButtonContext from '../../Context/BackButton'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
-import LoadingScreen from '../../components/LoadingScreen'
 import * as Scroll from 'react-scroll'
 import ModalContext from '../../Context/Modal'
 import TrajectoryStats from '../../components/trajectory/TrajectoryStats'
 import Card from '../../components/trajectory/Card'
 import './index.scss'
-import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
+import { makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
@@ -25,11 +23,11 @@ const Trajectory = () => {
   const navigate = useNavigate()
   const hintSemester = useRef<HTMLDivElement>(null)
   const hintDiscipline = useRef<HTMLDivElement>(null)
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const [selectorLeftOffset, setSelectorLeftOffset] = useState('0px')
   const [trajectory, setTrajectory] = useState<TrajectoryType | undefined>(undefined)
   const [selectedSphere, setSelectedSphere] = useState<string | undefined>(undefined)
   const { width } = useWindowDimensions()
+  const [loading, setLoading] = useState(true)
   const [responseError, setResponseError] = useState<number>()
 
   const stileTextRef = useRef<HTMLDivElement>(null)
@@ -45,6 +43,7 @@ const Trajectory = () => {
       .then(response => {
         if (response.status === 200) {
           setTrajectory(response.data)
+          setLoading(false)
         }
       })
       .catch(e => {
@@ -85,19 +84,20 @@ const Trajectory = () => {
   }, [width, searchParams.get('course')])
 
   useEffect(() => {
-    setNewBackButtonProps(
-      'Все траектории',
-      `trajectories?ids=${
-        withLocalStorage({ chosenTrajectoriesIds: [] }, LocalStorageInteraction.load)
-          .chosenTrajectoriesIds
-      }`,
-    )
     getTrajectory()
     changeBg('var(--bg-color-base)')
 
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
   }, [])
+
+  useEffect(() => {
+    if (courseQuery === 5) {
+      changeBg('#F1F2F8')
+    } else {
+      changeBg('white')
+    }
+  }, [courseQuery])
 
   if (
     courseQuery > 5 ||
@@ -108,16 +108,13 @@ const Trajectory = () => {
     return <NotFound />
   }
 
-  if (!trajectory) {
-    return <LoadingScreen isLoading={true} header={'Траектория загружается'} />
-  }
-
   const navigateToCourse = (course: number) => {
     if (courseQuery !== course) {
-      navigate(`/trajectory?id=${trajectory.id}&course=${course}`)
       if (course === 5) {
+        navigate(`/trajectoryDiploma?id=${trajectory?.id}&course=${course}`)
         changeBg('var(--bg-color-invert)')
       } else {
+        navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
         changeBg('var(--bg-color-base)')
       }
     }
@@ -136,7 +133,7 @@ const Trajectory = () => {
       <TrajectoryStats
         setSelectedSphere={setSelectedSphere}
         className="Desktop"
-        course={trajectory.courses.find(course => course.course === courseQuery)}
+        course={trajectory?.courses.find(course => course.course === courseQuery)}
       />,
     )
   }
@@ -153,7 +150,15 @@ const Trajectory = () => {
         }
       >
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
-          {trajectory.educational_plan}
+          {/* {trajectory?.educational_plan} */}
+          {loading ? (
+            <div
+              style={{ minWidth: 300, height: 20, borderRadius: 4 }}
+              className=" MainSkeleton"
+            />
+          ) : (
+            trajectory?.educational_plan
+          )}
         </h5>
 
         <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
@@ -166,7 +171,7 @@ const Trajectory = () => {
             leftOffset={selectorLeftOffset}
           />
           <div className="CoursesRowFirstFlex">
-            {trajectory.courses.map(course => {
+            {trajectory?.courses.map(course => {
               return (
                 <button
                   className={`CourseButton ${
@@ -187,7 +192,7 @@ const Trajectory = () => {
             })}
           </div>
           <button className="CourseButtonDiploma" onClick={() => navigateToCourse(5)}>
-            Результат
+            Итог
           </button>
         </div>
       </div>
@@ -195,16 +200,20 @@ const Trajectory = () => {
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
             className="Mobile"
-            course={trajectory.courses.find(course => course.course === courseQuery)}
+            loading={loading}
+            course={trajectory?.courses.find(course => course.course === courseQuery)}
           />
           <div className="MobileBlock">
-            <div className={`mobileBottomWrapper`}>
-              <div className="BottomButtonsCurs">
-                <button className="buttonCourse" onClick={openStatsModal}>
-                  Статистика по курсу
-                </button>
+            {!loading && (
+              <div className={`mobileBottomWrapper`} id="mobilBottomButton">
+                <div className="BottomButtonsCurs">
+                  <button className="buttonCourse" onClick={openStatsModal}>
+                    Статистика по курсу
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
+
             <div className="flex-row flex-block pl-5 semesterSeason">
               <p
                 ref={width < 1000 ? undefined : hintSemester}
@@ -212,18 +221,40 @@ const Trajectory = () => {
                 id="blob-0-top-left"
                 style={{ flexGrow: 2 }}
               >
-                Осенний семестр
+                {loading ? (
+                  <div
+                    style={{ maxWidth: 106, borderRadius: 4, height: 20 }}
+                    className=" MainSkeleton"
+                  />
+                ) : (
+                  <span> Осенний семестр</span>
+                )}
               </p>
               <p
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-1-top-left"
                 style={{ flexGrow: 2 }}
               >
-                Весенний семестр
+                {loading ? (
+                  <div
+                    style={{ maxWidth: 106, height: 20, borderRadius: 4 }}
+                    className=" MainSkeleton"
+                  />
+                ) : (
+                  <span> Осенний семестр</span>
+                )}
               </p>
             </div>
-
-            {trajectory.courses
+            {loading && (
+              <>
+                {makeEmptyList(4).map((a, index) => {
+                  return (
+                    <div key={index} className="TrajectoryCardSkeleton MainSkeleton" />
+                  )
+                })}
+              </>
+            )}
+            {trajectory?.courses
               .find(course => course.course === courseQuery)
               ?.classes.map((sphere, index) => {
                 return (

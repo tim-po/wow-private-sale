@@ -11,15 +11,18 @@ import Keywords from 'components/DiplomaGeneral/Keywords'
 import { makeKeywordsArray } from 'utils/makeKeywordsArray'
 import Card from 'components/DiplomaGeneral/Card'
 import Button from 'components/Button'
-import SwapModal from 'components/Modals/SwapModal'
 import Like from 'images/icons/Static/like'
 import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
+import Close from '../../images/icons/close'
+import { makeEmptyList } from '../../utils/general'
+import { randomNumberBetween } from '../../utils/mathUtils'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
   const cardRef = useRef<HTMLDivElement>(null)
+  const [desDiplomaClose, setDesDiplomaClose] = useState(false)
   const [diplomaShareData, setDiplomaShareData] = useState<
     DiplomaShareDataType | undefined
   >(undefined)
@@ -27,6 +30,7 @@ const DiplomaShare = () => {
   const [error, setError] = useState<unknown>(null)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const [displayNone, setDisplayNone] = useState(false)
 
   // TODO Как альберт добавит id видоса в ответ на запрос на trajectories/${searchParams.get('id')}/share переделать как в в дипломе
   const [videoId, setVideoId] = useState<string>()
@@ -61,7 +65,11 @@ const DiplomaShare = () => {
     }
     return 'предметов'
   }
+  useEffect(()=>{
+    if (desDiplomaClose)
+      setTimeout(()=>{setDisplayNone(true)}, 200)
 
+  },[desDiplomaClose])
   useEffect(() => {
     getDiplomaShareData()
     changeBg('var(--bg-color-invert)')
@@ -81,49 +89,74 @@ const DiplomaShare = () => {
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
+
         <h5 className="mb-0 titleShare">
-          Траектория построена для{' '}
-          {searchParams.get('name')
-            ? searchParams.get('name')
-            : 'анонимного будущего студента'}
+          {diplomaShareData ? (
+            <>
+              Траектория построена для{' '}
+              {searchParams.get('name')
+                ? searchParams.get('name')
+                : 'анонимного будущего студента'}
+            </>
+          ) : (
+            <div
+              style={{ width: 600, height: 20, borderRadius: 8, marginBottom: 12 }}
+              className="MainSkeleton"
+            />
+          )}
         </h5>
         <div></div>
       </div>
       <div className="DiplomaContainerShare">
+        <div
+          style={{marginBottom:0}}
+          className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
+            `}
+        >
+          <div className={`descriptionDiploma`}>
+            <span>Этот образовательный маршрут построен с помощью{' '}
+              <a href="/" className="TrackLink">
+                    ITMO.TRACK
+                  </a>
+                  .Ты можешь создать свою траекторию вместе с нами!
+            </span>
+            <button onClick={()=>setDesDiplomaClose(true)}>
+              <Close width={8.5} height={8.5}/>
+            </button>
+          </div>
+        </div>
         <div className="DiplomaCardShareLeft">
           <Description
             iconUrl={'/static/school.svg'}
             title={diplomaShareData ? diplomaShareData.educational_plan : ''}
             youTubeVideoId={videoId}
           />
+
           <Keywords
             keywords={keywords?.slice(0, 10)}
             keywordsCount={keywords?.length}
             isKeywordsButtonHidden={false}
+            keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
           />
-          <SwapModal
-            modalHeight={250}
-            elementRef={cardRef}
-            classes={['diplomaCardAbout']}
-          >
+          <div className={`mobileBottomWrapperShare`} id="mobilBottomButton">
             <div className="row">
               <div className="likes-icon">
                 <Like />
               </div>
               <div className="col">
-                <div className="mb-2">
+                <div className="mb-2 descriptionDiplomaMobile">
                   Этот образовательный маршрут построен с помощью{' '}
                   <a href="/" className="TrackLink">
                     ITMO.TRACK
                   </a>
                   .Ты можешь создать свою траекторию вместе с нами!
                 </div>
-                <div className="buttons-wrapper">
+                <div className="buttons-wrapper-share">
                   <Button
                     buttonStyle={'secondary'}
                     onClick={() => navigate('/')}
                     isDisabled={false}
-                    classNames={['mobile-button']}
+                    classNames={['mobile-button maxWidth']}
                   >
                     <span>Хочу так же</span>
                   </Button>
@@ -139,7 +172,7 @@ const DiplomaShare = () => {
                 </div>
               </div>
             </div>
-          </SwapModal>
+          </div>
         </div>
         <div className="MargTopMobil">
           <div className="DiplomaCard mb-4">
@@ -163,6 +196,7 @@ const DiplomaShare = () => {
                               headerBg={colors[item.name]}
                               name={item.name}
                             />,
+                            { colorCloseWhite: true },
                           )
                         }
                         isDiplomaCard={false}
@@ -175,6 +209,25 @@ const DiplomaShare = () => {
                   </div>
                 </div>
               ))}
+              {!diplomaShareData &&
+                makeEmptyList(4).map((i, number) => (
+                  <div
+                    key={number}
+                    className="flex-grow-1 mr-3 blockShare blockShareSkeleton"
+                  >
+                    <div className="MainSkeleton titleShareSkeleton " />
+                    <div className="MainSkeleton courseShareSkeleton" />
+                    <div className="d-flexMobil" style={{ width: '100%' }}>
+                      <>
+                        {makeEmptyList(6).map((a, index) => {
+                          return (
+                            <div key={index} className="skeletonCardShare MainSkeleton" />
+                          )
+                        })}
+                      </>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

@@ -1,0 +1,52 @@
+.professionCareerWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid #E7E8EE;
+  border-radius: 16px;
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 760px) {
+    margin-bottom: 91px;
+  }
+
+
+  &Title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1F1F22;
+    margin-bottom: 16px;
+  }
+
+  .activitiesBlock {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 760px) {
+      flex-direction: column;
+    }
+
+    &Item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: 50%;
+      margin-bottom: 20px;
+
+      @media screen and (max-width: 760px) {
+        width: 100%;
+      }
+
+
+        svg {
+        margin-right: 16px;
+      }
+
+      &Text {
+        font-weight: 400;
+        font-size: 14px;
+        color: #1F1F22;
+      }
+    }
+  }
+}

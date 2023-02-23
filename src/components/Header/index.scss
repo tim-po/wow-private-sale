@@ -8,11 +8,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .Logo {
+    z-index: 100;
+    &.hiddenOnSmallMobile{
+      transform: scale(0.2);
+      opacity: 0;
+      right: -200px;
+    }
     &.preAnimated {
       right: calc(100% - 209px);
       width: 209px;
     }
+
     transition: all 2s;
     position: absolute;
     right: -134px;
@@ -20,6 +28,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 209px;
+    opacity: 1;
     overflow: hidden;
 
     .LogoImg {
@@ -37,85 +46,61 @@
       flex-shrink: 0;
     }
   }
-  .TrajectoriesLinkBack{
+
+  .TrajectoriesLinkBack {
     transition: all 2s;
     position: absolute;
     left: 0;
+
+
     &.preAnimated {
       left: -100%;
     }
-    .BackArrow {
-      //margin-right: 4px;
-    }
-    .BackText {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
-      white-space: nowrap;
-      transition: all 1s;
-      width: 0
-    }
-    &:hover {
-      .BackText {
-        color: #8533FF;
-      }
 
-      .BackArrow .color {
-        stroke: #8533FF !important;
-      }
+    .Navigation {
+      display: flex;
+      color: white;
+      align-items: center;
     }
   }
 }
 
 
 @media screen and (max-width: 765px) {
-  .sticky-header-0{
+  .sticky-header-0 {
     transition: all 0.2s;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(115, 40, 226, 0);
-
+    //padding-bottom: 8px;
+    //border-bottom: 1px solid rgba(115, 40, 226, 0);
+    //border-radius: 50px;
+    //box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
-  .sticky-header-0.isSticky{
-    padding-left: 30px;
-    border-bottom: 1px solid rgba(115, 40, 226, 0.3);
-  }
+  //.sticky-header-0.isSticky {
+  //  padding-left: 30px;
+  //  border-bottom: 1px solid rgba(115, 40, 226, 0.3);
+  //}
 
   .Header {
-    width: inherit;
+    width: 100%;
     padding: inherit;
+
     .Logo {
-      transition: initial;
       top: inherit;
-      transform: inherit;
-      right: inherit;
-      left: inherit;
-      position: inherit;
-      width: 100%;
+      transition: all 0.4s;
+      transform: scale(0.75);
+      right: -125px;
       display: flex;
       justify-content: center;
+
       &.preAnimated {
-        right: inherit;
-        width: 100%;
+        right: calc(50% - 209px / 2);
+        transform: scale(1);
       }
     }
+
     .TrajectoriesLinkBack {
-      transition: all 0s;
-      position: fixed;
-      top: 23px;
-      left: 16px;
-      z-index: 1600;
-      box-shadow: 0 0 4px rgba(115, 40, 226, 0.2);
-
-
+      left: 1px;
       &.preAnimated {
-        .BackArrow {
-          display: none;
-        }
-      }
-      .BackText {
-        display: none;
+        left: 1px;
       }
     }
   }

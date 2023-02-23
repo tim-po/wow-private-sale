@@ -40,9 +40,7 @@
       padding-top: 11px;
       margin-bottom: 24px;
 
-      .skeleton-v2 {
-        opacity: .7;
-        animation: skeleton-loading 1s linear infinite alternate;
+      .professionCarSkeleton {
         width: 540px;
         height: 200px;
         border-radius: 16px;
@@ -97,14 +95,7 @@
 }
 
 
-@keyframes skeleton-loading {
-  0% {
-    background-color: rgba(235, 235, 235, 1);
-  }
-  100% {
-    background-color: rgba(184, 184, 184, .7);
-  }
-}
+
 
 
 @media screen and (max-width: 570px) {
@@ -116,7 +107,7 @@
       }
       .ProfessionContainer {
         margin-bottom: 24px;
-        .skeleton-v2 {
+        .professionCarSkeleton {
           width: 325px;
           height: 365px;
         }

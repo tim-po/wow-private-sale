@@ -2,18 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { BASE_URL } from '../../constants'
 import axios from 'axios'
-import BackButtonContext from '../../Context/BackButton'
 import Keyword from '../../components/Keyword'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
+import { makeEmptyList } from '../../utils/general'
 import './index.scss'
 import SelectedPresets from '../../components/SelectedPresets'
 import { useProfession } from '../../Models/useProfession'
-import Keywords from '../../components/Keywords'
-import SkillSets from '../../components/SkillSets'
+import Keywords from '../Keywords'
+import SkillSets from '../SkillSets'
 import LoadingScreen from '../../components/LoadingScreen'
 import MagicWand from '../../images/icons/MagicWand'
 import FingerLike from 'images/icons/Static/fingerLike'
@@ -30,7 +25,6 @@ import { TrajectoryType } from 'types'
 
 const ProfessionDetails = () => {
   const navigate = useNavigate()
-  const { setNewBackButtonProps } = useContext(BackButtonContext)
   const { displayModal } = useContext(ModalsContext)
   // const {setKeywordsForModal} = useContext(ModalsContext)
   const [searchParams] = useSearchParams()
@@ -44,21 +38,9 @@ const ProfessionDetails = () => {
 
   useEffect(() => {
     changeBg('var(--bg-color-base)')
-
-    if (searchParams.get('view') === 'main') {
-      setNewBackButtonProps('Все профессии', '/professions')
-    }
   }, [])
 
   useEffect(() => {
-    if (searchParams.get('view') !== 'main' && profession) {
-      setNewBackButtonProps(
-        `${profession?.name}: описание`,
-        `/professionDetails?view=main&id=${searchParams.get('id')}`,
-      )
-    } else {
-      setNewBackButtonProps('Все профессии', '/professions')
-    }
     updateStickyBlocks()
   }, [searchParams.get('view'), profession])
 
@@ -76,7 +58,6 @@ const ProfessionDetails = () => {
     if (!profession) {
       return
     }
-    withLocalStorage({ professionId: profession.id }, LocalStorageInteraction.save)
     setIsLoading(true)
 
     const response = await axios.post(`${BASE_URL}trajectories/?top_n=10`, {
@@ -94,18 +75,10 @@ const ProfessionDetails = () => {
 
   const editKeywords = () => {
     navigate(`professionDetails?id=${profession?.id}&view=keywords`)
-    setNewBackButtonProps(
-      `${profession?.name}: описание`,
-      `/professionDetails?view=main&id=${searchParams.get('id')}`,
-    )
   }
 
   const editSkillSets = () => {
     navigate(`professionDetails?id=${profession?.id}&view=skills`)
-    setNewBackButtonProps(
-      `${profession?.name}: описание`,
-      `/professionDetails?view=main&id=${searchParams.get('id')}`,
-    )
   }
 
   const openKeywordsModal = () => {
@@ -154,6 +127,7 @@ const ProfessionDetails = () => {
   ) {
     return <NotFound />
   }
+
   return (
     <div className="professionDetails">
       <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
@@ -161,8 +135,9 @@ const ProfessionDetails = () => {
           {' '}
           {currentHeader()}
         </h4>
+
         {searchParams.get('view') !== 'main' && (
-          <div className="bottomLeftContainer">
+          <div id='mobilBottomButton' className="bottomLeftContainer">
             <button
               className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
               onClick={clearChoice}
@@ -175,6 +150,7 @@ const ProfessionDetails = () => {
           </div>
         )}
       </div>
+
       {searchParams.get('view') === 'main' && (
         <div className="keywordsCustomisationFlex">
           <div className="professionContainer">
@@ -191,7 +167,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonText MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px',
                             height: '12px',
@@ -218,11 +194,9 @@ const ProfessionDetails = () => {
                       Вау, ты добавил новые навыки! Теперь можно строить траекторию
                     </span>
                   )}
-                  <div className="blockDescriptionMobil">
-                    <button className="button-primary" onClick={openTrajectoryChoice}>
-                      {presets.selected.length ? 'Мне все нравится' : 'Построить'}
-                    </button>
-                  </div>
+                  <button className="button-primary" onClick={openTrajectoryChoice}>
+                    {presets.selected.length ? 'Мне все нравится' : 'Построить'}
+                  </button>
                 </div>
                 {presets.selected.length === 0 && (
                   <div className="lamp-icon">
@@ -235,15 +209,6 @@ const ProfessionDetails = () => {
                   </div>
                 )}
               </div>
-              {/* <div*/}
-              {/*  className="keywords__warning mb-2"*/}
-              {/*  v-if="(keywords && keywords.length > 0) ? (keywords.length <= requiredWordsLimit)  false"*/}
-              {/* > */}
-              {/*    <div className="d-flex">*/}
-              {/*        <img src="/images/exclamationMarkInOutline.svg" alt="" className="mr-2"/>*/}
-              {/*        Ты можешь удалить не более 30% набора ключевых слов своей профессии*/}
-              {/*    </div>*/}
-              {/* </div> */}
             </div>
           </div>
           <div className="right-flex">
@@ -299,7 +264,7 @@ const ProfessionDetails = () => {
                       return (
                         <div
                           key={index}
-                          className="skeleton"
+                          className="skeletonKeywords MainSkeleton"
                           style={{
                             width: Math.floor(Math.random() * (300 - 41 + 1)) + 41 + 'px',
                           }}
@@ -318,7 +283,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )
@@ -329,7 +294,7 @@ const ProfessionDetails = () => {
                               deletable={false}
                               key={keyword.text}
                               keyword={keyword}
-                              bg-color="'var(--color-secondary)'"
+                              bg-color="var(--color-secondary)"
                               // onDeleteSelf={()=>deleteKeyword(keyword)}
                             />
                           )
@@ -354,15 +319,16 @@ const ProfessionDetails = () => {
           </div>
         </div>
       )}
+
       <div className="blockDescriptionMobil bottom">
         <button className="button-primary" onClick={openTrajectoryChoice}>
           {presets.selected.length ? 'Мне все нравится' : 'Построить'}
         </button>
       </div>
-      {profession && searchParams.get('view') === 'keywords' && (
-        <Keywords keywords={keywords} />
-      )}
-      {searchParams.get('view') === 'skills' && <SkillSets presets={presets} />}
+
+      {profession && searchParams.get('view') === 'keywords' && <Keywords />}
+
+      {searchParams.get('view') === 'skills' && <SkillSets />}
       <Hints
         boxRef={[hintEditKeywords, hintEditPresets]}
         pageTitle="ProfessionDetails"

@@ -29,7 +29,12 @@
   }
 
 }
-
+.TrajectoryCardSkeleton{
+  border-radius: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 174px;
+}
 .TrajectoryPage {
   max-width: 1500px;
   margin: 0 auto;
@@ -159,6 +164,9 @@
 
 
 @media screen and (max-width: 1000px) {
+  .TrajectoryCardSkeleton{
+    height:68px
+  }
   .TrajectoryPage {
     //margin-bottom: 100px;
 
@@ -214,6 +222,8 @@
         width: 100%;
         left: 0;
 
+        animation: staticBlock 0.3s;
+
         .BottomButtonsCurs {
           .buttonCourse {
             font-weight: 700;
@@ -238,4 +248,13 @@
     display: none !important;
   }
 
+}
+
+@keyframes staticBlock {
+  from{
+    bottom: -400px;
+  }
+  to{
+    bottom: 0;
+  }
 }

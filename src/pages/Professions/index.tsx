@@ -36,7 +36,10 @@ const Professions = () => {
     withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.save)
     withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.save)
 
-    navigate(`/professionDetails?id=${profession.id}&view=main`)
+    // TODO почистить эту навигацию на удаленный маршрут после окончания навигации
+    // navigate(`/professionDetails?id=${profession.id}&view=main`)
+
+    navigate(`/profession/${profession.id}`)
   }
 
   const openFeedbackStatic = () => {
@@ -85,7 +88,7 @@ const Professions = () => {
         <div className="ProfessionContainer">
           {isProfessionsLoading &&
             makeEmptyList(12).map((number, index) => {
-              return <div className="skeleton-v2" key={index} />
+              return <div className="professionCarSkeleton MainSkeleton" key={index} />
             })}
           {professionsWithCustomSvg.map(profession => {
             return (

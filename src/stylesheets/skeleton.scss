@@ -1,18 +1,19 @@
-
 .MainSkeleton {
+  position: relative;
+  z-index: 9;
   border-radius: 4px;
   color: rgba(255, 255, 255, 0.1) !important;
   background-image: linear-gradient(-45deg, var(--skeleton-base-color) 0, var(--skeleton-base-color) 45%, var(--skeleton-shine-color) 50%, var(--skeleton-base-color) 55%, var(--skeleton-base-color) 100%) !important;
-  content: "" !important;
-  animation: shine-lines 2s infinite;
+  content: "";
+  animation: skeleton-shine 2s infinite;
   background-size: 400% 400% !important;
   backdrop-filter: blur(30px);
   border: none !important;
-  z-index: 1000;
   pointer-events: none;
+  //color: transparent !important;
 
   &::placeholder {
-    opacity: 0 !important;
+    opacity: 0;
   }
 
   &::before {
@@ -24,18 +25,16 @@
   }
 
   div, span, img, video, p, source {
-    opacity: 0 !important;
+    opacity:0;
   }
 }
 
-@keyframes shine-lines {
+@keyframes skeleton-shine {
   from {
     background-position: right;
   }
-  50% {
-    background-position: left;
-  }
+
   to {
-    background-position: right;
+    background-position: left;
   }
 }

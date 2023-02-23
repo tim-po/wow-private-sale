@@ -1,7 +1,5 @@
 .borderBottom {
   z-index: 110;
-  //transform: translateY(-1px);
-
   width: 100%;
 }
 
@@ -22,12 +20,12 @@
   padding-top: 16px;
 }
 
-.showNote{
+.showNote {
   max-height: 200px;
   transition: max-height 0.2s linear;
 }
 
-.hideNote{
+.hideNote {
   max-height: 0;
   transition: max-height 0.2s linear;
 }
@@ -69,11 +67,42 @@
   border-bottom: revert;
 }
 
-.rightBlock .blockPreset {
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin-bottom: 20px;
-  display: flex;
+.rightBlock {
+
+  .blockPreset {
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-bottom: 20px;
+    display: flex;
+  }
+
+  .keywordHint{
+    display: grid;
+    row-gap: 12px;
+
+    .keywordHintTitle {
+      font-family: 'Inter', serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #6E6D79;
+    }
+
+    .keywordHintText {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #6E6D79;
+    }
+
+    .keywordHintBtn{
+      background-color: transparent;
+    }
+  }
+
 }
 
 .blockPreset {
@@ -167,11 +196,11 @@
   background: white;
   z-index: 112;
 
-  &.isSticky{
+  &.isSticky {
     border-bottom: 1px solid rgba(231, 232, 238, 1);
   }
 
-  &.hideBorder{
+  &.hideBorder {
     border-bottom: none !important;
   }
 }
@@ -293,8 +322,9 @@
   }
 
   .rightBlock {
-    margin-bottom: 200px;
+    margin-bottom: 80px;
     order: 2;
+
   }
 
   .presets {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SliderStar from 'images/icons/Static/sliderStar'
 import './index.scss'
 import Arrow from 'images/icons/Arrow'
@@ -53,30 +53,90 @@ const CareerSlider = () => {
   const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
   const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
 
-  let currentSalary = 0
+  const [currentSalary, setCurrentSalary] = useState(professionSalary.junior)
 
   let renderTimer: NodeJS.Timer
 
   const setNewSalaryByPosition = (newPosition: number) => {
     clearInterval(renderTimer)
-    const salaryInterval = professionSalary.senior - professionSalary.junior
-    const targetSalary = Math.round(
-      newPosition * salaryInterval + professionSalary.junior,
-    )
+
+    let salaryInterval = professionSalary.senior - professionSalary.junior
+    let targetSalary = Math.round(newPosition * salaryInterval + professionSalary.junior)
+    if (newPosition <= 0.5) {
+      salaryInterval = professionSalary.middle - professionSalary.junior
+      targetSalary = Math.round(
+        2 * newPosition * salaryInterval + professionSalary.junior,
+      )
+    }
+
+    if (newPosition > 0.5) {
+      salaryInterval = professionSalary.senior - professionSalary.middle
+      targetSalary = Math.round(
+        2 * (newPosition - 0.5) * salaryInterval + professionSalary.middle,
+      )
+    }
+
+    let newCurrentSalary = 0
+
+    setCurrentSalary(prevState => {
+      newCurrentSalary = prevState
+      return prevState
+    })
+
+    let step = 1
+    const salaryDiff = Math.abs(targetSalary - newCurrentSalary)
+
+    if (salaryDiff < 200) {
+      step = 1
+    }
+
+    if (salaryDiff >= 200 && salaryDiff < 1000) {
+      step = 25
+    }
+
+    if (salaryDiff >= 1000 && salaryDiff < 10000) {
+      step = 125
+    }
+
+    if (salaryDiff >= 10000 && salaryDiff < 100000) {
+      step = 250
+    }
+
+    if (salaryDiff >= 100000) {
+      step = 500
+    }
+
+    let salaryDir = 0
+
+    if (targetSalary < newCurrentSalary) {
+      salaryDir = -1
+    } else if (targetSalary > newCurrentSalary) {
+      salaryDir = 1
+    }
 
     renderTimer = setInterval(() => {
-      currentSalary--
-      if (currentSalary <= targetSalary || currentSalary >= targetSalary) {
+      let tg = 0
+      setCurrentSalary(prevState => {
+        tg = prevState + salaryDir * step
+        return prevState + salaryDir * step
+      })
+
+      if (tg <= targetSalary && salaryDir < 0) {
+        setCurrentSalary(targetSalary)
         clearInterval(renderTimer)
       }
-    }, 2)
+
+      if (tg >= targetSalary && salaryDir > 0) {
+        setCurrentSalary(targetSalary)
+        clearInterval(renderTimer)
+      }
+
+      if (salaryDir === 0) {
+        setCurrentSalary(targetSalary)
+        clearInterval(renderTimer)
+      }
+    }, 1)
   }
-  // const smartCounter = (salary: typeof professionSalary) => {
-  //   const currentSalary = 0
-  //   return (newPosition: number) => {
-  //
-  //   }
-  // }
 
   const calcPosition = (moveEvent: TouchEvent | MouseEvent, shiftX: number) => {
     if (
@@ -133,10 +193,10 @@ const CareerSlider = () => {
       drum.current
     ) {
       const { starPosition, tooltipPosition, tooltipWidth, newDrumOffset } = positions
+
       const startStarPosition = Math.round(
         Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
       )
-      // const transition
 
       const transition = (() => {
         switch (type) {
@@ -149,6 +209,7 @@ const CareerSlider = () => {
 
       sliderStarRef.current.style.transition = transition
       filledLineRef.current.style.transition = transition
+      tooltipRef.current.style.transition = transition
 
       if (type === 'move') {
         sliderStarRef.current.style.left =
@@ -160,10 +221,14 @@ const CareerSlider = () => {
         tooltipRef.current.style.left = -tooltipPosition + 'px'
 
         drum.current.style.top = -newDrumOffset + 'px'
+
+        setNewSalaryByPosition(starPosition / sliderLineRef.current.offsetWidth)
       }
 
       if (type === 'up') {
         sliderStarRef.current.style.left = startStarPosition * 50 + '%'
+
+        setNewSalaryByPosition((startStarPosition * 50) / 100)
 
         filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
 
@@ -244,12 +309,13 @@ const CareerSlider = () => {
               <div className="tooltipContent" ref={tooltipRef}>
                 <span className="tooltipContentText">от</span>
                 <div className="drumWrapper">
+                  {currentSalary}
                   <div ref={drum} className="drumItem">
-                    {salaryRange(professionSalary).map(degree => (
-                      <div key={degree} className="drumItemText">
-                        {degree}
-                      </div>
-                    ))}
+                    {/*   {salaryRange(professionSalary).map(degree => ( */}
+                    {/*     <div key={degree} className="drumItemText"> */}
+                    {/*       {degree} */}
+                    {/*     </div> */}
+                    {/*   ))} */}
                   </div>
                 </div>
                 <span className="tooltipContentText">руб</span>

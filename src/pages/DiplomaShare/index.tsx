@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { BASE_URL, colors } from '../../constants'
 import './index.scss'
@@ -21,7 +21,6 @@ import { randomNumberBetween } from '../../utils/mathUtils'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
-  const cardRef = useRef<HTMLDivElement>(null)
   const [desDiplomaClose, setDesDiplomaClose] = useState(false)
   const [diplomaShareData, setDiplomaShareData] = useState<
     DiplomaShareDataType | undefined
@@ -30,7 +29,6 @@ const DiplomaShare = () => {
   const [error, setError] = useState<unknown>(null)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const [displayNone, setDisplayNone] = useState(false)
 
   // TODO Как альберт добавит id видоса в ответ на запрос на trajectories/${searchParams.get('id')}/share переделать как в в дипломе
   const [videoId, setVideoId] = useState<string>()
@@ -65,11 +63,7 @@ const DiplomaShare = () => {
     }
     return 'предметов'
   }
-  useEffect(()=>{
-    if (desDiplomaClose)
-      setTimeout(()=>{setDisplayNone(true)}, 200)
 
-  },[desDiplomaClose])
   useEffect(() => {
     getDiplomaShareData()
     changeBg('var(--bg-color-invert)')
@@ -89,7 +83,6 @@ const DiplomaShare = () => {
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
-
         <h5 className="mb-0 titleShare">
           {diplomaShareData ? (
             <>
@@ -109,19 +102,20 @@ const DiplomaShare = () => {
       </div>
       <div className="DiplomaContainerShare">
         <div
-          style={{marginBottom:0}}
+          style={{ marginBottom: 0 }}
           className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
             `}
         >
           <div className={`descriptionDiploma`}>
-            <span>Этот образовательный маршрут построен с помощью{' '}
+            <span>
+              Этот образовательный маршрут построен с помощью{' '}
               <a href="/" className="TrackLink">
-                    ITMO.TRACK
-                  </a>
-                  .Ты можешь создать свою траекторию вместе с нами!
+                ITMO.TRACK
+              </a>
+              .Ты можешь создать свою траекторию вместе с нами!
             </span>
-            <button onClick={()=>setDesDiplomaClose(true)}>
-              <Close width={8.5} height={8.5}/>
+            <button onClick={() => setDesDiplomaClose(true)}>
+              <Close width={8.5} height={8.5} />
             </button>
           </div>
         </div>

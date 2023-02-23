@@ -160,6 +160,7 @@ const Trajectory = () => {
             trajectory?.educational_plan
           )}
         </h5>
+
         <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
           <CourseSelector
             bgColor={

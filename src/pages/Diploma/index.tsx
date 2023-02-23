@@ -39,6 +39,7 @@ const Diploma = () => {
         `${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`,
       )
       setDiplomaData(response.data)
+      console.log(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -46,7 +47,6 @@ const Diploma = () => {
 
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
-
     getDiplomaData()
   }, [])
 
@@ -82,7 +82,11 @@ const Diploma = () => {
         </div>
         <div className="tiles-wrapper">
           <div className="left-tiles">
-            <Description iconUrl={'/static/star.svg'} title={'Высшее образование'} />
+            <Description
+              iconUrl={'/static/star.svg'}
+              title={'Высшее образование'}
+              youTubeVideoId={diplomaData?.video_id}
+            />
             <Keywords
               keywords={keywords}
               keywordsCount={keywords?.length}
@@ -117,7 +121,6 @@ const Diploma = () => {
                   <span className={'button-text share'}>Поделиться</span>
                   <div className="share-button-content">
                     <div className={'share-icon'}>
-                      {' '}
                       <Share />
                     </div>
                   </div>

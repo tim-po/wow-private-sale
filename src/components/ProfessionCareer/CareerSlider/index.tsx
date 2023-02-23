@@ -96,6 +96,65 @@ const CareerSlider = () => {
     }
   }
 
+  const setPositions = (
+    positions: ReturnType<typeof calcPosition>,
+    type: 'up' | 'move',
+  ) => {
+    if (
+      sliderStarRef.current &&
+      tooltipRef.current &&
+      filledLineRef.current &&
+      sliderLineRef.current &&
+      drum.current
+    ) {
+      const { starPosition, tooltipPosition, tooltipWidth, newDrumOffset } = positions
+      const startStarPosition = Math.round(
+        Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
+      )
+      // const transition
+
+      const transition = (() => {
+        switch (type) {
+          case 'move':
+            return ''
+          case 'up':
+            return 'all .3s'
+        }
+      })()
+
+      sliderStarRef.current.style.transition = transition
+      filledLineRef.current.style.transition = transition
+
+      if (type === 'move') {
+        sliderStarRef.current.style.left =
+          (100 * starPosition) / sliderLineRef.current.offsetWidth + '%'
+
+        filledLineRef.current.style.right =
+          sliderLineRef.current.offsetWidth - starPosition + 'px'
+
+        tooltipRef.current.style.left = -tooltipPosition + 'px'
+
+        drum.current.style.top = -newDrumOffset + 'px'
+      }
+
+      if (type === 'up') {
+        sliderStarRef.current.style.left = startStarPosition * 50 + '%'
+
+        filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
+
+        tooltipRef.current.style.left =
+          (startStarPosition * -tooltipWidth) / 2 - 12 + 'px'
+
+        drum.current.style.top = -startStarPosition * 15 * 21 + 'px'
+      }
+
+      if (sliderIconsWrapper.current && type === 'up') {
+        sliderIconsWrapper.current.style.top =
+          (-sliderIconsWrapper.current.offsetHeight / 3) * startStarPosition + 'px'
+      }
+    }
+  }
+
   const sliderAnimation = (event: MouseEvent | TouchEvent) => {
     event.preventDefault()
 
@@ -106,67 +165,14 @@ const CareerSlider = () => {
         sliderStarRef.current.getBoundingClientRect().left
 
       const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
-        const { starPosition, tooltipPosition, newDrumOffset } = calcPosition(
-          moveEvent,
-          shiftX,
-        )
-
-        if (
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          filledLineRef.current &&
-          sliderLineRef.current &&
-          drum.current
-        ) {
-          sliderStarRef.current.style.transition = ''
-          filledLineRef.current.style.transition = ''
-
-          sliderStarRef.current.style.left =
-            (100 * starPosition) / sliderLineRef.current.offsetWidth + '%'
-
-          filledLineRef.current.style.right =
-            sliderLineRef.current.offsetWidth - starPosition + 'px'
-
-          tooltipRef.current.style.left = -tooltipPosition + 'px'
-
-          drum.current.style.top = -newDrumOffset + 'px'
-        }
+        setPositions(calcPosition(moveEvent, shiftX), 'move')
       }
 
       const onMouseUp = (moveEvent: TouchEvent | MouseEvent) => {
         document.removeEventListener(currentTypeEndAnimation, onMouseUp)
         document.removeEventListener(currentTypeStartAnimation, onMouseMove)
 
-        if (
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          sliderLineRef.current &&
-          filledLineRef.current &&
-          drum.current &&
-          sliderIconsWrapper.current
-        ) {
-          const { starPosition, tooltipWidth } = calcPosition(moveEvent, shiftX)
-
-          // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
-          const startStarPosition = Math.round(
-            Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
-          )
-
-          sliderStarRef.current.style.left = startStarPosition * 50 + '%'
-          sliderStarRef.current.style.transition = 'all .3s'
-
-          filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
-          filledLineRef.current.style.transition = 'all .3s'
-
-          tooltipRef.current.style.left =
-            (startStarPosition * -tooltipWidth) / 2 - 12 + 'px'
-
-          drum.current.style.top = -startStarPosition * 15 * 21 + 'px'
-
-          sliderIconsWrapper.current.style.top =
-            (-sliderIconsWrapper.current.offsetHeight / 3) * startStarPosition + 'px'
-          sliderIconsWrapper.current.style.transition = 'all .3s'
-        }
+        setPositions(calcPosition(moveEvent, shiftX), 'up')
       }
 
       document.addEventListener(currentTypeStartAnimation, onMouseMove)
@@ -177,36 +183,7 @@ const CareerSlider = () => {
   useEffect(() => {
     if (sliderStarRef.current && sliderLineRef.current) {
       sliderLineRef.current.onclick = event => {
-        if (
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          sliderLineRef.current &&
-          filledLineRef.current &&
-          drum.current &&
-          sliderIconsWrapper.current
-        ) {
-          const { starPosition, tooltipWidth } = calcPosition(event, 0)
-
-          // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
-          const startStarPosition = Math.round(
-            Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
-          )
-
-          sliderStarRef.current.style.left = startStarPosition * 50 + '%'
-          sliderStarRef.current.style.transition = 'all .3s'
-
-          filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
-          filledLineRef.current.style.transition = 'all .3s'
-
-          tooltipRef.current.style.left =
-            (startStarPosition * -tooltipWidth) / 2 - 12 + 'px'
-
-          drum.current.style.top = -startStarPosition * 15 * 21 + 'px'
-
-          sliderIconsWrapper.current.style.top =
-            (-sliderIconsWrapper.current.offsetHeight / 3) * startStarPosition + 'px'
-          sliderIconsWrapper.current.style.transition = 'all .3s'
-        }
+        setPositions(calcPosition(event, 0), 'up')
       }
 
       if (isMobile) {

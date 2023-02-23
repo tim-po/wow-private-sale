@@ -50,63 +50,66 @@ const CareerSlider = () => {
   const drum = useRef<HTMLDivElement | null>(null)
   const sliderIconsWrapper = useRef<HTMLDivElement | null>(null)
 
+  const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
+  const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
+
+  const calcPosition = (moveEvent: TouchEvent | MouseEvent, shiftX: number) => {
+    if (
+      sliderLineRef.current &&
+      sliderStarRef.current &&
+      tooltipRef.current &&
+      drum.current
+    ) {
+      const currentClientX = detectCurrentEvent(moveEvent).clientX
+
+      let starPosition =
+        currentClientX - shiftX - sliderLineRef.current.getBoundingClientRect().left
+      if (starPosition < 0) {
+        starPosition = 0
+      }
+
+      if (starPosition > sliderLineRef.current.offsetWidth) {
+        starPosition = sliderLineRef.current.offsetWidth
+      }
+
+      const tooltipWidth = tooltipRef.current.offsetWidth - 45
+      const tooltipPosition =
+        (starPosition / sliderLineRef.current.offsetWidth) * tooltipWidth + 12
+
+      const newDrumOffset =
+        (starPosition / sliderLineRef.current.offsetWidth) *
+        (drum.current.offsetHeight - 21)
+
+      return {
+        starPosition,
+        tooltipPosition,
+        tooltipWidth,
+        newDrumOffset,
+      }
+    } else {
+      return {
+        starPosition: 0,
+        tooltipPosition: 0,
+        tooltipWidth: 0,
+        newDrumOffset: 0,
+      }
+    }
+  }
+
   const sliderAnimation = (event: MouseEvent | TouchEvent) => {
-    const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
-    const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
+    event.preventDefault()
 
     if (sliderStarRef.current) {
-      event.preventDefault()
-
       // Расстояние между началом звезды и кликом
       const shiftX =
         detectCurrentEvent(event).clientX -
         sliderStarRef.current.getBoundingClientRect().left
 
-      const calcPosition = (moveEvent: TouchEvent | MouseEvent) => {
-        if (
-          sliderLineRef.current &&
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          drum.current
-        ) {
-          const currentClientX = detectCurrentEvent(moveEvent).clientX
-
-          let starPosition =
-            currentClientX - shiftX - sliderLineRef.current.getBoundingClientRect().left
-          if (starPosition < 0) {
-            starPosition = 0
-          }
-
-          if (starPosition > sliderLineRef.current.offsetWidth) {
-            starPosition = sliderLineRef.current.offsetWidth
-          }
-
-          const tooltipWidth = tooltipRef.current.offsetWidth - 45
-          const tooltipPosition =
-            (starPosition / sliderLineRef.current.offsetWidth) * tooltipWidth + 12
-
-          const newDrumOffset =
-            (starPosition / sliderLineRef.current.offsetWidth) *
-            (drum.current.offsetHeight - 21)
-
-          return {
-            starPosition,
-            tooltipPosition,
-            tooltipWidth,
-            newDrumOffset,
-          }
-        } else {
-          return {
-            starPosition: 0,
-            tooltipPosition: 0,
-            tooltipWidth: 0,
-            newDrumOffset: 0,
-          }
-        }
-      }
-
       const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
-        const { starPosition, tooltipPosition, newDrumOffset } = calcPosition(moveEvent)
+        const { starPosition, tooltipPosition, newDrumOffset } = calcPosition(
+          moveEvent,
+          shiftX,
+        )
 
         if (
           sliderStarRef.current &&
@@ -142,7 +145,7 @@ const CareerSlider = () => {
           drum.current &&
           sliderIconsWrapper.current
         ) {
-          const { starPosition, tooltipWidth } = calcPosition(moveEvent)
+          const { starPosition, tooltipWidth } = calcPosition(moveEvent, shiftX)
 
           // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
           const startStarPosition = Math.round(
@@ -172,7 +175,40 @@ const CareerSlider = () => {
   }
 
   useEffect(() => {
-    if (sliderStarRef.current) {
+    if (sliderStarRef.current && sliderLineRef.current) {
+      sliderLineRef.current.onclick = event => {
+        if (
+          sliderStarRef.current &&
+          tooltipRef.current &&
+          sliderLineRef.current &&
+          filledLineRef.current &&
+          drum.current &&
+          sliderIconsWrapper.current
+        ) {
+          const { starPosition, tooltipWidth } = calcPosition(event, 0)
+
+          // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
+          const startStarPosition = Math.round(
+            Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
+          )
+
+          sliderStarRef.current.style.left = startStarPosition * 50 + '%'
+          sliderStarRef.current.style.transition = 'all .3s'
+
+          filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
+          filledLineRef.current.style.transition = 'all .3s'
+
+          tooltipRef.current.style.left =
+            (startStarPosition * -tooltipWidth) / 2 - 12 + 'px'
+
+          drum.current.style.top = -startStarPosition * 15 * 21 + 'px'
+
+          sliderIconsWrapper.current.style.top =
+            (-sliderIconsWrapper.current.offsetHeight / 3) * startStarPosition + 'px'
+          sliderIconsWrapper.current.style.transition = 'all .3s'
+        }
+      }
+
       if (isMobile) {
         sliderStarRef.current.ontouchstart = sliderAnimation
       }

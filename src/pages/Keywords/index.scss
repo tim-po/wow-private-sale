@@ -4,22 +4,66 @@
   border-radius: 8px;
 }
 
-.keywordsAdded{
+.skeleton:after,
+.skeleton:before,
+.skeleton div {
+  opacity: 0;
+}
+
+.keywordsAdded {
   margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  .Keyword:hover{
+
+  .Keyword:hover {
     background: #DDDDFD;
     cursor: pointer;
   }
 }
 
+@keyframes shine-lines {
+  0% {
+    background-position: -100px
+  }
+
+  40%, 100% {
+    background-position: 390px
+  }
+}
+
+.skeleton-v3 {
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    background: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+    animation: skeleton-animation 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+  }
+
+}
+
+@keyframes skeleton-animation {
+  from {
+    left: -200px;
+  }
+  to {
+    left: 100%;
+  }
+}
 
 input:focus {
   outline-color: #7328E2;
 }
-
 
 .mobile {
   display: none !important;
@@ -71,7 +115,6 @@ input:focus {
   flex-wrap: wrap;
   overflow-y: auto;
 }
-
 
 .leftBlock {
   display: flex;
@@ -141,10 +184,9 @@ input:focus {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: center;
 }
-
 
 .keywordsSubtext {
   color: #6e6d7980;

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { BASE_URL } from '../constants'
 import { LocalStorageInteraction, withLocalStorage } from '../utils/general'
 
-export const useProfession = (professionId: string) => {
+export const useProfession = (professionId?: string) => {
   const [profession, setProfession] = useState<Profession | null>(null)
   const [addedKeywords, setAddedKeywords] = useState<KeywordType[]>([])
   const [removedKeywords, setRemovedKeywords] = useState<KeywordType[]>([])
@@ -23,11 +23,28 @@ export const useProfession = (professionId: string) => {
     setIsFirstRender(false)
   }, [])
 
-  const getProfession = async (id: string) => {
-    await axios
-      .get(`${BASE_URL}professions/${id}/`)
-      .then(({ data }) => setProfession(data))
-      .catch(setError)
+  const getProfession = async (id: string | undefined) => {
+    const professionFromLocal = withLocalStorage(
+      { profession: {} },
+      LocalStorageInteraction.load,
+    ).profession
+
+    if (
+      !professionId ||
+      (professionFromLocal &&
+        professionFromLocal.id &&
+        professionFromLocal.id === professionId)
+    ) {
+      setProfession(professionFromLocal)
+    } else {
+      await axios
+        .get(`${BASE_URL}professions/${id}/`)
+        .then(({ data }) => {
+          withLocalStorage({ profession: data }, LocalStorageInteraction.save)
+          setProfession(data)
+        })
+        .catch(setError)
+    }
 
     setAddedKeywords(
       withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.load).addedKeywords,
@@ -45,10 +62,10 @@ export const useProfession = (professionId: string) => {
       .then(({ data }) => setPresets(data))
       .catch(setError)
 
-    setSelectedPresetIds(withLocalStorage(
-      { selectedPresetIds: [] },
-      LocalStorageInteraction.load,
-    ).selectedPresetIds)
+    setSelectedPresetIds(
+      withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.load)
+        .selectedPresetIds,
+    )
   }
 
   useEffect(() => {
@@ -99,7 +116,7 @@ export const useProfession = (professionId: string) => {
 
   useEffect(() => {
     updateAllSelectedKeywordIds()
-  }, [selectedPresets])
+  }, [selectedPresets, profession])
 
   useEffect(() => {
     if (!isFirstRender) {

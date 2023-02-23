@@ -1,10 +1,12 @@
 import React from 'react'
+import { LetterImageProps } from 'types'
 
-const ImgMainLetterA = () => {
+const ImgMainLetterA = (props: LetterImageProps) => {
+  const { width, height } = props
   return (
     <svg
-      width="58"
-      height="70"
+      width={width}
+      height={height}
       viewBox="0 0 58 70"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

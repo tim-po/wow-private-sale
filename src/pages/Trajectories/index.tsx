@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import * as Scroll from 'react-scroll'
 import './index.scss'
@@ -14,11 +14,35 @@ import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
 import WarningCard from '../../components/WarningCard'
 import PercentProgress from '../../components/PercentProgress'
+import { useProfession } from '../../Models/useProfession'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
+  const { keywords } = useProfession()
+  const navigate = useNavigate()
+
+  const getTrajectoriesFromIds = (ids: number[]) => {
+    axios
+      .get(`${BASE_URL}trajectories/?ids=${ids.join(',')}`)
+      .then(res => {
+        setTrajectories(res.data)
+      })
+      .catch(e => setResponseError(e))
+  }
+
+  const getTrajectoriesFromKeywords = (keywordIds: string[]) => {
+    axios
+      .post(`${BASE_URL}trajectories/?top_n=10`, {
+        keywords: keywordIds,
+      })
+      .then(r => {
+        const newTrajectoryIds = r.data.map((el: TrajectoryType) => el.id)
+        navigate(`/trajectories?ids=${JSON.stringify(newTrajectoryIds)}`)
+        getTrajectoriesFromIds(newTrajectoryIds)
+      })
+  }
 
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
@@ -26,12 +50,11 @@ const Trajectories = () => {
       try {
         const trajectoryIds = JSON.parse(searchParams.get('ids') || '[]')
 
-        axios
-          .get(`${BASE_URL}trajectories/?ids=${trajectoryIds.join(',')}`)
-          .then(res => {
-            setTrajectories(res.data)
-          })
-          .catch(e => setResponseError(e))
+        if (!trajectoryIds.length) {
+          getTrajectoriesFromKeywords(keywords.allIds)
+        } else {
+          getTrajectoriesFromIds(trajectoryIds)
+        }
       } catch (e) {
         console.log(e)
         setResponseError(e)
@@ -41,7 +64,7 @@ const Trajectories = () => {
     scroll.scrollToTop()
 
     updateStickyBlocks()
-  }, [])
+  }, [keywords.allIds])
 
   if (responseError) {
     return <NotFound />
@@ -83,7 +106,7 @@ const Trajectories = () => {
           </button>
         </div>
       </div>
-      {trajectories.length
+      {trajectories && trajectories.length
         ? trajectories.map((trajectory, index) => (
             <TrajectoryPreview key={trajectory.id + index} trajectory={trajectory} />
           ))

@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import { TrajectoryType } from '../../../types'
-import Keyword from '../../../components/Keyword'
+import { TrajectoryType } from '../../types'
+import Keyword from '../../components/Keyword'
 import {
   LocalStorageInteraction,
   makeEmptyList,
   withLocalStorage,
-} from '../../../utils/general'
+} from '../../utils/general'
 import * as Scroll from 'react-scroll'
-import KeywordsSearch from '../../../components/KeywordsSearch'
+import KeywordsSearch from '../../components/KeywordsSearch'
 import Magnifier from 'images/icons/magnifier'
-import RandomFeedback from '../../../components/Modals/feedback/randomFeedback'
-import { createStickyBlock } from '../../../utils/stickyHeaders'
-import { changeBg } from '../../../utils/background/background'
+import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
+import { createStickyBlock } from '../../utils/stickyHeaders'
+import { changeBg } from '../../utils/background/background'
 import { useNavigate } from 'react-router-dom'
-import { useProfession } from '../../../Models/useProfession'
-import { BASE_URL } from '../../../constants'
+import { useProfession } from '../../Models/useProfession'
+import { BASE_URL } from '../../constants'
 import axios from 'axios'
 
 const Keywords = () => {
@@ -42,17 +42,7 @@ const Keywords = () => {
       return
     }
 
-    axios
-      .post(`${BASE_URL}trajectories/?top_n=10`, {
-        keywords: keywords.allIds,
-      })
-      .then(r => {
-        navigate(
-          `/trajectories?ids=${JSON.stringify(
-            r.data.map((el: TrajectoryType) => el.id),
-          )}`,
-        )
-      })
+    navigate(`/trajectories`)
   }
 
   return (

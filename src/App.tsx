@@ -7,22 +7,18 @@ import Layout from 'generic/layout'
 import HeaderContext from 'Context/Header'
 import { Route, Routes } from 'react-router-dom'
 import Start from 'pages/Start'
-import ProfessionDetails from 'pages/ProfessionDetails'
 import DiplomaShare from 'pages/DiplomaShare'
 import Trajectories from './pages/Trajectories'
 import Trajectory from './pages/Trajectory'
 import NotFound from './components/NotFound'
-import Profession from './pages/ProfessionDetails/Profession'
+import Profession from './pages/Profession'
 import Professions from './pages/Professions'
-import SkillSets from './pages/ProfessionDetails/SkillSets'
-import Keywords from './pages/ProfessionDetails/Keywords'
+import SkillSets from './pages/SkillSets'
+import Keywords from './pages/Keywords'
+import { RoutesName } from './types'
 
 export const App = () => {
   const [isHeaderAnimated, setHeaderAnimated] = useState(false)
-  const [backButtonProps, setBackButtonProps] = useState({
-    backButtonText: 'Back',
-    backButtonHref: '/',
-  })
 
   return (
     <HeaderContext.Provider
@@ -33,22 +29,16 @@ export const App = () => {
     >
       <Layout>
         <Routes>
-          <Route path="/" element={<Start />} />
-          <Route path="/professions/*" element={<Professions />} />
-          {/*  TODO удалить роут professionDetails после окончания работы надо новой */}
-          {/* навигацией */}
-          <Route path="/professionDetails*" element={<ProfessionDetails />} />
-          {/*  */}
-          <Route path="profession/:profId" element={<Profession />} />
-
-          <Route path="skills" element={<SkillSets />} />
-          <Route path="keywords" element={<Keywords />} />
-
-          <Route path="/diplomaShare*" element={<DiplomaShare />} />
-          <Route path="/trajectory*" element={<Trajectory />} />
-          <Route path="/trajectoryDiploma" element={<Trajectory />} />
-          <Route path="/trajectories*" element={<Trajectories />} />
-          <Route path={'/*'} element={<NotFound />} />
+          <Route path={RoutesName.START} element={<Start />} />
+          <Route path={RoutesName.PROFESSIONS} element={<Professions />} />
+          <Route path={RoutesName.PROFESSION} element={<Profession />} />
+          <Route path={RoutesName.SKILLS} element={<SkillSets />} />
+          <Route path={RoutesName.KEYWORDS} element={<Keywords />} />
+          <Route path={RoutesName.DIPLOMA_SHARE} element={<DiplomaShare />} />
+          <Route path={RoutesName.TRAJECTORY} element={<Trajectory />} />
+          <Route path={RoutesName.TRAJECTORIES} element={<Trajectories />} />
+          <Route path={RoutesName.NOT_FOUND} element={<NotFound />} />
+          <Route path={RoutesName.TRAJECTORY_DIPLOMA} element={<Trajectory />} />
         </Routes>
       </Layout>
     </HeaderContext.Provider>

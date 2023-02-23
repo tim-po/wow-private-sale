@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import SelectedPresets from '../../../components/SelectedPresets'
+import SelectedPresets from '../../components/SelectedPresets'
 import Preset from 'components/Preset'
 import * as Scroll from 'react-scroll'
-import Chevron, { Turn } from '../../../images/icons/chevron'
-import { createStickyBlock, updateStickyBlocks } from '../../../utils/stickyHeaders'
-import { scrollToElement } from '../../../utils/scrollToElement'
-import InfoIcon from '../../../images/icons/Static/InfoIcon'
+import Chevron, { Turn } from '../../images/icons/chevron'
+import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
+import { scrollToElement } from '../../utils/scrollToElement'
+import InfoIcon from '../../images/icons/Static/InfoIcon'
 import { useInView } from 'react-intersection-observer'
-import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
-import { useProfession } from '../../../Models/useProfession'
-import { changeBg } from '../../../utils/background/background'
+import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
+import { useProfession } from '../../Models/useProfession'
+import { changeBg } from '../../utils/background/background'
 import axios from 'axios'
-import { BASE_URL } from '../../../constants'
-import { TrajectoryType } from '../../../types'
+import { BASE_URL } from '../../constants'
+import { TrajectoryType } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import Button from '../../../components/Button'
-import WarningCard from '../../../components/WarningCard'
+import Button from '../../components/Button'
+import WarningCard from '../../components/WarningCard'
 
 // CONSTANTS
 
@@ -67,17 +67,7 @@ const SkillSets = () => {
       return
     }
 
-    axios
-      .post(`${BASE_URL}trajectories/?top_n=10`, {
-        keywords: keywords.allIds,
-      })
-      .then(r => {
-        navigate(
-          `/trajectories?ids=${JSON.stringify(
-            r.data.map((el: TrajectoryType) => el.id),
-          )}`,
-        )
-      })
+    navigate(`/trajectories`)
   }
 
   return (

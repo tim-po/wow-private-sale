@@ -19,20 +19,20 @@ const professionSalary = {
   senior: 170000,
 }
 
-const salaryRange = (salary: typeof professionSalary) => {
-  const firstRangeSalary = salary.middle - salary.junior
-  const secondRangeSalary = salary.senior - salary.middle
-
-  const firstRangeDelta = Array(15)
-    .fill(Math.floor(firstRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + salary.junior))
-
-  const secondRangeDelta = Array(15)
-    .fill(Math.floor(secondRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + salary.middle))
-
-  return [...firstRangeDelta, ...secondRangeDelta, salary.senior]
-}
+// const salaryRange = (salary: typeof professionSalary) => {
+//   const firstRangeSalary = salary.middle - salary.junior
+//   const secondRangeSalary = salary.senior - salary.middle
+//
+//   const firstRangeDelta = Array(15)
+//     .fill(Math.floor(firstRangeSalary / 15))
+//     .map((delta, i) => Math.floor(i * delta + salary.junior))
+//
+//   const secondRangeDelta = Array(15)
+//     .fill(Math.floor(secondRangeSalary / 15))
+//     .map((delta, i) => Math.floor(i * delta + salary.middle))
+//
+//   return [...firstRangeDelta, ...secondRangeDelta, salary.senior]
+// }
 
 const detectCurrentEvent = (currentEvent: MouseEvent | TouchEvent) => {
   if (currentEvent instanceof MouseEvent) {
@@ -86,23 +86,27 @@ const CareerSlider = () => {
     let step = 1
     const salaryDiff = Math.abs(targetSalary - newCurrentSalary)
 
-    if (salaryDiff < 200) {
+    if (salaryDiff < 100) {
       step = 1
     }
 
-    if (salaryDiff >= 200 && salaryDiff < 1000) {
+    if (salaryDiff >= 100 && salaryDiff < 500) {
       step = 25
+    }
+
+    if (salaryDiff >= 500 && salaryDiff < 1000) {
+      step = 50
     }
 
     if (salaryDiff >= 1000 && salaryDiff < 10000) {
       step = 125
     }
 
-    if (salaryDiff >= 10000 && salaryDiff < 100000) {
+    if (salaryDiff >= 10000 && salaryDiff < 40000) {
       step = 250
     }
 
-    if (salaryDiff >= 100000) {
+    if (salaryDiff >= 40000) {
       step = 500
     }
 

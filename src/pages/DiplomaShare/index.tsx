@@ -133,39 +133,39 @@ const DiplomaShare = () => {
             keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
           />
           <div className={`mobileBottomWrapperShare`} id="mobilBottomButton">
-            <div className="row">
-              <div className="likes-icon">
-                <Like />
+            {/* <div className="row"> */}
+            <div className="likeIcon">
+              <Like />
+            </div>
+            <div>
+              <div className="mb-2 descriptionDiplomaMobile">
+                Этот образовательный маршрут построен с помощью{' '}
+                <a href="/" className="TrackLink">
+                  ITMO.TRACK
+                </a>
+                .Ты можешь создать свою траекторию вместе с нами!
               </div>
-              <div className="col">
-                <div className="mb-2 descriptionDiplomaMobile">
-                  Этот образовательный маршрут построен с помощью{' '}
-                  <a href="/" className="TrackLink">
-                    ITMO.TRACK
-                  </a>
-                  .Ты можешь создать свою траекторию вместе с нами!
-                </div>
-                <div className="buttons-wrapper-share">
-                  <Button
-                    buttonStyle={'secondary'}
-                    onClick={() => navigate('/')}
-                    isDisabled={false}
-                    classNames={['mobile-button maxWidth']}
-                  >
-                    <span>Хочу так же</span>
-                  </Button>
-                  <Link
-                    href={
-                      diplomaShareData
-                        ? diplomaShareData.educational_plan.replace('', '+')
-                        : ''
-                    }
-                  >
-                    Читать больше на abit.itmo.ru
-                  </Link>
-                </div>
+              <div className="buttons-wrapper-share">
+                <Button
+                  buttonStyle={'secondary'}
+                  onClick={() => navigate('/')}
+                  isDisabled={false}
+                  classNames={['mobile-button maxWidth']}
+                >
+                  <span>Хочу так же</span>
+                </Button>
+                <Link
+                  href={
+                    diplomaShareData
+                      ? diplomaShareData.educational_plan.replace('', '+')
+                      : ''
+                  }
+                >
+                  Читать больше на abit.itmo.ru
+                </Link>
               </div>
             </div>
+            {/* </div> */}
           </div>
         </div>
         <div className="MargTopMobil">

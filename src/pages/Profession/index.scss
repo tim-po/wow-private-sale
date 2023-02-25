@@ -7,7 +7,6 @@
 
 .contentWrapper {
   width: 100%;
-  max-width: 720px;
   transition: all 0.5s;
 
   @media screen and (max-width: 760px) {
@@ -60,6 +59,7 @@
   .buttonWrapper {
     width: 100%;
     max-width: 150px;
+    z-index: 10;
 
     @media screen and (max-width: 760px) {
       position: fixed;
@@ -149,8 +149,8 @@
 
 
 .currentHeader {
-  padding-top: 24px;
-  margin-bottom: 24px;
+  padding-top: 18px;
+  padding-bottom: 12px;
 }
 
 .fontWeightBold {

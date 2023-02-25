@@ -147,6 +147,7 @@
   display: flex;
   align-items: flex-start;
   gap: 30px;
+  width: 100%;
 
   .left-tiles {
     display: flex;
@@ -160,6 +161,8 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+    width: 40%;
+    flex-grow: 3;
   }
 }
 
@@ -189,12 +192,11 @@
   background: #fff;
   padding: 20px 24px;
   border-radius: 16px;
+  width: max-content;
+  max-width: 100%;
 }
 
 .disciplines-tile {
-  min-height: 381px;
-  width: max-content;
-  max-width: 830px;
 
   .disciplines-wrapper {
     display: flex;
@@ -204,8 +206,6 @@
 }
 
 .control-types-tile {
-  width: 830px;
-  max-width: 830px;
 
   .control-types-wrapper {
     display: flex;
@@ -274,7 +274,7 @@
 
   .mobileBottomWrapper{
     background: #F3F3F8;
-    /* Elements/Stroke */
+    border-radius: 0px;
     border-top: 1px solid #E7E8EE;
     padding: 0 16px 34px 16px;
     transition-duration: 2s;
@@ -287,7 +287,7 @@
     left: 0;
   }
   .diploma-container {
-    padding-bottom: 64px;
+    padding-bottom: 106px;
     align-items: center;
     flex-direction: column
   }
@@ -304,6 +304,7 @@
 
     .right-tiles {
       max-width: 100%;
+      width: 100%;
     }
   }
 
@@ -343,6 +344,7 @@
     justify-content: flex-start;
     gap: 12px;
     flex-direction: row;
+    margin-top: 16px;
     .mobile-button {
       //width: 100%;
     }
@@ -379,6 +381,7 @@
 @media screen and (max-width: 750px) {
   .right-tiles {
     max-width: 100%;
+    width: 100%;
   }
 
   .control-types-tile {

@@ -25,7 +25,11 @@ const WarningCard = ({
     if (card.current) {
       const bodyBgColor = getBg()
 
-      if (bodyBgColor === 'var(--bg-color-base)')
+      if (
+        bodyBgColor === 'var(--bg-color-base)' ||
+        bodyBgColor === 'white' ||
+        bodyBgColor?.toUpperCase() === '#FFFFFF'
+      )
         card.current.style.setProperty('--bg-warning-card', 'var(--bg-color-invert)')
       else if (bodyBgColor === 'var(--bg-color-invert)')
         card.current.style.setProperty('--bg-warning-card', 'var(--bg-color-base)')

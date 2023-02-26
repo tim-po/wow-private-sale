@@ -66,7 +66,27 @@
     width: 100vw;
     height: 100vh;
   }
+
+  @keyframes appearOpacity {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes appearModalBodyDesktop {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
   .ModalContainer{
+    transition: all 0.3s;
     background: rgba(45, 43, 68, 0.6);
     z-index: 11000;
     position: fixed;
@@ -76,21 +96,26 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    //transform: scale(0);
     opacity: 0;
     display: flex;
+    animation: appearOpacity 0.3s ease-in-out;
   }
   .ModalTrack{
-    //transform: scale(0);
+    transition: all 0.3s;
     flex-shrink: 0;
     z-index: 2000;
     position: absolute;
     height: max-content;
+    animation: appearModalBodyDesktop 0.3s ease-in-out;
+    transform: scale(0);
   }
   .ModalContainer.active{
-    //transform: scale(1);
     opacity: 1;
     //width: 100vw;
+
+    .ModalTrack{
+      transform: scale(1);
+    }
   }
   .ModalContainer.active .ModalTrack{
     //transform: scale(1);
@@ -196,7 +221,7 @@
   }
 
 
-  .ModalContainer.active .ModalTrack{
+  .ModalContainer .ModalTrack{
     height: calc(100%);
     display: block;
   }

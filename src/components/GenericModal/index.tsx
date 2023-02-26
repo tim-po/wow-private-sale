@@ -108,7 +108,7 @@ const GenericModal = (props: GenericModalOwnProps) => {
     <div
       className={`ModalContainer ${hideMobile ? 'hideMobile' : ''} ${
         hideDesktop ? 'hideDesktop' : ''
-      } active`}
+      } ${blockContent ? 'active' : ''}`}
     >
       <div className="ModalContainerShad deck" onClick={modalClose} />
       <div className="ModalTrack">

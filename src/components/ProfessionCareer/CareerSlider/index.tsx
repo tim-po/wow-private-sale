@@ -25,7 +25,8 @@ const detectCurrentEvent = (
   }
 }
 
-const tooltipWidth = 122
+const TOOLTIP_WIDTH = 122
+const TWO_THIRDS = 0.666
 
 const CareerSlider = () => {
   const sliderStarRef = useRef<HTMLDivElement | null>(null)
@@ -89,11 +90,10 @@ const CareerSlider = () => {
     if (sliderStarRef.current && sliderLineRef.current && sliderIconsWrapper.current) {
       const currentInterval = Math.round(pointerPositionInPercent * 2)
       const rubierBandPoint = currentInterval / 2
-      const twoThirds = 0.666
 
       sliderIconsWrapper.current.style.top = `${
         -sliderIconsWrapper.current.getBoundingClientRect().height *
-        twoThirds *
+        TWO_THIRDS *
         rubierBandPoint
       }px`
 
@@ -145,7 +145,7 @@ const CareerSlider = () => {
               <div
                 className="tooltipContent"
                 style={{
-                  left: -tooltipWidth * 0.6 * pointerPositionInPercent - 10,
+                  left: -TOOLTIP_WIDTH * 0.6 * pointerPositionInPercent - 10,
                 }}
                 ref={tooltipRef}
               >

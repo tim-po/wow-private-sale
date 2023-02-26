@@ -18,6 +18,10 @@ body {
    /*overflow-y: hidden;*/
 }
 
+body svg {
+    vertical-align: unset;
+}
+
 button{
     outline: none !important;
     cursor: pointer;

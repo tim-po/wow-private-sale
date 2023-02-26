@@ -58,11 +58,12 @@ const DiplomaShare = () => {
     }
     return 'предметов'
   }
-  useEffect(()=>{
+  useEffect(() => {
     if (desDiplomaClose)
-      setTimeout(()=>{setDisplayNone(true)}, 200)
-
-  },[desDiplomaClose])
+      setTimeout(() => {
+        setDisplayNone(true)
+      }, 200)
+  }, [desDiplomaClose])
   useEffect(() => {
     getDiplomaShareData()
     changeBg('var(--bg-color-invert)')
@@ -82,7 +83,6 @@ const DiplomaShare = () => {
   return (
     <div className="DiplomaPage">
       <div className="justify-content-between mb-0 align-items-center">
-
         <h5 className="mb-0 titleShare">
           {diplomaShareData ? (
             <>
@@ -102,19 +102,20 @@ const DiplomaShare = () => {
       </div>
       <div className="DiplomaContainerShare">
         <div
-          style={{marginBottom:0}}
+          style={{ marginBottom: 0 }}
           className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
             `}
         >
           <div className={`descriptionDiploma`}>
-            <span>Этот образовательный маршрут построен с помощью{' '}
+            <span>
+              Этот образовательный маршрут построен с помощью{' '}
               <a href="/" className="TrackLink">
-                    ITMO.TRACK
-                  </a>
-                  .Ты можешь создать свою траекторию вместе с нами!
+                ITMO.TRACK
+              </a>
+              .Ты можешь создать свою траекторию вместе с нами!
             </span>
-            <button onClick={()=>setDesDiplomaClose(true)}>
-              <Close width={8.5} height={8.5}/>
+            <button onClick={() => setDesDiplomaClose(true)}>
+              <Close width={8.5} height={8.5} />
             </button>
           </div>
         </div>
@@ -125,7 +126,7 @@ const DiplomaShare = () => {
           />
 
           <Keywords
-            keywords={keywords?.slice(0, 10)}
+            keywords={keywords}
             keywordsCount={keywords?.length}
             isKeywordsButtonHidden={false}
             keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}

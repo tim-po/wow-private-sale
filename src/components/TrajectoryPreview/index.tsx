@@ -44,7 +44,6 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
     element.classList.remove('Hidden')
   }
   const trajectoryChosen = (selectedTrajectory: TrajectoryType, course = 1) => {
-    alert(selectedTrajectory.id)
     withLocalStorage(
       { chosenTrajectoriesIds: searchParams.get('ids') },
       LocalStorageInteraction.save,

@@ -71,7 +71,7 @@ const Keywords = (props: KeywordsPropType) => {
           </>
         ) : (
           keywords
-            ?.slice(0, 10)
+            .slice(0, 10)
             .map((keyword: KeywordType) => (
               <Keyword
                 key={keyword.id}

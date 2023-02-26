@@ -11,9 +11,6 @@ import { useInView } from 'react-intersection-observer'
 import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import { useProfession } from '../../Models/useProfession'
 import { changeBg } from '../../utils/background/background'
-import axios from 'axios'
-import { BASE_URL } from '../../constants'
-import { TrajectoryType } from '../../types'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import WarningCard from '../../components/WarningCard'
@@ -29,7 +26,7 @@ const SkillSets = () => {
   ).professionId
 
   const navigate = useNavigate()
-  const { presets, profession, keywords } = useProfession(professionId)
+  const { presets, profession } = useProfession(professionId)
 
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)

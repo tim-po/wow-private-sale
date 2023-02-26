@@ -127,7 +127,7 @@ const DiplomaShare = () => {
           />
 
           <Keywords
-            keywords={keywords?.slice(0, 10)}
+            keywords={keywords}
             keywordsCount={keywords?.length}
             isKeywordsButtonHidden={false}
             keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}

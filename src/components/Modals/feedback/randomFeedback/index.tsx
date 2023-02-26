@@ -26,7 +26,7 @@ const feedbackDataByGroup: {
   2: {
     title: 'Как тебе предложенные программы?',
     mapButton: [
-      'Ничего не подошло ☹️',
+      'Ничего не подошло 😕️',
       'Странные теги 🤔',
       'Мало информации  🤨',
       'Отлично 👌',
@@ -35,7 +35,7 @@ const feedbackDataByGroup: {
   3: {
     title: 'Что-то на этой странице вызвало трудности? ',
     mapButton: [
-      'Выбор траектории ☹️',
+      'Выбор траектории 😕️️',
       'Как перейти дальше 🤔',
       'Слишком много информации  🤯',
       'Все понятно 👌',
@@ -84,11 +84,11 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     withLocalStorage({ alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load)
       .alreadySentFeedbackCount,
   )
-  useEffect(()=>{
+  useEffect(() => {
     const bottomButton = document.getElementById('mobilBottomButton')
-    if (bottomButton &&  window.getComputedStyle(bottomButton).bottom === '0px'){
+    if (bottomButton && window.getComputedStyle(bottomButton).bottom === '0px') {
       setMobileButtonHeight(bottomButton.offsetHeight)
-    } else (setMobileButtonHeight(0))
+    } else setMobileButtonHeight(0)
   })
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
@@ -150,7 +150,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       openFeedback()
     }, 2000)
   }, [])
-  useOnClickOutside(feedbackRef, ()=> setShowFeedback(false))
+  useOnClickOutside(feedbackRef, () => setShowFeedback(false))
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
     return null
   }
@@ -158,9 +158,10 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   return (
     <>
       {isOpenRandomFeedback ? (
-        <div style={{bottom: mobileButtonHeight === 0? 8 : mobileButtonHeight + 8 }}
+        <div
+          style={{ bottom: mobileButtonHeight === 0 ? 8 : mobileButtonHeight + 8 }}
           onClick={openFeedback}
-             ref={feedbackRef}
+          ref={feedbackRef}
           className={`container-form-random-feedback ${
             !showFeedback ? 'feedbackSmall' : ''
           } ${isSeeIcon ? '' : 'hideIcon'}`}

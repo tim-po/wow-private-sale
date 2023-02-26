@@ -2,43 +2,41 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 60px;
-
-  @media screen and (max-width: 760px) {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  flex-wrap: wrap;
+  gap: 40px;
 
   &Icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: 20%;
     height: 160px;
     background: #F3F3F8;
     border-radius: 12px;
-    margin-right: 40px;
     position: relative;
     overflow: hidden;
+    flex-grow: 3;
+    min-width: min(240px, 100%);
 
     &sWrapper {
       position: absolute;
       display: flex;
       flex-direction: column;
       top: 0;
+      transition: top 0.3s;
 
       .IconWrapper {
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 19.5px 0;
+        height: 130px;
       }
     }
 
     @media screen and (max-width: 760px) {
-      width: 260px;
-      margin-right: 0;
+      //width: 260px;
+      //margin-right: 0;
     }
   }
 
@@ -47,13 +45,12 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 100%;
-    max-width: 430px;
-    margin-top: 50px;
+    width: 45%;
+    flex-grow: 100;
 
-    @media screen and (max-width: 760px) {
-      margin-top: 80px;
-    }
+    //@media screen and (max-width: 760px) {
+    //  margin-top: 80px;
+    //}
 
     .linePointsText {
       display: flex;
@@ -61,7 +58,7 @@
       align-items: center;
       margin-top: 14px;
       width: 100%;
-      max-width: 430px;
+      //max-width: 430px;
 
       .pointTitle {
         font-weight: 400;
@@ -99,11 +96,16 @@
       border-radius: 19px;
       background: linear-gradient(left top, #E0E0E0, #EEEEEE);
       width: 100%;
-      max-width: 430px;
+      //max-width: 430px;
       height: 6px;
       position: relative;
+      margin-top: 50px;
+
+
+      cursor: pointer;
 
       &Fill {
+        transition: all 0.2s;
         border-radius: 19px;
         height: 6px;
         background: linear-gradient(90deg, #FE462D 0%, #E33091 105.51%, #8D34FF 202.59%);
@@ -111,9 +113,14 @@
         position: absolute;
         left: 0;
         right: 100%;
+
+        &.moving{
+          transition: all 0s;
+        }
       }
 
       &Star {
+        transition: all 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -123,6 +130,10 @@
         bottom: -11px;
         cursor: pointer;
         position: absolute;
+
+        &.moving{
+          transition: all 0s;
+        }
 
         .tooltipWrapper {
           position: relative;
@@ -154,6 +165,7 @@
 
             .drumItem {
               position: absolute;
+              transition: top 0.1s linear;
 
               &Text {
                 color: #fff;

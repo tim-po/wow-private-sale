@@ -1,6 +1,8 @@
 .professionCareerWrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 60px;
   padding: 24px;
   border: 1px solid #E7E8EE;
   border-radius: 16px;
@@ -18,20 +20,35 @@
     margin-bottom: 16px;
   }
 
+  .professionCareerFlexWrapperSlider{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    flex-grow: 3;
+  }
+
+  .professionCareerFlexWrapperActivity{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    flex-grow: 3;
+    //max-width: 400px;
+
+  }
+
   .activitiesBlock {
     display: flex;
     flex-wrap: wrap;
-
-    @media screen and (max-width: 760px) {
-      flex-direction: column;
-    }
+    gap: 20px;
+    flex-grow: 3;
 
     &Item {
       display: flex;
       align-items: flex-start;
-      justify-content: center;
-      width: 50%;
-      margin-bottom: 20px;
+      justify-content: flex-start;
+      width: calc(50% - 10px);
+      min-width: 250px;
+      //flex-shrink: 1;
 
       @media screen and (max-width: 760px) {
         width: 100%;

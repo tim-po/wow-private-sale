@@ -10,6 +10,8 @@
 }
 .Content {
   z-index: 300;
+  max-width: 1920px;
+  margin: auto;
   padding: 0 32px;
   background-color: var(--bg-color);
   transition: var(--bg-transition);

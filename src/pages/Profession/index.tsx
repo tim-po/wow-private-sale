@@ -11,7 +11,7 @@ import {
 import Button from '../../components/Button'
 import { RoutesName } from '../../types'
 import ProfessionCareer from '../../components/ProfessionCareer'
-import { createStickyBlock } from '../../utils/stickyHeaders'
+import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
 
 type ProfessionContextType = ReturnType<typeof useProfession>
@@ -26,6 +26,7 @@ const Profession = () => {
 
   useEffect(() => {
     changeBg('white')
+    updateStickyBlocks()
   }, [])
 
   const openSkillSets = async () => {

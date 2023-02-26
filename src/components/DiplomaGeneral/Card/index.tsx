@@ -22,7 +22,7 @@ const StyledCard = styled.div<{ bgColor: string; isDiplomaCard: boolean }>`
   border-radius: ${p => (p.isDiplomaCard ? '20px' : '16px')};
   color: white;
   background: ${p => p.bgColor || '#78a3ec'};
-    // border: 1px solid ${p => p.bgColor || '#78a3ec'};
+  ${p => p.bgColor || '#78a3ec'};
   padding: 20px;
   cursor: pointer;
   margin-bottom: ${p => (p.isDiplomaCard ? '0px' : '12px')};

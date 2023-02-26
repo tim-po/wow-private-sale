@@ -151,7 +151,7 @@
     .ProfessionsContainer {
       .ProfessionContainer {
         .ProfessionCardButton {
-          min-width: 320px;
+          min-width: 290px;
           width: 100%;
           max-width: 100%;
 
@@ -162,5 +162,19 @@
 
   .ProfessionCardButton {
     min-width: 320px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .ProfessionsPageContainer {
+    .ProfessionsContainer {
+
+      .ProfessionContainer {
+        margin-bottom: 24px;
+
+        .professionCarSkeleton {
+          width: 290px;
+        }
+      }
+    }
   }
 }

@@ -90,6 +90,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       setMobileButtonHeight(bottomButton.offsetHeight)
     } else setMobileButtonHeight(0)
   })
+
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
       setPrevMovementY(event.touches[0].clientY)
@@ -159,7 +160,13 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     <>
       {isOpenRandomFeedback ? (
         <div
-          style={{ bottom: mobileButtonHeight === 0 ? 8 : mobileButtonHeight + 8 }}
+          style={{
+            bottom: showFeedback
+              ? 0
+              : mobileButtonHeight === 0
+              ? 8
+              : mobileButtonHeight + 8,
+          }}
           onClick={openFeedback}
           ref={feedbackRef}
           className={`container-form-random-feedback ${

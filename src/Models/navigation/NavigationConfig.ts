@@ -49,7 +49,7 @@ const navigationItemsConfig: NavigationItemConfig[] = [
   { path: Path.skills, title: 'Наборы навыков', icon: IconPuzzle },
   {
     path: Path.keywords,
-    title: 'Ключевые сова',
+    title: 'Ключевые слова',
     icon: IconScissors,
     isOptional: true,
   },

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SliderStar from 'images/icons/Static/sliderStar'
 import './index.scss'
 import Arrow from 'images/icons/Arrow'
@@ -13,175 +13,96 @@ const careerIcons: JSX.Element[] = [
   CareerSeniorIcon(),
 ]
 
-const professionSalary = {
-  junior: 40000,
-  middle: 80000,
-  senior: 170000,
-}
+const professionSalary = [40000, 80000, 170000]
 
-const salaryRange = (salary: typeof professionSalary) => {
-  const firstRangeSalary = salary.middle - salary.junior
-  const secondRangeSalary = salary.senior - salary.middle
-
-  const firstRangeDelta = Array(15)
-    .fill(Math.floor(firstRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + salary.junior))
-
-  const secondRangeDelta = Array(15)
-    .fill(Math.floor(secondRangeSalary / 15))
-    .map((delta, i) => Math.floor(i * delta + salary.middle))
-
-  return [...firstRangeDelta, ...secondRangeDelta, salary.senior]
-}
-
-const detectCurrentEvent = (currentEvent: MouseEvent | TouchEvent) => {
-  if (currentEvent instanceof MouseEvent) {
-    return currentEvent
+const detectCurrentEvent = (
+  currentEvent: React.MouseEvent | React.TouchEvent,
+): { clientX: number } => {
+  if (currentEvent.nativeEvent instanceof TouchEvent) {
+    return currentEvent.nativeEvent.changedTouches[0]
   } else {
-    return currentEvent.changedTouches[0]
+    return currentEvent.nativeEvent
   }
 }
+
+const TOOLTIP_WIDTH = 122
+const TWO_THIRDS = 0.666
 
 const CareerSlider = () => {
   const sliderStarRef = useRef<HTMLDivElement | null>(null)
   const sliderLineRef = useRef<HTMLDivElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
-  const filledLineRef = useRef<HTMLDivElement | null>(null)
-  const drum = useRef<HTMLDivElement | null>(null)
   const sliderIconsWrapper = useRef<HTMLDivElement | null>(null)
 
-  const sliderAnimation = (event: MouseEvent | TouchEvent) => {
-    const currentTypeStartAnimation = isMobile ? 'touchmove' : 'mousemove'
-    const currentTypeEndAnimation = isMobile ? 'touchend' : 'mouseup'
+  const [currentSalary, setCurrentSalary] = useState(professionSalary[0])
 
-    if (sliderStarRef.current) {
-      event.preventDefault()
+  const [pointerPositionInPercent, setPointerPositionInPercent] = useState(0)
+  const [isMoving, setIsMoving] = useState(false)
+  const [isAnimated, setIsAnimated] = useState(true)
 
-      // Расстояние между началом звезды и кликом
-      const shiftX =
+  const sliderStartAnimation = (event: React.MouseEvent | React.TouchEvent) => {
+    event.preventDefault()
+    if (sliderStarRef.current && sliderLineRef.current) {
+      const deltaY =
         detectCurrentEvent(event).clientX -
-        sliderStarRef.current.getBoundingClientRect().left
+        sliderLineRef.current.getBoundingClientRect().left
 
-      const calcPosition = (moveEvent: TouchEvent | MouseEvent) => {
-        if (
-          sliderLineRef.current &&
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          drum.current
-        ) {
-          const currentClientX = detectCurrentEvent(moveEvent).clientX
+      const newPointerPositionInPercent =
+        deltaY / sliderLineRef.current.getBoundingClientRect().width
+      setPointerPositionInPercent(newPointerPositionInPercent)
 
-          let starPosition =
-            currentClientX - shiftX - sliderLineRef.current.getBoundingClientRect().left
-          if (starPosition < 0) {
-            starPosition = 0
-          }
-
-          if (starPosition > sliderLineRef.current.offsetWidth) {
-            starPosition = sliderLineRef.current.offsetWidth
-          }
-
-          const tooltipWidth = tooltipRef.current.offsetWidth - 45
-          const tooltipPosition =
-            (starPosition / sliderLineRef.current.offsetWidth) * tooltipWidth + 12
-
-          const newDrumOffset =
-            (starPosition / sliderLineRef.current.offsetWidth) *
-            (drum.current.offsetHeight - 21)
-
-          return {
-            starPosition,
-            tooltipPosition,
-            tooltipWidth,
-            newDrumOffset,
-          }
-        } else {
-          return {
-            starPosition: 0,
-            tooltipPosition: 0,
-            tooltipWidth: 0,
-            newDrumOffset: 0,
-          }
-        }
-      }
-
-      const onMouseMove = (moveEvent: TouchEvent | MouseEvent) => {
-        const { starPosition, tooltipPosition, newDrumOffset } = calcPosition(moveEvent)
-
-        if (
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          filledLineRef.current &&
-          sliderLineRef.current &&
-          drum.current
-        ) {
-          sliderStarRef.current.style.transition = ''
-          filledLineRef.current.style.transition = ''
-
-          sliderStarRef.current.style.left =
-            (100 * starPosition) / sliderLineRef.current.offsetWidth + '%'
-
-          filledLineRef.current.style.right =
-            sliderLineRef.current.offsetWidth - starPosition + 'px'
-
-          tooltipRef.current.style.left = -tooltipPosition + 'px'
-
-          drum.current.style.top = -newDrumOffset + 'px'
-        }
-      }
-
-      const onMouseUp = (moveEvent: TouchEvent | MouseEvent) => {
-        document.removeEventListener(currentTypeEndAnimation, onMouseUp)
-        document.removeEventListener(currentTypeStartAnimation, onMouseMove)
-
-        if (
-          sliderStarRef.current &&
-          tooltipRef.current &&
-          sliderLineRef.current &&
-          filledLineRef.current &&
-          drum.current &&
-          sliderIconsWrapper.current
-        ) {
-          const { starPosition, tooltipWidth } = calcPosition(moveEvent)
-
-          // Расчет позиции к которой должен притянутся ползунок после отпускания курсора (0/1/2)
-          const startStarPosition = Math.round(
-            Math.floor(starPosition / (sliderLineRef.current.offsetWidth / 4)) / 2,
-          )
-
-          sliderStarRef.current.style.left = startStarPosition * 50 + '%'
-          sliderStarRef.current.style.transition = 'all .3s'
-
-          filledLineRef.current.style.right = 100 - startStarPosition * 50 + '%'
-          filledLineRef.current.style.transition = 'all .3s'
-
-          tooltipRef.current.style.left =
-            (startStarPosition * -tooltipWidth) / 2 - 12 + 'px'
-
-          drum.current.style.top = -startStarPosition * 15 * 21 + 'px'
-
-          sliderIconsWrapper.current.style.top =
-            (-sliderIconsWrapper.current.offsetHeight / 3) * startStarPosition + 'px'
-          sliderIconsWrapper.current.style.transition = 'all .3s'
-        }
-      }
-
-      document.addEventListener(currentTypeStartAnimation, onMouseMove)
-      document.addEventListener(currentTypeEndAnimation, onMouseUp)
+      setIsMoving(true)
+      setTimeout(() => {
+        setIsAnimated(false)
+      }, 200)
     }
   }
 
-  useEffect(() => {
-    if (sliderStarRef.current) {
-      if (isMobile) {
-        sliderStarRef.current.ontouchstart = sliderAnimation
-      }
+  const sliderMoveAnimation = (event: React.MouseEvent | React.TouchEvent) => {
+    event.preventDefault()
 
-      if (!isMobile) {
-        sliderStarRef.current.onmousedown = sliderAnimation
-      }
+    if (sliderStarRef.current && sliderLineRef.current && isMoving) {
+      const deltaY =
+        detectCurrentEvent(event).clientX -
+        sliderLineRef.current.getBoundingClientRect().left
+      const lineWidth = sliderLineRef.current?.getBoundingClientRect().width
+
+      const newPointerPositionInPercent = deltaY / lineWidth
+
+      const newPointerPositionInPercentValidated = Math.min(
+        Math.max(newPointerPositionInPercent, 0),
+        1,
+      )
+      setPointerPositionInPercent(newPointerPositionInPercentValidated)
+
+      const currentInterval = Math.round(pointerPositionInPercent / lineWidth)
+      const minSalary = professionSalary[currentInterval]
+      const maxSalary = professionSalary[currentInterval + 1]
+      const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
+      const salaryDelta = maxSalary - minSalary
+
+      setCurrentSalary(minSalary + Math.floor(salaryDelta * intervalPercentage))
     }
-  }, [isMobile])
+  }
+
+  const sliderEndAnimation = (event: React.MouseEvent | React.TouchEvent) => {
+    event.preventDefault()
+    if (sliderStarRef.current && sliderLineRef.current && sliderIconsWrapper.current) {
+      const currentInterval = Math.round(pointerPositionInPercent * 2)
+      const rubierBandPoint = currentInterval / 2
+
+      sliderIconsWrapper.current.style.top = `${
+        -sliderIconsWrapper.current.getBoundingClientRect().height *
+        TWO_THIRDS *
+        rubierBandPoint
+      }px`
+
+      setPointerPositionInPercent(rubierBandPoint)
+      setCurrentSalary(professionSalary[currentInterval])
+    }
+    setIsAnimated(true)
+    setIsMoving(false)
+  }
 
   return (
     <div className="sliderWrapper">
@@ -198,21 +119,41 @@ const CareerSlider = () => {
           ))}
         </div>
       </div>
-      <div className="sliderLineWrapper">
-        <div className="sliderLine" ref={sliderLineRef}>
-          <div className="sliderLineFill" ref={filledLineRef} />
-          <div className="sliderLineStar" ref={sliderStarRef}>
+      <div
+        className="sliderLineWrapper"
+        onMouseDown={sliderStartAnimation}
+        onMouseMove={sliderMoveAnimation}
+        onMouseUp={sliderEndAnimation}
+        onMouseLeave={sliderEndAnimation}
+        onTouchStart={sliderStartAnimation}
+        onTouchMove={sliderMoveAnimation}
+        onTouchEnd={sliderEndAnimation}
+        onTouchCancel={sliderEndAnimation}
+        ref={sliderLineRef}
+      >
+        <div className="sliderLine">
+          <div
+            className={`sliderLineFill ${!isAnimated ? 'moving' : ''}`}
+            style={{ width: `${pointerPositionInPercent * 100}%` }}
+          />
+          <div
+            className={`sliderLineStar ${!isAnimated ? 'moving' : ''}`}
+            style={{ left: `${pointerPositionInPercent * 100}%` }}
+            ref={sliderStarRef}
+          >
             <div className="tooltipWrapper">
-              <div className="tooltipContent" ref={tooltipRef}>
+              <div
+                className="tooltipContent"
+                style={{
+                  left: -TOOLTIP_WIDTH * 0.6 * pointerPositionInPercent - 10,
+                }}
+                ref={tooltipRef}
+              >
                 <span className="tooltipContentText">от</span>
                 <div className="drumWrapper">
-                  <div ref={drum} className="drumItem">
-                    {salaryRange(professionSalary).map(degree => (
-                      <div key={degree} className="drumItemText">
-                        {degree}
-                      </div>
-                    ))}
-                  </div>
+                  <span className="numberInDrum" key={currentSalary}>
+                    {currentSalary}
+                  </span>
                 </div>
                 <span className="tooltipContentText">руб</span>
               </div>

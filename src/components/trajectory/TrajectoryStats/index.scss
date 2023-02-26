@@ -1,9 +1,13 @@
 
+.modalContainer {
+  .StatsContainer {
+    padding: 16px;
+  }
+}
 .StatsContainer{
   min-width: 444px;
   border-radius: 16px;
   background: white;
-  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

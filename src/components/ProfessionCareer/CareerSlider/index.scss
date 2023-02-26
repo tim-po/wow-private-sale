@@ -30,6 +30,7 @@
         align-items: center;
         justify-content: center;
         margin: 19.5px 0;
+        height: 130px;
       }
     }
 
@@ -46,7 +47,6 @@
     justify-content: flex-start;
     width: 45%;
     flex-grow: 100;
-    margin-top: 50px;
 
     //@media screen and (max-width: 760px) {
     //  margin-top: 80px;
@@ -99,10 +99,13 @@
       //max-width: 430px;
       height: 6px;
       position: relative;
+      margin-top: 50px;
+
 
       cursor: pointer;
 
       &Fill {
+        transition: all 0.2s;
         border-radius: 19px;
         height: 6px;
         background: linear-gradient(90deg, #FE462D 0%, #E33091 105.51%, #8D34FF 202.59%);
@@ -110,9 +113,14 @@
         position: absolute;
         left: 0;
         right: 100%;
+
+        &.moving{
+          transition: all 0s;
+        }
       }
 
       &Star {
+        transition: all 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -122,6 +130,10 @@
         bottom: -11px;
         cursor: pointer;
         position: absolute;
+
+        &.moving{
+          transition: all 0s;
+        }
 
         .tooltipWrapper {
           position: relative;

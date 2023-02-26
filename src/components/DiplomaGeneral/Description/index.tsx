@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from 'react'
 import './index.scss'
-import styled from "styled-components";
-import {DiplomaTileWrapper, DiplomaTitle} from "../DiplomaGeneralStyles";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import styled from 'styled-components'
+import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
+import { isMobile } from 'react-device-detect'
+import ModalContext from '../../../Context/Modal'
 
 type GenericModalPropType = {
-  iconUrl: string;
-  title: string;
+  iconUrl: string
+  title: string
+  youTubeVideoId?: string
 }
 
 const TextSmall = styled.span`
@@ -27,23 +31,72 @@ const StyledIcon = styled.img`
 `
 
 const Description = (props: GenericModalPropType) => {
-  const {iconUrl, title} = props
+  const { iconUrl, title, youTubeVideoId } = props
+  const { displayModal } = useContext(ModalContext)
+  const youTubeSrc = `https://www.youtube.com/embed/${youTubeVideoId}`
+  const previewSrc = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`
+
   return (
     <DiplomaTileWrapper>
-      <DiplomaTitle>
-        {title ?
-        title
-        :
-        <div
-        style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
-        className="MainSkeleton"
-      />}
-      </DiplomaTitle>
-      <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
-      <BachelorTitleWrapper>
-        <StyledIcon src={iconUrl} alt="icon"/>
-        <TextSmall>Бакалавриат</TextSmall>
-      </BachelorTitleWrapper>
+      <div
+        className={`innerWrapper ${isMobile ? 'mobilePlayerWrap' : 'desktopPlayerWrap'}`}
+      >
+        {isMobile ? (
+          <div
+            className={`player ratio ratio-16x9 ${youTubeVideoId ? '' : 'MainSkeleton'}`}
+          >
+            {youTubeVideoId && (
+              <iframe
+                className="you"
+                src={youTubeSrc}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
+        ) : (
+          <div
+            className={`preview ${youTubeVideoId ? '' : 'MainSkeleton'}`}
+            onClick={() =>
+              displayModal(
+                <div className={'modalPlayer'}>
+                  {youTubeVideoId && (
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={youTubeSrc}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  )}
+                </div>,
+              )
+            }
+          >
+            {youTubeVideoId && <img src={previewSrc} alt="preview" />}
+          </div>
+        )}
+
+        <div>
+          <DiplomaTitle>
+           {title ?
+            title
+            :
+            <div
+            style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
+            className="MainSkeleton"
+          />}
+          </DiplomaTitle>
+          <br />
+          <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>
+          <BachelorTitleWrapper>
+            <StyledIcon src={iconUrl} alt="icon" />
+            <TextSmall>Бакалавриат</TextSmall>
+          </BachelorTitleWrapper>
+        </div>
+      </div>
     </DiplomaTileWrapper>
   )
 }

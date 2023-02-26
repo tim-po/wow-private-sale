@@ -64,16 +64,16 @@ body {
 
 
 
-.TrajectoriesLinkBack {
-    background-color: var(--bg-color);
-    display: flex;
-    align-items: center;
-    color: #6E6D79;
-    font-weight: 400;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 20px;
-}
+/*.TrajectoriesLinkBack {*/
+/*    background-color: var(--bg-color);*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    color: #6E6D79;*/
+/*    font-weight: 400;*/
+/*    font-size: 12px;*/
+/*    cursor: pointer;*/
+/*    border-radius: 20px;*/
+/*}*/
 
 .MainButton {
     transition: 0.3s;

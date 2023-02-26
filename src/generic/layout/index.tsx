@@ -1,21 +1,15 @@
-import React, { ReactNode, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import './index.scss'
 import GenericModal, { OptionalGenericModalProps } from 'components/GenericModal'
 import Header from 'components/Header'
-import BackButtonContext from 'Context/BackButton'
 import ModalsContext from 'Context/Modal'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
-import RandomFeedbackContext from '../../Context/RandomFeedback'
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
 
 type layoutPropType = {
-  // You should declare props like this, delete this if you don't need props
   children: React.ReactElement | React.ReactElement[]
 }
 
@@ -30,7 +24,6 @@ const Layout = (props: layoutPropType) => {
     }[]
   >([])
 
-  const { backButtonHref } = useContext(BackButtonContext)
   const [cookie] = useCookies(['_ym_uid'])
 
   const [groupId, setGroupId] = useState<number>(0)
@@ -61,14 +54,6 @@ const Layout = (props: layoutPropType) => {
     updateStickyBlocks()
   }, [])
 
-  // useEffect(() => {
-  //   if (shouldDisplayModal) {
-  //     window.document.body.classList.add("no-scroll");
-  //   } else {
-  //     window.document.body.classList.remove("no-scroll");
-  //   }
-  // }, [shouldDisplayModal]);
-
   useEffect(() => {
     if (modalComponents.length > 0) {
       document.body.style.overflow = 'hidden'
@@ -80,9 +65,8 @@ const Layout = (props: layoutPropType) => {
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
-        {/* <BgContext.Provider value={{setBg: setBackgroundColor}}>*/}
         <div className="DefaultLayoutContainer" id="scroll-container">
-          <Header left={backButtonHref === '/'} />
+          <Header />
           <div className="Content">
             {children}
             {modalComponents.map((item, index) => (

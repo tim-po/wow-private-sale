@@ -40,16 +40,16 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
       return
     }
 
-    element.classList.remove("HiddenLeft");
-    element.classList.remove("Hidden");
-  };
+    element.classList.remove('HiddenLeft')
+    element.classList.remove('Hidden')
+  }
   const trajectoryChosen = (selectedTrajectory: TrajectoryType, course = 1) => {
     withLocalStorage(
-      { chosenTrajectoriesIds: searchParams.get("ids") },
-      LocalStorageInteraction.save
-    );
-    navigate(`/trajectory?id=${selectedTrajectory.id}&course=${course}`);
-  };
+      { chosenTrajectoriesIds: searchParams.get('ids') },
+      LocalStorageInteraction.save,
+    )
+    navigate(`/trajectory?id=${selectedTrajectory.id}&course=${course}`)
+  }
 
   const scrollToRight = (event: any) => {
     event.target.parentNode.scrollLeft += Math.min(
@@ -121,10 +121,15 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
             </>
           )}
 
-          {!isSkeleton ?
-            trajectory.courses.map((course) => (
-            <CourseCard course={course} key={course.course} onClick={() => trajectoryChosen(trajectory, course.course)} />
-          )) : makeEmptyList(4).map((_i, index) => <CourseCard key={index}/>)}
+          {!isSkeleton
+            ? trajectory.courses.map(course => (
+                <CourseCard
+                  course={course}
+                  key={course.course}
+                  onClick={() => trajectoryChosen(trajectory, course.course)}
+                />
+              ))
+            : makeEmptyList(4).map((_i, index) => <CourseCard key={index} />)}
         </div>
       </div>
 

@@ -4,7 +4,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  margin: 0 0 20px ;
+  padding: 0 0 10px ;
   z-index: 1500;
   background: var(--bg-color);
   transition: var(--bg-transition);
@@ -30,6 +30,12 @@
     column-gap: 12px;
     max-width: fit-content;
     max-height: 200px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .TrajectoryChoiceHeader{
+    padding-top: 24px;
   }
 }
 

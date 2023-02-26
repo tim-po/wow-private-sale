@@ -52,9 +52,10 @@ const HintGeneric = (props: GetPositionType) => {
 
   useEffect(() => {
     function closeEnter(e: KeyboardEvent) {
-      if (e.key === 'enter') {
-        e.preventDefault()
-        setIsLocalDataHint(false)
+      if (e.keyCode === 13) {
+          e.preventDefault()
+          console.log("sss")
+          setIsLocalDataHint(false)
       }
     }
 

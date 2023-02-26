@@ -62,6 +62,7 @@ export type TrajectoryType = {
 export type DiplomaDataType = {
   total_disciplines: number
   main_keywords: string[]
+  video_id: string
   id: number
   educational_plan: string
   classes_count: (CountType & { disciplines: CountType[] })[]
@@ -86,6 +87,7 @@ export type DiplomaShareDataType = {
   main_keywords: string[]
   courses: DiplomaShareCardType[]
   total_disciplines: number
+  video_id: string
 }
 
 export type NextOrPrevDisciplinesType = {
@@ -107,4 +109,22 @@ export type TrajectoryDisciplineType = {
   next_disciplines: NextOrPrevDisciplinesType[]
   prev_disciplines: NextOrPrevDisciplinesType[]
   replacement_options: NextOrPrevDisciplinesType[]
+}
+
+export enum RoutesName {
+  START = '/',
+  PROFESSIONS = '/professions/*',
+  PROFESSION = '/profession/:profId',
+  SKILLS = '/skills',
+  KEYWORDS = '/keywords',
+  DIPLOMA_SHARE = '/diplomaShare*',
+  TRAJECTORY = '/trajectory*',
+  TRAJECTORY_DIPLOMA = '/trajectoryDiploma',
+  TRAJECTORIES = '/trajectories*',
+  NOT_FOUND = '/*',
+}
+
+export interface LetterImageProps {
+  width: number
+  height: number
 }

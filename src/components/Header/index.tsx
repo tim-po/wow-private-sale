@@ -15,7 +15,7 @@ const Header = () => {
   const leftBlocks = ['/', '/diplomaShare']
   const { width } = useWindowDimensions()
   const isHeaderHiddenOnSmallMobile =
-    !['/', '/professions'].includes(window.location.pathname) && width < 400
+    !['/', '/diplomaShare'].includes(window.location.pathname) && width < 400
 
   const [isHeaderPreAnimated, setIsHeaderPreAnimated] = useState(
     leftBlocks.includes(window.location.pathname),

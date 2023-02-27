@@ -158,16 +158,16 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   const styleBottomPosition = () => {
     if (!showFeedback) {
       if (mobileButtonHeight === 0) {
-        return 8
+        return `bottom: ${8}` || `borderRadius: 20px 0 0 0`
       }
-      return mobileButtonHeight + 8
+      return `bottom: ${mobileButtonHeight + 8}`
     }
   }
   return (
     <>
       {isOpenRandomFeedback ? (
         <div
-          style={{ bottom: styleBottomPosition() }}
+          style={{bottom: styleBottomPosition() }}
           onClick={openFeedback}
           ref={feedbackRef}
           className={`container-form-random-feedback ${

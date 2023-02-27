@@ -9,7 +9,7 @@ import ModalContext from '../../../Context/Modal'
 type GenericModalPropType = {
   iconUrl: string
   title: string
-  youTubeVideoId?: string
+  youTubeVideoId?: string | null
 }
 
 const TextSmall = styled.span`
@@ -36,58 +36,63 @@ const Description = (props: GenericModalPropType) => {
   const youTubeSrc = `https://www.youtube.com/embed/${youTubeVideoId}`
   const previewSrc = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`
 
+  console.log(youTubeVideoId)
   return (
     <DiplomaTileWrapper>
       <div
         className={`innerWrapper ${isMobile ? 'mobilePlayerWrap' : 'desktopPlayerWrap'}`}
       >
-        {isMobile ? (
-          <div
-            className={`player ratio ratio-16x9 ${youTubeVideoId ? '' : 'MainSkeleton'}`}
-          >
-            {youTubeVideoId && (
-              <iframe
-                className="you"
-                src={youTubeSrc}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-            )}
-          </div>
-        ) : (
-          <div
-            className={`preview ${youTubeVideoId ? '' : 'MainSkeleton'}`}
-            onClick={() =>
-              displayModal(
-                <div className={'modalPlayer'}>
-                  {youTubeVideoId && (
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src={youTubeSrc}
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    ></iframe>
-                  )}
-                </div>,
-              )
-            }
-          >
-            {youTubeVideoId && <img src={previewSrc} alt="preview" />}
-          </div>
-        )}
+        {typeof youTubeVideoId !== 'undefined' &&
+          (isMobile ? (
+            <div
+              className={`player ratio ratio-16x9 ${
+                youTubeVideoId ? '' : 'MainSkeleton'
+              }`}
+            >
+              {youTubeVideoId && (
+                <iframe
+                  className="you"
+                  src={youTubeSrc}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              )}
+            </div>
+          ) : (
+            <div
+              className={`preview ${youTubeVideoId ? '' : 'MainSkeleton'}`}
+              onClick={() =>
+                displayModal(
+                  <div className={'modalPlayer'}>
+                    {youTubeVideoId && (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={youTubeSrc}
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      ></iframe>
+                    )}
+                  </div>,
+                )
+              }
+            >
+              {youTubeVideoId && <img src={previewSrc} alt="preview" />}
+            </div>
+          ))}
 
         <div>
           <DiplomaTitle>
-           {title ?
-            title
-            :
-            <div
-            style={{width:200, height:20, borderRadius: 8, marginBottom:12}}
-            className="MainSkeleton"
-          />}
+            {title ? (
+              title
+            ) : (
+              <div
+                style={{ width: 200, height: 20, borderRadius: 8, marginBottom: 12 }}
+                className="MainSkeleton"
+              />
+            )}
           </DiplomaTitle>
           <br />
           <TextSmall>Университет ИТМО, г. Санкт-Петербург</TextSmall>

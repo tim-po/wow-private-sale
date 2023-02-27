@@ -25,6 +25,9 @@
     flex-direction: column;
     width: 45%;
     flex-grow: 3;
+    @media screen and (max-width: 1220px) {
+      width: 100%;
+    }
   }
 
   .professionCareerFlexWrapperActivity{
@@ -32,6 +35,7 @@
     flex-direction: column;
     width: 45%;
     flex-grow: 3;
+    flex-shrink: 0;
     //max-width: 400px;
 
   }

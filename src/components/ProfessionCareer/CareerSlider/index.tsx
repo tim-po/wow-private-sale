@@ -41,7 +41,8 @@ const CareerSlider = () => {
   const [isAnimated, setIsAnimated] = useState(true)
 
   const sliderStartAnimation = (event: React.MouseEvent | React.TouchEvent) => {
-    event.preventDefault()
+    if (event instanceof MouseEvent) event.preventDefault()
+
     if (sliderStarRef.current && sliderLineRef.current) {
       const deltaY =
         detectCurrentEvent(event).clientX -
@@ -52,7 +53,7 @@ const CareerSlider = () => {
       setPointerPositionInPercent(newPointerPositionInPercent)
 
       if (tooltipRef.current) {
-        tooltipRef.current.style.transitionProperty = 'left'
+        tooltipRef.current.style.transitionProperty = ''
       }
 
       setIsMoving(true)
@@ -72,7 +73,7 @@ const CareerSlider = () => {
   }
 
   const sliderMoveAnimation = (event: React.MouseEvent | React.TouchEvent) => {
-    event.preventDefault()
+    if (event instanceof MouseEvent) event.preventDefault()
 
     if (sliderStarRef.current && sliderLineRef.current && isMoving) {
       const deltaY =
@@ -92,13 +93,22 @@ const CareerSlider = () => {
         tooltipRef.current.style.transitionProperty = ''
       }
 
-      const currentInterval = Math.round(pointerPositionInPercent / lineWidth)
+      const currentInterval = Math.round(pointerPositionInPercent)
       const minSalary = professionSalary[currentInterval]
       const maxSalary = professionSalary[currentInterval + 1]
       const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
       const salaryDelta = maxSalary - minSalary
 
-      setCurrentSalary(minSalary + Math.floor(salaryDelta * intervalPercentage))
+      let newSalary = minSalary + Math.floor(salaryDelta * intervalPercentage)
+
+      if (newSalary < minSalary) {
+        newSalary = minSalary
+      }
+      if (newSalary > maxSalary) {
+        newSalary = maxSalary
+      }
+
+      setCurrentSalary(newSalary)
     }
   }
 

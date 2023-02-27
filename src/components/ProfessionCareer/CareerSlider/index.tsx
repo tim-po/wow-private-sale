@@ -25,7 +25,7 @@ const detectCurrentEvent = (
   }
 }
 
-const TOOLTIP_WIDTH = 122
+// const TOOLTIP_WIDTH = 122
 const TWO_THIRDS = 0.666
 
 const CareerSlider = () => {
@@ -51,10 +51,23 @@ const CareerSlider = () => {
         deltaY / sliderLineRef.current.getBoundingClientRect().width
       setPointerPositionInPercent(newPointerPositionInPercent)
 
+      if (tooltipRef.current) {
+        tooltipRef.current.style.transitionProperty = 'left'
+      }
+
       setIsMoving(true)
       setTimeout(() => {
         setIsAnimated(false)
       }, 200)
+
+      const lineWidth = sliderLineRef.current?.getBoundingClientRect().width
+      const currentInterval = Math.round(pointerPositionInPercent / lineWidth)
+      const minSalary = professionSalary[currentInterval]
+      const maxSalary = professionSalary[currentInterval + 1]
+      const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
+      const salaryDelta = maxSalary - minSalary
+
+      setCurrentSalary(minSalary + Math.floor(salaryDelta * intervalPercentage))
     }
   }
 
@@ -74,6 +87,10 @@ const CareerSlider = () => {
         1,
       )
       setPointerPositionInPercent(newPointerPositionInPercentValidated)
+
+      if (tooltipRef.current) {
+        tooltipRef.current.style.transitionProperty = ''
+      }
 
       const currentInterval = Math.round(pointerPositionInPercent / lineWidth)
       const minSalary = professionSalary[currentInterval]
@@ -96,6 +113,10 @@ const CareerSlider = () => {
         TWO_THIRDS *
         rubierBandPoint
       }px`
+
+      if (tooltipRef.current) {
+        tooltipRef.current.style.transitionProperty += 'left'
+      }
 
       setPointerPositionInPercent(rubierBandPoint)
       setCurrentSalary(professionSalary[currentInterval])
@@ -144,18 +165,30 @@ const CareerSlider = () => {
             <div className="tooltipWrapper">
               <div
                 className="tooltipContent"
-                style={{
-                  left: -TOOLTIP_WIDTH * 0.6 * pointerPositionInPercent - 10,
-                }}
+                style={
+                  tooltipRef.current
+                    ? {
+                        left:
+                          -(tooltipRef.current.offsetWidth - 20 - 21) *
+                            pointerPositionInPercent -
+                          10,
+                      }
+                    : { left: '10px' }
+                }
                 ref={tooltipRef}
               >
                 <span className="tooltipContentText">от</span>
-                <div className="drumWrapper">
-                  <span className="numberInDrum" key={currentSalary}>
-                    {currentSalary}
-                  </span>
-                  &nbsp;
+                <div
+                  className="numberInDrum"
+                  key={currentSalary}
+                  style={{
+                    width: `${currentSalary.toString().length * 10}px`,
+                  }}
+                >
+                  {currentSalary}
                 </div>
+                {/*   &nbsp; */}
+                {/* </div> */}
                 <span className="tooltipContentText">руб</span>
               </div>
               <Arrow color={'#323243'} angle={180} />

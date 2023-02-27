@@ -146,32 +146,39 @@
             color: #fff;
             bottom: 18.5px;
             left: -12px;
-            padding: 8px 12px;
+            padding: 8px 9px;
             height: 36px;
             min-width: 100px;
             background: #323243;
             border-radius: 12px;
+            transition: width 0.2s;
 
             &Text {
               margin-right: 3px;
+              margin-left: 1px;
             }
 
-            .drumWrapper {
-              height: 20px;
-              position: relative;
-              //width: 52px;
-              overflow: hidden;
+            .numberInDrum{
+              transition-duration: 0.2s;
+              //min-width: 52px;
             }
 
-            .drumItem {
-              position: absolute;
-              transition: top 0.1s linear;
-
-              &Text {
-                color: #fff;
-                height: 21px;
-              }
-            }
+            //.drumWrapper {
+            //  height: 20px;
+            //  position: relative;
+            //  min-width: 55px;
+            //  overflow: hidden;
+            //}
+            //
+            //.drumItem {
+            //  position: absolute;
+            //  transition: top 0.1s linear;
+            //
+            //  &Text {
+            //    color: #fff;
+            //    height: 21px;
+            //  }
+            //}
           }
         }
       }

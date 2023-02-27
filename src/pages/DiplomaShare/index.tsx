@@ -30,20 +30,12 @@ const DiplomaShare = () => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  // TODO Как альберт добавит id видоса в ответ на запрос на trajectories/${searchParams.get('id')}/share переделать как в в дипломе
-  const [videoId, setVideoId] = useState<string>()
-
   const getDiplomaShareData = async () => {
     try {
       const response = await axios.get(
         `${BASE_URL}trajectories/${searchParams.get('id')}/share/`,
       )
       setDiplomaShareData(response.data)
-
-      // TODO к задач выше про сделать как в дипломе
-      await axios
-        .get(`${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`)
-        .then(r => setVideoId(r.data.video_id))
     } catch (e) {
       setError(e)
     }
@@ -123,7 +115,6 @@ const DiplomaShare = () => {
           <Description
             iconUrl={'/static/school.svg'}
             title={diplomaShareData ? diplomaShareData.educational_plan : ''}
-            youTubeVideoId={videoId}
           />
 
           <Keywords

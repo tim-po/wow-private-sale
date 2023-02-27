@@ -28,12 +28,7 @@ type TrajectoryStatsPropType = {
 }
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const {
-    course,
-    className = 'Mobile',
-    setSelectedSphere,
-    loading,
-  } = props
+  const { course, className = 'Mobile', setSelectedSphere, loading } = props
   const [focusedCircleLoading] = useState(false)
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined)
   const [isTooltipActive, setIsTooltipActive] = useState(false)
@@ -260,6 +255,7 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
             return (
               <ControlTypeTile
                 key={index}
+                additionalClassnames={'hoverTech'}
                 controlType={
                   course.control_type_count.find(
                     controlType => controlType.name === controlTypeName,

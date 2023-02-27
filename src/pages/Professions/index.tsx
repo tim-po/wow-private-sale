@@ -36,9 +36,6 @@ const Professions = () => {
     withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.save)
     withLocalStorage({ addedKeywords: [] }, LocalStorageInteraction.save)
 
-    // TODO почистить эту навигацию на удаленный маршрут после окончания навигации
-    // navigate(`/professionDetails?id=${profession.id}&view=main`)
-
     navigate(`/profession/${profession.id}`)
   }
 

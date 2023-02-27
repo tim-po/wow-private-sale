@@ -9,10 +9,16 @@ import Wave from 'images/icons/Static/wave'
 import ManOnHomepage from '../../images/icons/manOnHomepage'
 import { scrollToElement } from '../../utils/scrollToElement'
 import { changeBg } from '../../utils/background/background'
+import * as Scroll from 'react-scroll'
 
 const Start = () => {
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
+  }, [])
+
+  useEffect(() => {
+    const scroll = Scroll.animateScroll
+    scroll.scrollToTop()
   }, [])
 
   return (
@@ -97,7 +103,8 @@ const Start = () => {
           </div>
           <div className="mobilStar">
             <div className="FinalCardTitle">
-              На основе твоего выбора мы подберем учебную программу
+              На основе твоего выбора мы построим тебе твою персональную образовательную
+              траекторию в ИТМО
             </div>
             <div className="FlexEducationalTrajectory">
               <div className="StarsMobil">

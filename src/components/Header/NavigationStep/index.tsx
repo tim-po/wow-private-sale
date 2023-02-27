@@ -35,7 +35,7 @@ const NavigationStep = (props: NavigationStepProps) => {
     return
   }
 
-  if (width < 400) {
+  if (width < 450) {
     translate = translate * 1.5
   }
 

@@ -143,6 +143,7 @@ hr {
   transition: all .3s;
   outline: none !important;
   color: #B7B6BC;
+  display: flex;
 
   &:hover {
     color: #8533FF;

@@ -8,8 +8,8 @@
   border: 1px solid #D2D2D4;
   border-radius: 16px;
   box-sizing: border-box;
-  max-width: 540px;
-  min-width: 320px;
+  max-width: 100%;
+  min-width: 290px;
   flex-shrink: 0;
   width: calc(100vw - 40px - 32px);
   position: relative;
@@ -68,11 +68,7 @@
     transition: color var(--bg-transition-duration);
   }
 }
-@media screen and (max-width: 1000px) {
-  .professionCard{
-    //min-width: initial;
-  }
-}
+
 
 @media screen and (max-width: 570px) {
   .finderLikeWrap{
@@ -116,4 +112,15 @@
   transition: all 0.3s;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+@media screen and (max-width: 320px) {
+  .professionCard{
+    .professionCardTitle {
+      font-size: 18px;
+    }
+  }
+  .ProfessionsPageContainer  .ProfessionTitle{
+    padding-left: 4px;
+  }
 }

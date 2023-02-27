@@ -48,6 +48,7 @@
 
   &.next, &.further {
     background-color: #E7E8EE;
+    cursor: default;
 
     .Icon {
       &.withIcon svg {
@@ -57,7 +58,7 @@
   }
 
   &.current {
-    max-width: 170px;
+    max-width: 200px;
 
     .Icon {
       background-color: white;

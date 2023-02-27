@@ -70,14 +70,16 @@ const Keywords = (props: KeywordsPropType) => {
             })}
           </>
         ) : (
-          keywords.map((keyword: KeywordType) => (
-            <Keyword
-              key={keyword.id}
-              deletable={false}
-              keyword={keyword}
-              bg-color="#EBEBFF"
-            />
-          ))
+          keywords
+            .slice(0, 10)
+            .map((keyword: KeywordType) => (
+              <Keyword
+                key={keyword.id}
+                deletable={false}
+                keyword={keyword}
+                bg-color="#EBEBFF"
+              />
+            ))
         )}
         {!isKeywordsButtonHidden && keywords.length >= 1 && (
           <ShowMoreKeywordsButton

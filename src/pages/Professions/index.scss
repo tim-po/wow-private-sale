@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    max-width: 1920px;
+    max-width: 100%;
 
     .CardHeaderWidth {
       width: calc(100%);
@@ -51,9 +51,10 @@
         outline: none;
         padding: 0 0;
         height: max-content;
-        max-width: 540px;
+        width: 32%;
         min-width: 420px;
-        flex-shrink: 0;
+        //flex-shrink: 0;
+        flex-grow: 3;
       }
     }
     .ProfessionModalBottom {
@@ -102,8 +103,7 @@
   .ProfessionsPageContainer {
     .ProfessionsContainer {
       .CardHeaderWidth {
-        //width: inherit;
-
+        padding-top: 0;
       }
       .ProfessionContainer {
         margin-bottom: 24px;
@@ -151,7 +151,7 @@
     .ProfessionsContainer {
       .ProfessionContainer {
         .ProfessionCardButton {
-          min-width: 320px;
+          min-width: 290px;
           width: 100%;
           max-width: 100%;
 
@@ -162,5 +162,19 @@
 
   .ProfessionCardButton {
     min-width: 320px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .ProfessionsPageContainer {
+    .ProfessionsContainer {
+
+      .ProfessionContainer {
+        margin-bottom: 24px;
+
+        .professionCarSkeleton {
+          width: 290px;
+        }
+      }
+    }
   }
 }

@@ -45,23 +45,28 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
       return 'Диф. зачет'
     } else if (name === 'chosen') {
       return 'По выбору'
+    } else if (name === 'necessary') {
+      return 'Обязательные'
     } else {
       return name
     }
   }
   const promptRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (document.getElementsByClassName("d-block") && isMobile) {
-      const scrollElem = document.getElementsByClassName("d-block");
+    if (document.getElementsByClassName('d-block') && isMobile) {
+      const scrollElem = document.getElementsByClassName('d-block')
 
       const isSetIsTooltipActive = () => {
         setIsTooltipActive(false)
       }
       // if (scrollElem && scrollElem.length) {
-        scrollElem[scrollElem.length - 1].addEventListener("scroll", isSetIsTooltipActive)
+      scrollElem[scrollElem.length - 1].addEventListener('scroll', isSetIsTooltipActive)
       // }
-        return () =>
-          scrollElem[scrollElem.length - 1]?.removeEventListener("scroll", isSetIsTooltipActive)
+      return () =>
+        scrollElem[scrollElem.length - 1]?.removeEventListener(
+          'scroll',
+          isSetIsTooltipActive,
+        )
     }
   })
   return (
@@ -84,7 +89,7 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
           {controlType.disciplines &&
             controlType.disciplines.map((discipline, index) => (
               <div className="ListExamModal" key={index}>
-                {(typeof discipline !== "string" && discipline.name) ||
+                {(typeof discipline !== 'string' && discipline.name) ||
                   (discipline as string)}
                 <hr />
               </div>

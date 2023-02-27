@@ -177,7 +177,7 @@ const CareerSlider = () => {
                 }
                 ref={tooltipRef}
               >
-                <span className="tooltipContentText">от</span>
+                <span>от</span>
                 <div
                   className="numberInDrum"
                   key={currentSalary}
@@ -187,9 +187,8 @@ const CareerSlider = () => {
                 >
                   {currentSalary}
                 </div>
-                {/*   &nbsp; */}
-                {/* </div> */}
-                <span className="tooltipContentText">руб</span>
+
+                <span>руб</span>
               </div>
               <Arrow color={'#323243'} angle={180} />
             </div>

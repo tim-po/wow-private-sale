@@ -61,14 +61,22 @@ const CareerSlider = () => {
         setIsAnimated(false)
       }, 200)
 
-      const lineWidth = sliderLineRef.current?.getBoundingClientRect().width
-      const currentInterval = Math.round(pointerPositionInPercent / lineWidth)
+      const currentInterval = Math.round(pointerPositionInPercent)
       const minSalary = professionSalary[currentInterval]
       const maxSalary = professionSalary[currentInterval + 1]
       const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
       const salaryDelta = maxSalary - minSalary
 
-      setCurrentSalary(minSalary + Math.floor(salaryDelta * intervalPercentage))
+      let newSalary = minSalary + Math.floor(salaryDelta * intervalPercentage)
+
+      if (newSalary < minSalary) {
+        newSalary = minSalary
+      }
+      if (newSalary > maxSalary) {
+        newSalary = maxSalary
+      }
+
+      setCurrentSalary(newSalary)
     }
   }
 
@@ -152,17 +160,19 @@ const CareerSlider = () => {
       </div>
       <div
         className="sliderLineWrapper"
-        onMouseDown={sliderStartAnimation}
         onMouseMove={sliderMoveAnimation}
         onMouseUp={sliderEndAnimation}
         onMouseLeave={sliderEndAnimation}
-        onTouchStart={sliderStartAnimation}
         onTouchMove={sliderMoveAnimation}
         onTouchEnd={sliderEndAnimation}
         onTouchCancel={sliderEndAnimation}
         ref={sliderLineRef}
       >
-        <div className="sliderLine">
+        <div
+          className="sliderLine"
+          onMouseDown={sliderStartAnimation}
+          onTouchStart={sliderStartAnimation}
+        >
           <div
             className={`sliderLineFill ${!isAnimated ? 'moving' : ''}`}
             style={{ width: `${pointerPositionInPercent * 100}%` }}

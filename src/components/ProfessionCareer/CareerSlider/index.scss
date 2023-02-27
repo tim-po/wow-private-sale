@@ -139,6 +139,7 @@
           position: relative;
 
           .tooltipContent {
+            user-select: none;
             display: flex;
             column-gap: 3px;
             flex-direction: row;

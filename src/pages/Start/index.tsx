@@ -19,6 +19,7 @@ const Start = () => {
   useEffect(() => {
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
+    changeBg('var(--bg-color-invert)')
   }, [])
 
   return (

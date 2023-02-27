@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import SliderStar from 'images/icons/Static/sliderStar'
 import './index.scss'
 import Arrow from 'images/icons/Arrow'
@@ -154,6 +154,7 @@ const CareerSlider = () => {
                   <span className="numberInDrum" key={currentSalary}>
                     {currentSalary}
                   </span>
+                  &nbsp;
                 </div>
                 <span className="tooltipContentText">руб</span>
               </div>

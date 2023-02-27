@@ -84,12 +84,14 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     withLocalStorage({ alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load)
       .alreadySentFeedbackCount,
   )
-  useEffect(()=>{
-    const bottomButton = document.getElementById('mobilBottomButton')
-    if (bottomButton &&  window.getComputedStyle(bottomButton).bottom === '0px'){
+  const bottomButton = document.getElementById('mobilBottomButton')
+  useEffect(() => {
+    if (bottomButton && window.getComputedStyle(bottomButton).bottom === '0px') {
       setMobileButtonHeight(bottomButton.offsetHeight)
-    } else (setMobileButtonHeight(0))
-  })
+      console.log(2222)
+    } else setMobileButtonHeight(0)
+  },)
+
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
       setPrevMovementY(event.touches[0].clientY)
@@ -150,17 +152,25 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       openFeedback()
     }, 2000)
   }, [])
-  useOnClickOutside(feedbackRef, ()=> setShowFeedback(false))
+  useOnClickOutside(feedbackRef, () => setShowFeedback(false))
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
     return null
   }
-
+  const styleBottomPosition = () => {
+    if (!showFeedback) {
+      if (mobileButtonHeight === 0) {
+        return 8
+      }
+      return mobileButtonHeight + 8
+    }
+  }
   return (
     <>
       {isOpenRandomFeedback ? (
-        <div style={{bottom: mobileButtonHeight === 0? 8 : mobileButtonHeight + 8 }}
+        <div
+          style={{ bottom: styleBottomPosition() }}
           onClick={openFeedback}
-             ref={feedbackRef}
+          ref={feedbackRef}
           className={`container-form-random-feedback ${
             !showFeedback ? 'feedbackSmall' : ''
           } ${isSeeIcon ? '' : 'hideIcon'}`}

@@ -144,10 +144,11 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 {sortedPrevDisciplines.map(sortedDiscipline => (
                   <button
                     key={sortedDiscipline.semester}
+                    disabled
                     className="disciplineCardModal mx-auto"
-                    onClick={() => {
-                      getDisciplineData(sortedDiscipline.id)
-                    }}
+                    // onClick={() => {
+                    //   getDisciplineData(sortedDiscipline.id)
+                    // }}
                   >
                     {sortedDiscipline.name}
                   </button>
@@ -219,10 +220,11 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                   {sortedNextDisciplines.map(nextDiscipline => (
                     <button
                       key={nextDiscipline.semester}
+                      disabled
                       className="disciplineCardModal mx-auto"
-                      onClick={() => {
-                        getDisciplineData(nextDiscipline.id)
-                      }}
+                      // onClick={() => {
+                      //   getDisciplineData(nextDiscipline.id)
+                      // }}
                     >
                       {nextDiscipline.name}
                     </button>
@@ -236,8 +238,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                 // v-for="disc in sort(discipline.next_disciplines)"
                 // className="disc ? furtherUse= true  ''"
                 // className="disciplineCardModal mb-2 mx-auto"
-                >
-                </div>
+                ></div>
               </div>
             </div>
           </div>

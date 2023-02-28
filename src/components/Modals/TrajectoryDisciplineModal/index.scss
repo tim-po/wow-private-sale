@@ -144,6 +144,11 @@
   transform: translateX(0);
   width: max-content;
   color: #1F1F22;
+  cursor: initial;
+
+  &.clickable{
+    cursor: pointer;
+  }
 }
 
 

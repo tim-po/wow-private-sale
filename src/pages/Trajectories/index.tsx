@@ -108,7 +108,10 @@ const Trajectories = () => {
       </div>
       {trajectories && trajectories.length
         ? trajectories.map((trajectory, index) => (
-            <TrajectoryPreview key={trajectory.id + index} trajectory={trajectory} />
+            <TrajectoryPreview
+              key={trajectory.id + index + trajectory.code}
+              trajectory={trajectory}
+            />
           ))
         : makeEmptyList(5).map((_i, index) => <TrajectoryPreview key={index} />)}
       <RandomFeedback displayForGroup={2} />

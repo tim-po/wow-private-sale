@@ -103,7 +103,7 @@ const DiplomaShare = () => {
       <div className="DiplomaContainerShare">
         <div
           style={{ marginBottom: 0 }}
-          className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
+          className={`wrapDescriptionDiplomaShare ${desDiplomaClose && `close`} 
             `}
         >
           <div className={`descriptionDiploma`}>

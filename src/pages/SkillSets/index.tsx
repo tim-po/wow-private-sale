@@ -30,7 +30,7 @@ const SkillSets = () => {
 
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
-  const { ref, inView } = useInView({ threshold: 1, initialInView: true })
+  const { ref, inView } = useInView({ threshold: 0, initialInView: true })
 
   const handleScroll = () => {
     if (window.scrollY < 200) {
@@ -90,7 +90,7 @@ const SkillSets = () => {
       <div className="professionsContainer">
         <div className="flex-block">
           <div
-            className={`minTitle top ${inView ? '' : 'hideBorder'}`}
+            className={`minTitle top ${!inView ? '' : 'hideBorder'}`}
             {...createStickyBlock(2)}
           >
             <div id="blob-1-top-left" className="subheader">

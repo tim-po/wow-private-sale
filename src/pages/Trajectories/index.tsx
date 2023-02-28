@@ -20,7 +20,7 @@ const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
-  const { keywords } = useProfession()
+  const { keywords, error } = useProfession()
   const navigate = useNavigate()
 
   const getTrajectoriesFromIds = (ids: number[]) => {
@@ -66,7 +66,7 @@ const Trajectories = () => {
     updateStickyBlocks()
   }, [keywords.allIds])
 
-  if (responseError) {
+  if (responseError || error) {
     return <NotFound />
   }
 

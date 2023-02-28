@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { COLORS_BY_CATEGORY } from '../../constants'
 import { Profession } from '../../types'
 import './index.scss'
@@ -28,7 +28,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
       const transforms = classList[1].split('+')
       let cssTransform = 'transform: '
       transforms.forEach(transform => {
-        cssTransform += transform
+        cssTransform += ' ' + transform
       })
       cssTransform += ';'
 
@@ -58,7 +58,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
             .sort((word1, word2) => {
               return word1.text.length - word2.text.length
             })
-            .map((keyword, index) => {
+            .map(keyword => {
               return (
                 <div
                   key={keyword.id}

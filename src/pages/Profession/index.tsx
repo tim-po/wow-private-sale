@@ -13,6 +13,7 @@ import { RoutesName } from '../../types'
 import ProfessionCareer from '../../components/ProfessionCareer'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
+import NotFound from '../../components/NotFound'
 
 type ProfessionContextType = ReturnType<typeof useProfession>
 
@@ -20,7 +21,7 @@ const Profession = () => {
   const navigate = useNavigate()
   const { profId } = useParams()
 
-  const { profession } = useProfession(profId || '')
+  const { profession, error } = useProfession(profId || '')
 
   // const [isLoading, setIsLoading] = useState(false)
 
@@ -36,6 +37,10 @@ const Profession = () => {
 
     withLocalStorage({ professionId: profession.id }, LocalStorageInteraction.save)
     navigate(RoutesName.SKILLS)
+  }
+
+  if (error) {
+    return <NotFound />
   }
 
   return (

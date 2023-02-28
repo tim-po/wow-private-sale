@@ -148,7 +148,7 @@ const DiplomaShare = () => {
                 <Link
                   href={
                     diplomaShareData
-                      ? diplomaShareData.educational_plan.replace('', '+')
+                      ? diplomaShareData.educational_plan.replace('', '+') + `&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${diplomaShareData?.educational_plan.replace('','+',)}`
                       : ''
                   }
                 >

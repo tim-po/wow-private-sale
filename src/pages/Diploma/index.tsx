@@ -19,7 +19,7 @@ import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../components/refactorName'
 import { changeBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
-import { makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFrolSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 
 const Diploma = () => {
@@ -54,12 +54,7 @@ const Diploma = () => {
     if (diplomaData && diplomaData.main_keywords.length) {
       const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
       setKeywords(keywordsArray)
-      setLinkAbit(
-        `https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace(
-          '',
-          '+',
-        )}`,
-      )
+      setLinkAbit(makeAbitUtmFrolSlug(diplomaData.abit_link))
     }
   }, [diplomaData])
 
@@ -71,10 +66,10 @@ const Diploma = () => {
             `}
         >
           <div className={'descriptionDiploma'}>
-              <span>
-                Это твоя траектория в Университете ИТМО! Поступай к нам чтобы изучать то,
-                что нравится.
-              </span>
+            <span>
+              Это твоя траектория в Университете ИТМО! Поступай к нам чтобы изучать то,
+              что нравится.
+            </span>
             <button onClick={() => setDesDiplomaClose(true)}>
               <Close width={8.5} height={8.5} />
             </button>

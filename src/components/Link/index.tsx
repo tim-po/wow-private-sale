@@ -42,7 +42,7 @@ const LinkDefaultProps = {}
 
 const Link = (props: LinkPropType) => {
   const {children, href} = props;
-  return <StyledLink href={`https://abit.itmo.ru/en/programs/bachelor?title=${href}`} target="_blank">{children}</StyledLink>
+  return <StyledLink href={`https://abit.itmo.ru/programs/bachelor?title=${href}`} target="_blank">{children}</StyledLink>
 };
 
 Link.defaultProps = LinkDefaultProps

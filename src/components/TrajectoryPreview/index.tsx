@@ -144,10 +144,10 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
             Смотреть траекторию
           </button>
           <a
-            href={`https://abit.itmo.ru/en/programs/bachelor?title=${trajectory?.educational_plan.replace(
+            href={`https://abit.itmo.ru/programs/bachelor?title=${trajectory?.educational_plan.replace(
               '',
               '+',
-            )} + &utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${trajectory?.educational_plan.replace('', '+',)}`}
+            )}&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${trajectory?.educational_plan.replace('', '+',)}`}
             target="_blank"
             rel="noreferrer"
             className={`ButtonAbit ${isSkeleton ? 'MainSkeleton' : ''}`}

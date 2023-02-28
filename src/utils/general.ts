@@ -11,6 +11,13 @@ export enum LocalStorageInteraction {
   load,
 }
 
+export const makeAbitUtmFrolSlug = (slug: string) => {
+  return `https://abit.itmo.ru/program/bachelor${slug}?&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${slug.replace(
+    '/',
+    '',
+  )}`
+}
+
 export const withLocalStorage = (
   objectToInteractWith: { [key: string]: any },
   actionToDo: LocalStorageInteraction,

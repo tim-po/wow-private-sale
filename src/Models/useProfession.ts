@@ -82,7 +82,7 @@ export const useProfession = (professionId?: string) => {
   }
 
   const updateAllSelectedKeywordIds = () => {
-    if (!profession) {
+    if (!profession || !profession.related_keywords) {
       return []
     }
     let allIds = profession.related_keywords.map(keyword => keyword.id)
@@ -96,7 +96,7 @@ export const useProfession = (professionId?: string) => {
   }
 
   const updateDisplayKeywords = () => {
-    if (!profession) {
+    if (!profession || !profession.related_keywords) {
       return []
     }
     setDisplayKeywords(

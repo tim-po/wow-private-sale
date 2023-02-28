@@ -139,7 +139,9 @@
           position: relative;
 
           .tooltipContent {
+            user-select: none;
             display: flex;
+            column-gap: 3px;
             flex-direction: row;
             align-items: center;
             position: absolute;
@@ -151,27 +153,8 @@
             min-width: 100px;
             background: #323243;
             border-radius: 12px;
+            transition: width 0.2s;
 
-            &Text {
-              margin-right: 3px;
-            }
-
-            .drumWrapper {
-              height: 20px;
-              position: relative;
-              width: 52px;
-              overflow: hidden;
-            }
-
-            .drumItem {
-              position: absolute;
-              transition: top 0.1s linear;
-
-              &Text {
-                color: #fff;
-                height: 21px;
-              }
-            }
           }
         }
       }

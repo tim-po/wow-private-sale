@@ -58,7 +58,8 @@ const Diploma = () => {
         `https://abit.itmo.ru/programs/bachelor?title=${diplomaData?.educational_plan.replace(
           '',
           '+',
-        )}`,
+        )}&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${diplomaData?.educational_plan.replace('','+',)}`
+
       )
     }
   }, [diplomaData])

@@ -16,6 +16,8 @@ type PresetPropType = {
   onClick?: () => void
   disabled?: boolean
   displayAdd?: boolean
+  className?: string
+  maxWidth?: number | undefined
 }
 
 const PresetDefaultProps = {
@@ -28,7 +30,7 @@ const Preset = (props: PresetPropType) => {
   const [declined, setDeclined] = useState(false)
   const [isFirst, setIsFirst] = useState(true)
 
-  const { displayAdd, preset, onClick, disabled, presetWindowSize } = props
+  const { displayAdd, preset, onClick, disabled, presetWindowSize, className, maxWidth } = props
 
   const openKeywordsModal = () => {
     displayModal(<KeywordsModal keywords={preset.keywords} />)
@@ -60,12 +62,13 @@ const Preset = (props: PresetPropType) => {
   }
   return (
     <div
+      style={{maxWidth:maxWidth}}
       ref={presetWindowSize ? presetWindowSize : undefined}
       className={`preset ${hidden ? 'hidePreset' : ''} ${
         onClick && !disabled ? 'iteractable' : ''
       } ${disabled ? 'disabled' : ''} ${declined ? 'declineAnimate' : ''} ${
         isFirst ? 'showPreset' : ''
-      }`}
+      } ${className}`}
     >
       <div className="presetTopRow">
         <div className="presetIconFlex">

@@ -5,7 +5,7 @@ import PercentProgress from '../PercentProgress'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import {
   LocalStorageInteraction,
-  makeAbitUtmFrolSlug,
+  makeAbitUtmFromlSlug,
   makeEmptyList,
   withLocalStorage,
 } from '../../utils/general'
@@ -145,7 +145,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
             Смотреть траекторию
           </button>
           <a
-            href={trajectory && makeAbitUtmFrolSlug(trajectory.abit_link)}
+            href={trajectory && makeAbitUtmFromlSlug(trajectory.abit_link)}
             target="_blank"
             rel="noreferrer"
             className={`ButtonAbit ${isSkeleton ? 'MainSkeleton' : ''}`}

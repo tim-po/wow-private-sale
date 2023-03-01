@@ -42,7 +42,8 @@
       margin-bottom: 24px;
 
       .professionCarSkeleton {
-        width: 540px;
+        flex-grow: 1;
+        min-width: 420px;
         height: 200px;
         border-radius: 16px;
       }
@@ -55,7 +56,6 @@
         height: max-content;
         width: 32%;
         min-width: 420px;
-        //flex-shrink: 0;
         flex-grow: 3;
       }
     }
@@ -96,8 +96,9 @@
         margin-bottom: 24px;
 
         .professionCarSkeleton {
-          width: 325px;
-          height: 365px;
+          width: 100%;
+          min-width: inherit;
+          gap: 20px;
         }
 
         .ProfessionCardButton {
@@ -141,9 +142,7 @@
       .ProfessionContainer {
         margin-bottom: 24px;
 
-        .professionCarSkeleton {
-          width: 290px;
-        }
+
       }
     }
   }

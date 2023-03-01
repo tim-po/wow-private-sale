@@ -30,6 +30,17 @@
   transition: max-height 0.2s linear;
 }
 
+.presetsInfoCardWrapper {
+  max-width: 504px;
+  max-height: 72px;
+
+  @media screen and (max-width: 570px) {
+    width: calc(100% - 32px);
+    max-height: 500px;
+    max-width: 420px;
+  }
+}
+
 .PresetsInfoCard {
   margin-bottom: 24px;
   max-height: min-content;
@@ -76,7 +87,7 @@
     display: flex;
   }
 
-  .keywordHint{
+  .keywordHint {
     display: grid;
     row-gap: 12px;
 
@@ -98,7 +109,7 @@
       color: #6E6D79;
     }
 
-    .keywordHintBtn{
+    .keywordHintBtn {
       background-color: transparent;
     }
   }

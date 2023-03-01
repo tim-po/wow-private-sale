@@ -201,6 +201,7 @@ const Trajectory = () => {
           <TrajectoryStats
             className="Mobile"
             loading={loading}
+            setSelectedSphere={setSelectedSphere}
             course={trajectory?.courses.find(course => course.course === courseQuery)}
           />
           <div className="MobileBlock">

@@ -20,6 +20,7 @@ const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
+  const [isWarningCardOpen, setIsWarningCardOpen] = useState(true)
   const { keywords } = useProfession()
   const navigate = useNavigate()
 
@@ -76,12 +77,11 @@ const Trajectories = () => {
         Готовые траектории
       </h1>
       <WarningCard
+        isAnimated={isWarningCardOpen}
+        animationName={'collapse'}
         wrapClassName={'animationWrap'}
         contentClassName={'TrajectoriesInfoCard'}
-        onCrossClick={() => {
-          const card = document.querySelector('.animationWrap')
-          if (card) card.classList.toggle('Hidden')
-        }}
+        onCrossClick={() => setIsWarningCardOpen(false)}
       >
         <PercentProgress percent={0.8} />
         Мы собрали подходящие для тебя образовательные программы в ИТМО.

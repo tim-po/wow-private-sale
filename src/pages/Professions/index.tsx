@@ -17,10 +17,6 @@ import { changeBg } from '../../utils/background/background'
 import ModalContext from '../../Context/Modal'
 import WarningCard from '../../components/WarningCard'
 
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
-
 const Professions = () => {
   const { setIsHeaderAnimated } = useContext(HeaderContext)
   const navigate = useNavigate()
@@ -102,9 +98,9 @@ const Professions = () => {
         </div>
 
         <WarningCard
-          wrapClassName={`ProfessionModalBottom ${
-            isFeedbackPopupVisible ? '' : 'ProfessionModalBottomNon'
-          }`}
+          wrapClassName={`professionFeedback`}
+          isAnimated={isFeedbackPopupVisible}
+          animationName={'side'}
           onCrossClick={() => setIsFeedbackPopupVisible(false)}
         >
           <span className="Text">

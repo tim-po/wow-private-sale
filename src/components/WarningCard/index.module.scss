@@ -1,15 +1,15 @@
-.WarningCard{
+.WarningCard {
   min-height: 72px;
   padding: 16px;
   border-radius: 12px;
   background-color: var(--bg-warning-card, #fff);
   position: relative;
 
-  &.withCross{
+  &.withCross {
     padding-right: 42px;
   }
 
-  .closeBtn{
+  .closeBtn {
     padding: 0;
 
     position: absolute;
@@ -21,4 +21,33 @@
     justify-items: center;
     align-items: center;
   }
+}
+
+.sideAppearanceAnimation {
+  z-index: 1000;
+  position: fixed;
+  transition-property: right;
+  transition-duration: .4s;
+  bottom: 32px;
+  right: 16px;
+}
+
+.sideAppearanceAnimationNone {
+  z-index: 1000;
+  position: fixed;
+  right: -600px;
+  overflow: hidden;
+  transition-property: right;
+  transition-duration: .4s;
+  bottom: 32px;
+}
+
+.showNote {
+  max-height: 200px;
+  transition: max-height 0.2s linear;
+}
+
+.hideNote {
+  max-height: 0;
+  transition: max-height 0.2s linear;
 }

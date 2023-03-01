@@ -19,7 +19,7 @@ import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../components/refactorName'
 import { changeBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
-import { makeAbitUtmFrolSlug, makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 
 const Diploma = () => {
@@ -54,7 +54,7 @@ const Diploma = () => {
     if (diplomaData && diplomaData.main_keywords.length) {
       const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
       setKeywords(keywordsArray)
-      setLinkAbit(makeAbitUtmFrolSlug(diplomaData.abit_link))
+      setLinkAbit(makeAbitUtmFromlSlug(diplomaData.abit_link))
     }
   }, [diplomaData])
 

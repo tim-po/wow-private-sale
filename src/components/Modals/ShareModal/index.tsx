@@ -11,7 +11,7 @@ const ShareModal = () => {
   const [isLinkWithoutNameCopied, setIsLinkWithoutNameCopied] = useState(false)
   const [name, setName] = useState('')
 
-  function shareWithoutName (){
+  const shareWithoutName =()=>{
     setIsLinkWithoutNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
     setTimeout(() => {

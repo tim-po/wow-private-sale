@@ -14,10 +14,7 @@ import { changeBg } from '../../utils/background/background'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import WarningCard from '../../components/WarningCard'
-
-// CONSTANTS
-
-// DEFAULT FUNCTIONS
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 const SkillSets = () => {
   const professionId = withLocalStorage(
@@ -27,6 +24,8 @@ const SkillSets = () => {
 
   const navigate = useNavigate()
   const { presets, profession } = useProfession(professionId)
+
+  const { width } = useWindowDimensions()
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
   const { ref, inView } = useInView({ threshold: 0, initialInView: true })
@@ -36,11 +35,10 @@ const SkillSets = () => {
       setSelectedPresetsHidden(true)
     }
   }
-
+  const scroll = Scroll.animateScroll
   useEffect(() => {
     changeBg('white')
 
-    const scroll = Scroll.animateScroll
     scroll.scrollToTop()
     window.addEventListener('scroll', handleScroll)
     return () => {
@@ -57,6 +55,17 @@ const SkillSets = () => {
       updateStickyBlocks()
     }
   }, [selectedPresetsHidden, presets.display])
+
+  useEffect(() => {
+    if (presets.selected.length >= 5) {
+      setIsNoteOpen(true)
+    } else {
+      setIsNoteOpen(false)
+    }
+    if (width <= 880 && presets.selected.length >= 5) {
+      scroll.scrollToTop()
+    }
+  }, [presets.selected.length, width])
 
   const openTrajectoryChoice = () => {
     if (!profession) {
@@ -85,7 +94,6 @@ const SkillSets = () => {
           </button>
         </div>
       </div>
-
       <div className="professionsContainer">
         <div className="flex-block">
           <div
@@ -124,9 +132,8 @@ const SkillSets = () => {
           </div>
 
           <WarningCard
-            wrapClassName={`${
-              presets.selected.length >= 5 && isNoteOpen ? 'showNote' : 'hideNote'
-            }`}
+            animationName={'collapse'}
+            isAnimated={isNoteOpen}
             contentClassName={'PresetsInfoCard'}
             onCrossClick={() => setIsNoteOpen(false)}
           >
@@ -139,6 +146,7 @@ const SkillSets = () => {
               так как траектория может построиться неточно.
             </div>
           </WarningCard>
+
           <div
             ref={ref}
             className={`selectedSkillsBlock`}
@@ -161,7 +169,7 @@ const SkillSets = () => {
               ? 'Добавь то, что хочешь изучить'
               : 'Максимальное количсетво пресетов – 5'}
           </p>
-          {/* <div className="shadowBottom fullWidth"/> */}
+
           <div className="rightBlock">
             <div className="blockPreset">
               {presets.display.map(preset => {
@@ -172,10 +180,7 @@ const SkillSets = () => {
                     preset={preset}
                     disabled={presets.selected.length >= 5}
                     displayAdd={presets.selected.length < 5}
-                    onClick={() => {
-                      setIsNoteOpen(true)
-                      presets.select(preset.id)
-                    }}
+                    onClick={() => presets.select(preset.id)}
                   />
                 )
               })}

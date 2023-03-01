@@ -79,7 +79,9 @@ const Card = (props: CardPropType) => {
 
   return (
     <div
-      className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''}`}
+      className={`ClassCard ${selectedSphere === sphere.name ? 'open' : ''} ${
+        selectedSphere === sphere.name && width > 1000 ? 'scale' : ''
+      }`}
       key={sphere.name}
       id={sphere.name}
       style={{ background: colors[sphere.name] }}

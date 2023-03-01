@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, {useEffect, useMemo, useRef, useState} from 'react'
 import './index.scss'
-import { PresetType } from '../../types'
+import {PresetType} from '../../types'
 import * as Scroll from 'react-scroll'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import {useNavigate, useSearchParams} from 'react-router-dom'
 import Preset from '../Preset'
 import Illustration from 'images/icons/illustration'
-import Chevron, { Turn } from '../../images/icons/chevron'
+import Chevron, {Turn} from '../../images/icons/chevron'
 import Magnifier from '../../images/icons/magnifier'
 import useWindowDimensions from '../../utils/useWindowDimensions'
 
@@ -21,9 +21,9 @@ const SelectedPresetsDefaultProps = {}
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const {width}= useWindowDimensions()
+  const {width} = useWindowDimensions()
   const [maxWidthSelectPreset, setMaxWidthSelectPreset] = useState(0)
-  const { selectedPresets, deletePreset, isHidden, hintEditPresets } = props
+  const {selectedPresets, deletePreset, isHidden, hintEditPresets} = props
   const [leftScrollPosition, setLeftScrollPosition] = useState(0)
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false)
   const presetWindowSize = useRef<HTMLDivElement>(null)
@@ -51,19 +51,19 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     scroll.scrollToTop()
   }, [])
 
-  const maxWidthSelectPresets = () =>{
+  const maxWidthSelectPresets = () => {
     const elemPreset = document.getElementsByClassName('presetCatalog')[0]
-    if(elemPreset)
-    setMaxWidthSelectPreset(elemPreset.clientWidth)
+    if (elemPreset)
+      setMaxWidthSelectPreset(elemPreset.clientWidth)
   }
-  useEffect(()=>{
-    window.addEventListener("resize", maxWidthSelectPresets);
+
+  useEffect(() => {
+    window.addEventListener('resize', maxWidthSelectPresets);
     maxWidthSelectPresets()
     return () => {
-      window.removeEventListener("resize", maxWidthSelectPresets);
+      window.removeEventListener('resize', maxWidthSelectPresets);
     };
   },)
-
 
   const shouldDrawScrollButton = (
     event: React.SyntheticEvent<HTMLDivElement> | React.UIEvent<HTMLDivElement>,
@@ -124,22 +124,22 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         onScroll={e => shouldDrawScrollButton(e)}
       >
         <button className="scrollBtn right" onClick={scrollToRight}>
-          <span style={{ pointerEvents: 'none' }}>
-            <Chevron color={undefined} />
+          <span style={{pointerEvents: 'none'}}>
+            <Chevron color={undefined}/>
           </span>
         </button>
         <button
           className="scrollBtn left"
-          style={{ opacity: leftScrollPosition ? 1 : 0 }}
+          style={{opacity: leftScrollPosition ? 1 : 0}}
           onClick={scrollToLeft}
         >
-          <span style={{ pointerEvents: 'none' }}>
-            <Chevron turn={Turn.left} />
+          <span style={{pointerEvents: 'none'}}>
+            <Chevron turn={Turn.left}/>
           </span>
         </button>
         {selectedPresets.length === 0 && searchParams.get('view') !== 'main' && (
           <div className="blockMyPreset">
-            <Magnifier />
+            <Magnifier/>
             <span>Ты не добавил ни одного набора навыков</span>
           </div>
         )}
@@ -147,7 +147,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         {selectedPresets.length === 0 && searchParams.get('view') === 'main' && (
           <div className="blockMyPreset main">
             <div className="imgPresets">
-              <Illustration />
+              <Illustration/>
             </div>
             <div className="prompt">
               <span>
@@ -155,7 +155,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
                 тебе интересны
               </span>
               <div className="addPreset">
-                <div style={{ width: 'max-content' }}>
+                <div style={{width: 'max-content'}}>
                   <button
                     ref={hintEditPresets}
                     onClick={editSkillSets}
@@ -180,8 +180,8 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             onClick={
               deletePreset
                 ? () => {
-                    deletePreset(preset.id)
-                  }
+                  deletePreset(preset.id)
+                }
                 : undefined
             }
             preset={preset}

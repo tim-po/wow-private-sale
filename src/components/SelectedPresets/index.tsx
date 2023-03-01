@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import './index.scss'
 import { PresetType } from '../../types'
 import * as Scroll from 'react-scroll'
@@ -7,6 +7,7 @@ import Preset from '../Preset'
 import Illustration from 'images/icons/illustration'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import Magnifier from '../../images/icons/magnifier'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 type SelectedPresetsPropType = {
   selectedPresets: PresetType[]
@@ -20,10 +21,13 @@ const SelectedPresetsDefaultProps = {}
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const {width}= useWindowDimensions()
+  const [maxWidthSelectPreset, setMaxWidthSelectPreset] = useState(0)
   const { selectedPresets, deletePreset, isHidden, hintEditPresets } = props
   const [leftScrollPosition, setLeftScrollPosition] = useState(0)
   const [isRightArrowHidden, setIsRightArrowHidden] = useState(false)
   const presetWindowSize = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     const carousel: Element | null = document.querySelector('.leftSlide')
     if (carousel) {
@@ -46,6 +50,20 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
   }, [])
+
+  const maxWidthSelectPresets = () =>{
+    const elemPreset = document.getElementsByClassName('presetCatalog')[0]
+    if(elemPreset)
+    setMaxWidthSelectPreset(elemPreset.clientWidth)
+  }
+  useEffect(()=>{
+    window.addEventListener("resize", maxWidthSelectPresets);
+    maxWidthSelectPresets()
+    return () => {
+      window.removeEventListener("resize", maxWidthSelectPresets);
+    };
+  },)
+
 
   const shouldDrawScrollButton = (
     event: React.SyntheticEvent<HTMLDivElement> | React.UIEvent<HTMLDivElement>,
@@ -152,7 +170,10 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
         )}
 
         {selectedPresets.map((preset, index) => (
+          // <div key={preset.title}>
+
           <Preset
+            maxWidth={maxWidthSelectPreset}
             presetWindowSize={index === 0 ? presetWindowSize : undefined}
             key={preset.title}
             displayAdd={false}
@@ -165,6 +186,7 @@ const SelectedPresets = (props: SelectedPresetsPropType) => {
             }
             preset={preset}
           />
+          // </div>
         ))}
       </div>
     </div>

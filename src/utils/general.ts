@@ -11,7 +11,7 @@ export enum LocalStorageInteraction {
   load,
 }
 
-export const makeAbitUtmFrolSlug = (slug: string) => {
+export const makeAbitUtmFromlSlug = (slug: string) => {
   return `https://abit.itmo.ru/program/bachelor${slug}?&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${slug.replace(
     '/',
     '',

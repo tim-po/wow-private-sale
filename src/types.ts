@@ -89,6 +89,7 @@ export type DiplomaShareDataType = {
   courses: DiplomaShareCardType[]
   total_disciplines: number
   video_id: string
+  abit_link: string
 }
 
 export type NextOrPrevDisciplinesType = {

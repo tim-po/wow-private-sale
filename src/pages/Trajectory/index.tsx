@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import CourseSelector from '../../components/trajectory/CourseSelector'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import * as Scroll from 'react-scroll'
@@ -16,6 +15,7 @@ import Hints from '../../components/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import useWindowDimensions from '../../utils/useWindowDimensions'
+import IconTabBottomRound from '../../images/icons/IconTabBottomRound'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()
@@ -35,7 +35,11 @@ const Trajectory = () => {
 
   const courseQuery = +(searchParams.get('course') || '1')
 
-  const [transferCoursesRow, setTransferCoursesRow] = useState(false)
+  // const [transferCoursesRow, setTransferCoursesRow] = useState(false)
+
+  const transferCoursesRow = useRef(true)
+
+  const [tabColor, setTabColorScheme] = useState('var(--bg-color-base)')
 
   const getTrajectory = () => {
     axios
@@ -58,19 +62,25 @@ const Trajectory = () => {
 
       if (widthContainer && widthTitle) {
         if (widthContainer < widthTitle + 470) {
-          setTransferCoursesRow(true)
+          transferCoursesRow.current = true
         } else {
-          setTransferCoursesRow(false)
+          transferCoursesRow.current = false
         }
       }
     }
+
+    adaptiveCourse()
 
     window.addEventListener('resize', adaptiveCourse)
 
     return () => {
       window.removeEventListener('resize', adaptiveCourse)
     }
-  }, [])
+  }, [
+    stileTextRef.current?.offsetWidth,
+    loading,
+    titleNameDiscipline.current?.offsetHeight,
+  ])
 
   useEffect(() => {
     const courseNumber = searchParams.get('course')
@@ -78,9 +88,14 @@ const Trajectory = () => {
     if (width < 1000) {
       widthOfCourceLabel = 44
     }
+
     if (courseNumber === '5') {
-      setSelectorLeftOffset('calc(100% - 80px)')
-    } else setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
+      setSelectorLeftOffset('calc(100% - 105px)')
+      setTabColorScheme('var(--bg-color-base)')
+    } else {
+      setTabColorScheme('var(--bg-color-invert)')
+      setSelectorLeftOffset(`${widthOfCourceLabel * (courseQuery - 1)}px`)
+    }
   }, [width, searchParams.get('course')])
 
   useEffect(() => {
@@ -93,9 +108,9 @@ const Trajectory = () => {
 
   useEffect(() => {
     if (courseQuery === 5) {
-      changeBg('#F1F2F8')
+      changeBg('var(--bg-color-invert)')
     } else {
-      changeBg('white')
+      changeBg('var(--bg-color-base)')
     }
   }, [courseQuery])
 
@@ -112,10 +127,10 @@ const Trajectory = () => {
     if (courseQuery !== course) {
       if (course === 5) {
         navigate(`/trajectoryDiploma?id=${trajectory?.id}&course=${course}`)
-        changeBg('var(--bg-color-invert)')
+        // changeBg('var(--bg-color-invert)')
       } else {
         navigate(`/trajectory?id=${trajectory?.id}&course=${course}`)
-        changeBg('var(--bg-color-base)')
+        // changeBg('var(--bg-color-base)')
       }
     }
   }
@@ -143,11 +158,7 @@ const Trajectory = () => {
       <div
         ref={titleNameDiscipline}
         className="titleNameDiscipline"
-        style={
-          courseQuery === 5
-            ? { borderBottom: '2px solid white' }
-            : { borderBottom: '2px solid var(--gray-100)' }
-        }
+        style={{ borderBottom: `2px solid ${tabColor}` }}
       >
         <h5 ref={stileTextRef} className="StileText" id="scrollToTop">
           {/* {trajectory?.educational_plan} */}
@@ -161,15 +172,41 @@ const Trajectory = () => {
           )}
         </h5>
 
-        <div style={transferCoursesRow ? { width: '100%' } : {}} className="CoursesRow">
-          <CourseSelector
-            bgColor={
-              searchParams.get('course') === '5'
-                ? 'var(--bg-color-base)'
-                : 'var(--bg-color-invert)'
-            }
-            leftOffset={selectorLeftOffset}
-          />
+        <div
+          style={!loading && transferCoursesRow.current ? { width: '100%' } : {}}
+          className="CoursesRow"
+        >
+          {/* <CourseSelector */}
+          {/*   bgColor={ */}
+          {/*     searchParams.get('course') === '5' */}
+          {/*       ? 'var(--bg-color-base)' */}
+          {/*       : 'var(--bg-color-invert)' */}
+          {/*   } */}
+          {/*   leftOffset={selectorLeftOffset} */}
+          {/* /> */}
+
+          <div
+            className={'NormalCourseSelector'}
+            style={{
+              backgroundColor: tabColor,
+              left: selectorLeftOffset,
+              width: searchParams.get('course') === '5' ? '97px' : undefined,
+            }}
+          >
+            <IconTabBottomRound
+              style={{ position: 'absolute', bottom: '0', left: '-4px' }}
+              fill={tabColor}
+            />
+            <IconTabBottomRound
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                right: '-4px',
+                transform: 'matrix(-1, 0, 0, 1, 0, 0)',
+              }}
+              fill={tabColor}
+            />
+          </div>
           <div className="CoursesRowFirstFlex">
             {trajectory?.courses.map(course => {
               return (
@@ -192,7 +229,7 @@ const Trajectory = () => {
             })}
           </div>
           <button className="CourseButtonDiploma" onClick={() => navigateToCourse(5)}>
-            Итог
+            Результат
           </button>
         </div>
       </div>
@@ -215,7 +252,7 @@ const Trajectory = () => {
             )}
 
             <div className="flex-row flex-block pl-5 semesterSeason">
-              <p
+              <div
                 ref={width < 1000 ? undefined : hintSemester}
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-0-top-left"
@@ -229,8 +266,8 @@ const Trajectory = () => {
                 ) : (
                   <span> Осенний семестр</span>
                 )}
-              </p>
-              <p
+              </div>
+              <div
                 className="flex-column flex-block TrajectorySmallHeader mt-3"
                 id="blob-1-top-left"
                 style={{ flexGrow: 2 }}
@@ -243,7 +280,7 @@ const Trajectory = () => {
                 ) : (
                   <span> Осенний семестр</span>
                 )}
-              </p>
+              </div>
             </div>
             {loading && (
               <>
@@ -286,8 +323,13 @@ const Trajectory = () => {
           title={['Дисциплины по семестрам', 'Информация о дисциплине']}
         />
       )}
-      <RandomFeedback displayForGroup={4} />
-      <RandomFeedback displayForGroup={5} />
+
+      {!loading && (
+        <>
+          <RandomFeedback displayForGroup={4} />
+          <RandomFeedback displayForGroup={5} />
+        </>
+      )}
     </div>
   )
 }

@@ -103,6 +103,7 @@
       .selectButton {
         transition: all 0.1s;
         border: 1px solid rgba(133, 51, 255, 0);
+        color: var(--main-color);
 
         &.active {
           border: 1px solid #8533FF;

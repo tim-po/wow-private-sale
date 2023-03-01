@@ -138,7 +138,7 @@ const DiplomaShare = () => {
               </div>
               <div className="buttons-wrapper-share">
                 <Button
-                  buttonStyle={'secondary'}
+                  buttonStyle={'main'}
                   onClick={() => navigate('/')}
                   isDisabled={false}
                   classNames={['mobile-button maxWidth']}

@@ -128,16 +128,13 @@ const SkillSets = () => {
             wrapClassName={`${
               presets.selected.length >= 5 && isNoteOpen ? 'showNote' : 'hideNote'
             }`}
-            contentClassName={'PresetsInfoCard'}
+            contentClassName="PresetsInfoCard"
             onCrossClick={() => setIsNoteOpen(false)}
           >
             <InfoIcon />
             <div>
-              <span>
-                Ты не можешь добавить больше <b>5 наборов навыков</b>,
-              </span>
-              <br />
-              так как траектория может построиться неточно.
+              Ты не можешь добавить больше <b>5 наборов навыков</b>, так как траектория
+              может построиться неточно.
             </div>
           </WarningCard>
           <div

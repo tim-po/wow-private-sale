@@ -118,7 +118,7 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
             <button className="cancellation btn" onClick={closeModal}>
               Отмена
             </button>
-            <button className="submit btn" onClick={handleClick}>
+            <button className="submit btn" onClick={handleClick} disabled={!text}>
               Отправить
             </button>
           </div>

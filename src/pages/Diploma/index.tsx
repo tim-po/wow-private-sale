@@ -71,10 +71,10 @@ const Diploma = () => {
             `}
         >
           <div className={'descriptionDiploma'}>
-              <span>
-                Это твоя траектория в Университете ИТМО! Поступай к нам чтобы изучать то,
-                что нравится.
-              </span>
+            <span>
+              Это твоя траектория в Университете ИТМО! Поступай к нам чтобы изучать то,
+              что нравится.
+            </span>
             <button onClick={() => setDesDiplomaClose(true)}>
               <Close width={8.5} height={8.5} />
             </button>
@@ -85,7 +85,7 @@ const Diploma = () => {
             <Description
               iconUrl={'/static/star.svg'}
               title={'Высшее образование'}
-              youTubeVideoId={diplomaData?.video_id}
+              youTubeVideoId={diplomaData?.video_id ?? null}
             />
             <Keywords
               keywords={keywords}

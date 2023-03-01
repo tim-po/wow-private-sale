@@ -38,7 +38,7 @@ const ShareModal = () => {
   return (
     <div className="shareModalContainer">
       <div className="shareModalHeaderContainer">
-        <img alt='img' style={{ width: '100%' }} src={'/static/shareBg.svg'} />
+        <img alt="img" style={{ width: '100%' }} src={'/static/shareBg.svg'} />
       </div>
       <div className="shareContent">
         <div className="shareContentHeader">Поделиться</div>
@@ -47,7 +47,7 @@ const ShareModal = () => {
             <label className="modalShareInputLabel">Мы можем подписать траекторию</label>
             <input
               className="shareInput"
-              placeholder="Введи ключевое слово"
+              placeholder="Для кого траектория"
               onChange={event => setName(event.target.value)}
             />
           </div>

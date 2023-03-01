@@ -28,7 +28,9 @@ const DisciplinesModal = (props: DisciplinesModalPropType) => {
                         <div className="disciplinesElementsCount">{index + 1}</div>
                         <div>{currentDiscipline.name}</div>
                       </div>
-                      <div className="disciplines-elements__name">{el.name}</div>
+                      <div className="disciplines-elements__name">
+                        {el.name.replace('Дифференцированный', 'Дифф.')}
+                      </div>
                     </div>
                   ))}
                 </>

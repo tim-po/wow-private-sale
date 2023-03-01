@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import SelectedPresets from '../../components/SelectedPresets'
 import Preset from 'components/Preset'
@@ -27,7 +27,6 @@ const SkillSets = () => {
 
   const navigate = useNavigate()
   const { presets, profession } = useProfession(professionId)
-
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
   const { ref, inView } = useInView({ threshold: 0, initialInView: true })
@@ -168,6 +167,7 @@ const SkillSets = () => {
               {presets.display.map(preset => {
                 return (
                   <Preset
+                    className={'presetCatalog'}
                     key={preset.title}
                     preset={preset}
                     disabled={presets.selected.length >= 5}

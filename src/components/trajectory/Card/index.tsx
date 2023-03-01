@@ -75,7 +75,7 @@ const Card = (props: CardPropType) => {
       setSelectedSphere(sphere.name)
       switchSemesters()
     }
-  }, [width])
+  }, [])
 
   return (
     <div

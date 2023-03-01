@@ -84,12 +84,12 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     withLocalStorage({ alreadySentFeedbackCount: 0 }, LocalStorageInteraction.load)
       .alreadySentFeedbackCount,
   )
+  const bottomButton = document.getElementById('mobilBottomButton')
   useEffect(() => {
-    const bottomButton = document.getElementById('mobilBottomButton')
     if (bottomButton && window.getComputedStyle(bottomButton).bottom === '0px') {
       setMobileButtonHeight(bottomButton.offsetHeight)
     } else setMobileButtonHeight(0)
-  })
+  },)
 
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
@@ -155,18 +155,27 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
     return null
   }
+  const styleBottomPosition = () => {
+    if (!showFeedback) {
+      if (mobileButtonHeight === 0) {
+        return 8
+      }
+      return mobileButtonHeight + 8
+    }
 
+  }
+  const styleBorderBottom = () => {
+    if (showFeedback) {
+      if (mobileButtonHeight !== 0) {
+        return '20px 0 0 0'
+      }
+    }
+  }
   return (
     <>
       {isOpenRandomFeedback ? (
         <div
-          style={{
-            bottom: showFeedback
-              ? 0
-              : mobileButtonHeight === 0
-              ? 8
-              : mobileButtonHeight + 8,
-          }}
+          style={{ bottom: styleBottomPosition(), borderRadius:styleBorderBottom() }}
           onClick={openFeedback}
           ref={feedbackRef}
           className={`container-form-random-feedback ${

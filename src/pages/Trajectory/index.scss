@@ -211,7 +211,7 @@
       .mobileBottomWrapper {
         border-top: 1px solid #E7E8EE;
         padding: 16px 16px 34px 16px;
-        transition-duration: 2s;
+        //transition-duration: 2s;
         max-height: 400px;
         z-index: 20;
         display: block;
@@ -220,8 +220,7 @@
         background: white;
         width: 100%;
         left: 0;
-
-        animation: staticBlock 0.3s;
+        //animation: staticBlock 0.3s;
 
         .BottomButtonsCurs {
           .buttonCourse {

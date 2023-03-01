@@ -27,7 +27,7 @@ const SkillSets = () => {
   const { width } = useWindowDimensions()
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
   const [isNoteOpen, setIsNoteOpen] = useState(true)
-  const { ref, inView } = useInView({ threshold: 0, initialInView: true })
+  const { ref, inView } = useInView({ threshold: 1, initialInView: true })
 
   const handleScroll = () => {
     if (window.scrollY < 200) {

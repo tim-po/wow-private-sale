@@ -11,7 +11,7 @@ const ShareModal = () => {
   const [isLinkWithoutNameCopied, setIsLinkWithoutNameCopied] = useState(false)
   const [name, setName] = useState('')
 
-  const shareWithoutName =()=>{
+  const shareWithoutName = () => {
     setIsLinkWithoutNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
     setTimeout(() => {
@@ -19,7 +19,7 @@ const ShareModal = () => {
         `${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`,
         '_blank',
       )
-    },)
+    })
   }
   const shareWithName = () => {
     setIsLinkWithNameCopied(true)
@@ -31,13 +31,13 @@ const ShareModal = () => {
         )}&name=${name}`,
         '_blank',
       )
-    }, )
+    })
   }
 
   return (
     <div className="shareModalContainer">
       <div className="shareModalHeaderContainer">
-        <img alt='img' style={{ width: '100%' }} src={'/static/shareBg.svg'} />
+        <img alt="img" style={{ width: '100%' }} src={'/static/shareBg.svg'} />
       </div>
       <div className="shareContent">
         <div className="shareContentHeader">Поделиться</div>
@@ -53,8 +53,7 @@ const ShareModal = () => {
           <div className="shareBtnContainer">
             <Button
               buttonStyle={'secondary'}
-              onClick={()=>shareWithoutName()}
-
+              onClick={() => shareWithoutName()}
               // onClick={() =>
               //   setTimeout(() => {
               //     window.open(linkAbit, '_blank')

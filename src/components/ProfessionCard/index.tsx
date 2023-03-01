@@ -38,7 +38,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
         style.appendChild(document.createTextNode(css))
       }
     })
-    document.getElementsByTagName('head')[0].appendChild(style)
+    document.head.appendChild(style)
   }
 
   useEffect(() => {

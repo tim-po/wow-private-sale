@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import Description from 'components/DiplomaGeneral/Description'
 import Keywords from 'components/DiplomaGeneral/Keywords'
@@ -25,8 +25,6 @@ import { randomNumberBetween } from '../../utils/mathUtils'
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)
 
-  const cardRef = useRef<HTMLDivElement>(null)
-
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined)
   const [keywords, setKeywords] = useState<KeywordType[]>([])
   const [linkAbit, setLinkAbit] = useState('https://abit.itmo.ru/programs/bachelor')
@@ -39,7 +37,6 @@ const Diploma = () => {
         `${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`,
       )
       setDiplomaData(response.data)
-      console.log(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -80,7 +77,7 @@ const Diploma = () => {
             <Description
               iconUrl={'/static/star.svg'}
               title={'Высшее образование'}
-              youTubeVideoId={diplomaData?.video_id}
+              youTubeVideoId={diplomaData?.video_id ?? null}
             />
             <Keywords
               keywords={keywords}

@@ -21,7 +21,7 @@ const Trajectories = () => {
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
   const [isWarningCardOpen, setIsWarningCardOpen] = useState(true)
-  const { keywords } = useProfession()
+  const { keywords, error } = useProfession()
   const navigate = useNavigate()
 
   const getTrajectoriesFromIds = (ids: number[]) => {
@@ -67,7 +67,7 @@ const Trajectories = () => {
     updateStickyBlocks()
   }, [keywords.allIds])
 
-  if (responseError) {
+  if (responseError || error) {
     return <NotFound />
   }
 
@@ -114,8 +114,13 @@ const Trajectories = () => {
             />
           ))
         : makeEmptyList(5).map((_i, index) => <TrajectoryPreview key={index} />)}
-      <RandomFeedback displayForGroup={2} />
-      <RandomFeedback displayForGroup={3} />
+
+      {trajectories && trajectories.length && (
+        <>
+          <RandomFeedback displayForGroup={2} />
+          <RandomFeedback displayForGroup={3} />
+        </>
+      )}
     </div>
   )
 }

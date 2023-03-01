@@ -1,11 +1,4 @@
 export const BASE_URL = process.env.REACT_APP_API_URL
-// export const COLORS_BY_CATEGORY: { [key: string]: string } = {
-//   'Программирование': 'var(--color-7-light)',
-//   'Менеджмент': 'var(--color-10-light)',
-//   'Инженерия': 'var(--color-6-light)',
-//   'Науки о жизни': 'var(--color-3-light)',
-//   'Art & Science': 'var(--color-4-light)',
-// }
 
 export const COLORS_BY_PROFESSION: { [key: string]: string[] } = {
   'var(--color-7-light)': [

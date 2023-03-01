@@ -437,11 +437,9 @@
               max-height: 200px;
 
               .DisciplineCardWrapper {
-
                 .DisciplineCard {
-                  max-width: 200px;
                   min-width: 190px;
-
+                  width: min-content;
                 }
               }
             }

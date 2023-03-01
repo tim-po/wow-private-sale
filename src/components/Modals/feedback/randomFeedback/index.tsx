@@ -174,7 +174,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
           } ${isSeeIcon ? '' : 'hideIcon'}`}
         >
           <RandomFeedbackOpen />
-          {!isSubmitted && (
+          {!isSubmitted && showFeedback && (
             <div className="form">
               <div className="wrapTitle">
                 <span className="title">
@@ -229,7 +229,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
               </div>
             </div>
           )}
-          {isSubmitted && (
+          {isSubmitted && showFeedback && (
             <div className="RequestSent">
               <div className="heartImg">
                 <Heart />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './stylesheets/index.css'
+import './stylesheets/index.scss'
 import './stylesheets/vars.css'
 import './stylesheets/skeleton.scss'
 

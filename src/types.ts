@@ -56,7 +56,7 @@ export type TrajectoryType = {
   coverage: number
   student: number
   courses: CourseType[]
-  abit?: string
+  abit_link: string
 }
 
 export type DiplomaDataType = {
@@ -67,6 +67,7 @@ export type DiplomaDataType = {
   educational_plan: string
   classes_count: (CountType & { disciplines: CountType[] })[]
   control_types_count: (CountType & { disciplines: CountType[] })[]
+  abit_link: string
 }
 
 type DisciplineClassItemType = {
@@ -88,6 +89,7 @@ export type DiplomaShareDataType = {
   courses: DiplomaShareCardType[]
   total_disciplines: number
   video_id: string
+  abit_link: string
 }
 
 export type NextOrPrevDisciplinesType = {

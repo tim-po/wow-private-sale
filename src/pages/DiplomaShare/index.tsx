@@ -16,7 +16,7 @@ import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import Close from '../../images/icons/close'
-import { makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 
 const DiplomaShare = () => {
@@ -95,7 +95,7 @@ const DiplomaShare = () => {
       <div className="DiplomaContainerShare">
         <div
           style={{ marginBottom: 0 }}
-          className={`wrapDescriptionDiploma ${desDiplomaClose && `close`} 
+          className={`wrapDescriptionDiplomaShare ${desDiplomaClose && `close`} 
             `}
         >
           <div className={`descriptionDiploma`}>
@@ -148,7 +148,7 @@ const DiplomaShare = () => {
                 <Link
                   href={
                     diplomaShareData
-                      ? diplomaShareData.educational_plan.replace('', '+')
+                      ? makeAbitUtmFromlSlug(diplomaShareData.abit_link)
                       : ''
                   }
                 >

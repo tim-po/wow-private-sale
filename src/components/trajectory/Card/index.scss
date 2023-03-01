@@ -4,6 +4,11 @@
   margin-bottom: 20px;
   position: relative;
 
+  &.scale {
+    animation-duration: .8s;
+    animation-name: scaleCard;
+  }
+
   .ClassHeader {
     font-family: 'Inter', serif;
     font-style: normal;
@@ -47,6 +52,7 @@
 
   .bodyCard {
     padding: 0 25px;
+
     .TrajectorySmallHeader {
       color: #6E6D79;
       font-weight: 500;
@@ -142,22 +148,24 @@
                   .DisciplineCardType {
                     color: var(--color-brand) !important;
                     transition: color var(--bg-transition-duration);
+
                     &::before {
                       background: var(--color-brand) !important;
                       transition: background-color var(--bg-transition-duration);
                     }
                   }
 
-                  .discipline-card-name{
+                  .discipline-card-name {
                     color: var(--color-brand);
                     transition: color var(--bg-transition-duration);
+
                     &::before {
                       background: var(--color-brand) !important;
                       transition: background-color var(--bg-transition-duration);
                     }
                   }
 
-                  &:active{
+                  &:active {
                     background-color: var(--bg-subject-active);
                   }
                 }
@@ -278,6 +286,17 @@
   }
 }
 
+@keyframes scaleCard {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
   .ClassCard .bodyCard .SemestersRow .SemesterCol .BottomDisclosure .DisciplineCard {
@@ -418,8 +437,6 @@
               max-height: 200px;
 
               .DisciplineCardWrapper {
-                max-width: 80%;
-
                 .DisciplineCard {
                   min-width: 190px;
                   width: min-content;

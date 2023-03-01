@@ -31,7 +31,7 @@ button{
 }
 
 a:hover{
-    color: var(--color-5-dark)
+    color: var(--color-5-dark) !important;
 }
 
 a button:hover {

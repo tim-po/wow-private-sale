@@ -30,6 +30,17 @@
   transition: max-height 0.2s linear;
 }
 
+.presetsInfoCardWrapper {
+  max-width: 504px;
+  max-height: 72px;
+
+  @media screen and (max-width: 570px) {
+    width: calc(100% - 32px);
+    max-height: 500px;
+    max-width: 420px;
+  }
+}
+
 .PresetsInfoCard {
   margin-bottom: 24px;
   max-height: min-content;
@@ -218,10 +229,7 @@
   //top: 64px;
   background: white;
   z-index: 112;
-
-  &.isSticky {
-    border-bottom: 1px solid rgba(231, 232, 238, 1);
-  }
+  border-bottom: 1px solid rgba(231, 232, 238, 1);
 
   &.hideBorder {
     border-bottom: none !important;
@@ -230,7 +238,7 @@
 
 .buttonArrow {
   /*display: none;*/
-  border: inherit;
+  border: none;
 
   background: white;
   padding: 10px 12px;

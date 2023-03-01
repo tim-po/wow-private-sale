@@ -90,7 +90,3 @@ const Profession = () => {
 }
 
 export default Profession
-
-export function useContextProfession() {
-  return useOutletContext<ProfessionContextType>()
-}

@@ -206,18 +206,19 @@ const Trajectory = () => {
           <TrajectoryStats
             className="Mobile"
             loading={loading}
+            setSelectedSphere={setSelectedSphere}
             course={trajectory?.courses.find(course => course.course === courseQuery)}
           />
           <div className="MobileBlock">
-            {!loading && (
-              <div className={`mobileBottomWrapper`} id="mobilBottomButton">
-                <div className="BottomButtonsCurs">
-                  <button className="buttonCourse" onClick={openStatsModal}>
-                    Статистика по курсу
-                  </button>
-                </div>
+            {/* {loading && ( */}
+            <div className={`mobileBottomWrapper`} id="mobilBottomButton">
+              <div className="BottomButtonsCurs">
+                <button className="buttonCourse" onClick={openStatsModal}>
+                  Статистика по курсу
+                </button>
               </div>
-            )}
+            </div>
+            {/* )} */}
 
             <div className="flex-row flex-block pl-5 semesterSeason">
               <div

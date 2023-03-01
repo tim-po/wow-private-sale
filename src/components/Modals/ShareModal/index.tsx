@@ -19,9 +19,8 @@ const ShareModal = () => {
         `${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`,
         '_blank',
       )
-    }, 1500)
+    })
   }
-
   const shareWithName = () => {
     setIsLinkWithNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
@@ -32,7 +31,7 @@ const ShareModal = () => {
         )}&name=${name}`,
         '_blank',
       )
-    }, 1500)
+    })
   }
 
   return (
@@ -54,7 +53,11 @@ const ShareModal = () => {
           <div className="shareBtnContainer">
             <Button
               buttonStyle={'secondary'}
-              onClick={shareWithoutName}
+              onClick={() => shareWithoutName()}
+              // onClick={() =>
+              //   setTimeout(() => {
+              //     window.open(linkAbit, '_blank')
+              //   })
               isDisabled={false}
               classNames={['share-button']}
             >

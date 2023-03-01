@@ -235,9 +235,24 @@ a.MainButton:hover {
   display: flex;
   column-gap: 16px;
 }
-
+.wrapDescriptionDiplomaShare{
+  display: none;
+}
 
 @media screen and (max-width: 1280px) {
+  .wrapDescriptionDiplomaShare{
+    width: 100%;
+    display: inherit;
+    //max-width: 700px;
+    margin-bottom: 25px;
+    max-height: 400px;
+    overflow: hidden;
+    &.close{
+      transition: all 0.3s;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
   .titleShareSkeleton{
     display: none;
   }
@@ -258,6 +273,7 @@ a.MainButton:hover {
   .mobileBottomWrapperShare{
     border-top: 1px solid #E7E8EE;
     border-radius: 0px;
+    padding: 16px;
     /* padding: 0 16px 34px 16px; */
     transition-duration: 2s;
     max-height: 400px;
@@ -498,10 +514,6 @@ a.MainButton:hover {
   .classesTypeCard {
     min-width: 256px;
     margin-right: 8px;
-  }
-
-  .DiplomaContainerShare{
-    padding-bottom: 106px;
   }
 
 }

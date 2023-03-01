@@ -228,6 +228,8 @@
     display: none;
   }
   .wrapDescriptionDiploma{
+    width: 100%;
+    //max-width: 700px;
     margin-bottom: 25px;
     max-height: 400px;
     overflow: hidden;
@@ -238,6 +240,7 @@
     }
   }
   .descriptionDiploma{
+    width: 100%;
     justify-content: space-between;
     background: #fff;
     padding: 20px 24px;

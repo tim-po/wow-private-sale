@@ -53,7 +53,6 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
     }
 
     if (!Object.values(validationErrors).filter(item => !!item).length) {
-      console.log('Все ок')
       axios
         .post(
           `${BASE_URL}feedback/`,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { TrajectoryType } from '../../types'
 import Diploma from '../Diploma'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -34,11 +34,6 @@ const Trajectory = () => {
   const titleNameDiscipline = useRef<HTMLDivElement>(null)
 
   const courseQuery = +(searchParams.get('course') || '1')
-
-  // const [transferCoursesRow, setTransferCoursesRow] = useState(false)
-
-  const transferCoursesRow = useRef(true)
-
   const [tabColor, setTabColorScheme] = useState('var(--bg-color-base)')
 
   const getTrajectory = () => {
@@ -54,33 +49,6 @@ const Trajectory = () => {
         setResponseError(e.response.status)
       })
   }
-
-  useEffect(() => {
-    function adaptiveCourse() {
-      const widthTitle = stileTextRef.current?.offsetWidth
-      const widthContainer = titleNameDiscipline.current?.offsetWidth
-
-      if (widthContainer && widthTitle) {
-        if (widthContainer < widthTitle + 470) {
-          transferCoursesRow.current = true
-        } else {
-          transferCoursesRow.current = false
-        }
-      }
-    }
-
-    adaptiveCourse()
-
-    window.addEventListener('resize', adaptiveCourse)
-
-    return () => {
-      window.removeEventListener('resize', adaptiveCourse)
-    }
-  }, [
-    stileTextRef.current?.offsetWidth,
-    loading,
-    titleNameDiscipline.current?.offsetHeight,
-  ])
 
   useEffect(() => {
     const courseNumber = searchParams.get('course')
@@ -113,6 +81,15 @@ const Trajectory = () => {
       changeBg('var(--bg-color-base)')
     }
   }, [courseQuery])
+
+  const shouldTabsExpand = useMemo(() => {
+    const widthTitle = stileTextRef.current?.offsetWidth
+    const widthContainer = titleNameDiscipline.current?.offsetWidth
+
+    if (widthContainer && widthTitle) {
+      return widthContainer < widthTitle + 470
+    } else return false
+  }, [stileTextRef.current?.offsetWidth, trajectory?.educational_plan, width])
 
   if (
     courseQuery > 5 ||
@@ -173,18 +150,9 @@ const Trajectory = () => {
         </h5>
 
         <div
-          style={!loading && transferCoursesRow.current ? { width: '100%' } : {}}
+          style={!loading && shouldTabsExpand ? { width: '100%' } : {}}
           className="CoursesRow"
         >
-          {/* <CourseSelector */}
-          {/*   bgColor={ */}
-          {/*     searchParams.get('course') === '5' */}
-          {/*       ? 'var(--bg-color-base)' */}
-          {/*       : 'var(--bg-color-invert)' */}
-          {/*   } */}
-          {/*   leftOffset={selectorLeftOffset} */}
-          {/* /> */}
-
           <div
             className={'NormalCourseSelector'}
             style={{
@@ -229,7 +197,7 @@ const Trajectory = () => {
             })}
           </div>
           <button className="CourseButtonDiploma" onClick={() => navigateToCourse(5)}>
-            Результат
+            <div className="CourseButtonDiplomaTitle">Результат</div>
           </button>
         </div>
       </div>

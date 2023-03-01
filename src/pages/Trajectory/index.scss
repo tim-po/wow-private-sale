@@ -4,42 +4,44 @@
   transition-property: color, background-color, box-shadow;
   transition-duration: var(--bg-transition-duration);
 
-  &:hover{
+  &:hover {
     background-color: var(--bg-tech-hover);
     color: var(--color-brand);
 
     transition-property: color, background-color, box-shadow;
     transition-duration: var(--bg-transition-duration);
 
-    &:active{
+    &:active {
       background-color: var(--bg-tech-active);
       color: var(--color-brand);
     }
   }
 
-  &:disabled{
+  &:disabled {
     background-color: white;
     cursor: unset;
     color: #6E6D79;
 
-    &:active{
+    &:active {
       background-color: white;
       color: #6E6D79;
     }
   }
 
 }
-.TrajectoryCardSkeleton{
+
+.TrajectoryCardSkeleton {
   border-radius: 16px;
   margin-bottom: 20px;
   width: 100%;
   height: 174px;
 }
+
 .TrajectoryPage {
   margin: 0 auto;
   margin-top: 24px;
 
-  .semesterSeason{
+  .semesterSeason {
     position: relative;
   }
 
@@ -69,6 +71,18 @@
       justify-content: space-between;
       z-index: 2;
       min-width: 470px;
+
+      .NormalCourseSelector {
+        transition: left 0.3s;
+        position: absolute;
+        bottom: -1px;
+        display: flex;
+        z-index: -1;
+        height: 42px;
+        width: 80px;
+        border-radius: 8px 8px 0 0;
+
+      }
 
       .CoursesRowFirstFlex {
         position: relative;
@@ -117,8 +131,7 @@
         line-height: 20px;
         background: transparent;
         border: 0;
-        padding: 10px 12px;
-        width: 86px;
+        padding: 12px 22px 10px 14px;
         height: 42px;
         flex-shrink: 0;
         color: var(--color-5-dark);
@@ -163,8 +176,8 @@
 
 
 @media screen and (max-width: 1000px) {
-  .TrajectoryCardSkeleton{
-    height:68px
+  .TrajectoryCardSkeleton {
+    height: 68px
   }
   .TrajectoryPage {
     //margin-bottom: 100px;
@@ -187,9 +200,11 @@
         .CoursesRowFirstFlex {
           .CourseButton {
             width: 14px;
-            &.CourseButtonActive{
+
+            &.CourseButtonActive {
               width: 50px;
             }
+
             .Course {
               min-width: 50px;
             }
@@ -249,10 +264,10 @@
 }
 
 @keyframes staticBlock {
-  from{
+  from {
     bottom: -400px;
   }
-  to{
+  to {
     bottom: 0;
   }
 }

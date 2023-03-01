@@ -46,8 +46,31 @@
   max-height: min-content;
   overflow: hidden;
   display: inline-flex;
-  align-items: center;
-  column-gap: 12px;
+  align-items: start;
+  column-gap: 10px;
+  max-width: 472px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
+  svg{
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 880px){
+    margin-top: 22px;
+  }
+
+  @media screen and (max-width: 550px){
+    font-size: 12px;
+    svg{
+      transform: scale(0.8);
+    }
+  }
+
 }
 
 .selectedSkillsBlock {
@@ -243,6 +266,7 @@
 }
 
 @media screen and (max-width: 1000px) {
+
   .minTitle {
     padding-top: 0;
     padding-bottom: 8px;

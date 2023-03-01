@@ -53,7 +53,6 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
     }
 
     if (!Object.values(validationErrors).filter(item => !!item).length) {
-      console.log('Все ок')
       axios
         .post(
           `${BASE_URL}feedback/`,
@@ -118,7 +117,7 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
             <button className="cancellation btn" onClick={closeModal}>
               Отмена
             </button>
-            <button className="submit btn" onClick={handleClick}>
+            <button className="submit btn" onClick={handleClick} disabled={!text}>
               Отправить
             </button>
           </div>

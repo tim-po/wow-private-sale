@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './index.scss'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import styled from 'styled-components'
 import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
 import { isMobile } from 'react-device-detect'
@@ -36,7 +35,16 @@ const Description = (props: GenericModalPropType) => {
   const youTubeSrc = `https://www.youtube.com/embed/${youTubeVideoId}`
   const previewSrc = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`
 
-  console.log(youTubeVideoId)
+  useEffect(() => {
+    const player = document.querySelector('#playerFrame')
+    if (player) {
+      player.setAttribute(
+        'style',
+        `width: 100%; height:${((player.clientWidth * 9) / 16).toFixed(2)}px`,
+      )
+    }
+  })
+
   return (
     <DiplomaTileWrapper>
       <div
@@ -44,21 +52,22 @@ const Description = (props: GenericModalPropType) => {
       >
         {typeof youTubeVideoId !== 'undefined' &&
           (isMobile ? (
-            <div
-              className={`player ratio ratio-16x9 ${
-                youTubeVideoId ? '' : 'MainSkeleton'
-              }`}
-            >
-              {youTubeVideoId && (
-                <iframe
-                  className="you"
-                  src={youTubeSrc}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              )}
-            </div>
+            youTubeVideoId ? (
+              <iframe
+                id={'playerFrame'}
+                className={`player ${youTubeVideoId ? '' : 'MainSkeleton'}`}
+                src={youTubeSrc}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <div
+                id={'playerFrame'}
+                style={{ width: '100%', minHeight: '155px' }}
+                className={'MainSkeleton'}
+              />
+            )
           ) : (
             <div
               className={`preview ${youTubeVideoId ? '' : 'MainSkeleton'}`}
@@ -67,8 +76,9 @@ const Description = (props: GenericModalPropType) => {
                   <div className={'modalPlayer'}>
                     {youTubeVideoId && (
                       <iframe
+                        id={'playerFrame'}
+                        className={'player'}
                         width="100%"
-                        height="100%"
                         src={youTubeSrc}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

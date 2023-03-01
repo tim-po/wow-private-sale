@@ -36,8 +36,8 @@
       transform: scale(1);
     }
 
-    .form {
-      transition: all 0.4s ease-in-out, trnsform 0.4s, opacity 0.4s;
+    .form, .RequestSent{
+      transition: all 0.4s ease-in-out, transform 0.4s 0.2s, opacity 0.2s;
       opacity: 0;
       transform: scale(0);
       max-width: 0;
@@ -57,9 +57,9 @@
     transform: scale(0);
   }
 
-  .form {
+  .form, .RequestSent {
     overflow: hidden;
-    transition: all 0.4s ease-in-out, trnsform 0.4s 0.4s, opacity 0.4s 0.4s;
+    transition: all 0.4s ease-in-out, transform 0.4s 0.2s, opacity 0.2s;
     opacity: 1;
     max-width: 447px;
     max-height: 450px;
@@ -252,7 +252,7 @@
       }
     }
 
-    .form {
+    .form, .RequestSent{
       animation: linear formTransform;
       max-height: 500px;
 

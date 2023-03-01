@@ -138,7 +138,12 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   function closeFeedback() {
     setTimeout(() => {
       setShowFeedback(false)
-      setIsSubmitted(false)
+
+      setTimeout(() => {
+        if (isSubmitted) {
+          setIsSubmitted(false)
+        }
+      }, 300)
     }, 100)
   }
 
@@ -151,7 +156,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       openFeedback()
     }, 2000)
   }, [])
-  useOnClickOutside(feedbackRef, () => setShowFeedback(false))
+  useOnClickOutside(feedbackRef, () => closeFeedback())
   if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
     return null
   }
@@ -174,7 +179,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
           } ${isSeeIcon ? '' : 'hideIcon'}`}
         >
           <RandomFeedbackOpen />
-          {!isSubmitted && showFeedback && (
+          {!isSubmitted && (
             <div className="form">
               <div className="wrapTitle">
                 <span className="title">
@@ -229,7 +234,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
               </div>
             </div>
           )}
-          {isSubmitted && showFeedback && (
+          {isSubmitted && (
             <div className="RequestSent">
               <div className="heartImg">
                 <Heart />
@@ -247,7 +252,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
           )}
         </div>
       ) : (
-        <div></div>
+        <div />
       )}
     </>
   )

@@ -205,13 +205,13 @@ const Trajectory = () => {
           />
           <div className="MobileBlock">
             {/* {loading && ( */}
-              <div className={`mobileBottomWrapper`} id="mobilBottomButton">
-                <div className="BottomButtonsCurs">
-                  <button className="buttonCourse" onClick={openStatsModal}>
-                    Статистика по курсу
-                  </button>
-                </div>
+            <div className={`mobileBottomWrapper`} id="mobilBottomButton">
+              <div className="BottomButtonsCurs">
+                <button className="buttonCourse" onClick={openStatsModal}>
+                  Статистика по курсу
+                </button>
               </div>
+            </div>
             {/* )} */}
 
             <div className="flex-row flex-block pl-5 semesterSeason">
@@ -241,7 +241,7 @@ const Trajectory = () => {
                     className=" MainSkeleton"
                   />
                 ) : (
-                  <span> Осенний семестр</span>
+                  <span> Весенний семестр</span>
                 )}
               </p>
             </div>

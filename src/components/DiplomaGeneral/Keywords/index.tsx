@@ -24,6 +24,7 @@ const KeywordsWrapper = styled.div`
 `
 
 const ShowMoreKeywordsButton = styled.button`
+  transition: all 0.2s;
   background: #EBEBFF;
   border: none;
   color: #8533FF;
@@ -35,7 +36,10 @@ const ShowMoreKeywordsButton = styled.button`
   line-height: 15px;
   outline: none;
   cursor: pointer;
-
+  
+  &:hover{
+   background: #DDDDFD; 
+  }
   &:active,
   &:focus {
     outline: none;

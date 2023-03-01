@@ -55,20 +55,20 @@
     border: none;
     border-radius: 50%;
     box-shadow: var(--default-shadow);
-    color: red;
+    span svg{
+      stroke: black;
+    }
 
     &:hover{
       span svg{
         stroke: var(--color-brand) !important;
         transition: stroke var(--bg-transition-duration);
       }
-
-      &:active{
-        background-color: var(--bg-tech-hover);
-        transition: var(--bg-transition)
-      }
     }
-
+    &:active{
+      background-color: var(--bg-tech-hover);
+      transition: var(--bg-transition)
+    }
 
 
     &.left {

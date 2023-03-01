@@ -13,8 +13,8 @@ type GenericModalPropType = {
 }
 
 const TextSmall = styled.span`
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: normal;
+  font-size: 14px;
   line-height: 16px;
 `
 

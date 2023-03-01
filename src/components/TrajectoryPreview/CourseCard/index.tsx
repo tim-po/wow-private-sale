@@ -26,7 +26,7 @@ const CourseCard = (props: CourseCardProps) => {
           <div className="CourseCardHeader">{course.course} курс</div>
           <div>
             <div className="mt-2 smallTitle">Ты изучишь</div>
-            <div className="mt-2 keywordsWrapper row no-gutters">
+            <div className="keywordsWrapper">
               {course.main_keywords.slice(0, 5).map(keyword => {
                 return (
                   <span key={keyword} className="keywordWrapper mr-2 mb-2">

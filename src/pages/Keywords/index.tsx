@@ -116,9 +116,9 @@ const Keywords = () => {
             </div>
           </div>
           <div className="searchBlock">
-            <p className="subheader" {...createStickyBlock(2)}>
+            <span className="subheader" {...createStickyBlock(2)}>
               Уже в наборе
-            </p>
+            </span>
             <div className="keywordsPresets">
               {keywords.display.length < 1 && (
                 <>

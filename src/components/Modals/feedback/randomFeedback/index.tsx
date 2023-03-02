@@ -89,7 +89,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     if (bottomButton && window.getComputedStyle(bottomButton).bottom === '0px') {
       setMobileButtonHeight(bottomButton.offsetHeight)
     } else setMobileButtonHeight(0)
-  },)
+  })
 
   useEffect(() => {
     function ScrollStart(event: TouchEvent) {
@@ -167,7 +167,6 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       }
       return mobileButtonHeight + 8
     }
-
   }
   const styleBorderBottom = () => {
     if (showFeedback) {
@@ -180,7 +179,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
     <>
       {isOpenRandomFeedback ? (
         <div
-          style={{ bottom: styleBottomPosition(), borderRadius:styleBorderBottom() }}
+          style={{ bottom: styleBottomPosition(), borderRadius: styleBorderBottom() }}
           onClick={openFeedback}
           ref={feedbackRef}
           className={`container-form-random-feedback ${
@@ -226,7 +225,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
                 />
               </div>
               <div className="possibleNumberFormSubmissions">
-                Ты можешь отправить форму еще {20 - alreadySentFeedbackCount} раз.
+                Ты можешь отправить форму еще <b>{20 - alreadySentFeedbackCount}</b> раз.
               </div>
               <div className="containerButton">
                 <button onClick={() => closeFeedback()} className="cancellation ">

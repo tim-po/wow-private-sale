@@ -247,7 +247,7 @@ const Trajectory = () => {
                     className=" MainSkeleton"
                   />
                 ) : (
-                  <span> Осенний семестр</span>
+                  <span> Весенний семестр</span>
                 )}
               </div>
             </div>

@@ -57,6 +57,9 @@
 .keywordsWrapper {
   //max-height: 82px;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .keywordWrapper {
@@ -73,6 +76,7 @@
 .ControlCardContainer {
   display: flex;
   gap: 8px;
+  margin-top: 12px;
 
   .CourseCardControlCard {
     text-align: left;

@@ -62,6 +62,7 @@
 }
 
 .CourseLabel {
+  font-size: 12px;
   text-align: center;
   color: var(--text-secondary);
 }
@@ -89,7 +90,6 @@
 
 .DiplomaDisciplinesCard .LineImg {
   position: absolute;
-  background: url("../../images/icons/Static/diploma-line-img.svg") no-repeat;
   -moz-background-size: auto 100%;
   -webkit-background-size: 100%;
   -o-background-size: 100%;
@@ -163,8 +163,9 @@
 }
 
 .diplomaDisciplinesCount {
+  font-size: 12px;
   text-align: center;
-  margin-bottom: 39px;
+  margin-bottom: 34px;
   margin-top: 5px;
 }
 

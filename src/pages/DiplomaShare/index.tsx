@@ -18,6 +18,7 @@ import NotFound from '../../components/NotFound'
 import Close from '../../images/icons/close'
 import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
+import DiplomaLineImg from '../../images/icons/Static/diploma-line-img'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -162,7 +163,8 @@ const DiplomaShare = () => {
         <div className="MargTopMobil">
           <div className="DiplomaCard mb-4">
             <div className="d-flex flexColumn DiplomaDisciplinesCard">
-              <div className="LineImg" />
+              {/* <div className="LineImg" />*/}
+              <DiplomaLineImg />
               {diplomaShareData?.courses.map(course => (
                 <div className="flex-grow-1 mr-3 blockShare" key={course.course}>
                   <p className="TextCenter mobilNone diplomaDisciplinesCount">

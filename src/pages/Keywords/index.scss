@@ -11,7 +11,6 @@
 }
 
 .keywordsAdded {
-  margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -114,6 +113,12 @@ input:focus {
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
+
+  margin-top: 16px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 12px;
+  }
 }
 
 .leftBlock {
@@ -134,6 +139,11 @@ input:focus {
 
 .searchBlock {
   width: 100%;
+  margin-top: 0;
+  
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 }
 
 .subheader {
@@ -201,7 +211,12 @@ input:focus {
 .keywordsAdded {
   max-height: calc(100vh - 310px);
   overflow-y: auto;
-  margin-top: 24px;
+  margin-top: 16px;
+
+
+  @media screen and (max-width: 767px) {
+    margin-top: 12px;
+  }
 }
 
 @media screen and (max-width: 879px) {

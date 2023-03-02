@@ -83,18 +83,19 @@ const Professions = () => {
             makeEmptyList(12).map((number, index) => {
               return <div className="professionCarSkeleton MainSkeleton" key={index} />
             })}
-          {professionsWithCustomSvg.map(profession => {
-            return (
-              <button
-                style={{ opacity: isProfessionsLoading ? 0 : 1 }}
-                className="ProfessionCardButton"
-                key={profession.id}
-                onClick={() => professionChosen(profession)}
-              >
-                <ProfessionCard profession={profession} />
-              </button>
-            )
-          })}
+          {!isProfessionsLoading &&
+            professionsWithCustomSvg.map(profession => {
+              return (
+                <button
+                  style={{ opacity: isProfessionsLoading ? 0 : 1 }}
+                  className="ProfessionCardButton"
+                  key={profession.id}
+                  onClick={() => professionChosen(profession)}
+                >
+                  <ProfessionCard profession={profession} />
+                </button>
+              )
+            })}
         </div>
 
         <WarningCard

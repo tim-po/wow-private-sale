@@ -20,7 +20,8 @@ const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
-  const { keywords } = useProfession()
+  const [isWarningCardOpen, setIsWarningCardOpen] = useState(true)
+  const { keywords, error } = useProfession()
   const navigate = useNavigate()
 
   const getTrajectoriesFromIds = (ids: number[]) => {
@@ -66,7 +67,7 @@ const Trajectories = () => {
     updateStickyBlocks()
   }, [keywords.allIds])
 
-  if (responseError) {
+  if (responseError || error) {
     return <NotFound />
   }
 
@@ -76,12 +77,11 @@ const Trajectories = () => {
         Готовые траектории
       </h1>
       <WarningCard
+        isAnimated={isWarningCardOpen}
+        animationName={'collapse'}
         wrapClassName={'animationWrap'}
         contentClassName={'TrajectoriesInfoCard'}
-        onCrossClick={() => {
-          const card = document.querySelector('.animationWrap')
-          if (card) card.classList.toggle('Hidden')
-        }}
+        onCrossClick={() => setIsWarningCardOpen(false)}
       >
         <PercentProgress percent={0.8} />
         Мы собрали подходящие для тебя образовательные программы в ИТМО.
@@ -114,8 +114,13 @@ const Trajectories = () => {
             />
           ))
         : makeEmptyList(5).map((_i, index) => <TrajectoryPreview key={index} />)}
-      <RandomFeedback displayForGroup={2} />
-      <RandomFeedback displayForGroup={3} />
+
+      {trajectories && trajectories.length && (
+        <>
+          <RandomFeedback displayForGroup={2} />
+          <RandomFeedback displayForGroup={3} />
+        </>
+      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import Description from 'components/DiplomaGeneral/Description'
 import Keywords from 'components/DiplomaGeneral/Keywords'
@@ -19,13 +19,11 @@ import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../components/refactorName'
 import { changeBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
-import { makeAbitUtmFrolSlug, makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)
-
-  const cardRef = useRef<HTMLDivElement>(null)
 
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined)
   const [keywords, setKeywords] = useState<KeywordType[]>([])
@@ -39,7 +37,6 @@ const Diploma = () => {
         `${BASE_URL}trajectories/${searchParams.get('id')}/diploma/`,
       )
       setDiplomaData(response.data)
-      console.log(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -54,7 +51,7 @@ const Diploma = () => {
     if (diplomaData && diplomaData.main_keywords.length) {
       const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
       setKeywords(keywordsArray)
-      setLinkAbit(makeAbitUtmFrolSlug(diplomaData.abit_link))
+      setLinkAbit(makeAbitUtmFromlSlug(diplomaData.abit_link))
     }
   }, [diplomaData])
 
@@ -80,7 +77,7 @@ const Diploma = () => {
             <Description
               iconUrl={'/static/star.svg'}
               title={'Высшее образование'}
-              youTubeVideoId={diplomaData?.video_id}
+              youTubeVideoId={diplomaData?.video_id ?? null}
             />
             <Keywords
               keywords={keywords}

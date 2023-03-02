@@ -2,15 +2,25 @@ import React, { MouseEventHandler, ReactNode, useEffect, useRef } from 'react'
 import cn from './index.module.scss'
 import { getBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
-// CONSTANTS
 
-// DEFAULT FUNCTIONS
+const animations = {
+  'collapse': {
+    show: cn.showNote,
+    hide: cn.hideNote,
+  },
+  'side': {
+    show: cn.sideAppearanceAnimation,
+    hide: cn.sideAppearanceAnimationNone,
+  },
+}
 
 interface IWarningCardProp {
   onCrossClick?: MouseEventHandler<HTMLButtonElement>
   children: ReactNode
   wrapClassName?: string
   contentClassName?: string
+  animationName: keyof typeof animations
+  isAnimated: boolean
 }
 
 const WarningCard = ({
@@ -18,6 +28,8 @@ const WarningCard = ({
   children,
   wrapClassName,
   contentClassName,
+  animationName,
+  isAnimated,
 }: IWarningCardProp) => {
   const card = useRef<HTMLDivElement>(null)
 
@@ -38,7 +50,12 @@ const WarningCard = ({
   }, [card.current])
 
   return (
-    <div ref={card} className={wrapClassName ?? ''}>
+    <div
+      ref={card}
+      className={`${wrapClassName ?? ''} ${
+        isAnimated ? animations[animationName].show : animations[animationName].hide
+      }`}
+    >
       <div
         className={
           cn.WarningCard +

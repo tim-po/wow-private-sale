@@ -16,7 +16,7 @@ import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import Close from '../../images/icons/close'
-import { makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 import DiplomaLineImg from '../../images/icons/Static/diploma-line-img'
 
@@ -139,7 +139,7 @@ const DiplomaShare = () => {
               </div>
               <div className="buttons-wrapper-share">
                 <Button
-                  buttonStyle={'secondary'}
+                  buttonStyle={'main'}
                   onClick={() => navigate('/')}
                   isDisabled={false}
                   classNames={['mobile-button maxWidth']}
@@ -149,11 +149,7 @@ const DiplomaShare = () => {
                 <Link
                   href={
                     diplomaShareData
-                      ? diplomaShareData.educational_plan.replace('', '+') +
-                        `&utm_source=track&utm_medium=organic&utm_campaign=bachelor&utm_content=${diplomaShareData?.educational_plan.replace(
-                          '',
-                          '+',
-                        )}`
+                      ? makeAbitUtmFromlSlug(diplomaShareData.abit_link)
                       : ''
                   }
                 >

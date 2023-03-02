@@ -30,13 +30,47 @@
   transition: max-height 0.2s linear;
 }
 
+.presetsInfoCardWrapper {
+  max-width: 504px;
+  max-height: 72px;
+
+  @media screen and (max-width: 570px) {
+    width: calc(100% - 32px);
+    max-height: 500px;
+    max-width: 420px;
+  }
+}
+
 .PresetsInfoCard {
   margin-bottom: 24px;
   max-height: min-content;
   overflow: hidden;
   display: inline-flex;
-  align-items: center;
-  column-gap: 12px;
+  align-items: start;
+  column-gap: 10px;
+  max-width: 472px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
+  svg{
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 880px){
+    margin-top: 22px;
+  }
+
+  @media screen and (max-width: 550px){
+    font-size: 12px;
+    svg{
+      transform: scale(0.8);
+    }
+  }
+
 }
 
 .selectedSkillsBlock {
@@ -76,7 +110,7 @@
     display: flex;
   }
 
-  .keywordHint{
+  .keywordHint {
     display: grid;
     row-gap: 12px;
 
@@ -98,7 +132,7 @@
       color: #6E6D79;
     }
 
-    .keywordHintBtn{
+    .keywordHintBtn {
       background-color: transparent;
     }
   }
@@ -232,6 +266,7 @@
 }
 
 @media screen and (max-width: 1000px) {
+
   .minTitle {
     padding-top: 0;
     padding-bottom: 8px;

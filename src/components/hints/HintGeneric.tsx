@@ -1,6 +1,7 @@
 import React, { RefObject, useEffect, useState } from 'react'
 import Arrow from '../../images/icons/Arrow'
 import useWindowDimensions from '../../utils/useWindowDimensions'
+
 type GetPositionType = {
   title: string
   description: string
@@ -53,9 +54,8 @@ const HintGeneric = (props: GetPositionType) => {
   useEffect(() => {
     function closeEnter(e: KeyboardEvent) {
       if (e.keyCode === 13) {
-          e.preventDefault()
-          console.log("sss")
-          setIsLocalDataHint(false)
+        e.preventDefault()
+        setIsLocalDataHint(false)
       }
     }
 

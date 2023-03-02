@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { COLORS_BY_CATEGORY } from '../../constants'
-import { Profession } from '../../types'
+import React, {useEffect, useMemo} from 'react'
+import {COLORS_BY_PROFESSION} from '../../constants'
+import {Profession} from '../../types'
 import './index.scss'
 
 // CONSTANTS
@@ -12,7 +12,7 @@ type ProfessionCardPropType = {
 }
 
 const ProfessionCard = (props: ProfessionCardPropType) => {
-  const { profession } = props
+  const {profession} = props
 
   const animateSvg = (svg: Element) => {
     let style: HTMLElement | null = document.getElementById('svgAnimeStyles')
@@ -38,7 +38,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
         style.appendChild(document.createTextNode(css))
       }
     })
-    document.getElementsByTagName('head')[0].appendChild(style)
+    document.head.appendChild(style)
   }
 
   useEffect(() => {
@@ -48,6 +48,19 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
       animateSvg(div)
     }
   })
+
+  const getProfessionColor = () => {
+    let currentColor = ''
+    Object.keys(COLORS_BY_PROFESSION).forEach(professionColor => {
+      if (COLORS_BY_PROFESSION[professionColor].includes(profession.name)) {
+        currentColor = professionColor
+        return
+      }
+    })
+    return currentColor
+  }
+
+  const professionColor = useMemo(getProfessionColor, [profession])
 
   return (
     <div className="professionCard">
@@ -63,7 +76,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
                 <div
                   key={keyword.id}
                   className="professionCardKeyword"
-                  style={{ background: COLORS_BY_CATEGORY[profession.category] }}
+                  style={{background: professionColor}}
                 >
                   {keyword.text}
                 </div>
@@ -72,7 +85,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
         </div>
         <div className="professionCardCategory">{profession.category}</div>
       </div>
-      <div className={`icon-wrapper-${profession.id}`} />
+      <div className={`icon-wrapper-${profession.id}`}/>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import { TrajectoryType } from '../../types'
 import Keyword from '../../components/Keyword'
 import {
   LocalStorageInteraction,
@@ -15,8 +14,6 @@ import { createStickyBlock } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
 import { useNavigate } from 'react-router-dom'
 import { useProfession } from '../../Models/useProfession'
-import { BASE_URL } from '../../constants'
-import axios from 'axios'
 
 const Keywords = () => {
   const professionId = withLocalStorage(

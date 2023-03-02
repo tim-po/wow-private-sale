@@ -76,7 +76,7 @@
   width: 100%;
   max-height: max(360px, 50vh);
   overflow-y: auto;
-  padding-right: 22px;
+  padding-right: 0px;
 }
 
 .disciplinesElementsContainer::-webkit-scrollbar {
@@ -103,10 +103,6 @@
   align-items: center;
 }
 
-hr {
-  margin-top: 12px;
-}
-
 
 .ListExamModal {
   width: 100%;
@@ -116,9 +112,16 @@ hr {
   font-size: 14px;
   line-height: 20px;
   color: #1F1F22;
-
+  border-bottom: 1px solid #E7E8EE;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
 }
 
+.ListExamModal:last-child{
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
 
 
 .ExamModalContainer {
@@ -145,7 +148,7 @@ hr {
   font-size: 20px;
   line-height: 24px;
   color: #1F1F22;
-  margin: 0px;
+  margin: 0;
 }
 
 .keywords-container {

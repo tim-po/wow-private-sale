@@ -53,16 +53,6 @@
   font-weight: 600;
 }
 
-.CourseButtonDiploma {
-  border: 0;
-  font-weight: 500;
-  font-size: 14px;
-  padding: 10px 12px;
-  border-radius: 8px 8px 0px 0px;
-  color: var(--color-5-dark);
-  background-color: white;
-}
-
 .DiplomaCard {
   border-radius: 16px;
   padding: 25px;
@@ -76,7 +66,7 @@
   font-weight: 400;
   font-size: 14px;
   padding: 10px 12px;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
 }
 
 .controlTypeCard {
@@ -277,7 +267,7 @@
   }
 
   .mobileBottomWrapper{
-    border-radius: 0px;
+    border-radius: 0;
     border-top: 1px solid #E7E8EE;
     padding: 0 16px 34px 16px;
     transition-duration: 2s;

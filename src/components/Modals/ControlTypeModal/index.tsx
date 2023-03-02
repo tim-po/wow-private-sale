@@ -91,7 +91,6 @@ const ControlTypeModal = (props: ControlTypeModalPropType) => {
               <div className="ListExamModal" key={index}>
                 {(typeof discipline !== 'string' && discipline.name) ||
                   (discipline as string)}
-                <hr />
               </div>
             ))}
         </div>

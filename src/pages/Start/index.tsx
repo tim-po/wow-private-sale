@@ -100,10 +100,7 @@ const Start = () => {
             <Stars />
           </div>
           <div className="mobilStar">
-            <div className="FinalCardTitle">
-              На основе твоего выбора мы построим твою персональную образовательную
-              траекторию в ИТМО
-            </div>
+            <div className="FinalCardTitle">Начни свой путь к профессии мечты!</div>
             <div className="FlexEducationalTrajectory">
               <div className="StarsMobil">
                 <Stars />

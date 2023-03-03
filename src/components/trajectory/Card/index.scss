@@ -15,7 +15,6 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    position: absolute;
     top: 0;
     left: 0;
     color: white;
@@ -62,17 +61,11 @@
     }
 
     .SemestersRow {
-      //margin-right: 40px;
-      //margin-left: 14px;
       height: 100%;
-      //width: calc(100% - 80px);
-      position: relative;
       display: flex;
       justify-content: space-between;
 
       .SemesterCol {
-        position: relative;
-        padding-top: 56px;
         padding-bottom: 28px;
         padding-left: 0;
         padding-right: 0;
@@ -89,13 +82,16 @@
         &.Off {
           flex-shrink: 0;
         }
-
+        &.second_semesters_disciplines .SemesterSeparator {
+          left: revert!important;
+          margin-left: 12px;
+        }
         .SemesterSeparator {
           position: absolute;
           height: 100%;
           width: 1px;
           top: 0;
-          left: 12px;
+          left: 34px;
           background: rgba(255, 255, 255, 0.2);
           z-index: -1;
         }

@@ -53,7 +53,7 @@
       margin-bottom: 24px;
 
       .InfoText {
-        margin-left:20px;
+        margin-left: 20px;
         font-weight: 400;
         font-size: 20px;
         line-height: 28px;
@@ -111,7 +111,7 @@
           }
 
           .MainButton {
-            transition: 0.3s;
+            transition: all 0.3s;
             margin-right: inherit;
             align-self: center;
             background: var(--color-5-dark);
@@ -123,6 +123,7 @@
             padding: 20px 44px;
 
             &:hover {
+              transition: all 0.3s;
               background: #AE78FE;
               color: white;
             }
@@ -156,10 +157,36 @@
   }
 
   .FinalCard {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     border-radius: 20px;
     background: white;
     padding: 2rem;
+
+    .WrapCard {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+
+      .LinkProfession.MainButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 160px;
+        height: 50px;
+        margin-right: 0;
+        font-weight: 500;
+        font-size: 18px;
+        transition: all 0.3s;
+
+        @media screen and (max-width: 724px) {
+          font-size: 14px;
+        }
+      }
+    }
 
     .FinalCardTitle {
       font-weight: 500;
@@ -168,6 +195,10 @@
   }
 
   .Stars {
+    margin-right: 23px;
+  }
+
+  .starsFooter {
     margin-right: 23px;
   }
 
@@ -201,7 +232,7 @@
             align-content: center;
             align-items: center;
 
-            .ImgMain  {
+            .ImgMain {
               width: 184px;
               height: 194px;
             }
@@ -274,7 +305,15 @@
     }
   }
 
-  .FinalCard {
+  .Landing .FinalCard {
+    .WrapCard .LinkProfession.MainButton {
+      width: 104px;
+      font-size: 17px;
+      padding: 12px 10px;
+      text-align: center;
+
+    }
+
     .FlexEducationalTrajectory {
       display: flex;
     }
@@ -357,6 +396,17 @@
   }
 }
 
+@media screen and (max-width: 520px) {
+  .Landing .FinalCard .WrapCard {
+    flex-direction: column;
+    gap: 12px;
+
+    .LinkProfession.MainButton {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
 
 @media screen and (max-width: 375px) {
   .point-wrapper {

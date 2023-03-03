@@ -27,7 +27,7 @@ const SkillSets = () => {
 
   const { width } = useWindowDimensions()
   const [selectedPresetsHidden, setSelectedPresetsHidden] = useState(false)
-  const [isNoteOpen, setIsNoteOpen] = useState(true)
+  const [isNoteOpen, setIsNoteOpen] = useState(false)
   const { ref, inView } = useInView({ threshold: 1, initialInView: true })
 
   const handleScroll = () => {
@@ -65,6 +65,7 @@ const SkillSets = () => {
     if (width <= 880 && presets.selected.length >= 5) {
       scroll.scrollToTop()
     }
+    console.log(isNoteOpen)
   }, [presets.selected.length, width])
 
   const openTrajectoryChoice = () => {

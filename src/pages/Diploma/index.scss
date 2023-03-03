@@ -229,7 +229,8 @@
   }
   .wrapDescriptionDiploma{
     width: 100%;
-    //max-width: 700px;
+    display: flex;
+    justify-content: space-around;
     margin-bottom: 25px;
     max-height: 400px;
     overflow: hidden;
@@ -240,6 +241,7 @@
     }
   }
   .descriptionDiploma{
+    max-width: 700px;
     width: 100%;
     justify-content: space-between;
     background: #fff;
@@ -390,7 +392,6 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      width: 40px;
       height: 82px;
     }
   }

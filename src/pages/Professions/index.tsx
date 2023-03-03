@@ -16,6 +16,7 @@ import { updateStickyBlocks } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
 import ModalContext from '../../Context/Modal'
 import WarningCard from '../../components/WarningCard'
+import * as Scroll from 'react-scroll'
 
 const Professions = () => {
   const { setIsHeaderAnimated } = useContext(HeaderContext)
@@ -66,6 +67,8 @@ const Professions = () => {
 
   useEffect(() => {
     changeBg('var(--bg-color-base)')
+    const scroll = Scroll.animateScroll
+    scroll.scrollToTop()
     getProfessions().then(() => {
       setTimeout(() => setIsFeedbackPopupVisible(true), 2000)
     })

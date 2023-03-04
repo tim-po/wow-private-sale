@@ -310,7 +310,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
           pageTitle="hintSemesterChoice"
           nameRef={['hintSemesterChoice']}
           description={[
-            'Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему',
+            'Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть другие дисциплины, доступные для выбора',
           ]}
           title={['Смотри альтернативы']}
         />

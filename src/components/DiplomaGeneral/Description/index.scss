@@ -1,26 +1,26 @@
-.innerWrapper{
+.innerWrapper {
   display: flex;
   gap: 16px 20px;
   align-items: center;
 
-  &.mobilePlayerWrap{
+  &.mobilePlayerWrap {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  &.desktopPlayerWrap{
+  &.desktopPlayerWrap {
     flex-direction: row;
   }
 
 
-  .player{
+  .player {
     width: 100%;
-    border:none;
+    border: none;
     border-radius: 8px;
 
   }
 
-  .preview{
+  .preview {
     width: 152px;
     height: 82px;
     border-radius: 8px;
@@ -29,7 +29,7 @@
     cursor: pointer;
     flex-shrink: 0;
 
-    &:before{
+    &:before {
       position: absolute;
       left: 0;
       top: 0;
@@ -39,7 +39,7 @@
       transition: background-color 0.3s;
     }
 
-    &:hover:before{
+    &:hover:before {
       background-color: rgba(31, 31, 34, 0.45);
       background-image: url("../play.svg");
       background-size: 22.5px 26px;
@@ -50,7 +50,7 @@
       //background: linear-gradient(0deg, rgba(31, 31, 34, 0.45), rgba(31, 31, 34, 0.45)), url(../yt_icon_mono_dark.png);
     }
 
-    img{
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -59,22 +59,23 @@
 }
 
 
-.modalPlayer{
+.modalPlayer {
   width: 80vw;
-  height: 45vw;
+  //height: 45vw;
   display: grid;
   padding: 50px 20px 20px 20px;
-  .player{
+
+  .player {
     width: 100%;
     height: 100%;
-    border:none;
+    border: none;
     border-radius: 8px;
   }
 }
 
 
 @media screen and (max-width: 1000px) {
-  .modalPlayer{
+  .modalPlayer {
     width: 100%;
     height: calc(100vw * 9 / 16);
   }

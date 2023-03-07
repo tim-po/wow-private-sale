@@ -52,6 +52,7 @@ export type CourseType = {
 export type TrajectoryType = {
   id: string
   code: string
+  is_required: boolean
   educational_plan: string
   coverage: number
   student: number

@@ -22,7 +22,6 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
   const isSkeleton = !trajectory
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-
   const shouldDrawScrollButton = (event: any) => {
     const element = event.target
     if (!element) {
@@ -44,6 +43,7 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
     element.classList.remove('HiddenLeft')
     element.classList.remove('Hidden')
   }
+
   const trajectoryChosen = (selectedTrajectory: TrajectoryType, course = 1) => {
     withLocalStorage(
       { chosenTrajectoriesIds: searchParams.get('ids') },
@@ -65,25 +65,6 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
     )
   }
 
-  // const getControlTypesCount = (course: CourseType) => {
-  //   const controlTypes: { [key: string]: number } = {
-  //     exam: 0,
-  //     credit: 0,
-  //     diffCredit: 0,
-  //     coursework: 0
-  //   };
-  //   const nameToKey: { [key: string]: string } = {
-  //     "Экзамен": "exam",
-  //     "Зачет": "credit",
-  //     "Дифференцированный зачет": "diffCredit",
-  //     "Курсовая работа": "coursework"
-  //   };
-  //   course.control_types_count.forEach((type) => {
-  //     controlTypes[nameToKey[type.name]] = type.count;
-  //   });
-  //   return controlTypes;
-  // };
-
   return (
     <div className="TrajectoriesCard mb-3">
       <div className={`TrajectoriesCardHeader ${isSkeleton ? 'MainSkeleton' : ''}`}>
@@ -96,10 +77,16 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
               </span>
             </h5>
             <div className="d-flex align-items-center TrajectoriesCardProgress">
-              <PercentProgress percent={trajectory.coverage} />
-              <span className="ml-2">
-                {Math.round(trajectory.coverage * 100)}% совпадений
-              </span>
+              {trajectory.is_required ? (
+                <div className="recommended">Подходит для профессии</div>
+              ) : (
+                <>
+                  <PercentProgress percent={trajectory.coverage} />
+                  <span className="ml-2">
+                    {Math.round(trajectory.coverage * 100)}% совпадений
+                  </span>
+                </>
+              )}
             </div>
           </>
         )}

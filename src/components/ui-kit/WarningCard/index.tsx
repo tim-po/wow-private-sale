@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, ReactNode, useEffect, useRef } from 'react'
 import cn from './index.module.scss'
-import { getBg } from '../../utils/background/background'
-import Close from '../../images/icons/close'
+import { getBg } from '../../../utils/background/background'
+import Close from '../../../images/icons/close'
 
 const animations = {
   'collapse': {

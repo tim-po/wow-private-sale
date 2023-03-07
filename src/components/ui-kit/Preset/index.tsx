@@ -1,13 +1,13 @@
 import React, { MouseEventHandler, useContext, useEffect, useState } from 'react'
 import './index.scss'
-import { PresetType } from '../../types'
-import ModalsContext from '../../Context/Modal'
+import { PresetType } from '../../../types'
+import ModalsContext from '../../../Context/Modal'
 import PresetIcon from '../PresetIcon'
 import Pluse from 'images/icons/plus'
 
 // CONSTANTS
 // DEFAULT FUNCTIONS
-import KeywordsModal from '../Modals/KeywordsModal'
+import KeywordsModal from '../../Modals/KeywordsModal'
 import Keyword from '../Keyword'
 
 type PresetPropType = {
@@ -30,7 +30,8 @@ const Preset = (props: PresetPropType) => {
   const [declined, setDeclined] = useState(false)
   const [isFirst, setIsFirst] = useState(true)
 
-  const { displayAdd, preset, onClick, disabled, presetWindowSize, className, maxWidth } = props
+  const { displayAdd, preset, onClick, disabled, presetWindowSize, className, maxWidth } =
+    props
 
   const openKeywordsModal = () => {
     displayModal(<KeywordsModal keywords={preset.keywords} />)
@@ -62,7 +63,7 @@ const Preset = (props: PresetPropType) => {
   }
   return (
     <div
-      style={{maxWidth:maxWidth}}
+      style={{ maxWidth: maxWidth }}
       ref={presetWindowSize ? presetWindowSize : undefined}
       className={`preset ${hidden ? 'hidePreset' : ''} ${
         onClick && !disabled ? 'iteractable' : ''

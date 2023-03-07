@@ -7,11 +7,13 @@ import ImgMainLetterD from 'images/icons/Static/imgMainLetterD'
 import CareerSlider from './CareerSlider'
 
 const ProfessionCareer = () => {
+
+
   return (
     <div className="professionCareerWrapper">
       <div className={'professionCareerFlexWrapperSlider'}>
         <span className="professionCareerWrapperTitle">Карьера</span>
-        <CareerSlider />
+        <CareerSlider/>
       </div>
       <div className={'professionCareerFlexWrapperActivity'}>
         <span className="professionCareerWrapperTitle">Чем ты будешь заниматься</span>

@@ -127,7 +127,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
 
   return (
     <div className={`containerDiscipline move-${movement}`}>
-      {trajectoryDisciplineData && (
+      {trajectoryDisciplineData ? (
         <>
           <div
             className="disciplineImage"
@@ -303,7 +303,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             </div>
           </div>
         </>
-      )}
+      ):<div className="MainSkeleton trajectoryDisciplineSkeleton" />}
       {filteredReplacementOptions.length > 0 && (
         <Hints
           boxRef={[hintSemesterChoice]}

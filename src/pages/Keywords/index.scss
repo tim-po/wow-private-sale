@@ -110,6 +110,7 @@ input:focus {
 
 .keywordsCustomisationFlex .keywordsPresets {
   /*max-height: max(592px, 60vh);*/
+  padding-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
@@ -140,7 +141,7 @@ input:focus {
 .searchBlock {
   width: 100%;
   margin-top: 0;
-  
+
   @media screen and (max-width: 768px) {
     margin-top: 20px;
   }

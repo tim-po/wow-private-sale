@@ -29,6 +29,7 @@ const detectCurrentEvent = (
 const TWO_THIRDS = 0.666
 
 const CareerSlider = () => {
+
   const sliderStarRef = useRef<HTMLDivElement | null>(null)
   const sliderLineRef = useRef<HTMLDivElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)

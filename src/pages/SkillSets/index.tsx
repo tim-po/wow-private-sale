@@ -65,7 +65,6 @@ const SkillSets = () => {
     if (width <= 880 && presets.selected.length >= 5) {
       scroll.scrollToTop()
     }
-    console.log(isNoteOpen)
   }, [presets.selected.length, width])
 
   const openTrajectoryChoice = () => {

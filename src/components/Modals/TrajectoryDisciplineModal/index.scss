@@ -1,3 +1,7 @@
+.trajectoryDisciplineSkeleton{
+  width:1020px;
+  height:600px;
+}
 .containerDiscipline {
   border-radius: 24px;
   max-width: 1020px;
@@ -292,6 +296,9 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .trajectoryDisciplineSkeleton{
+    width: 100%;
+  }
   .modalKeywordsHeader {
     display: flex;
     flex-direction: column;

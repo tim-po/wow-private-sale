@@ -105,6 +105,7 @@ const Start = () => {
           </div>
         </section>
         <div className="FinalCard mt-3 d-flex">
+
           <div className="starsFooter">
             <Stars />
           </div>

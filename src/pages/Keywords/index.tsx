@@ -49,7 +49,7 @@ const Keywords = () => {
           Ключевые слова
         </h4>
 
-        <div className="bottomLeftContainer">
+        <div className="bottomLeftContainer" id="mobilBottomButton">
           <button
             className={`clear ${keywords.added.length < 1 ? 'disabled' : ''}`}
             onClick={() => keywords.clear()}

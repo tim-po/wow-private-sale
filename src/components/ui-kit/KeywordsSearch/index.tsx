@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { KeywordType } from '../../types'
+import { KeywordType } from '../../../types'
 import Keyword from '../Keyword'
 import { debounce } from 'lodash'
 import axios from 'axios'
 import Spinner from '../Spinner'
-import { BASE_URL } from '../../constants'
-import useOnClickOutside from '../../utils/useClickOutside'
-import SearchInput from '../../images/icons/magnifyingGlass'
+import { BASE_URL } from '../../../constants'
+import useOnClickOutside from '../../../utils/useClickOutside'
+import SearchInput from '../../../images/icons/magnifyingGlass'
 
 type KeywordsSearchPropType = {
   keywords: {

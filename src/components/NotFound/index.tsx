@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import Button from '../Button'
+import Button from '../ui-kit/Button'
 import { useNavigate } from 'react-router-dom'
 import { changeBg } from '../../utils/background/background'
 

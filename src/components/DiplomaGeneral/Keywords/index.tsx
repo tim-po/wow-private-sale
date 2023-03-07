@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './index.scss'
 import styled from 'styled-components'
-import Keyword from 'components/Keyword'
+import Keyword from 'components/ui-kit/Keyword'
 import KeywordsModal from 'components/Modals/KeywordsModal'
 import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
 import { KeywordType } from 'types'

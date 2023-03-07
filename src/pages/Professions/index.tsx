@@ -4,7 +4,7 @@ import HeaderContext from '../../Context/Header'
 import { BASE_URL } from '../../constants'
 import axios from 'axios'
 import { Profession } from '../../types'
-import ProfessionCard from 'components/ProfessionCard'
+import ProfessionCard from 'components/ui-kit/ProfessionCard'
 import './index.scss'
 import {
   LocalStorageInteraction,
@@ -15,7 +15,7 @@ import FeedbackStatic from '../../components/Modals/feedback/feedbackStatic'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
 import ModalContext from '../../Context/Modal'
-import WarningCard from '../../components/WarningCard'
+import WarningCard from '../../components/ui-kit/WarningCard'
 import * as Scroll from 'react-scroll'
 
 const Professions = () => {

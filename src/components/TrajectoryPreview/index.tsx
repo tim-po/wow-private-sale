@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.scss'
 import { TrajectoryType } from '../../types'
-import PercentProgress from '../PercentProgress'
+import PercentProgress from '../ui-kit/PercentProgress'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import {
   LocalStorageInteraction,

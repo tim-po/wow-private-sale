@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './index.scss'
-import Button from 'components/Button'
+import Button from 'components/ui-kit/Button'
 import { makeEmptyList } from 'utils/general'
 
 const TrajectoryOnboardingModal = () => {

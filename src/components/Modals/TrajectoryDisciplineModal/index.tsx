@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import axios from 'axios'
-import Hints from '../../hints'
+import Hints from '../../ui-kit/hints'
 import { BASE_URL, colors } from '../../../constants'
 import { TrajectoryDisciplineType } from 'types'
 import Flame from '../../../images/icons/flame'
@@ -303,7 +303,9 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             </div>
           </div>
         </>
-      ):<div className="MainSkeleton trajectoryDisciplineSkeleton" />}
+      ) : (
+        <div className="MainSkeleton trajectoryDisciplineSkeleton" />
+      )}
       {filteredReplacementOptions.length > 0 && (
         <Hints
           boxRef={[hintSemesterChoice]}

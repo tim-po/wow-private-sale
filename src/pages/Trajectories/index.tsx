@@ -21,7 +21,7 @@ const Trajectories = () => {
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
   const [isWarningCardOpen, setIsWarningCardOpen] = useState(true)
-  const { keywords, error } = useProfession()
+  const { keywords, error, profession } = useProfession()
   const navigate = useNavigate()
 
   const getTrajectoriesFromIds = (ids: number[]) => {
@@ -37,6 +37,7 @@ const Trajectories = () => {
     axios
       .post(`${BASE_URL}trajectories/?top_n=10`, {
         keywords: keywordIds,
+        profession_id: profession?.id,
       })
       .then(r => {
         const newTrajectoryIds = r.data.map((el: TrajectoryType) => el.id)

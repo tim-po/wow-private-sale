@@ -78,6 +78,7 @@ const GenericModal = (props: GenericModalOwnProps) => {
     setAllModals(
       Array.from(document.querySelectorAll(`[data-modal]`) as NodeListOf<HTMLElement>),
     )
+
   }, [modalCount])
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './index.scss'
 import copy from 'copy-to-clipboard'
 import { useSearchParams } from 'react-router-dom'
-import Button from 'components/Button'
+import Button from 'components/ui-kit/Button'
 
 const ShareModal = () => {
   const [searchParams] = useSearchParams()

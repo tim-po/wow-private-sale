@@ -12,8 +12,8 @@ import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
-import WarningCard from '../../components/WarningCard'
-import PercentProgress from '../../components/PercentProgress'
+import WarningCard from '../../components/ui-kit/WarningCard'
+import PercentProgress from '../../components/ui-kit/PercentProgress'
 import { useProfession } from '../../Models/useProfession'
 
 const Trajectories = () => {
@@ -21,7 +21,7 @@ const Trajectories = () => {
   const [searchParams] = useSearchParams()
   const [responseError, setResponseError] = useState<unknown>()
   const [isWarningCardOpen, setIsWarningCardOpen] = useState(true)
-  const { keywords, error } = useProfession()
+  const { keywords, error, profession } = useProfession()
   const navigate = useNavigate()
 
   const getTrajectoriesFromIds = (ids: number[]) => {
@@ -35,8 +35,9 @@ const Trajectories = () => {
 
   const getTrajectoriesFromKeywords = (keywordIds: string[]) => {
     axios
-      .post(`${BASE_URL}trajectories/?top_n=10`, {
+      .post(`${BASE_URL}trajectories/?top_n=3`, {
         keywords: keywordIds,
+        profession_id: profession?.id,
       })
       .then(r => {
         const newTrajectoryIds = r.data.map((el: TrajectoryType) => el.id)
@@ -54,6 +55,7 @@ const Trajectories = () => {
         if (!trajectoryIds.length) {
           getTrajectoriesFromKeywords(keywords.allIds)
         } else {
+          console.log(keywords.allIds)
           getTrajectoriesFromIds(trajectoryIds)
         }
       } catch (e) {

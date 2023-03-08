@@ -3,7 +3,7 @@ import numeralize from "numeralize-ru";
 
 export const refactorName = (count:number, examName:string):string =>{
   if(examName==='Экзамен')
-    return numeralize.pluralize(count, 'Экзмен', 'Экзамена', 'Экзаменов')
+    return numeralize.pluralize(count, 'Экзамен', 'Экзамена', 'Экзаменов')
   else if(examName==='Зачет')
     return numeralize.pluralize(count, 'Зачет', 'Зачета', 'Зачетов')
   else if (examName==='Дифференцированный зачет')

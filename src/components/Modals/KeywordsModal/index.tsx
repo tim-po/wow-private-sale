@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from 'react'
 import './index.scss'
-import Keyword from "../../Keyword";
-import {KeywordType} from "../../../types";
+import Keyword from '../../ui-kit/Keyword'
+import { KeywordType } from '../../../types'
 
 // CONSTANTS
 
@@ -15,7 +15,7 @@ type KeywordsModalPropType = {
 }
 
 const KeywordsModal = (props: KeywordsModalPropType) => {
-  const {keywords} = props
+  const { keywords } = props
 
   return (
     <div className="KeywordsModalContent">
@@ -32,6 +32,6 @@ const KeywordsModal = (props: KeywordsModalPropType) => {
       </div>
     </div>
   )
-};
+}
 
 export default KeywordsModal

@@ -1,6 +1,6 @@
-import React, {useEffect, useMemo} from 'react'
-import {COLORS_BY_PROFESSION} from '../../constants'
-import {Profession} from '../../types'
+import React, { useEffect, useMemo } from 'react'
+import { COLORS_BY_PROFESSION } from '../../../constants'
+import { Profession } from '../../../types'
 import './index.scss'
 
 // CONSTANTS
@@ -12,7 +12,7 @@ type ProfessionCardPropType = {
 }
 
 const ProfessionCard = (props: ProfessionCardPropType) => {
-  const {profession} = props
+  const { profession } = props
 
   const animateSvg = (svg: Element) => {
     let style: HTMLElement | null = document.getElementById('svgAnimeStyles')
@@ -76,7 +76,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
                 <div
                   key={keyword.id}
                   className="professionCardKeyword"
-                  style={{background: professionColor}}
+                  style={{ background: professionColor }}
                 >
                   {keyword.text}
                 </div>
@@ -85,7 +85,7 @@ const ProfessionCard = (props: ProfessionCardPropType) => {
         </div>
         <div className="professionCardCategory">{profession.category}</div>
       </div>
-      <div className={`icon-wrapper-${profession.id}`}/>
+      <div className={`icon-wrapper-${profession.id}`} />
     </div>
   )
 }

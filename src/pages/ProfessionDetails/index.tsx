@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { BASE_URL } from '../../constants'
 import axios from 'axios'
-import Keyword from '../../components/Keyword'
+import Keyword from '../../components/ui-kit/Keyword'
 import { makeEmptyList } from '../../utils/general'
 import './index.scss'
 import SelectedPresets from '../../components/SelectedPresets'
 import { useProfession } from '../../Models/useProfession'
 import Keywords from '../Keywords'
 import SkillSets from '../SkillSets'
-import LoadingScreen from '../../components/LoadingScreen'
+import LoadingScreen from '../../components/ui-kit/LoadingScreen'
 import MagicWand from '../../images/icons/MagicWand'
 import FingerLike from 'images/icons/Static/fingerLike'
 import ProfessionLamsIcon from 'images/icons/Static/lightBulbs'
@@ -18,7 +18,7 @@ import KeywordsModal from '../../components/Modals/KeywordsModal'
 import ModalsContext from '../../Context/Modal'
 import { isMobile } from 'react-device-detect'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
-import Hints from '../../components/hints'
+import Hints from '../../components/ui-kit/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import { TrajectoryType } from 'types'
@@ -137,7 +137,7 @@ const ProfessionDetails = () => {
         </h4>
 
         {searchParams.get('view') !== 'main' && (
-          <div id='mobilBottomButton' className="bottomLeftContainer">
+          <div id="mobilBottomButton" className="bottomLeftContainer">
             <button
               className={`clear ${isClearButtonDisabled() ? 'disabled' : ''}`}
               onClick={clearChoice}

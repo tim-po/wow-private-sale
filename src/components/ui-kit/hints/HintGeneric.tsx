@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect, useState } from 'react'
-import Arrow from '../../images/icons/Arrow'
-import useWindowDimensions from '../../utils/useWindowDimensions'
+import Arrow from '../../../images/icons/Arrow'
+import useWindowDimensions from '../../../utils/useWindowDimensions'
 
 type GetPositionType = {
   title: string

@@ -10,7 +10,7 @@ import ManOnHomepage from '../../images/icons/manOnHomepage'
 import { scrollToElement } from '../../utils/scrollToElement'
 import { changeBg } from '../../utils/background/background'
 import * as Scroll from 'react-scroll'
-import Button from '../../components/Button'
+import Button from '../../components/ui-kit/Button'
 import styled from 'styled-components'
 import { RoutesName } from '../../types'
 

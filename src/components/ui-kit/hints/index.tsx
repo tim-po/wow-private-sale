@@ -2,7 +2,8 @@ import React, { RefObject, useEffect, useState } from 'react'
 import './index.scss'
 import HintGeneric from './HintGeneric'
 import Portal from './Portal'
-import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
+import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
+
 type PropsType = {
   boxRef: RefObject<HTMLElement>[]
   pageTitle: string

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import axios from 'axios'
-import Hints from '../../hints'
+import Hints from '../../ui-kit/hints'
 import { BASE_URL, colors } from '../../../constants'
 import { TrajectoryDisciplineType } from 'types'
 import Flame from '../../../images/icons/flame'
@@ -127,7 +127,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
 
   return (
     <div className={`containerDiscipline move-${movement}`}>
-      {trajectoryDisciplineData && (
+      {trajectoryDisciplineData ? (
         <>
           <div
             className="disciplineImage"
@@ -303,6 +303,8 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
             </div>
           </div>
         </>
+      ) : (
+        <div className="MainSkeleton trajectoryDisciplineSkeleton" />
       )}
       {filteredReplacementOptions.length > 0 && (
         <Hints
@@ -310,7 +312,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
           pageTitle="hintSemesterChoice"
           nameRef={['hintSemesterChoice']}
           description={[
-            'Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть что мы не выбрали для тебя и почему',
+            'Алгоритм ITMO.TRACK построил оптимальную траекторию с самыми подходящими тебе дисциплинами. Также ты можешь посмотреть другие дисциплины, доступные для выбора',
           ]}
           title={['Смотри альтернативы']}
         />

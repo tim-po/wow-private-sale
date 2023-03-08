@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SliderStar from 'images/icons/Static/sliderStar'
 import './index.scss'
 import Arrow from 'images/icons/Arrow'
@@ -13,7 +13,7 @@ const careerIcons: JSX.Element[] = [
   CareerSeniorIcon(),
 ]
 
-const professionSalary = [40000, 80000, 170000]
+// const professionSalary = [40000, 80000, 170000]
 
 const detectCurrentEvent = (
   currentEvent: React.MouseEvent | React.TouchEvent,
@@ -28,23 +28,32 @@ const detectCurrentEvent = (
 // const TOOLTIP_WIDTH = 122
 const TWO_THIRDS = 0.666
 
-const CareerSlider = () => {
+export type CareerSliderProps = {
+  salaries?: number[]
+}
 
+const CareerSlider = ({ salaries }: CareerSliderProps) => {
   const sliderStarRef = useRef<HTMLDivElement | null>(null)
   const sliderLineRef = useRef<HTMLDivElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const sliderIconsWrapper = useRef<HTMLDivElement | null>(null)
 
-  const [currentSalary, setCurrentSalary] = useState(professionSalary[0])
+  const [currentSalary, setCurrentSalary] = useState(0)
+  // const [professionSalary, setProfessionSalaries] = use
 
   const [pointerPositionInPercent, setPointerPositionInPercent] = useState(0)
   const [isMoving, setIsMoving] = useState(false)
   const [isAnimated, setIsAnimated] = useState(true)
 
+  const isSliderActive = salaries && salaries.length === 3
+
+  useEffect(() => {
+    if (salaries && salaries.length) setCurrentSalary(salaries[0])
+  }, [salaries])
   const sliderStartAnimation = (event: React.MouseEvent | React.TouchEvent) => {
     if (event instanceof MouseEvent) event.preventDefault()
 
-    if (sliderStarRef.current && sliderLineRef.current) {
+    if (sliderStarRef.current && sliderLineRef.current && isSliderActive) {
       const deltaY =
         detectCurrentEvent(event).clientX -
         sliderLineRef.current.getBoundingClientRect().left
@@ -63,8 +72,8 @@ const CareerSlider = () => {
       }, 200)
 
       const currentInterval = Math.round(pointerPositionInPercent)
-      const minSalary = professionSalary[currentInterval]
-      const maxSalary = professionSalary[currentInterval + 1]
+      const minSalary = salaries[currentInterval]
+      const maxSalary = salaries[currentInterval + 1]
       const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
       const salaryDelta = maxSalary - minSalary
 
@@ -84,7 +93,7 @@ const CareerSlider = () => {
   const sliderMoveAnimation = (event: React.MouseEvent | React.TouchEvent) => {
     if (event instanceof MouseEvent) event.preventDefault()
 
-    if (sliderStarRef.current && sliderLineRef.current && isMoving) {
+    if (sliderStarRef.current && sliderLineRef.current && isMoving && isSliderActive) {
       const deltaY =
         detectCurrentEvent(event).clientX -
         sliderLineRef.current.getBoundingClientRect().left
@@ -103,8 +112,8 @@ const CareerSlider = () => {
       }
 
       const currentInterval = Math.round(pointerPositionInPercent)
-      const minSalary = professionSalary[currentInterval]
-      const maxSalary = professionSalary[currentInterval + 1]
+      const minSalary = salaries[currentInterval]
+      const maxSalary = salaries[currentInterval + 1]
       const intervalPercentage = newPointerPositionInPercent * 2 - currentInterval
       const salaryDelta = maxSalary - minSalary
 
@@ -123,7 +132,12 @@ const CareerSlider = () => {
 
   const sliderEndAnimation = (event: React.MouseEvent | React.TouchEvent) => {
     event.preventDefault()
-    if (sliderStarRef.current && sliderLineRef.current && sliderIconsWrapper.current) {
+    if (
+      sliderStarRef.current &&
+      sliderLineRef.current &&
+      sliderIconsWrapper.current &&
+      isSliderActive
+    ) {
       const currentInterval = Math.round(pointerPositionInPercent * 2)
       const rubierBandPoint = currentInterval / 2
 
@@ -138,7 +152,7 @@ const CareerSlider = () => {
       }
 
       setPointerPositionInPercent(rubierBandPoint)
-      setCurrentSalary(professionSalary[currentInterval])
+      setCurrentSalary(salaries[currentInterval])
     }
     setIsAnimated(true)
     setIsMoving(false)
@@ -216,20 +230,31 @@ const CareerSlider = () => {
             <SliderStar />
           </div>
         </div>
-        <div className="linePointsText">
-          <div className="pointItemFirst">
-            <span className="pointTitle">Junior</span>
-            <span className="pointText">опыт 1-2 года</span>
+
+        {isSliderActive ? (
+          <div className="linePointsText">
+            <div className="pointItemFirst">
+              <span className="pointTitle">Junior</span>
+              <span className="pointText">опыт 1-2 года</span>
+            </div>
+            <div className="pointItemSecond">
+              <span className="pointTitle">Middle</span>
+              <span className="pointText">опыт 2-5 года</span>
+            </div>
+            <div className="pointItemThird">
+              <span className="pointTitle">Senior</span>
+              <span className="pointText">опыт от 5 лет</span>
+            </div>
           </div>
-          <div className="pointItemSecond">
-            <span className="pointTitle">Middle</span>
-            <span className="pointText">опыт 2-5 года</span>
+        ) : (
+          <div className="disabledLinePointsText">
+            <div className="disabledItemFirst">Начальный уровень</div>
+            <div className="disabledItemLast">
+              Дальнейший заработок будет зависеть от выбранного технологического блока,
+              опыта и компании
+            </div>
           </div>
-          <div className="pointItemThird">
-            <span className="pointTitle">Senior</span>
-            <span className="pointText">опыт от 5 лет</span>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

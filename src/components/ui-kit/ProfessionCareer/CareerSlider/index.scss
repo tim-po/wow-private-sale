@@ -51,6 +51,43 @@
     //@media screen and (max-width: 760px) {
     //  margin-top: 80px;
     //}
+    .disabledLinePointsText{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      width: 100%;
+
+      column-gap: 10px;
+      align-items: flex-start;
+
+
+      font-family: 'Inter', serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1F1F22;
+
+
+
+      .disabledItemFirst{
+        white-space: nowrap;
+      }
+      .disabledItemLast{
+        max-width: 57%;
+      }
+
+      @media screen and (max-width: 760px) {
+        flex-direction: column;
+        row-gap: 16px;
+
+        .disabledItemLast{
+          max-width: none;
+        }
+
+      }
+    }
+
 
     .linePointsText {
       display: flex;

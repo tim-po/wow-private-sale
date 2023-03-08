@@ -4,16 +4,16 @@ import ImgMainLetterB from 'images/icons/Static/imgMainLetterB'
 import ImgMainLetterA from 'images/icons/Static/imgMainLetterA'
 import ImgMainLetterC from 'images/icons/Static/imgMainLetterC'
 import ImgMainLetterD from 'images/icons/Static/imgMainLetterD'
-import CareerSlider from './CareerSlider'
+import CareerSlider, { CareerSliderProps } from './CareerSlider'
 
-const ProfessionCareer = () => {
+type ProfessionCareerProps = CareerSliderProps
 
-
+const ProfessionCareer = ({ salaries }: ProfessionCareerProps) => {
   return (
     <div className="professionCareerWrapper">
       <div className={'professionCareerFlexWrapperSlider'}>
         <span className="professionCareerWrapperTitle">Карьера</span>
-        <CareerSlider/>
+        <CareerSlider salaries={salaries} />
       </div>
       <div className={'professionCareerFlexWrapperActivity'}>
         <span className="professionCareerWrapperTitle">Чем ты будешь заниматься</span>

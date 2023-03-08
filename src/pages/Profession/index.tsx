@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useProfession } from '../../Models/useProfession'
 import { changeBg } from '../../utils/background/background'
 import {
@@ -14,8 +14,6 @@ import ProfessionCareer from '../../components/ui-kit/ProfessionCareer'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
 import NotFound from '../../components/NotFound'
-
-type ProfessionContextType = ReturnType<typeof useProfession>
 
 const Profession = () => {
   const navigate = useNavigate()
@@ -83,7 +81,7 @@ const Profession = () => {
             </Button>
           </div>
         </div>
-        <ProfessionCareer />
+        <ProfessionCareer salaries={profession?.salaries} />
       </div>
     </div>
   )

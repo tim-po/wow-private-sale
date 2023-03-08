@@ -8,6 +8,7 @@ export type Profession = {
   related_keywords: KeywordType[]
   visible_keywords: KeywordType[]
   name: string
+  salaries: number[]
 }
 
 export type PresetType = {

@@ -27,6 +27,8 @@ const Professions = () => {
   const [isProfessionsLoading, setIsProfessionsLoading] = useState(true)
   const [isFeedbackPopupVisible, setIsFeedbackPopupVisible] = useState(false)
 
+  const [professions, setProfessions] = useState<Profession[] | undefined>(undefined)
+
   const { displayModal } = useContext(ModalContext)
   const professionChosen = (profession: Profession) => {
     setIsHeaderAnimated(true)
@@ -50,30 +52,49 @@ const Professions = () => {
     setIsProfessionsLoading(true)
     const response = await axios.get(`${BASE_URL}professions/`)
     const professions: Profession[] = response.data
+    setProfessions(professions)
+  }
 
-    setProfessionsWithCustomSvg(professions)
-    const newProfessionsWithCustomSvg: Profession[] = []
-    for (let i = 0; i < professions.length; i++) {
-      const profession = professions[i]
-      await fetch(`${BASE_URL}professions/${profession.id}/svg/`)
-        .then(res => res.json())
-        .then(res => {
-          newProfessionsWithCustomSvg[i] = { ...profession, svg: res.svg }
+  const fetchProfessionsSvg = (professions: Profession[]) => {
+    const professionsWithCustomSvg: Profession[] = []
+    const request = professions.map((profession: Profession) => {
+      return axios
+        .get(profession.icon, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
         })
-    }
-    await setProfessionsWithCustomSvg(newProfessionsWithCustomSvg)
-    setIsProfessionsLoading(false)
+        .then(response => {
+          professionsWithCustomSvg.push({
+            ...profession,
+            svg: response.data,
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    })
+    return Promise.all(request).then(() => {
+      setProfessionsWithCustomSvg(professionsWithCustomSvg)
+      setIsProfessionsLoading(false)
+    })
   }
 
   useEffect(() => {
+    getProfessions()
     changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
-    getProfessions().then(() => {
-      setTimeout(() => setIsFeedbackPopupVisible(true), 2000)
-    })
     updateStickyBlocks()
   }, [])
+
+  useEffect(() => {
+    if (professions?.length) {
+      fetchProfessionsSvg(professions).then(() => {
+        setTimeout(() => setIsFeedbackPopupVisible(true), 2000)
+      })
+    }
+  }, [professions, professions?.length])
 
   return (
     <div className="ProfessionsPageContainer">

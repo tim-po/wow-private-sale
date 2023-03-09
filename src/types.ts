@@ -1,6 +1,7 @@
 export type KeywordType = { text: string; id: string }
 
 export type Profession = {
+  icon: string
   svg: string
   description: string
   id: string

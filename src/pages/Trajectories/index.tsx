@@ -35,7 +35,7 @@ const Trajectories = () => {
 
   const getTrajectoriesFromKeywords = (keywordIds: string[]) => {
     axios
-      .post(`${BASE_URL}trajectories/?top_n=10`, {
+      .post(`${BASE_URL}trajectories/?top_n=3`, {
         keywords: keywordIds,
         profession_id: profession?.id,
       })
@@ -55,6 +55,7 @@ const Trajectories = () => {
         if (!trajectoryIds.length) {
           getTrajectoriesFromKeywords(keywords.allIds)
         } else {
+          console.log(keywords.allIds)
           getTrajectoriesFromIds(trajectoryIds)
         }
       } catch (e) {

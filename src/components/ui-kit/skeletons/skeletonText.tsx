@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeEmptyList } from '../general'
+import { makeEmptyList } from '../../../utils/general'
 import styled from 'styled-components'
 
 const WrapText = styled.div`
@@ -8,7 +8,12 @@ const WrapText = styled.div`
   flex-wrap: wrap;
 `
 
-export const skeletonText = (wordCount: number, height?: number) => {
+type SkeletonTextPropType = {
+  wordCount: number
+  height?: number
+}
+const SkeletonText = (props: SkeletonTextPropType) => {
+  const { wordCount, height } = props
   return (
     <WrapText>
       {makeEmptyList(wordCount).map((_, index) => {
@@ -26,5 +31,4 @@ export const skeletonText = (wordCount: number, height?: number) => {
     </WrapText>
   )
 }
-
-export default skeletonText
+export default SkeletonText

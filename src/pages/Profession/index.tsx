@@ -3,18 +3,14 @@ import './index.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useProfession } from '../../Models/useProfession'
 import { changeBg } from '../../utils/background/background'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
+import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import Button from '../../components/ui-kit/Button'
 import { RoutesName } from '../../types'
 import ProfessionCareer from '../../components/ui-kit/ProfessionCareer'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
 import NotFound from '../../components/NotFound'
-import skeletonText from '../../utils/skeletons/skeletonText'
+import SkeletonText from '../../components/ui-kit/skeletons/skeletonText'
 
 const Profession = () => {
   const navigate = useNavigate()
@@ -41,7 +37,7 @@ const Profession = () => {
       <div className="contentWrapper">
         <div className="headerFlex" {...createStickyBlock(1)} data-margin-top="0">
           <h4 className="currentHeader fontWeightBold" id="scrollToTop">
-            {profession ? profession.name : skeletonText(2, 20)}
+            {profession ? profession.name : <SkeletonText wordCount={2} height={20} />}
           </h4>
         </div>
         <div className="professionDescription">
@@ -49,7 +45,7 @@ const Profession = () => {
           {profession ? (
             <span className="professionDescriptionText">{profession.description}</span>
           ) : (
-            skeletonText(80)
+            <SkeletonText wordCount={80} />
           )}
         </div>
         <div className="actionBlock">

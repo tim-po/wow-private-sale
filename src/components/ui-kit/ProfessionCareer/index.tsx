@@ -5,7 +5,7 @@ import ImgMainLetterA from 'images/icons/Static/imgMainLetterA'
 import ImgMainLetterC from 'images/icons/Static/imgMainLetterC'
 import ImgMainLetterD from 'images/icons/Static/imgMainLetterD'
 import CareerSlider, { CareerSliderProps } from './CareerSlider'
-import skeletonText from '../../../utils/skeletons/skeletonText'
+import SkeletonText from '../skeletons/skeletonText'
 
 type ProfessionCareerProps = CareerSliderProps
 
@@ -22,25 +22,25 @@ const ProfessionCareer = ({ salaries, responsibilities }: ProfessionCareerProps)
           <div className="activitiesBlockItem">
             <ImgMainLetterA width={40} height={40} />
             <span className="actionBlockItemText">
-              {responsibilities ? responsibilities[0] : skeletonText(20)}
+              {responsibilities ? responsibilities[0] : <SkeletonText wordCount={20} />}
             </span>
           </div>
           <div className="activitiesBlockItem">
             <ImgMainLetterB width={40} height={40} />
             <span className="actionBlockItemText">
-              {responsibilities ? responsibilities[1] : skeletonText(20)}
+              {responsibilities ? responsibilities[1] : <SkeletonText wordCount={20} />}
             </span>
           </div>
           <div className="activitiesBlockItem">
             <ImgMainLetterC width={40} height={40} />
             <span className="actionBlockItemText">
-              {responsibilities ? responsibilities[2] : skeletonText(20)}
+              {responsibilities ? responsibilities[2] : <SkeletonText wordCount={20} />}
             </span>
           </div>
           <div className="activitiesBlockItem">
             <ImgMainLetterD width={40} height={40} />
             <span className="actionBlockItemText">
-              {responsibilities ? responsibilities[3] : skeletonText(20)}
+              {responsibilities ? responsibilities[3] : <SkeletonText wordCount={20} />}
             </span>
           </div>
         </div>

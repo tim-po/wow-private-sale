@@ -81,7 +81,10 @@ const Profession = () => {
             </Button>
           </div>
         </div>
-        <ProfessionCareer salaries={profession?.salaries} />
+        <ProfessionCareer
+          responsibilities={profession?.responsibilities}
+          salaries={profession?.salaries}
+        />
       </div>
     </div>
   )

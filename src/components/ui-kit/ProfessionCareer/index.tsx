@@ -8,7 +8,7 @@ import CareerSlider, { CareerSliderProps } from './CareerSlider'
 
 type ProfessionCareerProps = CareerSliderProps
 
-const ProfessionCareer = ({ salaries }: ProfessionCareerProps) => {
+const ProfessionCareer = ({ salaries, responsibilities }: ProfessionCareerProps) => {
   return (
     <div className="professionCareerWrapper">
       <div className={'professionCareerFlexWrapperSlider'}>
@@ -17,32 +17,26 @@ const ProfessionCareer = ({ salaries }: ProfessionCareerProps) => {
       </div>
       <div className={'professionCareerFlexWrapperActivity'}>
         <span className="professionCareerWrapperTitle">Чем ты будешь заниматься</span>
-        <div className="activitiesBlock">
-          <div className="activitiesBlockItem">
-            <ImgMainLetterA width={40} height={40} />
-            <span className="actionBlockItemText">
-              Рефакторить и оптимизировать разработанные приложений
-            </span>
+        {responsibilities && (
+          <div className="activitiesBlock">
+            <div className="activitiesBlockItem">
+              <ImgMainLetterA width={40} height={40} />
+              <span className="actionBlockItemText">{responsibilities[0]}</span>
+            </div>
+            <div className="activitiesBlockItem">
+              <ImgMainLetterB width={40} height={40} />
+              <span className="actionBlockItemText">{responsibilities[1]}</span>
+            </div>
+            <div className="activitiesBlockItem">
+              <ImgMainLetterC width={40} height={40} />
+              <span className="actionBlockItemText">{responsibilities[2]}</span>
+            </div>
+            <div className="activitiesBlockItem">
+              <ImgMainLetterD width={40} height={40} />
+              <span className="actionBlockItemText">{responsibilities[3]}</span>
+            </div>
           </div>
-          <div className="activitiesBlockItem">
-            <ImgMainLetterB width={40} height={40} />
-            <span className="actionBlockItemText">
-              Рефакторить и оптимизировать разработанные приложений
-            </span>
-          </div>
-          <div className="activitiesBlockItem">
-            <ImgMainLetterC width={40} height={40} />
-            <span className="actionBlockItemText">
-              Рефакторить и оптимизировать разработанные приложений
-            </span>
-          </div>
-          <div className="activitiesBlockItem">
-            <ImgMainLetterD width={40} height={40} />
-            <span className="actionBlockItemText">
-              Рефакторить и оптимизировать разработанные приложений
-            </span>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

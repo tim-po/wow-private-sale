@@ -20,7 +20,7 @@
     margin-bottom: 16px;
   }
 
-  .professionCareerFlexWrapperSlider{
+  .professionCareerFlexWrapperSlider {
     display: flex;
     flex-direction: column;
     width: 45%;
@@ -30,7 +30,7 @@
     }
   }
 
-  .professionCareerFlexWrapperActivity{
+  .professionCareerFlexWrapperActivity {
     display: flex;
     flex-direction: column;
     width: 60%;
@@ -59,14 +59,25 @@
       }
 
 
-        svg {
+      svg {
         margin-right: 16px;
+        min-width: 50px;
       }
 
       &Text {
         font-weight: 400;
         font-size: 14px;
         color: #1F1F22;
+      }
+    }
+  }
+
+  .actionBlock {
+    &Item {
+      &Text {
+        @media screen and (max-width: 760px) {
+          font-size: 12px;
+        }
       }
     }
   }

@@ -30,6 +30,7 @@ const TWO_THIRDS = 0.666
 
 export type CareerSliderProps = {
   salaries?: number[]
+  responsibilities?: string[]
 }
 
 const CareerSlider = ({ salaries }: CareerSliderProps) => {

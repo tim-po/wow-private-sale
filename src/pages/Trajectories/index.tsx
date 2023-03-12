@@ -41,21 +41,22 @@ const Trajectories = () => {
       })
       .then(r => {
         const newTrajectoryIds = r.data.map((el: TrajectoryType) => el.id)
-        navigate(`/trajectories?ids=${JSON.stringify(newTrajectoryIds)}`)
-        getTrajectoriesFromIds(newTrajectoryIds)
+        setTrajectories(r.data)
+        navigate(`/trajectories?ids=${JSON.stringify(newTrajectoryIds)}`, {
+          replace: true,
+        })
       })
   }
 
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
-    if (trajectories.length === 0) {
+    if (trajectories.length === 0 && keywords.allIds.length !== 0) {
       try {
         const trajectoryIds = JSON.parse(searchParams.get('ids') || '[]')
 
         if (!trajectoryIds.length) {
           getTrajectoriesFromKeywords(keywords.allIds)
         } else {
-          console.log(keywords.allIds)
           getTrajectoriesFromIds(trajectoryIds)
         }
       } catch (e) {

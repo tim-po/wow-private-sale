@@ -23,6 +23,33 @@ export const useProfession = (professionId?: string) => {
     setIsFirstRender(false)
   }, [])
 
+  const getPresets = async () => {
+    await axios
+      .get(`${BASE_URL}presets/`)
+      .then(({ data }) => setPresets(data))
+      .catch(setError)
+
+    setSelectedPresetIds(
+      withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.load)
+        .selectedPresetIds,
+    )
+  }
+
+  const updateAllSelectedKeywordIds = () => {
+    if (!profession || !profession.related_keywords) {
+      return []
+    }
+    let allIds = profession.related_keywords.map(keyword => keyword.id)
+    allIds = [...allIds, ...addedKeywords.map(keyword => keyword.id)]
+    selectedPresets.forEach(preset => {
+      allIds = allIds.concat(preset.keywords.map(keyword => keyword.id))
+    })
+    allIds = allIds.filter(id => !removedKeywords.map(keyword => keyword.id).includes(id))
+    if (allIds !== allSelectedKeywordIds) {
+      setAllSelectedKeywordIds(allIds)
+    }
+  }
+
   const getProfession = async (id: string | undefined) => {
     const professionFromLocal = withLocalStorage(
       { profession: {} },
@@ -54,23 +81,13 @@ export const useProfession = (professionId?: string) => {
       withLocalStorage({ removedKeywords: [] }, LocalStorageInteraction.load)
         .removedKeywords,
     )
-  }
 
-  const getPresets = async () => {
-    await axios
-      .get(`${BASE_URL}presets/`)
-      .then(({ data }) => setPresets(data))
-      .catch(setError)
-
-    setSelectedPresetIds(
-      withLocalStorage({ selectedPresetIds: [] }, LocalStorageInteraction.load)
-        .selectedPresetIds,
-    )
+    await getPresets()
+    updateAllSelectedKeywordIds()
   }
 
   useEffect(() => {
     getProfession(professionId)
-    getPresets()
   }, [])
 
   const updateSelectedPresets = () => {
@@ -79,20 +96,6 @@ export const useProfession = (professionId?: string) => {
 
   const updateDisplayPresets = () => {
     setDisplayPresets(presets.filter(preset => !selectedPresetIds.includes(preset.id)))
-  }
-
-  const updateAllSelectedKeywordIds = () => {
-    if (!profession || !profession.related_keywords) {
-      return []
-    }
-    let allIds = profession.related_keywords.map(keyword => keyword.id)
-    allIds = [...allIds, ...addedKeywords.map(keyword => keyword.id)]
-    selectedPresets.forEach(preset => {
-      allIds = allIds.concat(preset.keywords.map(keyword => keyword.id))
-    })
-    allIds = allIds.filter(id => !removedKeywords.map(keyword => keyword.id).includes(id))
-
-    setAllSelectedKeywordIds(allIds)
   }
 
   const updateDisplayKeywords = () => {
@@ -115,23 +118,13 @@ export const useProfession = (professionId?: string) => {
   }, [selectedPresetIds])
 
   useEffect(() => {
-    updateAllSelectedKeywordIds()
-  }, [selectedPresets, profession])
-
-  useEffect(() => {
     if (!isFirstRender) {
       withLocalStorage({ addedKeywords }, LocalStorageInteraction.save)
-      updateDisplayKeywords()
-      updateAllSelectedKeywordIds()
-    }
-  }, [addedKeywords])
-  useEffect(() => {
-    if (!isFirstRender) {
       withLocalStorage({ removedKeywords }, LocalStorageInteraction.save)
       updateDisplayKeywords()
       updateAllSelectedKeywordIds()
     }
-  }, [removedKeywords])
+  }, [addedKeywords, removedKeywords])
 
   // <editor-fold desc="Actions">
   const selectPreset = (presetId: string) => {

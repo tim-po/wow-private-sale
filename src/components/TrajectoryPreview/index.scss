@@ -31,9 +31,15 @@
 }
 
 .trajectoryHeader {
+  transition: all 0.2s;
   font-weight: 700;
   font-size: 20px;
   position: relative;
+  cursor: pointer;
+
+  &:hover{
+    color: var(--color-brand);
+  }
 
   .eduDirectionCode {
     display: block;

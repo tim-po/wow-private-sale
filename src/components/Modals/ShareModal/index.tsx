@@ -52,21 +52,8 @@ const ShareModal = () => {
           </div>
           <div className="shareBtnContainer">
             <Button
-              buttonStyle={'secondary'}
-              onClick={() => shareWithoutName()}
-              // onClick={() =>
-              //   setTimeout(() => {
-              //     window.open(linkAbit, '_blank')
-              //   })
-              isDisabled={false}
-              classNames={['share-button']}
-            >
-              {isLinkWithoutNameCopied ? 'Ссылка скопирована' : 'Продолжить без имени'}
-            </Button>
-            <Button
               buttonStyle={'main'}
               onClick={shareWithName}
-              isDisabled={name === ''}
               classNames={['share-button']}
             >
               {isLinkWithNameCopied ? 'Ссылка скопирована' : 'Поделиться'}

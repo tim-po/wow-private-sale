@@ -147,7 +147,7 @@
   max-width: 240px;
   transition: all 0.4s;
   transform: translateX(0);
-  width: max-content;
+  width: 240px;
   color: #1F1F22;
   cursor: initial;
 
@@ -173,7 +173,8 @@
   right: 0;
   box-shadow: var(--default-shadow);
   opacity: 0;
-  //max-height: 12px;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .subjectsFlex {
@@ -263,7 +264,7 @@
   transform: rotate(0deg);
 }
 
-.Arrow.Open {
+.Arrow.open {
   transform: rotate(180deg);
 }
 

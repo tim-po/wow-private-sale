@@ -70,7 +70,10 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
       <div className={`TrajectoriesCardHeader ${isSkeleton ? 'MainSkeleton' : ''}`}>
         {!isSkeleton && (
           <>
-            <h5 className="trajectoryHeader mb-0">
+            <h5
+              className="trajectoryHeader mb-0"
+              onClick={trajectory && (() => trajectoryChosen(trajectory))}
+            >
               {trajectory.educational_plan}
               <span className={'eduDirectionCode'}>
                 {trajectory.code.replace(/\.$/, '')}

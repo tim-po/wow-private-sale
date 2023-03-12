@@ -5,6 +5,7 @@ import Hints from '../../ui-kit/hints'
 import { BASE_URL, colors } from '../../../constants'
 import { TrajectoryDisciplineType } from 'types'
 import Flame from '../../../images/icons/flame'
+import useOnClickOutside from '../../../utils/useClickOutside'
 
 type TrajectoryDisciplineModalPropType = {
   id: number
@@ -40,6 +41,8 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   const [filteredReplacementOptions, setFilteredReplacementOptions] = useState<
     IDiscipline[]
   >([])
+
+  const replacementOptionsRef = useRef<HTMLDivElement>(null)
   const [isOtherReplacementOptionsOpen, setIsOtherReplacementOptionsOpen] =
     useState<boolean>(false)
   const [movement, setMovement] = useState<DisciplineMovement>(DisciplineMovement.none)
@@ -92,6 +95,8 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
   const toggleReplacementOptions = () => {
     setIsOtherReplacementOptionsOpen(!isOtherReplacementOptionsOpen)
   }
+
+  useOnClickOutside(replacementOptionsRef, () => setIsOtherReplacementOptionsOpen(false))
 
   useEffect(() => {
     getDisciplineData()
@@ -159,11 +164,11 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
               <p className="TextCenter modalColHeader">
                 {trajectoryDisciplineData.semester} семестр
               </p>
-              <div>
+              <div ref={replacementOptionsRef}>
                 <button
                   ref={filteredReplacementOptions.length ? hintSemesterChoice : undefined}
                   key={trajectoryDisciplineData.semester}
-                  className="disciplineCardModal mx-auto"
+                  className="disciplineCardModal clickable mx-auto"
                   onClick={toggleReplacementOptions}
                 >
                   {trajectoryDisciplineData.name}
@@ -185,7 +190,14 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                       isOtherReplacementOptionsOpen ? 'open' : 'close'
                     }`}
                   >
-                    {filteredReplacementOptions.map(replacementOption => (
+                    {[
+                      ...filteredReplacementOptions,
+                      ...filteredReplacementOptions,
+                      ...filteredReplacementOptions,
+                      ...filteredReplacementOptions,
+                      ...filteredReplacementOptions,
+                      ...filteredReplacementOptions,
+                    ].map(replacementOption => (
                       <button
                         key={replacementOption.id}
                         className={`discipline`}

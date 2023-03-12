@@ -80,9 +80,7 @@ const DiplomaShare = () => {
           {diplomaShareData ? (
             <>
               Траектория построена для{' '}
-              {searchParams.get('name')
-                ? searchParams.get('name')
-                : 'анонимного будущего студента'}
+              {searchParams.get('name') ? searchParams.get('name') : 'будущего студента'}
             </>
           ) : (
             <div

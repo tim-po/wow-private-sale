@@ -3,7 +3,7 @@ import './index.scss'
 import Spinners from '../../../images/icons/spinners'
 
 type SpinnerPropType = {
-  width: string
+  width: number
 }
 
 const Spinner = (props: SpinnerPropType) => {
@@ -11,8 +11,8 @@ const Spinner = (props: SpinnerPropType) => {
 
   return (
     <div className="spinner-container">
-      <div className="spinner">
-        <Spinners width={Number(width)} />
+      <div className="spinner" style={{ width: width, height: width }}>
+        <Spinners width={width} height={width} />
       </div>
     </div>
   )

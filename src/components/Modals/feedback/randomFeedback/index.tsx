@@ -10,6 +10,10 @@ import { LocalStorageInteraction, withLocalStorage } from '../../../../utils/gen
 import FeedbackGroupIdContext from '../../../../Context/IdGroup'
 import RandomFeedbackContext from '../../../../Context/RandomFeedback'
 import useOnClickOutside from '../../../../utils/useClickOutside'
+import {
+  useCustomValidationState,
+  validationFuncs,
+} from '../../../../hooks/useValidationState'
 
 const feedbackDataByGroup: {
   [key: number]: { title: string; mapButton: string[] }
@@ -67,15 +71,22 @@ const feedbackDataByGroup: {
 
 const RandomFeedback = ({ displayForGroup = 0 }) => {
   const feedbackRef = useRef<HTMLDivElement | null>(null)
-
   const { isOpenRandomFeedback } = useContext(RandomFeedbackContext)
-
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [selectedButton, setSelectedButton] = useState<number>(-1)
   const [showFeedback, setShowFeedback] = useState(false)
-  const [textDetailed, setTextDetailed] = useState('')
+
   const { groupId } = useContext(FeedbackGroupIdContext)
   const [cookie] = useCookies(['_ym_uid'])
+
+  const [[textDetailed, setTextDetailed], isTextValid, validateText] =
+    useCustomValidationState<string>('', validationFuncs.hasValue, true)
+  const [
+    [selectedButton, setSelectedButton],
+    isSelectedButtonValid,
+    validateSelectedButton,
+  ] = useCustomValidationState<number>(-1, newNumber => newNumber !== -1, true)
+
+  const isFeedbackValid = selectedButton !== -1 || textDetailed !== ''
 
   const [isSeeIcon, setIsSeeIcon] = useState(true)
   const [mobileButtonHeight, setMobileButtonHeight] = useState(0)
@@ -111,28 +122,27 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
   })
 
   function sendFeedback() {
-    const user = {
-      email: '',
-      score: selectedButton,
-      text: `${feedbackDataByGroup[displayForGroup]['mapButton'][selectedButton]} ${textDetailed}`,
-      user_id: cookie._ym_uid,
-      feedback_type: displayForGroup,
+    validateText()
+    validateSelectedButton()
+    if (isFeedbackValid) {
+      const user = {
+        email: '',
+        score: selectedButton,
+        text: `${feedbackDataByGroup[displayForGroup]['mapButton'][selectedButton]} ${textDetailed}`,
+        user_id: cookie._ym_uid,
+        feedback_type: displayForGroup,
+      }
+      axios
+        .post(`${BASE_URL}feedback/`, user, {})
+        .then(() => {
+          setIsSubmitted(true)
+          setSelectedButton(-1)
+          setTextDetailed('')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
-    axios
-      .post(`${BASE_URL}feedback/`, user, {})
-      .then(() => {
-        setIsSubmitted(true)
-        setSelectedButton(-1)
-        setTextDetailed('')
-        setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1)
-        withLocalStorage(
-          { alreadySentFeedbackCount: alreadySentFeedbackCount + 1 },
-          LocalStorageInteraction.save,
-        )
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
   }
 
   function closeFeedback() {
@@ -142,6 +152,11 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       setTimeout(() => {
         if (isSubmitted) {
           setIsSubmitted(false)
+          setAlreadySentFeedbackCount(alreadySentFeedbackCount + 1)
+          withLocalStorage(
+            { alreadySentFeedbackCount: alreadySentFeedbackCount + 1 },
+            LocalStorageInteraction.save,
+          )
         }
       }, 300)
     }, 100)
@@ -156,10 +171,12 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
       openFeedback()
     }, 2000)
   }, [])
+
   useOnClickOutside(feedbackRef, () => closeFeedback())
-  if (alreadySentFeedbackCount > 20 || displayForGroup !== groupId) {
+  if (alreadySentFeedbackCount >= 20 || displayForGroup !== groupId) {
     return null
   }
+
   const styleBottomPosition = () => {
     if (!showFeedback) {
       if (mobileButtonHeight === 0) {
@@ -203,7 +220,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
                     return (
                       <button
                         key={controlTypeName}
-                        onClick={() => setSelectedButton(index)}
+                        onClick={() => setSelectedButton(index, true)}
                         className={`selectButton ${
                           selectedButton === index ? 'active' : ''
                         }`}
@@ -219,11 +236,16 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
                 <span className="descriptionСontainerText">Или расскажи подробнее</span>
                 <textarea
                   value={textDetailed}
-                  onChange={e => setTextDetailed(e.target.value)}
+                  onChange={e => setTextDetailed(e.target.value, true)}
                   placeholder="Комментарий"
                   className="first-form"
                 />
               </div>
+              {!isTextValid && !isSelectedButtonValid && (
+                <span style={{ color: 'var(--color-12)' }}>
+                  Нужно выбрать хотя бы один тэг или ввести комментарий
+                </span>
+              )}
               <div className="possibleNumberFormSubmissions">
                 Ты можешь отправить форму еще <b>{20 - alreadySentFeedbackCount}</b> раз.
               </div>
@@ -232,9 +254,7 @@ const RandomFeedback = ({ displayForGroup = 0 }) => {
                   Отмена
                 </button>
                 <button
-                  className={`submit ${
-                    selectedButton !== -1 || textDetailed !== '' ? '' : 'notValid'
-                  }`}
+                  className={`submit ${isFeedbackValid ? '' : 'notValid'}`}
                   onClick={sendFeedback}
                 >
                   Отправить

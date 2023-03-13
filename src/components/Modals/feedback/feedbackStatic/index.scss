@@ -29,6 +29,10 @@
 
   }
 
+  .validation{
+    border-color: red;
+  }
+
   .containerText {
     text-align: left;
     margin-top: 22px;
@@ -60,22 +64,8 @@
     gap: 10px;
 
     .btn {
-      min-width: 142px;
-      color: #8533FF;
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 20px;
-      padding: 10px 12px;
-      border-radius: 8px;
-
-      &.cancellation {
-        border: 1px solid #8533FF;
-      }
-
-      &.submit {
-        background: #8533FF;
-        color: #FFFFFF;
-      }
+      width: 100%;
+      pointer-events: all;
     }
   }
 }

@@ -9,13 +9,14 @@ import ModalContext from '../../Context/Modal'
 import TrajectoryStats from '../../components/trajectory/TrajectoryStats'
 import Card from '../../components/trajectory/Card'
 import './index.scss'
-import { makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import Hints from '../../components/ui-kit/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import useWindowDimensions from '../../utils/useWindowDimensions'
 import IconTabBottomRound from '../../images/icons/IconTabBottomRound'
+import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()
@@ -204,6 +205,7 @@ const Trajectory = () => {
       {courseQuery !== 5 && (
         <div className="MainTrajectoryFlex flex-row flex-block">
           <TrajectoryStats
+            abitLink={trajectory?.abit_link}
             className="Mobile"
             loading={loading}
             setSelectedSphere={setSelectedSphere}
@@ -275,6 +277,9 @@ const Trajectory = () => {
                   />
                 )
               })}
+            {!!trajectory && width < 1000 && (
+              <ApplyAndShareBlock linkAbit={makeAbitUtmFromSlug(trajectory.abit_link)} />
+            )}
           </div>
         </div>
       )}

@@ -7,7 +7,9 @@ import ControlTypeTile from '../../ui-kit/ControlTypeTile'
 import ModalContext from '../../../Context/Modal'
 import ControlTypeModal from '../../Modals/ControlTypeModal'
 import { scrollToElement } from '../../../utils/scrollToElement'
-import { makeEmptyList } from '../../../utils/general'
+import { makeAbitUtmFromSlug, makeEmptyList } from '../../../utils/general'
+import ApplyAndShareBlock from '../ApplyAndShareBlock'
+import useWindowDimensions from '../../../utils/useWindowDimensions'
 
 const skeletonCircles = [
   { D: 120, top: 32, left: 26 },
@@ -25,10 +27,13 @@ type TrajectoryStatsPropType = {
   className: string
   loading?: boolean
   setSelectedSphere?: (value: string) => void
+  abitLink?: string
 }
 
 const TrajectoryStats = (props: TrajectoryStatsPropType) => {
-  const { course, className = 'Mobile', setSelectedSphere, loading } = props
+  const { course, className = 'Mobile', setSelectedSphere, loading, abitLink } = props
+  const { width } = useWindowDimensions()
+
   const [focusedCircleLoading] = useState(false)
   const [focusedCircle, setFocusedCircle] = useState<any>(undefined)
   const [isTooltipActive, setIsTooltipActive] = useState(false)
@@ -322,6 +327,10 @@ const TrajectoryStats = (props: TrajectoryStatsPropType) => {
           <span>{!loading && getNecessityCount().chosen}</span>
         </button>
       </div>
+
+      {width > 1000 && (
+        <ApplyAndShareBlock linkAbit={makeAbitUtmFromSlug(abitLink || '')} />
+      )}
     </div>
   )
 }

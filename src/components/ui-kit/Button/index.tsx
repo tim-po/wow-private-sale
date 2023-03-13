@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import './index.scss'
 import styled, { css } from 'styled-components'
 
 type ButtonPropType = {
   buttonStyle: 'secondary' | 'main'
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLButtonElement>
   children: React.ReactNode
   isDisabled?: boolean
   classNames?: string[]
@@ -39,7 +39,11 @@ const StyledButton = styled.button<{
         border: 1px solid ${props.isDisabled ? '#C198FF' : '#8533FF'};
         color: ${props.isDisabled ? '#C198FF' : '#8533FF'}
       `};
-  ${props => props.isDisabled && css`pointer-events: none;`};
+   ${props =>
+     props.isDisabled &&
+     css`
+     pointer-events: none;
+   `};
 
   &:hover {
     transition: all .3s;

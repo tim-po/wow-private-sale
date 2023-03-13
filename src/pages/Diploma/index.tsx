@@ -41,7 +41,6 @@ const Diploma = () => {
       console.log(e)
     }
   }
-
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
     getDiplomaData()

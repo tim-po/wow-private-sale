@@ -1,17 +1,23 @@
-import React from "react";
-import numeralize from "numeralize-ru";
+import React from 'react'
+import numeralize from 'numeralize-ru'
 
-export const refactorName = (count:number, examName:string):string =>{
-  if(examName==='Экзамен')
+export const refactorName = (count: number, examName: string): string => {
+  if (examName === 'Экзамен')
     return numeralize.pluralize(count, 'Экзамен', 'Экзамена', 'Экзаменов')
-  else if(examName==='Зачет')
+  else if (examName === 'Зачет')
     return numeralize.pluralize(count, 'Зачет', 'Зачета', 'Зачетов')
-  else if (examName==='Дифференцированный зачет')
+  else if (examName === 'Дифференцированный зачет')
     return numeralize.pluralize(count, 'Диф.зачет', 'Диф.зачета', 'Диф.зачетов')
-  else if (examName=== 'Консультация')
+  else if (examName === 'Консультация')
     return numeralize.pluralize(count, 'Консультация', 'Консультации', 'Консультаций')
-  else if (examName=== 'Курсовая работа')
+  else if (examName === 'Курсовая работа')
     return numeralize.pluralize(count, 'Курсовая', 'Курсовые', 'Курсовых')
+  else if (examName === 'Курсовой проект')
+    return numeralize.pluralize(
+      count,
+      'Курсовой проект',
+      'Курсовые проекты',
+      'Курсовых проект',
+    )
   return ''
 }
-

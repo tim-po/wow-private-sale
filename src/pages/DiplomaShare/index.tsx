@@ -16,7 +16,7 @@ import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import Close from '../../images/icons/close'
-import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 import DiplomaLineImg from '../../images/icons/Static/diploma-line-img'
 
@@ -147,7 +147,7 @@ const DiplomaShare = () => {
                 <Link
                   href={
                     diplomaShareData
-                      ? makeAbitUtmFromlSlug(diplomaShareData.abit_link)
+                      ? makeAbitUtmFromSlug(diplomaShareData.abit_link)
                       : ''
                   }
                 >

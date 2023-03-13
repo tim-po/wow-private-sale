@@ -19,8 +19,10 @@ import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../utils/refactorName'
 import { changeBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
-import { makeAbitUtmFromlSlug, makeEmptyList } from '../../utils/general'
+import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
+import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
+import useWindowDimensions from '../../utils/useWindowDimensions'
 
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -50,7 +52,7 @@ const Diploma = () => {
     if (diplomaData && diplomaData.main_keywords.length) {
       const keywordsArray = makeKeywordsArray(diplomaData.main_keywords)
       setKeywords(keywordsArray)
-      setLinkAbit(makeAbitUtmFromlSlug(diplomaData.abit_link))
+      setLinkAbit(makeAbitUtmFromSlug(diplomaData.abit_link))
     }
   }, [diplomaData])
 
@@ -84,40 +86,7 @@ const Diploma = () => {
               isKeywordsButtonHidden
               keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
             />
-            <div className={`mobileBottomWrapper`} id="mobilBottomButton">
-              <span className="marginText descriptionDiplomaMobile">
-                Это твоя траектория в университете ИТМО!
-                <br />
-                Поступай к нам чтобы изучать то, что нравится.
-              </span>
-              <div className="buttons-wrapper">
-                <Button
-                  buttonStyle={'main'}
-                  isDisabled={false}
-                  onClick={() =>
-                    setTimeout(() => {
-                      window.open(linkAbit, '_blank')
-                    })
-                  }
-                  classNames={['mobile-button maxWidth']}
-                >
-                  <span className={'button-text'}>Поступить в ИТМО</span>
-                </Button>
-                <Button
-                  buttonStyle={'secondary'}
-                  onClick={() => displayModal(<ShareModal />)}
-                  isDisabled={false}
-                  classNames={['mobile-button']}
-                >
-                  <span className={'button-text share'}>Поделиться</span>
-                  <div className="share-button-content">
-                    <div className={'share-icon'}>
-                      <Share />
-                    </div>
-                  </div>
-                </Button>
-              </div>
-            </div>
+            <ApplyAndShareBlock linkAbit={linkAbit} />
           </div>
 
           <div className="right-tiles">

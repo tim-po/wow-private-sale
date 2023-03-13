@@ -1,11 +1,10 @@
 default:
 	@echo "please select a command from makefile"
 
+.PHONY: component
+
 component:
-	@mkdir ./src/components/$(source)/$(name)
-	@cat ./src/components/AComponentSnippet/index.tsx | sed 's?SnippetComponent?'$(name)'?' | sed 's?some-classname?'$(name)'?' | sed 's?SnippetComponentProp?'$(name)Prop'?' > ./src/components/$(source)/$(name)/index.tsx
-	@cat ./src/components/AComponentSnippet/index.scss | sed 's?some-classname?'$(name)'?'  > ./src/components/$(source)/$(name)/index.scss
-	@git add ./src/components/$(source)/$(name)/index.scss ./src/components/$(source)/$(name)/index.tsx
+	@npx plop --plopfile ./plopTemplates/component.js --componentName=$$COMPONENT_NAME
 
 page:
 	@mkdir ./src/pages/$(name)

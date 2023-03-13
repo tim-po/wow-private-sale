@@ -190,14 +190,7 @@ const TrajectoryDisciplineModal = (props: TrajectoryDisciplineModalPropType) => 
                       isOtherReplacementOptionsOpen ? 'open' : 'close'
                     }`}
                   >
-                    {[
-                      ...filteredReplacementOptions,
-                      ...filteredReplacementOptions,
-                      ...filteredReplacementOptions,
-                      ...filteredReplacementOptions,
-                      ...filteredReplacementOptions,
-                      ...filteredReplacementOptions,
-                    ].map(replacementOption => (
+                    {[...filteredReplacementOptions].map(replacementOption => (
                       <button
                         key={replacementOption.id}
                         className={`discipline`}

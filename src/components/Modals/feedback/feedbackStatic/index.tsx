@@ -5,54 +5,50 @@ import ModalContext from '../../../../Context/Modal'
 import { BASE_URL } from '../../../../constants'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import {
+  useCustomValidationState,
+  validationFuncs,
+} from '../../../../hooks/useValidationState'
+import Button from '../../../ui-kit/Button'
 
-type ErrorType = string | null | undefined
 type FeedbackStaticProps = {
   onFeedbackSend: () => void
 }
 
-const EMAIL_REGEXP =
-  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
-
 const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
   const [cookie] = useCookies(['_ym_uid'])
   const { closeModal } = useContext(ModalContext)
-  const [email, setEmail] = useState<string>('')
-  const [text, setText] = useState<string>('')
+  // const [email, setEmail] = useState<string>('')
+  // const [text, setText] = useState<string>('')
 
   const [isFeedbackLeft, setIsFeedbackLeft] = useState<boolean>(false)
 
-  const [validationErrors, setValidationErrors] = useState<{
-    text: ErrorType
-    email: ErrorType
-  }>({
-    text: null,
-    email: null,
-  })
-
-  const validateValue = (value: string, field: 'text' | 'email', message: string) => {
-    if (!value) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [field]: message,
-      }))
-    } else {
-      setValidationErrors(prev => ({ ...prev, [field]: null }))
-    }
-  }
+  const [[text, setText], isTextValid, validateText] = useCustomValidationState<string>(
+    '',
+    validationFuncs.hasValue,
+    true,
+  )
+  const [[email, setEmail], isEmailValid, validateEmail] =
+    useCustomValidationState<string>(
+      '',
+      newEmail => validationFuncs.isEmail(newEmail) || newEmail === '',
+      true,
+    )
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
-    if (email && !EMAIL_REGEXP.test(email)) {
-      setValidationErrors(prevState => ({ ...prevState, email: 'email некорректный' }))
+    console.log('click')
+    validateText()
+    validateEmail()
+
+    if (email && !isEmailValid) {
       return
     }
 
     if (!text) {
-      setValidationErrors(prevState => ({ ...prevState, text: 'Введите комментарий' }))
       return
     }
 
-    if (!Object.values(validationErrors).filter(item => !!item).length) {
+    if (isEmailValid && isTextValid) {
       axios
         .post(
           `${BASE_URL}feedback/`,
@@ -82,44 +78,44 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
 
           <div className="containerText">
             <textarea
-              className={`${validationErrors.text ? '' : 'validation'}`}
+              className={`${isTextValid ? '' : 'validation'}`}
               value={text}
-              onChange={e => {
-                const value = e.target.value
-                validateValue(
-                  value,
-                  'text',
-                  'Тут можно написать комментарий, без него отзыв не отправить 🙃',
-                )
-                setText(value)
-              }}
+              onChange={e => setText(e.target.value)}
               placeholder="Комментарий"
+              onBlur={() => validateText()}
             />
-            <span className="caption">{validationErrors.text}</span>
+            <span className="caption">
+              {isTextValid
+                ? null
+                : 'Тут можно написать комментарий, без него отзыв не отправить 🙃'}
+            </span>
           </div>
 
           <div className="containerEmail">
             <input
-              className={`${validationErrors.email ? '' : 'validation'}`}
+              className={`${isEmailValid ? '' : 'validation'}`}
               value={email}
               type={'email'}
-              onChange={e => {
-                const value = e.target.value
-                setValidationErrors(prevState => ({ ...prevState, email: null }))
-                setEmail(value)
-              }}
+              onChange={e => setEmail(e.target.value)}
               placeholder="Email"
+              onBlur={() => validateEmail()}
             />
-            <span className="caption">{validationErrors.email}</span>
+            <span className="caption">{isEmailValid ? null : 'Не корректный email'}</span>
           </div>
 
           <div className="containerButton">
-            <button className="cancellation btn" onClick={closeModal}>
+            <Button buttonStyle={'secondary'} onClick={closeModal} classNames={['btn']}>
               Отмена
-            </button>
-            <button className="submit btn" onClick={handleClick} disabled={!text}>
+            </Button>
+
+            <Button
+              buttonStyle={'main'}
+              onClick={handleClick}
+              classNames={['btn']}
+              isDisabled={!text}
+            >
               Отправить
-            </button>
+            </Button>
           </div>
         </>
       ) : (
@@ -128,7 +124,6 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
             <div className="heartImg">
               <Heart />
             </div>
-
             <div>
               <div className="title">Ответ отправлен!</div>
               <div className="gratitude">
@@ -138,9 +133,9 @@ const FeedbackStatic = ({ onFeedbackSend }: FeedbackStaticProps) => {
           </div>
 
           <div className="containerButton">
-            <button className="submit btn" onClick={closeModal}>
+            <Button buttonStyle={'main'} onClick={closeModal} classNames={['btn']}>
               Круто
-            </button>
+            </Button>
           </div>
         </div>
       )}

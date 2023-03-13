@@ -170,7 +170,8 @@
         color: #FFFFFF;
 
         &.notValid {
-          pointer-events: none;
+          //pointer-events: none;
+          cursor: default;
           background: #C198FF;
         }
       }

@@ -54,6 +54,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
   const searchKeywords = debounce(async () => {
     if (searchQuery === 'пизда' || searchQuery === 'хуй') {
       setIsBadWord(true)
+      setIsLoading(false)
       return
     }
     setIsSearching(true)
@@ -130,7 +131,6 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             isSearching && searchQuery != '' ? 'extended' : ''
           }`}
         >
-          {isLoading && <Spinner width="40" />}
           {isSearchUnsuccessful && !isBadWord && (
             <span className="unsuccessfulMessage">
               По вашему запросу <strong>{searchQuery}</strong> ничего не нашлось
@@ -149,6 +149,12 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
               />
             )
           })}
+
+          {isLoading && (
+            <div className="SpinnerWrapper">
+              <Spinner width={40} />
+            </div>
+          )}
 
           <div className={`badWord-container ${isBadWord ? 'visible' : ''}`}>
             <img src="/static/bigBoss.png" alt="big_boss" />

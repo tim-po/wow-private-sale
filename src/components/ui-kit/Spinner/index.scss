@@ -1,15 +1,21 @@
 .spinner-container {
   position: absolute;
-  top: 30%;
-  left: 48%;
-  animation: loader 1s ease-in-out infinite;
+  top: 40%;
+  left: 50%;
+  transform-origin: 0 0;
+  transform: translate(-50%, -50%);
+
+  .spinner{
+  transform-origin: center;
+    animation: loader 1s ease-in-out infinite;
+  }
 }
 @keyframes loader {
   from {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
   to {
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }

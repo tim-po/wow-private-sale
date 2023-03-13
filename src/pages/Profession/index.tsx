@@ -55,7 +55,7 @@ const Profession = () => {
           </span>
           <div className="buttonWrapper" style={isMobile ? { zIndex: 1 } : undefined}>
             <Button onClick={openSkillSets} buttonStyle={'main'}>
-              Добавить навык
+              Дальше
             </Button>
           </div>
         </div>

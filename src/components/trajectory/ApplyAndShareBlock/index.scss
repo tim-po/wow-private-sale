@@ -1,0 +1,105 @@
+.marginText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.maxWidth{
+  width: max-content!important; ;
+}
+.descriptionDiploma{
+  display: none;
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  .button-text {
+    font-weight: 500;
+    font-size: 14px;
+    &.share{
+      margin-right: 8px;
+    }
+  }
+
+  .share-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.mobileBottomWrapperApply{
+  border-radius: 16px;
+  padding: 20px 25px;
+  background: #fff;
+  width: 100%;
+}
+.descriptionDiplomaMobile{
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .descriptionDiplomaMobile{
+    display: none;
+  }
+
+  .descriptionDiploma{
+    max-width: 700px;
+    width: 100%;
+    justify-content: space-between;
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: flex-start;
+    span{
+      color: #1F1F22;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  .maxWidth{
+    width: 100%!important;
+  }
+  .button-text {
+    font-weight: 500;
+    font-size: 14px;
+    &.share{
+      display: none;
+    }
+  }
+
+  .mobileBottomWrapperApply{
+    border-radius: 0;
+    border-top: 1px solid #E7E8EE;
+    padding: 0 16px 34px 16px;
+    transition-duration: 2s;
+    max-height: 400px;
+    z-index: 20;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-direction: row;
+    margin-top: 16px;
+    .mobile-button {
+      //width: 100%;
+    }
+  }
+}

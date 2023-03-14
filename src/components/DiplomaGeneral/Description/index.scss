@@ -37,14 +37,16 @@
       height: 100%;
       content: "";
       transition: background-color 0.3s;
-    }
 
-    &:hover:before {
-      background-color: rgba(31, 31, 34, 0.45);
       background-image: url("../play.svg");
       background-size: 22.5px 26px;
       background-position: 50% 50%;
       background-repeat: no-repeat;
+    }
+
+    &:hover:before {
+      background-color: rgba(31, 31, 34, 0.45);
+
 
 
       //background: linear-gradient(0deg, rgba(31, 31, 34, 0.45), rgba(31, 31, 34, 0.45)), url(../yt_icon_mono_dark.png);

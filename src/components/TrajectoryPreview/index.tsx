@@ -85,9 +85,9 @@ const TrajectoryPreview = (props: ITrajectoryPreview) => {
               ) : (
                 <>
                   <PercentProgress percent={trajectory.coverage} />
-                  <span className="ml-2">
-                    {Math.round(trajectory.coverage * 100)}% совпадений
-                  </span>
+                  {/* <span className="ml-2"> */}
+                  {/*   {Math.round(trajectory.coverage * 100)}% совпадений */}
+                  {/* </span> */}
                 </>
               )}
             </div>

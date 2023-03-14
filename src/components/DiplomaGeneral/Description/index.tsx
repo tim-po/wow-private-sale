@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
 import { isMobile } from 'react-device-detect'
 import ModalContext from '../../../Context/Modal'
+import PlayVideoArrow from '../../../images/icons/playVideo'
 
 type GenericModalPropType = {
   iconUrl: string
@@ -89,6 +90,9 @@ const Description = (props: GenericModalPropType) => {
                 )
               }
             >
+              <div className={'arrowBox'}>
+                <PlayVideoArrow />
+              </div>
               {youTubeVideoId && <img src={previewSrc} alt="preview" />}
             </div>
           ))}

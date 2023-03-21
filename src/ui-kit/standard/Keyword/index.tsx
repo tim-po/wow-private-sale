@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './index.scss'
 import { KeywordType } from '../../../types'
 import Close from '../../../images/icons/close'

@@ -1,9 +1,9 @@
-import React from "react";
-import './index.scss';
-import styled from "styled-components";
+import React from 'react'
+import './index.scss'
+import styled from 'styled-components'
 
 const StyledLink = styled.a`
-  font-family: 'Inter';
+  font-family: 'Inter',serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -34,16 +34,23 @@ const StyledLink = styled.a`
 `
 
 type LinkPropType = {
-  children: string | React.ReactNode,
+  children: string | React.ReactNode
   href: string
 }
 
 const LinkDefaultProps = {}
 
 const Link = (props: LinkPropType) => {
-  const {children, href} = props;
-  return <StyledLink href={`https://abit.itmo.ru/programs/bachelor?title=${href}`} target="_blank">{children}</StyledLink>
-};
+  const { children, href } = props
+  return (
+    <StyledLink
+      href={`https://abit.itmo.ru/programs/bachelor?title=${href}`}
+      target="_blank"
+    >
+      {children}
+    </StyledLink>
+  )
+}
 
 Link.defaultProps = LinkDefaultProps
 

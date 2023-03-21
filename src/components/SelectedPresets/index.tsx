@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import { PresetType } from '../../types'
 import * as Scroll from 'react-scroll'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import Preset from '../ui-kit/Preset'
 import Illustration from 'images/icons/illustration'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import Magnifier from '../../images/icons/magnifier'
-import useWindowDimensions from '../../utils/useWindowDimensions'
+import Preset from '../Preset'
 
 type SelectedPresetsPropType = {
   selectedPresets: PresetType[]
@@ -21,7 +20,6 @@ const SelectedPresetsDefaultProps = {}
 const SelectedPresets = (props: SelectedPresetsPropType) => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { width } = useWindowDimensions()
   const [maxWidthSelectPreset, setMaxWidthSelectPreset] = useState(0)
   const { selectedPresets, deletePreset, isHidden, hintEditPresets } = props
   const [leftScrollPosition, setLeftScrollPosition] = useState(0)

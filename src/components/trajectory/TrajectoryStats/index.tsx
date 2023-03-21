@@ -3,13 +3,13 @@ import './index.scss'
 import { CountType, CourseType } from '../../../types'
 import { hierarchy, pack } from 'd3-hierarchy'
 import { allControllTypes, colors } from '../../../constants'
-import ControlTypeTile from '../../ui-kit/ControlTypeTile'
 import ModalContext from '../../../Context/Modal'
 import ControlTypeModal from '../../Modals/ControlTypeModal'
 import { scrollToElement } from '../../../utils/scrollToElement'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../../utils/general'
 import ApplyAndShareBlock from '../ApplyAndShareBlock'
 import useWindowDimensions from '../../../utils/useWindowDimensions'
+import ControlTypeTile from '../../../ui-kit/ControlTypeTile'
 
 const skeletonCircles = [
   { D: 120, top: 32, left: 26 },

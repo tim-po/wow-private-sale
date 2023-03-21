@@ -2,25 +2,24 @@ import React, { useState } from 'react'
 import './index.scss'
 import copy from 'copy-to-clipboard'
 import { useSearchParams } from 'react-router-dom'
-import Button from 'components/ui-kit/Button'
+import Button from '../../../ui-kit/standard/Button'
 
 const ShareModal = () => {
   const [searchParams] = useSearchParams()
 
   const [isLinkWithNameCopied, setIsLinkWithNameCopied] = useState(false)
-  const [isLinkWithoutNameCopied, setIsLinkWithoutNameCopied] = useState(false)
   const [name, setName] = useState('')
 
-  const shareWithoutName = () => {
-    setIsLinkWithoutNameCopied(true)
-    copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
-    setTimeout(() => {
-      window.open(
-        `${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`,
-        '_blank',
-      )
-    })
-  }
+  // const shareWithoutName = () => {
+  //   copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)
+  //   setTimeout(() => {
+  //     window.open(
+  //       `${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`,
+  //       '_blank',
+  //     )
+  //   })
+  // }
+
   const shareWithName = () => {
     setIsLinkWithNameCopied(true)
     copy(`${window.location.origin}/diplomaShare?id=${searchParams.get('id')}`)

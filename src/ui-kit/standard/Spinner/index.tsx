@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.scss'
-import Spinners from '../../../images/icons/spinners'
 import styled, { keyframes } from 'styled-components'
+import Spinners from '../../../images/icons/spinners'
 
 const spin = keyframes`
   from {
@@ -24,15 +24,15 @@ const SpinnerContainer = styled.div<{ size: number }>`
 `
 
 type SpinnerPropType = {
-  width: number
+  size: number
 }
 
 const Spinner = (props: SpinnerPropType) => {
-  const { width } = props
+  const { size } = props
 
   return (
     <SpinnerContainer size={40}>
-      <Spinners width={width} height={width} />
+      <Spinners width={size} height={size} />
     </SpinnerContainer>
   )
 }

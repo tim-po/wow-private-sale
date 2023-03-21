@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { KeywordType } from '../../../types'
-import Keyword from '../Keyword'
+
 import { debounce } from 'lodash'
 import axios from 'axios'
-import Spinner from '../Spinner'
-import { BASE_URL } from '../../../constants'
-import useOnClickOutside from '../../../utils/useClickOutside'
-import SearchInput from '../../../images/icons/magnifyingGlass'
+import { KeywordType } from '../../types'
+import useOnClickOutside from '../../utils/useClickOutside'
+import Keyword from '../../ui-kit/standard/Keyword'
+import { BASE_URL } from '../../constants'
+import MagnifyingGlass from '../../images/icons/magnifyingGlass'
+import Spinner from '../../ui-kit/standard/Spinner'
 
 type KeywordsSearchPropType = {
   keywords: {
@@ -123,7 +124,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
             }}
           />
           <div className="searchInput">
-            <SearchInput />
+            <MagnifyingGlass />
           </div>
         </div>
         <div
@@ -152,7 +153,7 @@ const KeywordsSearch = (props: KeywordsSearchPropType) => {
 
           {isLoading && (
             <div className="SpinnerWrapper">
-              <Spinner width={40} />
+              <Spinner size={40} />
             </div>
           )}
 

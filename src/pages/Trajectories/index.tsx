@@ -12,9 +12,10 @@ import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
-import WarningCard from '../../components/ui-kit/WarningCard'
-import PercentProgress from '../../components/ui-kit/PercentProgress'
+
 import { useProfession } from '../../Models/useProfession'
+import WarningCard from 'components/WarningCard'
+import PercentProgress from '../../ui-kit/standard/PercentProgress'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './index.scss'
 import ImgMainLetterB from 'images/icons/Static/imgMainLetterB'
 import ImgMainLetterA from '../../images/icons/Static/imgMainLetterA'
@@ -10,17 +10,12 @@ import ManOnHomepage from '../../images/icons/manOnHomepage'
 import { scrollToElement } from '../../utils/scrollToElement'
 import { changeBg } from '../../utils/background/background'
 import * as Scroll from 'react-scroll'
-import Button from '../../components/ui-kit/Button'
-import styled from 'styled-components'
-import { RoutesName } from '../../types'
 
-const ButtonWrapper = styled.div`
-  width: 180px;
-`
+// const ButtonWrapper = styled.div`
+//   width: 180px;
+// `
 
 const Start = () => {
-  const navigate = useNavigate()
-
   useEffect(() => {
     changeBg('var(--bg-color-invert)')
   }, [])

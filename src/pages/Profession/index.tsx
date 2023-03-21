@@ -4,13 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useProfession } from '../../Models/useProfession'
 import { changeBg } from '../../utils/background/background'
 import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
-import Button from '../../components/ui-kit/Button'
 import { RoutesName } from '../../types'
-import ProfessionCareer from '../../components/ui-kit/ProfessionCareer'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
 import NotFound from '../../components/NotFound'
-import SkeletonText from '../../components/ui-kit/skeletons/skeletonText'
+import ProfessionCareer from '../../components/ProfessionCareer'
+import SkeletonText from '../../ui-kit/standard/SkeletonText/SkeletonText'
+import Button from '../../ui-kit/standard/Button'
 
 const Profession = () => {
   const navigate = useNavigate()

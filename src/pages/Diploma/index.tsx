@@ -8,21 +8,16 @@ import { makeKeywordsArray } from 'utils/makeKeywordsArray'
 import { CountType, DiplomaDataType, KeywordType } from 'types'
 import ModalsContext from 'Context/Modal'
 import Card from 'components/DiplomaGeneral/Card'
-import ShareModal from 'components/Modals/ShareModal'
-import Button from 'components/ui-kit/Button'
 import { useSearchParams } from 'react-router-dom'
 import ControlTypeModal from '../../components/Modals/ControlTypeModal'
 import DisciplinesModal from '../../components/Modals/DisciplinesModal'
-import Share from '../../images/icons/share'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
-import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { refactorName } from '../../utils/refactorName'
 import { changeBg } from '../../utils/background/background'
 import Close from '../../images/icons/close'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
-import useWindowDimensions from '../../utils/useWindowDimensions'
 
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -30,7 +25,6 @@ const Diploma = () => {
   const [diplomaData, setDiplomaData] = useState<DiplomaDataType | undefined>(undefined)
   const [keywords, setKeywords] = useState<KeywordType[]>([])
   const [linkAbit, setLinkAbit] = useState('https://abit.itmo.ru/programs/bachelor')
-  const { groupId } = useContext(FeedbackGroupIdContext)
   const [desDiplomaClose, setDesDiplomaClose] = useState(false)
   const [searchParams] = useSearchParams()
   const getDiplomaData = async () => {

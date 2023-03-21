@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import './index.scss'
 import ImgMainLetterB from 'images/icons/Static/imgMainLetterB'
 import ImgMainLetterA from 'images/icons/Static/imgMainLetterA'
 import ImgMainLetterC from 'images/icons/Static/imgMainLetterC'
 import ImgMainLetterD from 'images/icons/Static/imgMainLetterD'
 import CareerSlider, { CareerSliderProps } from './CareerSlider'
-import SkeletonText from '../skeletons/skeletonText'
+import SkeletonText from '../../ui-kit/standard/SkeletonText/SkeletonText'
 
 type ProfessionCareerProps = CareerSliderProps
 

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import './index.scss'
-import Button from '../../ui-kit/Button'
 import ShareModal from '../../Modals/ShareModal'
 import Share from '../../../images/icons/share'
 import ModalsContext from '../../../Context/Modal'
+import Button from '../../../ui-kit/standard/Button'
 
 type ApplyAndShareBlockProps = {
   linkAbit: string

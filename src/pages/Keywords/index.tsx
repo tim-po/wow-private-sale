@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import Keyword from '../../components/ui-kit/Keyword'
-import {
-  LocalStorageInteraction,
-  makeEmptyList,
-  withLocalStorage,
-} from '../../utils/general'
 import * as Scroll from 'react-scroll'
-import KeywordsSearch from '../../components/ui-kit/KeywordsSearch'
 import Magnifier from 'images/icons/magnifier'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
 import { useNavigate } from 'react-router-dom'
 import { useProfession } from '../../Models/useProfession'
+import {
+  LocalStorageInteraction,
+  makeEmptyList,
+  withLocalStorage,
+} from '../../utils/general'
+import Keyword from '../../ui-kit/standard/Keyword'
+import KeywordsSearch from '../../components/KeywordsSearch'
 
 const Keywords = () => {
   const professionId = withLocalStorage(

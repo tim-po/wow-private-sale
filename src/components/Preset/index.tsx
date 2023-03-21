@@ -1,14 +1,11 @@
 import React, { MouseEventHandler, useContext, useEffect, useState } from 'react'
 import './index.scss'
-import { PresetType } from '../../../types'
-import ModalsContext from '../../../Context/Modal'
-import PresetIcon from '../PresetIcon'
 import Pluse from 'images/icons/plus'
-
-// CONSTANTS
-// DEFAULT FUNCTIONS
-import KeywordsModal from '../../Modals/KeywordsModal'
-import Keyword from '../Keyword'
+import Keyword from '../../ui-kit/standard/Keyword'
+import PresetIcon from '../../ui-kit/PresetIcon'
+import KeywordsModal from '../Modals/KeywordsModal'
+import { PresetType } from '../../types'
+import ModalContext from '../../Context/Modal'
 
 type PresetPropType = {
   preset: PresetType
@@ -25,7 +22,7 @@ const PresetDefaultProps = {
 }
 
 const Preset = (props: PresetPropType) => {
-  const { displayModal } = useContext(ModalsContext)
+  const { displayModal } = useContext(ModalContext)
   const [hidden, setHidden] = useState(false)
   const [declined, setDeclined] = useState(false)
   const [isFirst, setIsFirst] = useState(true)

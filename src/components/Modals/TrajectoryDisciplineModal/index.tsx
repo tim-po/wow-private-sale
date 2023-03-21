@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import axios from 'axios'
-import Hints from '../../ui-kit/hints'
 import { BASE_URL, colors } from '../../../constants'
 import { TrajectoryDisciplineType } from 'types'
 import Flame from '../../../images/icons/flame'
 import useOnClickOutside from '../../../utils/useClickOutside'
+import Hints from '../../hints'
 
 type TrajectoryDisciplineModalPropType = {
   id: number

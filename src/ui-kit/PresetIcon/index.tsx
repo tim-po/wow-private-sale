@@ -1,11 +1,12 @@
 import React from 'react'
 import './index.scss'
-import biz from '../../../images/icons/Static/biz.svg'
-import optic from '../../../images/icons/Static/optic.svg'
-import bio from '../../../images/icons/Static/bio.svg'
-import art from '../../../images/icons/Static/art.svg'
-import dev from '../../../images/icons/Static/dev.svg'
-import science from '../../../images/icons/Static/science.svg'
+
+import biz from '../../images/icons/Static/biz.svg'
+import optic from '../../images/icons/Static/optic.svg'
+import bio from '../../images/icons/Static/bio.svg'
+import art from '../../images/icons/Static/art.svg'
+import dev from '../../images/icons/Static/dev.svg'
+import science from '../../images/icons/Static/science.svg'
 
 const classes: { [key: string]: { icon: string; color: string } } = {
   'Бизнес': { icon: biz, color: 'var(--color-2)' },

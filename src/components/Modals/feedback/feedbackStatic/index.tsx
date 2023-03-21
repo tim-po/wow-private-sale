@@ -9,7 +9,7 @@ import {
   useCustomValidationState,
   validationFuncs,
 } from '../../../../hooks/useValidationState'
-import Button from '../../../ui-kit/Button'
+import Button from '../../../../ui-kit/standard/Button'
 
 type FeedbackStaticProps = {
   onFeedbackSend: () => void

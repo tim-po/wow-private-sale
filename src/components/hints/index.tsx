@@ -2,7 +2,7 @@ import React, { RefObject, useEffect, useState } from 'react'
 import './index.scss'
 import HintGeneric from './HintGeneric'
 import Portal from './Portal'
-import { LocalStorageInteraction, withLocalStorage } from '../../../utils/general'
+import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 
 type PropsType = {
   boxRef: RefObject<HTMLElement>[]
@@ -12,10 +12,9 @@ type PropsType = {
   description: string[]
 }
 const Hints = (props: PropsType) => {
-  const { boxRef, nameRef, title, description, pageTitle } = props
+  const { boxRef, nameRef, title, description } = props
   const [isLocalDataHint, setIsLocalDataHint] = useState<boolean>()
   const [numberOpenPage, setNumberOpenPage] = useState<number>(0)
-  const [stateLocal, setStateLocal] = useState<string>('true')
 
   const valueLocal = withLocalStorage(
     { [`${nameRef[numberOpenPage]}`]: [null] },

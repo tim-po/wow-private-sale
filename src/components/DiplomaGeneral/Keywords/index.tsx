@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import './index.scss'
 import styled from 'styled-components'
-import Keyword from 'components/ui-kit/Keyword'
 import KeywordsModal from 'components/Modals/KeywordsModal'
 import { DiplomaTileWrapper, DiplomaTitle } from '../DiplomaGeneralStyles'
 import { KeywordType } from 'types'
 import ModalContext from 'Context/Modal'
 import { makeEmptyList } from '../../../utils/general'
 import { randomNumberBetween } from '../../../utils/mathUtils'
+import Keyword from '../../../ui-kit/standard/Keyword'
 
 type KeywordsPropType = {
   keywords: KeywordType[]

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import './index.scss'
-import Button from '../ui-kit/Button'
 import { useNavigate } from 'react-router-dom'
 import { changeBg } from '../../utils/background/background'
+import Button from '../../ui-kit/standard/Button'
 
 // CONSTANTS
 

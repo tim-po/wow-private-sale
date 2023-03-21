@@ -11,12 +11,12 @@ import Card from '../../components/trajectory/Card'
 import './index.scss'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
-import Hints from '../../components/ui-kit/hints'
 import { changeBg } from '../../utils/background/background'
 import NotFound from '../../components/NotFound'
 import useWindowDimensions from '../../utils/useWindowDimensions'
 import IconTabBottomRound from '../../images/icons/IconTabBottomRound'
 import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
+import Hints from '../../components/hints'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()

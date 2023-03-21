@@ -1,13 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './index.scss'
-import Keyword from '../../ui-kit/Keyword'
 import { KeywordType } from '../../../types'
+import Keyword from '../../../ui-kit/standard/Keyword'
 
 // CONSTANTS
 
 // DEFAULT FUNCTIONS
-
-// TODO: copy this components directory and add your content to make your page
 
 type KeywordsModalPropType = {
   // You should declare props like this, delete this if you don't need props
@@ -21,7 +19,7 @@ const KeywordsModal = (props: KeywordsModalPropType) => {
     <div className="KeywordsModalContent">
       <h1 className="KeywordsModalHeader">Ключевые слова</h1>
       <div className="keywords-container">
-        {keywords.map((keyword, index) => (
+        {keywords.map(keyword => (
           <Keyword
             key={keyword.text}
             deletable={false}

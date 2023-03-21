@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './index.scss'
-import Button from 'components/ui-kit/Button'
 import { makeEmptyList } from 'utils/general'
+import Button from '../../../ui-kit/standard/Button'
 
 const TrajectoryOnboardingModal = () => {
   const [activeStep, setActiveStep] = useState(0)

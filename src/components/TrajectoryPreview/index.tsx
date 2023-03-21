@@ -1,7 +1,6 @@
 import React from 'react'
 import './index.scss'
 import { TrajectoryType } from '../../types'
-import PercentProgress from '../ui-kit/PercentProgress'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import {
   LocalStorageInteraction,
@@ -11,6 +10,7 @@ import {
 } from '../../utils/general'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import CourseCard from './CourseCard'
+import PercentProgress from '../../ui-kit/standard/PercentProgress'
 
 interface ITrajectoryPreview {
   trajectory?: TrajectoryType

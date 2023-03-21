@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
-import { COLORS_BY_PROFESSION } from '../../../constants'
-import { Profession } from '../../../types'
+
 import './index.scss'
+import { COLORS_BY_PROFESSION } from '../../constants'
+import { Profession } from '../../types'
 
 // CONSTANTS
 

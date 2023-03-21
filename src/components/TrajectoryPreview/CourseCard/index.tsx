@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.scss'
 import { allControllTypes } from '../../../constants'
-import ControlTypeTile from '../../ui-kit/ControlTypeTile'
 import { CourseType } from '../../../types'
+import ControlTypeTile from '../../../ui-kit/ControlTypeTile'
 
 // TYPES
 interface CourseCardProps {

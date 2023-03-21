@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.scss'
 import SelectedPresets from '../../components/SelectedPresets'
-import Preset from 'components/ui-kit/Preset'
 import * as Scroll from 'react-scroll'
 import Chevron, { Turn } from '../../images/icons/chevron'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
@@ -12,9 +11,10 @@ import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import { useProfession } from '../../Models/useProfession'
 import { changeBg } from '../../utils/background/background'
 import { useNavigate } from 'react-router-dom'
-import Button from '../../components/ui-kit/Button'
-import WarningCard from '../../components/ui-kit/WarningCard'
 import useWindowDimensions from '../../utils/useWindowDimensions'
+import Preset from '../../components/Preset'
+import WarningCard from '../../components/WarningCard'
+import Button from '../../ui-kit/standard/Button'
 
 const SkillSets = () => {
   const professionId = withLocalStorage(

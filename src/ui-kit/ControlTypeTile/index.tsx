@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import './index.scss'
-import ModalContext from '../../../Context/Modal'
-import ControlTypeModal from '../../Modals/ControlTypeModal'
-import { CountType } from '../../../types'
+import ControlTypeModal from '../../components/Modals/ControlTypeModal'
+import ModalContext from '../../Context/Modal'
+import { CountType } from '../../types'
 
 // CONSTANTS
 

@@ -2,13 +2,14 @@
   position: absolute;
   top: 40%;
   left: 50%;
-  transform-origin: 0 0;
-  transform: translate(-50%, -50%);
-
-  .spinner{
   transform-origin: center;
-    animation: loader 1s ease-in-out infinite;
-  }
+  transform: translate(-50%, -50%);
+  animation: loader 1s ease-in-out infinite;
+
+  //.spinner{
+  //transform-origin: center;
+  //  animation: loader 1s ease-in-out infinite;
+  //}
 }
 @keyframes loader {
   from {

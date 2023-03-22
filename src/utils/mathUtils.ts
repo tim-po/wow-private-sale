@@ -10,6 +10,6 @@ export const randomNumberBetween = (
   if (!fix) {
     return Math.floor(value)
   } else {
-    return value.toFixed(fix)
+    return Number(value.toFixed(fix))
   }
 }

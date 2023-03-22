@@ -1,5 +1,4 @@
 import React, { MouseEventHandler } from 'react'
-import './index.scss'
 import styled, { css } from 'styled-components'
 
 type ButtonPropType = {

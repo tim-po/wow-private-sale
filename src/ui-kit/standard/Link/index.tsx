@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.scss'
 import styled from 'styled-components'
 
 const StyledLink = styled.a`

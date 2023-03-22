@@ -1,11 +1,18 @@
 import React from 'react'
 import { makeEmptyList } from '../../../utils/general'
 import styled from 'styled-components'
+import { StyledMainSkeleton } from '../../../stylesheets/StyledVars/StyledSkeleton'
+import { randomNumberBetween } from '../../../utils/mathUtils'
 
 const WrapText = styled.div`
   gap: 4px;
   display: flex;
   flex-wrap: wrap;
+`
+const SkeletonTextStyledDiv = styled.div<{ width: number; height: number }>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  ${StyledMainSkeleton};
 `
 
 type SkeletonTextPropType = {
@@ -18,13 +25,10 @@ const SkeletonText = (props: SkeletonTextPropType) => {
     <WrapText>
       {makeEmptyList(wordCount).map((_, index) => {
         return (
-          <div
+          <SkeletonTextStyledDiv
             key={index}
-            className="MainSkeleton"
-            style={{
-              width: Math.floor(Math.random() * (100 - 30 + 1)) + 30 + 'px',
-              height: height ? height : 10,
-            }}
+            width={randomNumberBetween(30, 100, true)}
+            height={height ?? 10}
           />
         )
       })}

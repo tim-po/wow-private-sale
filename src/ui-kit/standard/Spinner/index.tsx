@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.scss'
 import styled, { keyframes } from 'styled-components'
 import Spinners from '../../../images/icons/spinners'
 

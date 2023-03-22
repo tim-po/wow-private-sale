@@ -53,47 +53,44 @@ const Keywords = (props: KeywordsPropType) => {
   const { displayModal } = useContext(ModalContext)
 
   return (
-    <DiplomaTileWrapper>
-      <DiplomaTitle>Освою ключевые навыки</DiplomaTitle>
-      <KeywordsWrapper>
-        {keywords.length < 1 ? (
-          <>
-            {makeEmptyList(9).map((a, index) => {
-              return (
-                <div
-                  key={index}
-                  className="skeletonKeywords MainSkeleton"
-                  style={{
-                    'width':
-                      (keywordSkeletonWidthFunc
-                        ? keywordSkeletonWidthFunc()
-                        : randomNumberBetween(390, 41, true)) + 'px',
-                  }}
-                />
-              )
-            })}
-          </>
-        ) : (
-          keywords
-            .slice(0, 10)
-            .map((keyword: KeywordType) => (
-              <Keyword
-                key={keyword.id}
-                deletable={false}
-                keyword={keyword}
-                bg-color="#EBEBFF"
+    <KeywordsWrapper>
+      {keywords.length < 1 ? (
+        <>
+          {makeEmptyList(9).map((a, index) => {
+            return (
+              <div
+                key={index}
+                className="skeletonKeywords MainSkeleton"
+                style={{
+                  'width':
+                    (keywordSkeletonWidthFunc
+                      ? keywordSkeletonWidthFunc()
+                      : randomNumberBetween(390, 41, true)) + 'px',
+                }}
               />
-            ))
-        )}
-        {!isKeywordsButtonHidden && keywords.length >= 1 && (
-          <ShowMoreKeywordsButton
-            onClick={() => displayModal(<KeywordsModal keywords={keywords} />)}
-          >
-            {`+${keywordsCount - 10}`}
-          </ShowMoreKeywordsButton>
-        )}
-      </KeywordsWrapper>
-    </DiplomaTileWrapper>
+            )
+          })}
+        </>
+      ) : (
+        keywords
+          .slice(0, 10)
+          .map((keyword: KeywordType) => (
+            <Keyword
+              key={keyword.id}
+              deletable={false}
+              keyword={keyword}
+              bg-color="#EBEBFF"
+            />
+          ))
+      )}
+      {!isKeywordsButtonHidden && keywords.length >= 1 && (
+        <ShowMoreKeywordsButton
+          onClick={() => displayModal(<KeywordsModal keywords={keywords} />)}
+        >
+          {`+${keywordsCount - 10}`}
+        </ShowMoreKeywordsButton>
+      )}
+    </KeywordsWrapper>
   )
 }
 

@@ -111,17 +111,18 @@ const DiplomaShare = () => {
           </div>
         </div>
         <div className="DiplomaCardShareLeft">
-          <Description
-            iconUrl={'/static/school.svg'}
-            title={diplomaShareData ? diplomaShareData.educational_plan : ''}
-          />
+          <Tile title={diplomaShareData ? diplomaShareData.educational_plan : ''}>
+            <Description />
+          </Tile>
 
-          <Keywords
-            keywords={keywords}
-            keywordsCount={keywords?.length}
-            isKeywordsButtonHidden={false}
-            keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
-          />
+          <Tile title={'Освою ключевые слова'}>
+            <Keywords
+              keywords={keywords}
+              keywordsCount={keywords?.length}
+              isKeywordsButtonHidden={false}
+              keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
+            />
+          </Tile>
           <div className={`mobileBottomWrapperShare`} id="mobilBottomButton">
             {/* <div className="row"> */}
             <div className="likeIcon">

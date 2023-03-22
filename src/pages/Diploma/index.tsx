@@ -8,6 +8,7 @@ import { makeKeywordsArray } from 'utils/makeKeywordsArray'
 import { CountType, DiplomaDataType, KeywordType } from 'types'
 import ModalsContext from 'Context/Modal'
 import Card from 'components/DiplomaGeneral/Card'
+
 import { useSearchParams } from 'react-router-dom'
 import ControlTypeModal from '../../components/Modals/ControlTypeModal'
 import DisciplinesModal from '../../components/Modals/DisciplinesModal'
@@ -69,17 +70,21 @@ const Diploma = () => {
         </div>
         <div className="tiles-wrapper">
           <div className="left-tiles">
-            <Description
-              iconUrl={'/static/star.svg'}
-              title={'Высшее образование'}
-              youTubeVideoId={diplomaData?.video_id ?? null}
-            />
-            <Keywords
-              keywords={keywords}
-              keywordsCount={keywords?.length}
-              isKeywordsButtonHidden
-              keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
-            />
+            <Tile title={'Высшее образование'}>
+              <Description />
+            </Tile>
+            <Tile title={'Видео о твоем направление'}>
+              <YoutubeVideo youTubeVideoId={diplomaData?.video_id ?? null} />
+            </Tile>
+            <Tile title={'Освою ключевые слова'}>
+              <Keywords
+                keywords={keywords}
+                keywordsCount={keywords?.length}
+                isKeywordsButtonHidden={false}
+                keywordSkeletonWidthFunc={() => randomNumberBetween(90, 190, true)}
+              />
+            </Tile>
+
             <ApplyAndShareBlock linkAbit={linkAbit} />
           </div>
 

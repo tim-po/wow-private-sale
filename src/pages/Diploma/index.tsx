@@ -19,6 +19,8 @@ import Close from '../../images/icons/close'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
 import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
+import Tile from '../../components/DiplomaGeneral/Tile'
+import YoutubeVideo from '../../components/DiplomaGeneral/YoutubeVideo'
 
 const Diploma = () => {
   const { displayModal } = useContext(ModalsContext)

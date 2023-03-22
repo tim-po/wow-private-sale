@@ -19,6 +19,7 @@ import { randomNumberBetween } from '../../utils/mathUtils'
 import DiplomaLineImg from '../../images/icons/Static/diploma-line-img'
 import Button from '../../ui-kit/standard/Button'
 import Link from '../../ui-kit/standard/Link'
+import Tile from '../../components/DiplomaGeneral/Tile'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)

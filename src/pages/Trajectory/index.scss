@@ -275,9 +275,6 @@
 
 @media screen and (max-width: 1000px) {
   .TrajectoryPage {
-    .descriptionDiplomaMobile {
-      display: block;
-    }
 
     .descriptionDiploma {
       max-width: 700px;
@@ -311,19 +308,24 @@
       }
     }
 
-    .mobileBottomWrapperApply {
-      border-radius: 16px;
-      border-top: revert;
-      padding: 16px;
-      border: 1px solid var(--gray-100);
-      transition-duration: 2s;
-      max-height: 400px;
-      z-index: 0;
-      display: block;
-      position: relative;
-      bottom: unset;
-      width: 100%;
-      left: 0;
+    .MainTrajectoryFlex {
+      .descriptionDiplomaMobile {
+        display: block;
+      }
+      .mobileBottomWrapperApply {
+        border-radius: 16px;
+        border-top: revert;
+        padding: 16px;
+        border: 1px solid var(--gray-100);
+        transition-duration: 2s;
+        max-height: 400px;
+        z-index: 0;
+        display: block;
+        position: relative;
+        bottom: unset;
+        width: 100%;
+        left: 0;
+      }
     }
 
     .buttons-wrapper {

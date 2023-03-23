@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import WOWLogo from '../../images/WOWLogo.png'
+import WOWLogo from '../../icons/wow'
 import ConnectWalletButton from "../ConnectWalletButton";
 
 const Wrapper = styled.div`
@@ -19,7 +19,7 @@ const Logo = styled.img`
 const Header = () => {
 	return (
 		<Wrapper>
-			<Logo src={WOWLogo} alt={"WOW"} />
+			<WOWLogo />
 			<ConnectWalletButton />
 		</Wrapper>
 	);

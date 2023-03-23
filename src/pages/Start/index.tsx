@@ -11,7 +11,7 @@ import { scrollToElement } from '../../utils/scrollToElement'
 import { changeBg } from '../../utils/background/background'
 import * as Scroll from 'react-scroll'
 
-// const ButtonWrapper = styled.div`
+// const ButtonWrapper = styled.ts.div`
 //   width: 180px;
 // `
 

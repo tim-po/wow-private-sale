@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { useNavigate } from 'react-router-dom'
 import Logo from 'images/icons/Static/logo'
 import { navigationItemKeys } from '../../Models/navigation/NavigationConfig'
 import NavigationStep from './NavigationStep'
 import { createStickyBlock } from '../../utils/stickyHeaders'
 import useWindowDimensions from '../../utils/useWindowDimensions'
+import { useNavigate } from 'react-router-dom'
 
 // CONSTANTS
 

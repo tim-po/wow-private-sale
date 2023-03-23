@@ -38,6 +38,8 @@ const Professions = () => {
     navigate(`/profession/${profession.id}`)
   }
 
+  const [, setError] = useState()
+
   const openFeedbackStatic = () => {
     displayModal(
       <FeedbackStatic
@@ -48,11 +50,8 @@ const Professions = () => {
     )
   }
 
-  const getProfessions = async () => {
+  async function getProfessions() {
     setIsProfessionsLoading(true)
-    const response = await axios.get(`${BASE_URL}professions/`)
-    const professions: Profession[] = response.data
-    setProfessions(professions)
   }
 
   const fetchProfessionsSvg = (professions: Profession[]) => {
@@ -81,7 +80,17 @@ const Professions = () => {
   }
 
   useEffect(() => {
-    getProfessions()
+    // getProfessions()
+
+    axios
+      .get<Profession[]>(`${BASE_URL}professionsы`)
+      .then(({ data }) => setProfessions(data))
+      .catch(function (e) {
+        setError(() => {
+          throw new Error()
+        })
+      })
+
     changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()

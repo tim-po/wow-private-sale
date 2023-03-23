@@ -9,13 +9,13 @@ import { makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { changeBg } from '../../utils/background/background'
-import NotFound from '../../components/NotFound'
 import TrajectoryPreview from '../../components/TrajectoryPreview'
 import { TrajectoryType } from '../../types'
 
 import { useProfession } from '../../Models/useProfession'
 import WarningCard from 'components/WarningCard'
 import PercentProgress from '../../ui-kit/standard/PercentProgress'
+import ErrorPage from '../ErrorPage'
 
 const Trajectories = () => {
   const [trajectories, setTrajectories] = useState<TrajectoryType[]>([])
@@ -72,7 +72,7 @@ const Trajectories = () => {
   }, [keywords.allIds])
 
   if (responseError || error) {
-    return <NotFound />
+    return <ErrorPage />
   }
 
   return (

@@ -8,14 +8,13 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import FeedbackGroupIdContext from '../../Context/IdGroup'
 import { updateStickyBlocks } from '../../utils/stickyHeaders'
+import { useOutlet } from 'react-router'
 
 type layoutPropType = {
-  children: React.ReactElement | React.ReactElement[]
+  children?: unknown
 }
 
-const Layout = (props: layoutPropType) => {
-  const { children } = props
-
+const Layout = ({ children }: layoutPropType) => {
   const [shouldDisplayModal, setShouldDisplayModal] = useState<boolean>(false)
   const [modalComponents, setModalComponents] = useState<
     {
@@ -62,27 +61,30 @@ const Layout = (props: layoutPropType) => {
     }
   }, [modalComponents])
 
+  const outlet = useOutlet()
   return (
     <ModalsContext.Provider value={{ displayModal, closeModal }}>
       <FeedbackGroupIdContext.Provider value={{ groupId }}>
         <div className="DefaultLayoutContainer" id="scroll-container">
           <Header />
           <div className="Content">
-            {children}
-            {modalComponents.map((item, index) => (
-              <GenericModal
-                key={index}
-                modalCount={modalComponents.length}
-                modalIndex={index}
-                colorCloseWhite={false}
-                hideMobile={false}
-                hideDesktop={false}
-                onModalClose={closeModal}
-                {...item.props}
-              >
-                {item.component}
-              </GenericModal>
-            ))}
+            <>
+              {children ? children : outlet}
+              {modalComponents.map((item, index) => (
+                <GenericModal
+                  key={index}
+                  modalCount={modalComponents.length}
+                  modalIndex={index}
+                  colorCloseWhite={false}
+                  hideMobile={false}
+                  hideDesktop={false}
+                  onModalClose={closeModal}
+                  {...item.props}
+                >
+                  {item.component}
+                </GenericModal>
+              ))}
+            </>
           </div>
         </div>
       </FeedbackGroupIdContext.Provider>

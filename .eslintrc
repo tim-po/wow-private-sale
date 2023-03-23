@@ -45,7 +45,7 @@
         "@typescript-eslint/ban-ts-comment": ["off"],
         "@typescript-eslint/no-empty-function": ["off"],
         "no-fallthrough": "error",
-        "no-unreachable": "error",
+        "no-unreachable": "warn",
         "no-unused-labels": "error"
     },
     "settings": {

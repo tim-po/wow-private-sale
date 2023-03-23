@@ -12,7 +12,6 @@ import Card from 'components/DiplomaGeneral/Card'
 import Like from 'images/icons/Static/like'
 import DisciplinesModal from 'components/Modals/DisciplinesModal'
 import { changeBg } from '../../utils/background/background'
-import NotFound from '../../components/NotFound'
 import Close from '../../images/icons/close'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import { randomNumberBetween } from '../../utils/mathUtils'
@@ -20,6 +19,7 @@ import DiplomaLineImg from '../../images/icons/Static/diploma-line-img'
 import Button from '../../ui-kit/standard/Button'
 import Link from '../../ui-kit/standard/Link'
 import Tile from '../../components/DiplomaGeneral/Tile'
+import ErrorPage from '../ErrorPage'
 
 const DiplomaShare = () => {
   const { displayModal } = useContext(ModalsContext)
@@ -71,7 +71,7 @@ const DiplomaShare = () => {
   }, [diplomaShareData])
 
   if (error) {
-    return <NotFound />
+    return <ErrorPage />
   }
 
   return (

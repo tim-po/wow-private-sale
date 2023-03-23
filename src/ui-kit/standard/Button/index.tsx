@@ -1,17 +1,19 @@
 import React, { MouseEventHandler } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 
 type ButtonPropType = {
   buttonStyle: 'secondary' | 'main'
   onClick?: MouseEventHandler<HTMLButtonElement>
   children: React.ReactNode
   isDisabled?: boolean
+  styledFragment?: FlattenSimpleInterpolation
   classNames?: string[]
 }
 
 const StyledButton = styled.button<{
   buttonStyle: 'secondary' | 'main'
   isDisabled?: boolean
+  fragment?: FlattenSimpleInterpolation
 }>`
   display: flex;
   justify-content: center;
@@ -43,6 +45,8 @@ const StyledButton = styled.button<{
      css`
      pointer-events: none;
    `};
+  
+  ${({ fragment }) => fragment};
 
   &:hover {
     transition: all .3s;
@@ -51,9 +55,10 @@ const StyledButton = styled.button<{
 `
 
 const Button = (props: ButtonPropType) => {
-  const { buttonStyle, children, onClick, isDisabled, classNames } = props
+  const { styledFragment, buttonStyle, children, onClick, isDisabled, classNames } = props
   return (
     <StyledButton
+      fragment={styledFragment}
       onClick={onClick}
       buttonStyle={buttonStyle}
       isDisabled={isDisabled}

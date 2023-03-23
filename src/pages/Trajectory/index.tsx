@@ -12,11 +12,11 @@ import './index.scss'
 import { makeAbitUtmFromSlug, makeEmptyList } from '../../utils/general'
 import RandomFeedback from '../../components/Modals/feedback/randomFeedback'
 import { changeBg } from '../../utils/background/background'
-import NotFound from '../../components/NotFound'
 import useWindowDimensions from '../../utils/useWindowDimensions'
 import IconTabBottomRound from '../../images/icons/IconTabBottomRound'
 import ApplyAndShareBlock from '../../components/trajectory/ApplyAndShareBlock'
 import Hints from '../../components/hints'
+import ErrorPage from '../ErrorPage'
 
 const Trajectory = () => {
   const [searchParams] = useSearchParams()
@@ -98,7 +98,7 @@ const Trajectory = () => {
     responseError === 404 ||
     !+(searchParams.get('course') ?? '')
   ) {
-    return <NotFound />
+    return <ErrorPage />
   }
 
   const navigateToCourse = (course: number) => {

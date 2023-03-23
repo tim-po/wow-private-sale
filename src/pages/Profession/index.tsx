@@ -7,10 +7,10 @@ import { LocalStorageInteraction, withLocalStorage } from '../../utils/general'
 import { RoutesName } from '../../types'
 import { createStickyBlock, updateStickyBlocks } from '../../utils/stickyHeaders'
 import { isMobile } from 'react-device-detect'
-import NotFound from '../../components/NotFound'
 import ProfessionCareer from '../../components/ProfessionCareer'
 import SkeletonText from '../../ui-kit/standard/SkeletonText/SkeletonText'
 import Button from '../../ui-kit/standard/Button'
+import ErrorPage from '../ErrorPage'
 
 const Profession = () => {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ const Profession = () => {
   }
 
   if (error) {
-    return <NotFound />
+    return <ErrorPage />
   }
 
   return (

@@ -47,7 +47,7 @@ const Timer = ({toTime}:TimerProps) => {
     useEffect(()=>{
         const calcInterval = setInterval(()=>{
             if(toTime - Date.now() - 1000 < 0) {
-                setNow(Date.now())
+                setNow(toTime)
                 clearInterval(calcInterval)
                 return
             }
@@ -75,7 +75,6 @@ const calcTime = (delta: number) => {
     let minutes = Math.floor((delta-(hours*1000*60*60))/(60*1000))
     let seconds = Math.floor((delta-(minutes*1000*60))/(1000))
 
-    console.log(delta)
     if(delta == 0){
         hours = 0
         minutes = 0

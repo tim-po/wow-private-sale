@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import styled, {css} from "styled-components";
 import WalletIcon from '../../icons/wallet'
 import Metamask from "../../icons/metamask";
@@ -7,6 +7,7 @@ import {useWeb3React} from "@web3-react/core";
 import {injected, walletconnect} from "../../web3/connectors";
 import {truncate} from "../../utils/common";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import {PopupContext} from "../../context";
 
 const Wrapper = styled.div`
   display: flex;
@@ -85,22 +86,23 @@ const ConnectWalletButton = () => {
 	const walletConnectRef = useRef<HTMLDivElement | null>(null)
 	const {activate, account} = useWeb3React()
 
-	const [isWalletsShown, setIsWalletsShown] = useState<boolean>(false)
+	const {isOpen, setOpen}=useContext(PopupContext)
+
 	const toggleWalletsShown = () => {
-		setIsWalletsShown(!isWalletsShown)
+		setOpen(!isOpen)
 	}
 
-	useOnClickOutside(walletConnectRef, () => setIsWalletsShown(false))
+	useOnClickOutside(walletConnectRef, () => setOpen(false))
 
 	return (
 		<Wrapper ref={walletConnectRef}>
-			<ConnectWalletWrapper onClick={toggleWalletsShown} isShown={isWalletsShown}>
+			<ConnectWalletWrapper onClick={toggleWalletsShown} isShown={isOpen}>
 				<WalletIconWrapper>
 					<WalletIcon/>
 				</WalletIconWrapper>
 				<Text>{account ? truncate(account) : 'Connect Wallet'}</Text>
 			</ConnectWalletWrapper>
-			<WalletsWrapper isShown={isWalletsShown}>
+			<WalletsWrapper isShown={isOpen}>
 				<Wallet onClick={() => activate(injected)}>
 					<Metamask/>
 					<Text>Metamask</Text>

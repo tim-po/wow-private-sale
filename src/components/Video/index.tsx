@@ -2,15 +2,15 @@ import React from 'react';
 import styled from "styled-components";
 
 const NftVideo = styled.video`
-  width: 247px;
+  width: 100%;
   height: 406px;
 	z-index: 2;
 `
 
 const Video = () => {
 	return (
-		<NftVideo autoPlay loop>
-			<source src={'/images/white.mp4'} type='video/mp4' />
+		<NftVideo autoPlay loop muted>
+			<source src={'./white.mp4'} />
 		</NftVideo>
 	);
 };

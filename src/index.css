@@ -159,5 +159,6 @@
 }
 
 body {
-    font-family: 'Gilroy', sans-serif;
+  font-family: 'Gilroy', sans-serif;
+  margin: 0;
 }

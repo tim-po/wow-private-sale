@@ -1,9 +1,19 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import Mmpro from "../../icons/mmpro";
 import Usdt from "../../icons/usdt";
 import {useWeb3React} from "@web3-react/core";
-import {PopupContext} from "../../context";
+import {NotificationContext, PopupContext} from "../../context";
+import {useMMProContract, usePrivateSaleContract, useUSDTContract} from "../../hooks/useContracts";
+import fromExponential from "from-exponential";
+import {getPrivateSaleAddress} from "../../web3/address";
+import Spinner from "../../ui/Spinner";
+
+const ALLOWANCE = 10 ** 10 * 10 ** 18
+
+const SLIPPAGE_PERCENT = 0.93
+
+const DEADLINE_OVER_NOW = 1000
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -19,14 +29,13 @@ const ButtonsWrapper = styled.div`
   gap: 32px;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     width: min-content;
     margin-bottom: 40px;
   }
-  
-  
-`
 
+
+`
 
 const Button = styled.button`
   display: flex;
@@ -45,11 +54,11 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     width: 159px;
     height: 54px;
 
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -80,15 +89,15 @@ const PriceText = styled.span`
   text-transform: uppercase;
   color: #181833;
 
-  @media screen and (max-width: 600px){
-    font-family: 'Gilroy';
+  @media screen and (max-width: 600px) {
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
     line-height: 32px;
     text-transform: uppercase;
   }
-  
+
 `
 
 const CurrencyText = styled.span`
@@ -97,9 +106,9 @@ const CurrencyText = styled.span`
   line-height: 49px;
   text-transform: uppercase;
   color: #181833;
-  
-  @media screen and (max-width: 600px){
-    font-family: 'Gilroy';
+
+  @media screen and (max-width: 600px) {
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -135,48 +144,213 @@ const ButtonOverlay = styled.button<{ notConnected: boolean }>`
   cursor: pointer;
 `
 
+const SpinnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+`
+
 type BuyButtonProps = {
-    mmproDisabled: boolean
-    usdtDisabled: boolean
+	mmproDisabled: boolean
+	usdtDisabled: boolean
 }
 
 const BuyButtons = ({mmproDisabled, usdtDisabled}: BuyButtonProps) => {
 
-    const {account} = useWeb3React()
-    const {setOpen} = useContext(PopupContext)
+	const {account} = useWeb3React()
+	const {setOpen} = useContext(PopupContext)
+	const {displayNotification} = useContext(NotificationContext)
 
+	const [usdtAllowance, setUsdtAllowance] = useState<string | undefined>(undefined)
+	const [mmproAllownce, setMmproAllownce] = useState<string | undefined>(undefined)
+	const [isUsdtApproveLoading, setIsUsdtApproveLoading] = useState<boolean>(false)
+	const [isMmproApproveLoading, setIsMmproApproveLoading] = useState<boolean>(false)
+	const [isMmproBuyLoading, setIsMmproBuyLoading] = useState<boolean>(false)
+	const [isUsdtBuyLoading, setIsUsdtBuyLoading] = useState<boolean>(false)
+	const [mmproPrice, setMmproPrice] = useState<number | undefined>(undefined)
+	const [usdtPrice, setUsdtPrice] = useState<number | undefined>(undefined)
 
-    return (
-        <ContentWrapper>
-            <TextWrapper>
-                <PriceTextsWrapper>
-                    <PriceText>500</PriceText>
-                    <CurrencyText>mmpro</CurrencyText>
-                </PriceTextsWrapper>
-                <PriceTextsWrapper>
-                    <PriceText>15 000</PriceText>
-                    <CurrencyText>usdt</CurrencyText>
-                </PriceTextsWrapper>
-            </TextWrapper>
-            <ButtonsWrapper>
-                <Button disabled={mmproDisabled || !account}>
-                    <IconWrapper>
-                        <Mmpro/>
-                    </IconWrapper>
-                    buy nft
-                </Button>
-                <Button disabled={usdtDisabled || !account}>
-                    <IconWrapper>
-                        <Usdt/>
-                    </IconWrapper>
-                    buy nft
-                </Button>
-                <ButtonOverlay notConnected={!!account} onClick={() => setOpen(true)} style={{cursor: 'pointer'}}>
-                    Connect Wallet
-                </ButtonOverlay>
-            </ButtonsWrapper>
-        </ContentWrapper>
-    );
+	const usdtContract = useUSDTContract()
+	const privateSaleContract = usePrivateSaleContract()
+	const mmproContract = useMMProContract()
+	const getMmproPrice = async () => {
+		const price = await privateSaleContract.methods.MMPROprice().call()
+		setMmproPrice(+price)
+	}
+	const getUsdtPrice = async () => {
+		const price = await privateSaleContract.methods.USDTprice().call()
+		setUsdtPrice(+price)
+	}
+	const getAllowance = async (contract: any): Promise<string> => {
+		return await contract
+			.methods
+			.allowance(account, getPrivateSaleAddress())
+			.call()
+	}
+	const approve = async (contract: any, isApproveLoading: boolean, setIsApproveLoading: (newValue: boolean) => void) => {
+
+		if (isApproveLoading) {
+			return
+		}
+
+		setIsApproveLoading(true)
+		const amount2eth = fromExponential(ALLOWANCE);
+		try {
+			await contract
+				.methods
+				.approve(getPrivateSaleAddress(), amount2eth)
+				.send({from: account}).once('receipt', () => {
+					displayNotification(
+						'default',
+						'Success',
+						'Approve was successful!'
+					)
+					updateAllowances()
+					setIsApproveLoading(false)
+				});
+		} catch (e) {
+			console.log(e)
+			displayNotification(
+				'error',
+				'Failure',
+				'Please try again!'
+			)
+			setIsApproveLoading(false)
+		}
+	};
+	const updateAllowances = async () => {
+		const newUsdtAllowance = await getAllowance(usdtContract)
+		const newMmproAllowance = await getAllowance(mmproContract)
+		setUsdtAllowance(newUsdtAllowance)
+		setMmproAllownce(newMmproAllowance)
+	}
+	const mintByMmpro = async () => {
+		setIsMmproBuyLoading(true)
+		try {
+			await privateSaleContract.methods.mintWithMMPro()
+				.send({from: account})
+				.once('receipt', () => {
+					setIsMmproBuyLoading(false)
+					displayNotification(
+						'default',
+						'Success',
+						'Mint was successful!'
+					)
+				})
+		} catch (e) {
+			console.log(e)
+			displayNotification(
+				'error',
+				'Failure',
+				'Please try again!'
+			)
+			setIsMmproBuyLoading(false)
+		}
+	}
+	const mintByUsdt = async () => {
+		setIsUsdtBuyLoading(true)
+		try {
+			await privateSaleContract.methods.mintWithUSDT()
+				.send({from: account})
+				.once('receipt', () => {
+					displayNotification(
+						'default',
+						'Success',
+						'Mint was successful!'
+					)
+					setIsUsdtBuyLoading(false)
+				})
+		} catch (e) {
+			console.log(e)
+			displayNotification(
+				'error',
+				'Failure',
+				'Please try again!'
+			)
+			setIsUsdtBuyLoading(false)
+		}
+	}
+
+	const isUsdtApprovalRequired = usdtAllowance && usdtPrice && parseInt(usdtAllowance) <= usdtPrice;
+	const isMMproApprovalRequired = mmproAllownce && mmproPrice && parseInt(mmproAllownce) <= mmproPrice
+
+	useEffect(() => {
+		getUsdtPrice()
+		getMmproPrice()
+	}, [])
+
+	useEffect(() => {
+		if (account) {
+			updateAllowances()
+		}
+	}, [account])
+
+	return (
+		<ContentWrapper>
+			<TextWrapper>
+				<PriceTextsWrapper>
+					<PriceText>{mmproPrice ? mmproPrice : ''}</PriceText>
+					<CurrencyText>mmpro</CurrencyText>
+				</PriceTextsWrapper>
+				<PriceTextsWrapper>
+					<PriceText>{usdtPrice ? usdtPrice : ''}</PriceText>
+					<CurrencyText>usdt</CurrencyText>
+				</PriceTextsWrapper>
+			</TextWrapper>
+			<ButtonsWrapper>
+				<Button
+					disabled={mmproDisabled || !account}
+					onClick={
+						isMMproApprovalRequired ?
+							() => approve(mmproContract, isMmproApproveLoading, setIsMmproApproveLoading)
+							:
+							mintByMmpro
+					}
+				>
+					<IconWrapper>
+						<Mmpro/>
+					</IconWrapper>
+					{
+						isMmproApproveLoading ?
+							<SpinnerWrapper>
+								<Spinner color={'#fff'} size={25}/>
+							</SpinnerWrapper>
+							:
+							<>
+								{isMMproApprovalRequired ? 'approve' : 'buy nft'}
+							</>
+					}
+				</Button>
+				<Button
+					disabled={usdtDisabled || !account}
+					onClick={
+						isUsdtApprovalRequired ?
+							() => approve(usdtContract, isUsdtApproveLoading, setIsUsdtApproveLoading)
+							:
+							mintByUsdt
+					}
+				>
+					<IconWrapper>
+						<Usdt/>
+					</IconWrapper>
+					{
+						isUsdtApproveLoading ?
+							<SpinnerWrapper>
+								<Spinner color={'#fff'} size={25}/>
+							</SpinnerWrapper>
+							:
+							<>
+								{isUsdtApprovalRequired ? 'approve' : 'buy nft'}
+							</>
+					}
+				</Button>
+				<ButtonOverlay notConnected={!!account} onClick={() => setOpen(true)} style={{cursor: 'pointer'}}>
+					Connect Wallet
+				</ButtonOverlay>
+			</ButtonsWrapper>
+		</ContentWrapper>
+	);
 };
 
 export default BuyButtons;

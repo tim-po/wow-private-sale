@@ -8,7 +8,11 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 15px 60px 20px 60px;
+	padding: 15px 60px 20px;
+
+	@media screen and (max-width: 1000px) {
+		padding: 23px;
+	}
 `
 
 const Logo = styled.img`
@@ -19,6 +23,7 @@ const Logo = styled.img`
 const Header = () => {
 	return (
 		<Wrapper>
+
 			<WOWLogo />
 			<ConnectWalletButton />
 		</Wrapper>

@@ -9,6 +9,7 @@ import Video from "../components/Video";
 import MintButtons from "../components/MintButtons";
 import Timer from "../components/Timer/Timer";
 import {PopupContext} from "../context";
+import {StyledVars} from "../globalStyles";
 
 const Container = styled.div`
   position: relative;
@@ -17,15 +18,22 @@ const Container = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 60px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 60px;
 	height: 80%;
+	
+	@media screen and (max-width: 1000px) {
+		flex-direction: column;
+		padding: 0 13px;
+	}
 `
 
 const RightBlock = styled.div`
-
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `
 
 const MainPage = () => {

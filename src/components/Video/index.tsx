@@ -5,6 +5,10 @@ const NftVideo = styled.video`
   width: 100%;
   height: 406px;
 	z-index: 2;
+	
+	@media screen and (max-width: 600px){
+		width: 100%;
+	}
 `
 
 const Video = () => {

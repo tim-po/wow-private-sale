@@ -10,6 +10,7 @@ import MintButtons from "../components/MintButtons";
 import Timer from "../components/Timer/Timer";
 import {PopupContext} from "../context";
 import {StyledVars} from "../globalStyles";
+import {usePrivateSaleContract} from "../hooks/useContracts";
 
 const Container = styled.div`
   position: relative;
@@ -40,6 +41,14 @@ const MainPage = () => {
 
 	// @ts-ignore
 	const {active, activate, networkError} = useWeb3React();
+	const privateSaleContract = usePrivateSaleContract()
+
+	const [pauseTime, setPauseTime] = useState(0);
+	const [isPause, setIsPause] = useState(true);
+	const [isMintInMMPRO, setIsMintInMMPRO] = useState(false)
+	const [lastSaleTime, setLastSaleTime] = useState(Date.now())
+
+
 
 	useEffect(() => {
 		injected.isAuthorized().then((isAuthorized) => {
@@ -48,6 +57,26 @@ const MainPage = () => {
 			}
 		});
 	}, [activate, networkError]);
+
+	useEffect(() => {
+		privateSaleContract.methods.pauseTime().call().then((newPauseTime: number) => {
+			setPauseTime(newPauseTime)
+		})
+		privateSaleContract.methods.isPaused().call().then((newIsPause: boolean) => {
+			setIsPause(newIsPause)
+		})
+		privateSaleContract.methods.isMMPRO().call().then((newIsMintInMMPRO: boolean) => {
+			setIsMintInMMPRO(newIsMintInMMPRO)
+		})
+		privateSaleContract.methods.lastSale().call().then((newLastSaleTime: number) => {
+			setLastSaleTime(newLastSaleTime)
+		})
+	}, []);
+
+	useEffect(() => {
+		console.log(pauseTime, isPause, isMintInMMPRO, lastSaleTime)
+	}, [pauseTime, isPause, isMintInMMPRO, lastSaleTime]);
+
 
 	const [popupOpen, setPopupOpen] = useState<boolean>(false)
 
@@ -62,8 +91,8 @@ const MainPage = () => {
 
 					<RightBlock>
 						<Video/>
-						<Timer toTime={Date.now() + 1000*5}/>
-						<MintButtons usdtDisabled={false} mmproDisabled={false}/>
+						<Timer toTime={isPause ? (+lastSaleTime + (pauseTime)*1000): Date.now()}/>
+						<MintButtons usdtDisabled={isMintInMMPRO || isPause} mmproDisabled={!isMintInMMPRO || isPause}/>
 					</RightBlock>
 
 				</ContentWrapper>

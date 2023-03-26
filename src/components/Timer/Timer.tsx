@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 
 type TimerProps = {
-	toTime: number
+  toTime: number
 }
 
 const StyledNumber = styled.div`
@@ -75,7 +75,7 @@ const calcTime = (delta: number) => {
 	let minutes = Math.floor((delta - (hours * 1000 * 60 * 60)) / (60 * 1000))
 	let seconds = Math.floor((delta - (minutes * 1000 * 60)) / (1000))
 
-	if (delta == 0) {
+	if (delta <= 0) {
 		hours = 0
 		minutes = 0
 		seconds = 0

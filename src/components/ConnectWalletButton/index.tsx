@@ -12,6 +12,7 @@ import {PopupContext} from "../../context";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+	z-index: 20;
 `
 
 const ConnectWalletWrapper = styled.div<{ isShown: boolean }>`

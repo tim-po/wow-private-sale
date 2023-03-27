@@ -50,6 +50,9 @@ const Professions = () => {
 
   async function getProfessions() {
     setIsProfessionsLoading(true)
+    axios
+      .get<Profession[]>(`${BASE_URL}professions`)
+      .then(({ data }) => setProfessions(data))
   }
 
   const fetchProfessionsSvg = (professions: Profession[]) => {
@@ -78,22 +81,7 @@ const Professions = () => {
   }
 
   useEffect(() => {
-    // getProfessions()
-
-    axios
-      .get<Profession[]>(`${BASE_URL}professions`)
-      .then(({ data }) => setProfessions(data))
-    // .catch(function (e) {
-    //   alert('jhkg')
-    //   //
-    //   // setError(() => {
-    //   //   throw new Error(e)
-    //   // })
-    //
-    //   // setError(() => {
-    //   //   Sentry.captureException(e)
-    //   // })
-    // })
+    getProfessions()
 
     changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll

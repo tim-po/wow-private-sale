@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeEmptyList } from '../../../utils/general'
 import styled from 'styled-components'
-import { StyledMainSkeleton } from '../../../stylesheets/StyledVars/StyledSkeleton'
+import { StyledMainSkeleton } from '../../../stylesheets/StyledVars/SkeletonVars'
 import { randomNumberBetween } from '../../../utils/mathUtils'
 
 const WrapText = styled.div`

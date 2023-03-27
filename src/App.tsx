@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react'
 import './stylesheets/index.scss'
-import './stylesheets/vars.css'
 import './stylesheets/skeleton.scss'
 
 import Layout from 'generic/layout'
@@ -28,15 +27,12 @@ import ErrorPage from './pages/ErrorPage'
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
 import { createGlobalStyle } from 'styled-components'
+import { CssVars } from './stylesheets/StyledVars/Vars'
 
 export const StyleContext = createContext<{
-  style: {
-    bb: string
-    cc: string
-    tt: string
-  }
-  setStyle: React.Dispatch<React.SetStateAction<{ bb: string; cc: string; tt: string }>>
-}>({ style: { bb: '', cc: '', tt: '' }, setStyle: () => null })
+  style: typeof CssVars
+  setStyle: React.Dispatch<React.SetStateAction<typeof CssVars>>
+}>({ style: CssVars, setStyle: () => null })
 
 Sentry.init({
   dsn: 'https://f9eb5a8703064e23a3a2753218a12d6e@o4504910296383488.ingest.sentry.io/4504910298218496',
@@ -97,13 +93,19 @@ const rou = sentryCreateBrowserRouter(
 export const App = () => {
   const [isHeaderAnimated, setHeaderAnimated] = useState(false)
 
-  const [style, setStyle] = useState({ bb: 'red', cc: 'black', tt: 'black' })
+  const [style, setStyle] = useState(CssVars)
 
   const Global = createGlobalStyle`
   :root{
     ${Object.entries(style)
       .map(item => {
-        return `--${item[0]}: ${item[1]}`
+        let newItem = item[0].replace(/([a-z0-9])([A-Z0-9])/g, '$1-$2').toLowerCase()
+
+        if (newItem.match(/([0-9])([a-z])/g)) {
+          newItem = newItem.replace(/([0-9])([a-z])/g, '$1-$2').toLowerCase()
+        }
+
+        return `--${newItem}: ${item[1]}`
       })
       .join(';')}
   }

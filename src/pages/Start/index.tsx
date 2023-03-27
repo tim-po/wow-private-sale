@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './index.scss'
 import ImgMainLetterB from 'images/icons/Static/imgMainLetterB'
@@ -9,7 +9,7 @@ import Wave from 'images/icons/Static/wave'
 import ManOnHomepage from '../../images/icons/manOnHomepage'
 import { changeBg } from '../../utils/background/background'
 import * as Scroll from 'react-scroll'
-import { StyleContext } from '../../App'
+import { scrollToElement } from '../../utils/scrollToElement'
 
 // const ButtonWrapper = styled.ts.div`
 //   width: 180px;
@@ -26,8 +26,6 @@ const Start = () => {
     changeBg('var(--bg-color-invert)')
   }, [])
 
-  const style = useContext(StyleContext)
-
   return (
     <div className="ContainerLanding">
       <div className="Landing pb-5">
@@ -43,10 +41,7 @@ const Start = () => {
                   Поехали!
                 </Link>
                 <button
-                  onClick={
-                    () => style.setStyle(prevState => ({ ...prevState, cc: 'yellow' }))
-                    // scrollToElement('scrollToAbout')
-                  }
+                  onClick={() => scrollToElement('scrollToAbout')}
                   className="SecondaryButton"
                 >
                   Это как?

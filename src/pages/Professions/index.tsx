@@ -38,8 +38,6 @@ const Professions = () => {
     navigate(`/profession/${profession.id}`)
   }
 
-  const [, setError] = useState()
-
   const openFeedbackStatic = () => {
     displayModal(
       <FeedbackStatic
@@ -83,19 +81,27 @@ const Professions = () => {
     // getProfessions()
 
     axios
-      .get<Profession[]>(`${BASE_URL}professionsы`)
+      .get<Profession[]>(`${BASE_URL}professions`)
       .then(({ data }) => setProfessions(data))
-      .catch(function (e) {
-        setError(() => {
-          throw new Error()
-        })
-      })
+    // .catch(function (e) {
+    //   alert('jhkg')
+    //   //
+    //   // setError(() => {
+    //   //   throw new Error(e)
+    //   // })
+    //
+    //   // setError(() => {
+    //   //   Sentry.captureException(e)
+    //   // })
+    // })
 
     changeBg('var(--bg-color-base)')
     const scroll = Scroll.animateScroll
     scroll.scrollToTop()
     updateStickyBlocks()
   }, [])
+
+  // throw new Error('lhg')
 
   useEffect(() => {
     if (professions?.length) {

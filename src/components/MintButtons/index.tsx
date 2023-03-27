@@ -311,7 +311,7 @@ const BuyButtons = ({mmproDisabled, usdtDisabled, onClick}: BuyButtonProps) => {
 			</TextWrapper>
 			<ButtonsWrapper>
 				<Button
-					disabled={(mmproDisabled || !account) && !isUsdtApprovalRequired}
+					disabled={(mmproDisabled || !account) && !isMMproApprovalRequired}
 					onClick={
 						isMMproApprovalRequired ?
 							() => approve(mmproContract, isMmproApproveLoading, setIsMmproApproveLoading)

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import GradientCircles from "../ui/GradientCircles";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -7,25 +7,48 @@ import {useWeb3React} from "@web3-react/core";
 import Description from "../components/Description";
 import Video from "../components/Video";
 import MintButtons from "../components/MintButtons";
+import Timer from "../components/Timer/Timer";
+import {PopupContext} from "../context";
+import {StyledVars} from "../globalStyles";
+import {usePrivateSaleContract} from "../hooks/useContracts";
 
 const Container = styled.div`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+	padding-bottom: 20px;
 `
 
 const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 60px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 60px;
 	height: 80%;
+	
+	@media screen and (max-width: 1000px) {
+		flex-direction: column;
+		padding: 0 13px;
+	}
+`
+
+const RightBlock = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `
 
 const MainPage = () => {
 
 	// @ts-ignore
 	const {active, activate, networkError} = useWeb3React();
+	const privateSaleContract = usePrivateSaleContract()
+
+	const [pauseTime, setPauseTime] = useState(0);
+	const [isMintInMMPRO, setIsMintInMMPRO] = useState(false)
+	const [lastSaleTime, setLastSaleTime] = useState(Date.now()/1000)
+
+
 
 	useEffect(() => {
 		injected.isAuthorized().then((isAuthorized) => {
@@ -35,14 +58,44 @@ const MainPage = () => {
 		});
 	}, [activate, networkError]);
 
+	useEffect(() => {
+		updateValuesFromContract()
+	}, []);
+
+	const updateValuesFromContract = () => {
+			privateSaleContract.methods.pauseTime().call().then((newPauseTime: number) => {
+				setPauseTime(1730)
+			})
+			privateSaleContract.methods.isMMPRO().call().then((newIsMintInMMPRO: boolean) => {
+				setIsMintInMMPRO(newIsMintInMMPRO)
+			})
+			privateSaleContract.methods.lastSale().call().then((newLastSaleTime: number) => {
+				setLastSaleTime(newLastSaleTime)
+			})
+	}
+
+	const isPause = (Date.now()/1000 - lastSaleTime) <= pauseTime
+
+	const [popupOpen, setPopupOpen] = useState<boolean>(false)
+
 	return (
 		<Container>
-			<Header/>
-			<ContentWrapper>
-				<Description/>
-				<MintButtons />
-			</ContentWrapper>
-			<GradientCircles/>
+
+			<PopupContext.Provider value={{isOpen: popupOpen, setOpen: setPopupOpen}}>
+				<GradientCircles/>
+				<Header/>
+				<ContentWrapper>
+					<Description/>
+
+					<RightBlock>
+						<Video/>
+						<Timer isPause={isPause} callback={updateValuesFromContract} toTime={isPause ? (+lastSaleTime + pauseTime): Date.now()/1000}/>
+						<MintButtons onClick={updateValuesFromContract} usdtDisabled={isMintInMMPRO || isPause} mmproDisabled={!isMintInMMPRO || isPause}/>
+					</RightBlock>
+
+				</ContentWrapper>
+			</PopupContext.Provider>
+
 		</Container>
 	);
 };

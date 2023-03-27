@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {StyledVars} from "../../globalStyles";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,27 +15,70 @@ const WOWNftText = styled.span`
   font-size: 64px;
   color: #33CC66;
   z-index: 2;
+  white-space: nowrap;
+	transition: all .3s;
+
+	@media screen and (max-width: 600px) {
+    font-family: 'Gilroy', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 130%;
+  }
 `
 
 const PrivateSaleText = styled.div`
-  font-weight: 700;
-  font-size: 64px;
-  color: #181833;
-  z-index: 2;
+	font-weight: 700;
+	font-size: 64px;
+	color: #181833;
+	z-index: 2;
+	white-space: nowrap;
+	transition: all .3s;
+
+	@media screen and (max-width: 600px) {
+		font-family: 'Gilroy', serif;
+		font-style: normal;
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 130%;
+	}
 `
 
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  column-gap: 10px;
+	
+	@media screen and ${StyledVars.media.big} {
+		flex-direction: column;
+		align-items: start;
+	}
+	
+	@media screen and ${StyledVars.media.some}{
+		flex-direction: row;
+		align-items: start;
+	}
+	
+	@media screen and (max-width: 800px){
+		flex-direction: column;
+	}
 `
 
 const Subtitle = styled.div`
+	transition: all .3s;
   font-weight: 600;
   font-size: 32px;
   line-height: 39px;
   color: #181833;
+	
+  @media screen and (max-width: 600px) {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 33px;
+  }
 `
 
 const PointsWrapper = styled.div`
@@ -43,6 +87,25 @@ const PointsWrapper = styled.div`
   justify-content: flex-start;
   gap: 32px;
   z-index: 2;
+
+	@media screen and (max-width: 600px){
+		flex-direction: column;
+		align-items: start;
+		gap: 8px !important;
+	}
+	
+  @media screen and ${StyledVars.media.big} {
+    flex-direction: column;
+    align-items: start;
+  }
+
+	@media screen and ${StyledVars.media.some}{
+		flex-direction: row;
+		align-items: start;
+	}
+
+	
+	
 `
 
 const PointWrapper = styled.div`
@@ -57,6 +120,14 @@ const PointText = styled.span`
   font-size: 24px;
   line-height: 36px;
   color: #181833;
+
+	@media screen and (max-width: 600px) {
+		font-family: 'Gilroy';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 150%;
+	}
 `
 
 const Button = styled.button`
@@ -75,6 +146,14 @@ const Button = styled.button`
   z-index: 2;
   cursor: pointer;
   text-decoration: none;
+
+	@media screen and (max-width: 600px) {
+		padding: 12px 7px;
+		width: unset;
+		height: 48px;
+		font-size: 20px;
+		border-radius: 18px;
+	}
 `
 
 const ButtonsWrapper = styled.div`

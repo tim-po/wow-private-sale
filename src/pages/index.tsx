@@ -64,7 +64,7 @@ const MainPage = () => {
 
 	const updateValuesFromContract = () => {
 			privateSaleContract.methods.pauseTime().call().then((newPauseTime: number) => {
-				setPauseTime(newPauseTime)
+				setPauseTime(+newPauseTime)
 			})
 			privateSaleContract.methods.isMMPRO().call().then((newIsMintInMMPRO: boolean) => {
 				setIsMintInMMPRO(newIsMintInMMPRO)

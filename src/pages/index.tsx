@@ -63,13 +63,11 @@ const MainPage = () => {
 	}, []);
 
 	const updateValuesFromContract = () => {
-			privateSaleContract.methods.pauseTime().call().then((newPauseTime: number) => {
-				setPauseTime(+newPauseTime)
-			})
 			privateSaleContract.methods.isMMPRO().call().then((newIsMintInMMPRO: boolean) => {
 				setIsMintInMMPRO(newIsMintInMMPRO)
 			})
-			privateSaleContract.methods.lastSale().call().then((newLastSaleTime: number) => {
+			privateSaleContract.methods.timestamp().call().then((newLastSaleTime: number) => {
+				console.log('newLastSaleTime', newLastSaleTime)
 				setLastSaleTime(newLastSaleTime)
 			})
 	}
@@ -89,7 +87,7 @@ const MainPage = () => {
 
 					<RightBlock>
 						<Video/>
-						<Timer isPause={isPause} callback={updateValuesFromContract} toTime={isPause ? (+lastSaleTime + pauseTime): Date.now()/1000}/>
+						<Timer isPause={isPause} callback={updateValuesFromContract} toTime={isPause ? (+lastSaleTime): Date.now()/1000}/>
 						<MintButtons onClick={updateValuesFromContract} usdtDisabled={isMintInMMPRO || isPause} mmproDisabled={!isMintInMMPRO || isPause}/>
 					</RightBlock>
 

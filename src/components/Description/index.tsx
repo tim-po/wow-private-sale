@@ -73,7 +73,7 @@ const Subtitle = styled.div`
   color: #181833;
 	
   @media screen and (max-width: 600px) {
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
@@ -103,9 +103,6 @@ const PointsWrapper = styled.div`
 		flex-direction: row;
 		align-items: start;
 	}
-
-	
-	
 `
 
 const PointWrapper = styled.div`
@@ -122,7 +119,7 @@ const PointText = styled.span`
   color: #181833;
 
 	@media screen and (max-width: 600px) {
-		font-family: 'Gilroy';
+		font-family: 'Gilroy', sans-serif;
 		font-style: normal;
 		font-weight: 500;
 		font-size: 20px;
@@ -154,6 +151,11 @@ const Button = styled.button`
 		font-size: 20px;
 		border-radius: 18px;
 	}
+
+  @media screen and (max-width: 500px) {
+    width: 140px;
+    font-size: 17px;
+  }
 `
 
 const ButtonsWrapper = styled.div`
@@ -164,6 +166,11 @@ const ButtonsWrapper = styled.div`
 
   a {
     text-decoration: none !important;
+  }
+
+  @media screen and (max-width: 500px) {
+	  width: 100%;
+		justify-content: space-between;
   }
 `
 
@@ -178,7 +185,7 @@ const Description = () => {
 			<PointsWrapper>
 				<PointWrapper>
 					<PointText>
-						Catch the most affordable price: <strong>USDT 15.000 or the same amount in MMPRO</strong>
+						Catch the most affordable price: <strong>USDT 15.000 or 58.000 MMPRO</strong>
 					</PointText>
 				</PointWrapper>
 				<PointWrapper>

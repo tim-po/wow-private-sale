@@ -79,7 +79,7 @@ const MainPage = () => {
 		<Container>
 
 			<PopupContext.Provider value={{isOpen: popupOpen, setOpen: setPopupOpen}}>
-				<GradientCircles/>
+				{/*<GradientCircles/>*/}
 				<Header/>
 				<ContentWrapper>
 					<Description/>

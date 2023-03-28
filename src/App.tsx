@@ -1,7 +1,4 @@
 import React, { createContext, useState } from 'react'
-import './stylesheets/index.scss'
-import './stylesheets/skeleton.scss'
-
 import Layout from 'generic/layout'
 import HeaderContext from 'Context/Header'
 import {
@@ -26,8 +23,9 @@ import { RoutesName } from './types'
 import ErrorPage from './pages/ErrorPage'
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { CssVars } from './stylesheets/StyledVars/Vars'
+import { globalMainSkeletonStyles, globalStyles } from './stylesheets/StyledVars/global'
 
 export const StyleContext = createContext<{
   style: typeof CssVars
@@ -68,6 +66,7 @@ const rou = sentryCreateBrowserRouter(
         path={RoutesName.PROFESSIONS}
         element={
           <Sentry.ErrorBoundary
+            onError={console.log}
             fallback={({ error }) => {
               console.log(error)
               return <ErrorPage />
@@ -93,7 +92,7 @@ const rou = sentryCreateBrowserRouter(
 export const App = () => {
   const [isHeaderAnimated, setHeaderAnimated] = useState(false)
 
-  const [style, setStyle] = useState(CssVars)
+  const [style, setStyle] = useState<typeof CssVars>(CssVars)
 
   const Global = createGlobalStyle`
   :root{
@@ -109,6 +108,9 @@ export const App = () => {
       })
       .join(';')}
   }
+  
+  ${globalStyles}
+  ${globalMainSkeletonStyles}
   `
 
   return (
@@ -120,7 +122,9 @@ export const App = () => {
     >
       <StyleContext.Provider value={{ style: style, setStyle: setStyle }}>
         <Global />
-        <RouterProvider router={rou} />
+        <ThemeProvider theme={style}>
+          <RouterProvider router={rou} />
+        </ThemeProvider>
       </StyleContext.Provider>
     </HeaderContext.Provider>
   )

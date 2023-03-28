@@ -47,7 +47,7 @@ const Timer = ({toTime, callback, isPause}: TimerProps) => {
 
   useEffect(() => {
     const calcInterval = setInterval(() => {
-      if ((toTime - Date.now() / 1000) + 1 <= 0) {
+      if ((toTime - Date.now() / 1000) - 1 <= 0) {
         setNow(toTime)
         clearInterval(calcInterval)
         callback()
@@ -85,15 +85,15 @@ const calcTime = (delta: number, isPaused: boolean) => {
 
   return <>
     <StyledNumber isPaused={isPaused}>
-      {hours.toString().length < 2 ? '0' + hours : hours}
+      {isPaused ? (hours.toString().length < 2 ? '0' + hours : hours): '00'}
     </StyledNumber>
     :
     <StyledNumber isPaused={isPaused}>
-      {minutes.toString().length < 2 ? '0' + minutes : minutes}
+      {isPaused ? (minutes.toString().length < 2 ? '0' + minutes : minutes): '00'}
     </StyledNumber>
     :
     <StyledNumber isPaused={isPaused}>
-      {seconds.toString().length < 2 ? '0' + seconds : seconds}
+      {isPaused ? (seconds.toString().length < 2 ? '0' + seconds : seconds): '00'}
     </StyledNumber>
   </>
 }

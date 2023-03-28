@@ -67,12 +67,11 @@ const MainPage = () => {
 				setIsMintInMMPRO(newIsMintInMMPRO)
 			})
 			privateSaleContract.methods.timestamp().call().then((newLastSaleTime: number) => {
-				console.log('newLastSaleTime', newLastSaleTime)
 				setLastSaleTime(newLastSaleTime)
 			})
 	}
 
-	const isPause = (Date.now()/1000 - lastSaleTime) <= pauseTime
+	const isPause = (Date.now()/1000 < lastSaleTime)
 
 	const [popupOpen, setPopupOpen] = useState<boolean>(false)
 

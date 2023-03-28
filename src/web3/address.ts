@@ -11,5 +11,5 @@ export const getPancakeAddress = () => {
 }
 
 export const getPrivateSaleAddress = () => {
-	return '0xAa0D8824b9992Ef9346A25B8EFAC09e8bA63FaD7'
+	return '0xD89409831aD4201fe886C19ffd428Cea927af87F'
 }

@@ -260,7 +260,7 @@ const BuyButtons = ({mmproDisabled, usdtDisabled, onClick}: BuyButtonProps) => {
 		}
 		setIsUsdtBuyLoading(true)
 		try {
-			await privateSaleContract.methods.mintWithUSDT(BigNumber(usdtPrice*10**18).toString())
+			await privateSaleContract.methods.mintWithUSDT()
 				.send({from: account})
 				.once('receipt', () => {
 					displayNotification(

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './polyfill'
 import App from './App';
 import {Web3ReactProvider} from "@web3-react/core";
-import {getLibrary} from "./web3/connectors";
+import {getLibrary} from "./web3";
 
 import './fonts/Gilroy/Gilroy-Black.ttf';
 import './fonts/Gilroy/Gilroy-BlackItalic.ttf';

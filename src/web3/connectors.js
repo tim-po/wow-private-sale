@@ -18,8 +18,11 @@ export const walletconnectNoQr = new WalletConnectConnector({
 	rpc: {
 		56: "https://bsc-dataseed.binance.org/",
 	},
-	qrcode: true,
+	qrcode: false,
 	bridge: "https://bridge.walletconnect.org",
 });
 
-export const getLibrary = (provider: provider) => new Web3(provider);
+export const getLibrary = (provider) => {
+	console.log(provider)
+	return new Web3(provider);
+}

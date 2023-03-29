@@ -5,7 +5,7 @@ import MainPage from "./pages";
 import Notification from "./ui/Notification";
 import styled from "styled-components";
 import {useConnectionCheck} from "./hooks/useConnectionCheck";
-import {injected} from "./web3/connectors";
+import {injected} from "./web3";
 import {useWeb3React} from "@web3-react/core";
 
 

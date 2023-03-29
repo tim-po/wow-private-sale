@@ -92,15 +92,6 @@ const DropdownItem = styled.div`
   }
 `
 
-
-const walletconnect2 = new WalletConnectConnector({
-	rpc: {
-		56: "https://bsc-dataseed.binance.org/",
-	},
-	qrcode: true,
-	bridge: "https://bridge.walletconnect.org",
-});
-
 const ConnectWalletButton = () => {
 
 	const walletConnectRef = useRef<HTMLDivElement | null>(null)
@@ -135,8 +126,8 @@ const ConnectWalletButton = () => {
                     <Text>Metamask</Text>
                 </DropdownItem>
                 <DropdownItem onClick={async () => {
-									await activate(walletconnect2);
-									// setOpen(false)
+									await activate(walletconnect);
+									setOpen(false)
 								}}>
                     <Trust/>
                     <Text>Wallet Connect</Text>

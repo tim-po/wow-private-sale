@@ -92,6 +92,7 @@ const DropdownItem = styled.div`
   }
 `
 
+
 const ConnectWalletButton = () => {
 
 	const walletConnectRef = useRef<HTMLDivElement | null>(null)

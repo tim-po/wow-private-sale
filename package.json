@@ -16,6 +16,7 @@
     "@web3-react/walletconnect-connector": "^6.2.13",
     "bignumber.js": "^9.0.2",
     "from-exponential": "^1.1.1",
+    "http": "^0.0.1-security",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
